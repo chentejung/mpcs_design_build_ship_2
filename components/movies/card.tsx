@@ -13,6 +13,7 @@ export function MovieCard({ film, action }: { film: Film; action: React.ReactNod
         </span>
       </div>
       <h2 className="mt-3 font-serif text-lg font-semibold leading-tight">{film.title}</h2>
+      {film.native && <p lang={film.native.lang} className="mt-0.5 text-sm">{film.native.title}</p>}
       <p className="mt-0.5 text-xs tabular-nums opacity-65">{film.year} · {formatRuntime(film.runtime)}</p>
       <p className="mt-1.5 mb-3 text-sm leading-snug opacity-85">{film.synopsis}</p>
       <div className="mt-auto">{action}</div>

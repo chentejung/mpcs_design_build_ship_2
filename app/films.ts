@@ -25,6 +25,21 @@ export type Film = {
   synopsis: string;
   poster: string; // path under public/
   credit: { holder: string; source: string; publicDomain?: boolean };
+  native?: NativeTitle;
+};
+
+// A film's title in its original language and script; `lang` lets screen readers and fonts treat it correctly.
+export type NativeTitle = { title: string; lang: "ja" | "ko" | "zh-Hant" };
+
+const nativeTitles: Record<string, NativeTitle> = {
+  tampopo: { title: "タンポポ", lang: "ja" },
+  "spirited-away": { title: "千と千尋の神隠し", lang: "ja" },
+  "my-neighbor-totoro": { title: "となりのトトロ", lang: "ja" },
+  "seven-samurai": { title: "七人の侍", lang: "ja" },
+  ringu: { title: "リング", lang: "ja" },
+  parasite: { title: "기생충", lang: "ko" },
+  "in-the-mood-for-love": { title: "花樣年華", lang: "zh-Hant" },
+  "crouching-tiger-hidden-dragon": { title: "臥虎藏龍", lang: "zh-Hant" },
 };
 
 const wiki = (file: string, host = "en.wikipedia.org") => `https://${host}/wiki/File:${file}`;
@@ -32,7 +47,7 @@ const commons = (file: string) => wiki(file, "commons.wikimedia.org");
 
 function film(title: string, year: number, runtime: number, category: Category, synopsis: string, holder: string, source: string, publicDomain = false): Film {
   const id = slug(title);
-  return { id, title, year, runtime, category, synopsis, poster: `/movies/posters/${id}.jpg`, credit: { holder, source, publicDomain } };
+  return { id, title, year, runtime, category, synopsis, poster: `/movies/posters/${id}.jpg`, credit: { holder, source, publicDomain }, native: nativeTitles[id] };
 }
 
 export const films: Film[] = [

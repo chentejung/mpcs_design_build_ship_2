@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
-import { filmById } from "@/app/films";
+import { filmById, formatRuntime } from "@/app/films";
 import { MovieCard, RemoveButton } from "./card";
 import { useSaved } from "./saved";
 
 // /movies/saved: saved films in the order they were saved.
 export function SavedList() {
   const { ids } = useSaved();
+  const total = ids.reduce((sum, id) => sum + filmById[id].runtime, 0);
 
   return (
     <>
@@ -15,7 +16,8 @@ export function SavedList() {
         <h1 className="mt-4 font-serif text-4xl leading-[1.05] md:text-6xl">Saved films</h1>
         {ids.length > 0 && (
           <p className="mt-3 text-sm opacity-75">
-            {ids.length} {ids.length === 1 ? "film" : "films"}, in the order you saved them.
+            <span className="font-semibold tabular-nums">{ids.length} {ids.length === 1 ? "film" : "films"} · {formatRuntime(total)}</span>, in the
+            order you saved them.
           </p>
         )}
       </section>

@@ -69,6 +69,34 @@ test("saved page lists films in save order, and Remove takes one off", async ({ 
   await expect(save(page, "Toy Story")).toHaveAttribute("aria-pressed", "true");
 });
 
+const nativeTitles: Record<string, string> = {
+  Tampopo: "タンポポ",
+  "Spirited Away": "千と千尋の神隠し",
+  "My Neighbor Totoro": "となりのトトロ",
+  "Seven Samurai": "七人の侍",
+  Ringu: "リング",
+  Parasite: "기생충",
+  "In the Mood for Love": "花樣年華",
+  "Crouching Tiger, Hidden Dragon": "臥虎藏龍",
+};
+
+test("cards show each film's Native Title where it has one", async ({ page }) => {
+  for (const [title, native] of Object.entries(nativeTitles)) {
+    const card = movies(page).filter({ has: page.getByRole("heading", { name: title, exact: true }) });
+    await expect(card.getByText(native, { exact: true })).toBeVisible();
+  }
+});
+
+test("the saved page totals the saved films' running time", async ({ page }) => {
+  await save(page, "Parasite").click(); // 2h 12m
+  await save(page, "Seven Samurai").click(); // 3h 27m
+  await savedLink(page, 2).click();
+  await expect(page.getByText("2 films · 5h 39m")).toBeVisible();
+
+  await page.getByRole("button", { name: "Remove Seven Samurai" }).click();
+  await expect(page.getByText("1 film · 2h 12m")).toBeVisible();
+});
+
 test("the saved list survives clicking back and forth between the pages", async ({ page }) => {
   await save(page, "Arrival").click();
   for (let i = 0; i < 3; i++) {
