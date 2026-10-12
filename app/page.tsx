@@ -1,4 +1,9 @@
-import { designSystems, finalSite, moodBoards, type DesignSystem, type MoodBoard } from "./data";
+import { designSystems, finalSite, moodBoards, type DesignSystemCard as DesignSystemCardData, type MoodBoard } from "./data";
+import { filmById } from "./films";
+import { resolveColors, systems } from "./systems";
+import { Button, Chip } from "@/components/system/controls";
+import { FilmCard } from "@/components/system/film-card";
+import { SystemTheme } from "@/components/system/theme";
 import { ButtonLink, Card, CardFooter, SectionHead } from "@/components/ui";
 
 const sections = [
@@ -84,52 +89,34 @@ function MoodBoardCard({ board, index }: { board: MoodBoard; index: number }) {
   );
 }
 
-// Each system previews itself with its own type, shape, and color rules.
-const specStyles: Record<DesignSystem["id"], { wrap: string; aa: string; token: string; primary: string; ghost: string; field: string }> = {
-  clay: {
-    wrap: "bg-[#faf3ea] font-serif",
-    aa: "",
-    token: "rounded-full",
-    primary: "rounded-[10px] bg-accent text-white font-sans",
-    ghost: "rounded-[10px] border border-accent text-accent font-sans",
-    field: "rounded-[10px] border border-[#d9c5b0] bg-white text-[#9a8a7c] font-sans",
-  },
-  grid: {
-    wrap: "bg-[#f2f2f0] font-grotesk",
-    aa: "font-bold tracking-tighter",
-    token: "rounded-none",
-    primary: "bg-[#111] text-white font-bold uppercase tracking-wider text-xs",
-    ghost: "border-2 border-[#111] text-[#111] font-bold uppercase tracking-wider text-xs",
-    field: "border-2 border-[#111] bg-white text-[#777]",
-  },
-  soft: {
-    wrap: "bg-gradient-to-b from-[#f3f0ff] to-[#fdf7f2] font-dm",
-    aa: "font-bold",
-    token: "rounded-[10px]",
-    primary: "rounded-full bg-[#6d5dfc] text-white font-bold shadow-[0_6px_16px_-6px_#6d5dfc]",
-    ghost: "rounded-full bg-white text-[#6d5dfc] font-bold shadow-[0_4px_14px_-8px_rgba(0,0,0,0.3)]",
-    field: "rounded-full bg-white text-[#9a95b5] shadow-[inset_0_1px_3px_rgba(0,0,0,0.08)]",
-  },
-};
-
-function DesignSystemCard({ ds }: { ds: DesignSystem }) {
-  const s = specStyles[ds.id];
+// Each card previews its system in its own components: the same Parasite card, the type, the colors, the shapes.
+function DesignSystemCard({ ds }: { ds: DesignSystemCardData }) {
+  const system = systems.find((s) => s.id === ds.id)!;
+  const roles = resolveColors(system);
+  const parasite = filmById["parasite"];
   return (
     <Card selected={ds.selected}>
-      <div className={`grid gap-5 border-b border-line p-6 ${ds.selected ? "pt-13" : ""} ${s.wrap}`}>
-        <div className="flex items-baseline gap-3.5">
-          <span className={`text-6xl leading-none ${s.aa}`}>Aa</span>
-          <small className="text-xs text-muted">{ds.fonts}</small>
+      <SystemTheme system={system} className={`border-b border-line p-5 ${ds.selected ? "pt-13" : ""}`}>
+        <div inert className="grid grid-cols-[124px_1fr] gap-5">
+          <FilmCard film={parasite} headingLevel={4} action={<Button block>+ Save</Button>} />
+          <div className="grid content-start gap-4">
+            <div>
+              <p className="ds-display text-6xl">Aa</p>
+              <p className="ds-fine ds-muted mt-1">{system.type.Display.font.family} / {system.type.Body.font.family}</p>
+            </div>
+            <div className="flex">
+              {[roles.background, roles.surface, roles.text, roles.accent, roles.selected].map((hex, i) => (
+                <span key={i} className="h-7 flex-1 border border-black/15" style={{ background: hex }} />
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2.5">
+              <Button variant="primary">Save</Button>
+              <Chip label="Thriller" aria-pressed />
+            </div>
+            <p className="ds-fine ds-muted">{system.essence}</p>
+          </div>
         </div>
-        <div className="flex gap-2">
-          {ds.tokens.map((c) => <span key={c} className={`h-8 w-8 border border-black/10 ${s.token}`} style={{ background: c }} />)}
-        </div>
-        <div className="flex flex-wrap gap-2.5 text-sm">
-          <span className={`px-4 py-2 ${s.primary}`}>Primary</span>
-          <span className={`px-4 py-2 ${s.ghost}`}>Secondary</span>
-        </div>
-        <span className={`w-44 px-3 py-2 text-sm ${s.field}`}>you@email.com</span>
-      </div>
+      </SystemTheme>
       <CardFooter label={ds.label} title={ds.title}>
         {ds.links.map((l, i) => (
           <ButtonLink key={l.href} href={l.href} variant={i === 0 ? "primary" : "secondary"}>{l.label}</ButtonLink>
@@ -149,24 +136,17 @@ function FinalSite() {
       <div className="overflow-hidden rounded-2xl border border-line bg-[#faf3ea] shadow-[0_30px_60px_-30px_rgba(42,36,32,0.45)]">
         <div className="flex items-center gap-2 bg-[#ebe1d4] px-4 py-3">
           {[0, 1, 2].map((i) => <i key={i} className="h-3 w-3 rounded-full bg-[#d1c2b1]" />)}
-          <span className="ml-3 flex-1 rounded-md bg-[#faf3ea] px-3 py-1 text-xs text-muted">{finalSite.url.replace("https://", "")}</span>
+          <span className="ml-3 flex-1 rounded-md bg-[#faf3ea] px-3 py-1 text-xs text-muted">{finalSite.url}</span>
         </div>
-        <div className="grid min-h-96 md:grid-cols-2">
-          <div className="flex flex-col justify-center gap-5 px-9 py-10">
-            <div className="flex gap-4 text-[0.7rem] uppercase tracking-widest text-[#9a7a62]">
-              <span>Prints</span><span>Shop</span><span>Journal</span>
-            </div>
-            <h4 className="font-serif text-4xl leading-tight text-[#3b2a20]">Showa nights, printed by hand.</h4>
-            <span className="self-start rounded-[10px] bg-accent px-4 py-2 text-sm text-white">Browse the prints</span>
-          </div>
-          <div className="min-h-56 bg-cover bg-[center_40%]" style={{ backgroundImage: `url(${finalSite.heroImage})` }} />
-        </div>
+        <a href={live.href}>
+          <img src={finalSite.preview} alt="Eigakan 映画館: the movie picker at /movies" className="block w-full" />
+        </a>
       </div>
 
       <div className="grid gap-4">
         <RecipeRow label="Mood Board" title={board.title} thumb={<img src={finalSite.recipeImage} alt="" className="h-full w-full object-cover" />} />
         <div className="text-center text-2xl leading-none text-accent">+</div>
-        <RecipeRow label={ds.label} title={ds.title} thumb={<span className="font-serif text-2xl">Aa</span>} />
+        <RecipeRow label={ds.label} title={ds.title} thumb={<span className="text-2xl" style={{ fontFamily: `var(${ds.displayFont})` }}>Aa</span>} />
         <ButtonLink href={live.href} className="mt-2 py-3.5 text-base">{live.label} →</ButtonLink>
         <div className="flex justify-center gap-2">
           {rest.map((l) => <ButtonLink key={l.href} href={l.href} variant="secondary">{l.label}</ButtonLink>)}

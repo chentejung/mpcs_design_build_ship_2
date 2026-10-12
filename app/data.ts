@@ -1,5 +1,6 @@
-// Landing-page content. Design-system and final-site links are placeholders until those pages exist.
+// Landing-page content. Figma links and the final site's source/case-study links are placeholders.
 import { boards, japaneseRetro } from "./boards";
+import { systems } from "./systems";
 
 export type MoodBoard = {
   id: string;
@@ -12,7 +13,7 @@ export type MoodBoard = {
 };
 
 // Landing-page cards, derived from the full boards in ./boards.ts.
-const selectedBoard = "japanese-retro";
+export const selectedBoard = "japanese-retro";
 
 export const moodBoards: MoodBoard[] = boards.map((b) => ({
   id: b.id,
@@ -26,59 +27,35 @@ export const moodBoards: MoodBoard[] = boards.map((b) => ({
   ],
 }));
 
-export type DesignSystem = {
-  id: "clay" | "grid" | "soft";
+export type DesignSystemCard = {
+  id: string;
   label: string;
   title: string;
+  displayFont: string; // CSS variable of the system's display font
   selected?: boolean;
-  fonts: string;
-  tokens: string[];
   links: { label: string; href: string }[];
 };
 
-export const designSystems: DesignSystem[] = [
-  {
-    id: "clay",
-    label: "SYSTEM A",
-    title: "Clay",
-    selected: true,
-    fonts: "Fraunces / Inter",
-    tokens: ["#c2562f", "#7a2e1f", "#8a8a2e", "#e9dcc0", "#2f8a7e"],
-    links: [
-      { label: "View system", href: "/design-systems/clay/" },
-      { label: "Figma", href: "https://www.figma.com/file/clay-design-system" },
-    ],
-  },
-  {
-    id: "grid",
-    label: "SYSTEM B",
-    title: "Grid",
-    fonts: "Space Grotesk",
-    tokens: ["#111111", "#ffffff", "#ff4b1f", "#d9d9d4", "#1f4bff"],
-    links: [
-      { label: "View system", href: "/design-systems/grid/" },
-      { label: "Figma", href: "https://www.figma.com/file/grid-design-system" },
-    ],
-  },
-  {
-    id: "soft",
-    label: "SYSTEM C",
-    title: "Soft",
-    fonts: "DM Sans",
-    tokens: ["#6d5dfc", "#b8b0ff", "#ffb38a", "#ffffff", "#2b2840"],
-    links: [
-      { label: "View system", href: "/design-systems/soft/" },
-      { label: "Figma", href: "https://www.figma.com/file/soft-design-system" },
-    ],
-  },
-];
+// Landing-page cards, derived from the Design Systems in ./systems.ts.
+export const designSystems: DesignSystemCard[] = systems.map((ds, i) => ({
+  id: ds.id,
+  label: `DESIGN SYSTEM 0${i + 1}`,
+  title: ds.alt ? `${ds.name} ${ds.alt}` : ds.name,
+  displayFont: ds.type.Display.font.variable,
+  selected: ds.board.id === selectedBoard,
+  links: [
+    { label: "View system", href: `/design-systems/${ds.id}/` },
+    { label: "Figma", href: `https://www.figma.com/file/${ds.id}-design-system` },
+  ],
+}));
 
+// The final site is Eigakan at /movies; `preview` is a screenshot of it.
 export const finalSite = {
-  url: "https://showa-studio.example.com",
-  heroImage: japaneseRetro.references[12].src,
+  url: "/movies",
+  preview: "/movies/preview.jpg",
   recipeImage: japaneseRetro.references[1].src,
   links: [
-    { label: "Visit the live site", href: "https://showa-studio.example.com" },
+    { label: "Visit the live site", href: "/movies/" },
     { label: "Source code", href: "https://github.com/designbuildship/showa-studio" },
     { label: "Case study", href: "/case-study/" },
   ],
