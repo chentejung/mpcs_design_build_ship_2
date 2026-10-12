@@ -64,7 +64,7 @@ export function ListRowsSpecimen() {
   const total = ids.reduce((sum, id) => sum + filmById[id].runtime, 0);
   return (
     <div>
-      <p className="ds-meta mb-1 font-bold">{ids.length} {ids.length === 1 ? "film" : "films"} · {formatRuntime(total)}</p>
+      <p className="ds-total ds-meta mb-1 font-bold">{ids.length} {ids.length === 1 ? "film" : "films"} · {formatRuntime(total)}</p>
       <ul aria-label="Saved movies (example)">
         {ids.map((id) => {
           const f = filmById[id];
@@ -100,10 +100,10 @@ export function AppliedMock() {
         action={<span className="ds-btn ds-btn--secondary"><SavedLabel count={saved.length} /></span>}
       />
       <div className="px-4 pb-10">
-        <p className="ds-label pt-6">Now showing · <span lang="ja">上映中</span></p>
+        <p className="ds-eyebrow ds-label mt-6 flex items-center gap-2">Now showing · <span lang="ja">上映中</span></p>
         <p className="ds-display mt-2">Pick tonight&rsquo;s film.</p>
         <div className="-mx-4 mt-5 px-4"><ChipsSpecimen /></div>
-        <p className="ds-meta ds-muted mt-2 mb-5">Showing 25 of 25</p>
+        <p className="ds-status ds-meta ds-muted mt-2 mb-5">Showing 25 of 25</p>
         <ul aria-label="Movies (example)" className="grid grid-cols-2 gap-x-3 gap-y-8">
           {shown.map((f) => (
             <li key={f.id}>

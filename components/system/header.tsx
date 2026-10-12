@@ -23,10 +23,11 @@ export function Brand() {
   );
 }
 
+// Keyed by the count, so it remounts (and Ben-Day's starburst rings) each time the count changes.
 export function SavedLabel({ count }: { count: number }) {
   return (
     <>
-      Saved <Count n={count} />
+      Saved <Count key={count} n={count} />
     </>
   );
 }

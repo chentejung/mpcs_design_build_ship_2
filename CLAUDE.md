@@ -25,14 +25,19 @@ board (spec: issue #5; why: `docs/adr/0001-one-design-system-per-mood-board.md`)
 - `app/design-systems/[id]/page.tsx` — one page per Design System, themed by it: color roles, type roles, spacing and
   shape, texture and motif, components, control states, UI states, applied (a phone-width `/movies`).
 - `components/system/` — components shared by Eigakan and the Design System pages (`SystemTheme`, controls, film card,
-  poster, header, motifs, empty state, icons). Style them through `app/system.css`, not per-page classes; frozen
+  poster, header, motifs, empty state, icons). Ben-Day's drawing kit is one file per Mood Board 02 picture: `pow.tsx`
+  (22 Sweet Dreams, Baby!: impact burst, SFX lettering, speed lines, dot ramp, shout balloon), `aero.tsx` (25 Captain
+  Aero: ringed planet, rocket and swoosh, star dots, price box, the /movies cover splash), `xray.tsx` (11 X-Ray Specs
+  Ad: rays, spiral lens, price burst, emanata), `ring.tsx` (13: the rotary phone), `diner.tsx` (21: thought balloon,
+  GASP!) and `meanwhile.tsx` (07: the skyline); `ben-day-kit.tsx` shows them on Ben-Day's page. Caption boxes, the
+  shout chip, the 10¢ brand mark and the ringing count are CSS in `app/system.css`. Style them through `app/system.css`, not per-page classes; frozen
   hover/focus/pressed states use `data-state`. Each system gives the same controls its own shape (Shōwa tickets and
   shop tags, Ben-Day leaning panels, coupons and speech balloons, Haipai Deco octagons and mahjong tiles), drawn on
   `::before`/`::after` with masks so the element itself keeps its focus ring; `Icon` draws Save/Saved/Remove in the
   wrapping system's style, and new icons must stay `aria-hidden` (tests find controls by accessible name).
 - `app/films.ts` — Eigakan's 25 films (one category each), Native Titles, poster paths, and poster credits.
 - `app/movies/layout.tsx` — shared layout for `/movies` and `/movies/saved`: themed by the selected board's Design
-  System (Shōwa), holds the saved-list provider and poster credits. Build fails unless the film list is valid (25 films, unique ids,
+  System (Ben-Day), holds the saved-list provider, poster credits and the sign-off (Ben-Day's skyline). Build fails unless the film list is valid (25 films, unique ids,
   known categories, poster files present, credits filled in).
 - `components/movies/` — Eigakan's wiring (filter, saved list, header links) around `components/system/`. Links between
   the `/movies` pages must be `next/link`; a plain `<a>` reloads the page and wipes the saved list.
@@ -71,7 +76,8 @@ All page tooling lives in `references/` — use these scripts rather than ad-hoc
   (default 1, 6). It renders only the originals, 3 per row at ~580px, from a temp copy served on port 8001.
 - **Palette:** when a board's pictures change, run `node references/palette.mjs` and copy its six swatches and shares
   into `app/boards.ts`; then re-map any Design System roles that used a swatch that left. `app/systems.ts` throws on an
-  unknown swatch, but `components/system/texture.tsx` and `motifs.tsx` read `colors(board)` keys directly, so grep them.
+  unknown swatch, but `components/system/texture.tsx`, `motifs.tsx` and Ben-Day's kit files read `colors(board)` keys
+  directly, and `app/system.css` reads `--ds-swatch-<key>`, so grep them.
 
 ## Agent skills
 

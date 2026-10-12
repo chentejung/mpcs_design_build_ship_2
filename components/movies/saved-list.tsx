@@ -19,7 +19,7 @@ export function SavedList() {
         <h1 className="ds-display mt-4">Saved films</h1>
         {ids.length > 0 && (
           <p className="ds-body mt-3">
-            <span className="ds-meta text-base font-bold">{ids.length} {ids.length === 1 ? "film" : "films"} · {formatRuntime(total)}</span>, in the
+            <span className="ds-total ds-meta text-base font-bold">{ids.length} {ids.length === 1 ? "film" : "films"} · {formatRuntime(total)}</span>, in the
             order you saved them.
           </p>
         )}

@@ -19,7 +19,7 @@ export function Browse() {
     <>
       <section className="flex items-start justify-between gap-4 pt-10 pb-6 md:pt-14">
         <div className="min-w-0">
-          <p className="ds-label flex items-center gap-2">
+          <p className="ds-eyebrow ds-label flex items-center gap-2">
             <Ornament /> Now showing · <span lang="ja">上映中</span>
           </p>
           <h1 className="ds-display mt-3">Pick tonight&rsquo;s film.</h1>
@@ -43,7 +43,7 @@ export function Browse() {
           />
         ))}
       </ScrollRow>
-      <p aria-live="polite" className="ds-meta ds-muted mt-3 mb-6">
+      <p aria-live="polite" className="ds-status ds-meta ds-muted mt-3 mb-6">
         Showing {shown.length} of {films.length}
       </p>
 

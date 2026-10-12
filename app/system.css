@@ -431,7 +431,8 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .ds *,
-    .ds *::before {
+    .ds *::before,
+    .ds *::after {
       animation: none !important;
       transition: none !important;
     }
@@ -729,10 +730,39 @@
   }
 
   /* ===================================================================================================
-     Ben-Day: 3px Ink outlines with a hard 4px Ink shadow. Buttons lean like action lettering and primary faces
-     carry a Ben-Day dot screen; secondary buttons stand straight as mail-order coupons with a dashed cut line;
-     filter chips are speech balloons. Controls tilt on hover and slam down on press; Save bursts once saved.
+     Ben-Day: a Golden Age comic book (Mood Board 02). 3px Ink keylines with hard Ink shadows; the drawing kit in
+     components/system/{pow,aero,xray,ring,diner,meanwhile}.tsx. Display type is the cover masthead; the header is
+     the cover's red trade dress with its 10¢ corner box. Buttons lean like action lettering and primary faces carry
+     a Ben-Day dot screen; secondary buttons stand straight as mail-order coupons with a dashed cut line; filter
+     chips are speech balloons that turn into a shout when chosen. Narrator caption boxes carry the eyebrow, status,
+     Saved total and toast. Controls tilt on hover and slam down on press; Save bursts once saved; the count rings.
      =================================================================================================== */
+  [data-system="ben-day"] {
+    --ds-shout: polygon(50% 1.5%, 54.8% 10.3%, 62.2% 0.6%, 64.2% 12.6%, 73.2% 5.7%, 72.7% 17.1%, 82.6% 13.2%, 79.9% 23.5%, 92.4% 20.7%, 85.4% 31.4%, 97.3% 32.1%, 88.8% 40.4%, 99.3% 44%, 90% 50%, 98.4% 55.9%, 88.8% 59.6%, 97.9% 68.2%, 85.4% 68.6%, 91.4% 78.6%, 79.9% 76.5%, 82.8% 87%, 72.7% 82.9%, 72.5% 92.9%, 64.2% 87.4%, 62.2% 99.4%, 54.8% 89.7%, 50% 100%, 45.2% 89.7%, 38.2% 97.7%, 35.8% 87.4%, 26.1% 95.6%, 27.3% 82.9%, 16.4% 87.9%, 20.1% 76.5%, 9.1% 78.2%, 14.6% 68.6%, 4.4% 67.3%, 11.2% 59.6%, 0% 56.2%, 10% 50%, 0.1% 43.9%, 11.2% 40.4%, 3.8% 32.5%, 14.6% 31.4%, 10.1% 22.4%, 20.1% 23.5%, 16.2% 11.9%, 27.3% 17.1%, 26.8% 5.7%, 35.8% 12.6%, 38.2% 2.3%, 45.2% 10.3%);
+    --ds-burst: polygon(50% 0%, 61% 25%, 85% 15%, 75% 39%, 100% 50%, 75% 61%, 85% 85%, 61% 75%, 50% 100%, 39% 75%, 15% 85%, 25% 61%, 0% 50%, 25% 39%, 15% 15%, 39% 25%);
+    --ds-red-dots: radial-gradient(color-mix(in srgb, var(--ds-accent) 32%, transparent) 1px, transparent 1.6px) 0 0 / 6px 6px;
+  }
+
+  /* Display: the cover masthead. Hero Red letters keyed in Ink stand on an Ink extrusion. */
+  [data-system="ben-day"] .ds-display {
+    color: var(--ds-accent);
+    -webkit-text-stroke: 0.045em var(--ds-text);
+    paint-order: stroke fill;
+    text-shadow:
+      0.025em 0.025em 0 var(--ds-text), 0.05em 0.05em 0 var(--ds-text), 0.075em 0.075em 0 var(--ds-text),
+      0.1em 0.1em 0 var(--ds-text);
+    line-height: 1.08;
+  }
+  [data-system="ben-day"] .ds-link {
+    text-decoration-style: dotted;
+    text-decoration-thickness: 3px;
+  }
+  [data-system="ben-day"] .ds-link:hover,
+  [data-system="ben-day"] .ds-link[data-state="hover"] {
+    text-decoration-style: solid;
+  }
+
+  /* ----- Buttons ----- */
   [data-system="ben-day"] :is(.ds-btn, .ds-chip, .ds-input, .ds-select) {
     --ds-shadow: 4px 4px 0 var(--ds-text);
     box-shadow: var(--ds-shadow);
@@ -752,7 +782,7 @@
   [data-system="ben-day"] .ds-btn--secondary {
     --ds-lean: rotate(0deg);
     border-style: dashed;
-    background: radial-gradient(color-mix(in srgb, var(--ds-accent) 32%, transparent) 1px, transparent 1.6px) 0 0 / 6px 6px, var(--ds-swatch-peach);
+    background: var(--ds-red-dots), var(--ds-swatch-peach);
   }
   [data-system="ben-day"] .ds-btn-icon {
     rotate: -8deg;
@@ -788,7 +818,10 @@
     background: var(--ds-surface);
     clip-path: polygon(50% 0%, 57% 22%, 75% 6%, 72% 28%, 96% 18%, 82% 40%, 100% 50%, 82% 60%, 96% 82%, 72% 72%, 75% 94%, 57% 78%, 50% 100%, 43% 78%, 25% 94%, 28% 72%, 4% 82%, 18% 60%, 0% 50%, 18% 40%, 4% 18%, 28% 28%, 25% 6%, 43% 22%);
   }
-  /* Chips: speech balloons. The tail is an Ink triangle with a face-colored one inside that opens it into the balloon. */
+
+  /* ----- Chips: speech balloons in conversation, their tails alternating sides. The tail is an Ink triangle with
+     a face-colored one inside that opens it into the balloon. A chosen chip shouts: an Ink burst balloon on a
+     Hero Red one, lettered in Mustard. ----- */
   [data-system="ben-day"] .ds-chip {
     --ds-lean: rotate(0deg);
     --ds-face: var(--ds-bg);
@@ -796,9 +829,6 @@
     padding: 0 1.35em;
     border-radius: 50%;
     background: var(--ds-face);
-  }
-  [data-system="ben-day"] .ds-chip[aria-pressed="true"] {
-    --ds-face: var(--ds-selected);
   }
   [data-system="ben-day"] .ds-chip::before,
   [data-system="ben-day"] .ds-chip::after {
@@ -821,11 +851,144 @@
     height: 9px;
     background: var(--ds-face);
   }
+  [data-system="ben-day"] .ds-chip:nth-child(even)::before,
+  [data-system="ben-day"] .ds-chip:nth-child(even)::after {
+    left: auto;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+  }
+  [data-system="ben-day"] .ds-chip:nth-child(even)::before {
+    right: 24%;
+  }
+  [data-system="ben-day"] .ds-chip:nth-child(even)::after {
+    right: calc(24% + 3px);
+  }
+  [data-system="ben-day"] .ds-chip[aria-pressed="true"] {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+    color: var(--ds-on-selected);
+  }
+  [data-system="ben-day"] .ds-chip[aria-pressed="true"]::before,
+  [data-system="ben-day"] .ds-chip[aria-pressed="true"]::after {
+    inset: -6px -8px;
+    width: auto;
+    height: auto;
+    clip-path: var(--ds-shout);
+  }
+  [data-system="ben-day"] .ds-chip[aria-pressed="true"]::before {
+    background: var(--ds-accent);
+    translate: 4px 4px;
+  }
+  [data-system="ben-day"] .ds-chip[aria-pressed="true"]::after {
+    background: var(--ds-selected);
+  }
+  [data-system="ben-day"] .ds-chip[aria-pressed="true"] .ds-chip-count {
+    opacity: 1;
+  }
+
+  /* ----- Inputs: a coupon's tick box takes a big Hero Red check that overshoots it; radios fill in as a lens;
+     the toggle's knob becomes a Mustard starburst; the select points with a bold Ink wedge. ----- */
   [data-system="ben-day"] .ds-box {
     box-shadow: 2px 2px 0 var(--ds-text);
   }
+  [data-system="ben-day"] .ds-check:has(input[type="checkbox"]) {
+    gap: 0.95em; /* room for the check that overshoots the box */
+  }
+  [data-system="ben-day"] .ds-check input[type="checkbox"]:checked + .ds-box {
+    border-color: var(--ds-text);
+    background: var(--ds-bg);
+    color: var(--ds-accent);
+  }
+  [data-system="ben-day"] .ds-check input[type="checkbox"] + .ds-box svg {
+    width: 30px;
+    height: 30px;
+    translate: 4px -6px;
+    rotate: -8deg;
+    overflow: visible;
+    filter: drop-shadow(1.5px 1.5px 0 var(--ds-text));
+  }
+  [data-system="ben-day"] .ds-check input[type="radio"]:checked + .ds-box {
+    border-color: var(--ds-text);
+    background: radial-gradient(circle, var(--ds-accent) 0 3.5px, var(--ds-text) 4px 5.5px, var(--ds-bg) 6px);
+    box-shadow: 2px 2px 0 var(--ds-text);
+  }
+  [data-system="ben-day"] .ds-toggle-track {
+    border-width: 3px;
+    box-shadow: 2px 2px 0 var(--ds-text);
+  }
+  [data-system="ben-day"] .ds-toggle[aria-checked="true"] .ds-toggle-track {
+    border-color: var(--ds-text);
+  }
+  [data-system="ben-day"] .ds-toggle[aria-checked="true"] .ds-toggle-track::after {
+    left: calc(100% - 24px);
+    width: 24px;
+    height: 24px;
+    background: var(--ds-swatch-mustard);
+    clip-path: var(--ds-burst);
+  }
+  [data-system="ben-day"] .ds-select-wrap::after {
+    content: "";
+    right: 12px;
+    width: 18px;
+    height: 14px;
+    background: var(--ds-text);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+  [data-system="ben-day"] .ds-tabs {
+    gap: 8px;
+    border-bottom: 3px solid var(--ds-text);
+  }
+  [data-system="ben-day"] .ds-tab {
+    border: 3px solid transparent;
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+  [data-system="ben-day"] .ds-tab[aria-selected="true"] {
+    border-color: var(--ds-text);
+    background: var(--ds-surface);
+    box-shadow: 4px -2px 0 var(--ds-text);
+  }
+
+  /* ----- Caption boxes: the narrator's voice ("Meanwhile…", picture 07). ----- */
+  [data-system="ben-day"] :is(.ds-eyebrow, .ds-caption) {
+    width: fit-content;
+    padding: 7px 12px 6px;
+    border: 3px solid var(--ds-text);
+    background: var(--ds-surface);
+    color: var(--ds-text);
+    box-shadow: 4px 4px 0 var(--ds-text);
+    rotate: -1deg;
+  }
+  [data-system="ben-day"] .ds-status {
+    width: fit-content;
+    padding: 3px 10px;
+    border: 2px solid var(--ds-text);
+    background: var(--ds-bg);
+    color: var(--ds-text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  [data-system="ben-day"] .ds-total {
+    display: inline-block;
+    padding: 2px 10px;
+    border: 2px solid var(--ds-text);
+    background: var(--ds-surface);
+    box-shadow: 3px 3px 0 var(--ds-accent);
+    rotate: -1.5deg;
+  }
+  [data-system="ben-day"] .ds-toast {
+    border: 3px solid var(--ds-text);
+    border-radius: 0;
+    background: var(--ds-surface);
+    color: var(--ds-text);
+    box-shadow: 5px 5px 0 var(--ds-accent);
+  }
+
+  /* ----- Panels, cards and posters: comic panels with hard shadows. A hovered card pops forward and its poster
+     takes a Hero Red dot screen, like a Lichtenstein enlargement. ----- */
   [data-system="ben-day"] .ds-panel {
     border: var(--ds-card-border) solid var(--ds-text);
+    background: radial-gradient(color-mix(in srgb, var(--ds-swatch-sepia) 16%, transparent) 1px, transparent 1.6px) 0 0 / 6px 6px, var(--ds-surface);
     box-shadow: 6px 6px 0 var(--ds-text);
   }
   [data-system="ben-day"] .ds-card {
@@ -833,9 +996,30 @@
     border: var(--ds-card-border) solid var(--ds-text);
     background: var(--ds-bg);
     box-shadow: 5px 5px 0 var(--ds-text);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  [data-system="ben-day"] .ds-card:hover,
+  [data-system="ben-day"] .ds-card[data-state="hover"] {
+    box-shadow: 9px 9px 0 var(--ds-text);
+    transform: translate(-2px, -3px) rotate(-0.8deg);
   }
   [data-system="ben-day"] .ds-poster {
     border: 3px solid var(--ds-text);
+  }
+  [data-system="ben-day"] .ds-frame::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    z-index: 1;
+    background: radial-gradient(color-mix(in srgb, var(--ds-accent) 80%, transparent) 1.2px, transparent 1.8px) 0 0 / 5px 5px;
+    mix-blend-mode: multiply;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  [data-system="ben-day"] .ds-card:hover .ds-frame::after,
+  [data-system="ben-day"] .ds-card[data-state="hover"] .ds-frame::after {
+    opacity: 0.75;
   }
   [data-system="ben-day"] .ds-card-meta {
     position: relative;
@@ -857,12 +1041,51 @@
     border: 2px solid var(--ds-text);
     transform: rotate(-4deg);
   }
-  [data-system="ben-day"] .ds-count {
-    min-width: 2.3em;
-    height: 2.3em;
-    background: var(--ds-surface);
+  /* Loading: the X-ray spiral turns over a dot screen (picture 11). Error: rays and a GASP! (picture 21). The
+     title and year sit in caption boxes. */
+  [data-system="ben-day"] .ds-poster-fallback {
+    isolation: isolate;
+    align-content: end;
+    justify-items: start;
+    gap: 4px;
+    padding: 8px;
+    background: var(--ds-red-dots), var(--ds-swatch-peach);
     color: var(--ds-text);
-    clip-path: polygon(50% 0%, 61% 25%, 85% 15%, 75% 39%, 100% 50%, 75% 61%, 85% 85%, 61% 75%, 50% 100%, 39% 75%, 15% 85%, 25% 61%, 0% 50%, 25% 39%, 15% 15%, 39% 25%);
+    text-align: left;
+  }
+  [data-system="ben-day"] .ds-poster[data-poster="loading"] .ds-poster-fallback {
+    animation: none;
+  }
+  [data-system="ben-day"] .ds-poster-fallback > .ds-heading {
+    padding: 3px 6px;
+    border: 2px solid var(--ds-text);
+    background: var(--ds-surface);
+    box-shadow: 3px 3px 0 var(--ds-text);
+  }
+  [data-system="ben-day"] .ds-poster-fallback > .ds-meta {
+    padding: 1px 6px;
+    background: var(--ds-text);
+    color: var(--ds-bg);
+  }
+  .ds-poster-spiral {
+    position: absolute;
+    top: 9%;
+    left: 15%;
+    z-index: -1;
+    width: 70%;
+    animation: ds-spin 2.4s linear infinite;
+  }
+  @keyframes ds-spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+  .ds-poster-art {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
   }
   /* Saved: a "SAVED!" sticker, an Ink burst with a Mustard one inside. */
   [data-system="ben-day"] .ds-saved-stamp {
@@ -883,17 +1106,25 @@
     content: "";
     position: absolute;
     inset: 5px;
-    background: var(--ds-surface);
+    background: var(--ds-red-dots), var(--ds-surface);
     clip-path: var(--burst);
   }
   [data-system="ben-day"] .ds-saved-stamp::after {
     content: "SAVED!";
     position: relative;
   }
+
+  /* ----- Header: the cover's trade dress. Hero Red under an Ink dot screen, closed by Mustard and Ink stripes;
+     the brand mark is the cover's corner box (映 over 10¢), the name a masthead on an Ink drop. ----- */
   [data-system="ben-day"] .ds-header {
-    border-bottom: var(--ds-card-border) solid var(--ds-text);
-    background: var(--ds-accent);
+    border-bottom: 4px solid var(--ds-text);
+    background: radial-gradient(color-mix(in srgb, var(--ds-text) 14%, transparent) 1.2px, transparent 1.8px) 0 0 / 7px 7px, var(--ds-accent);
+    box-shadow: 0 5px 0 var(--ds-swatch-mustard), 0 8px 0 var(--ds-text);
     color: var(--ds-on-accent);
+    backdrop-filter: none;
+  }
+  [data-system="ben-day"] .ds-header .ds-heading {
+    text-shadow: 2px 2px 0 var(--ds-text);
   }
   [data-system="ben-day"] .ds-btn[aria-current="page"] {
     border-style: solid;
@@ -901,19 +1132,87 @@
     color: var(--ds-bg);
   }
   [data-system="ben-day"] .ds-brand-mark {
+    width: 40px;
+    height: 46px;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
     border: 3px solid var(--ds-text);
-    border-radius: 50%;
-    background: var(--ds-surface);
+    background: var(--ds-bg);
+    box-shadow: 3px 3px 0 var(--ds-text);
     color: var(--ds-text);
     font-family: var(--ds-native-font);
-    font-size: 18px;
+    font-size: 19px;
+    line-height: 1;
+    rotate: -4deg;
   }
+  [data-system="ben-day"] .ds-brand-mark::after {
+    content: "10¢";
+    width: 100%;
+    padding: 2px 0 1px;
+    background: var(--ds-text);
+    color: var(--ds-swatch-mustard);
+    font-family: var(--ds-display-font);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+  /* The count is a starburst that rings like the phone (picture 13) each time it changes. */
+  [data-system="ben-day"] .ds-count {
+    min-width: 2.3em;
+    height: 2.3em;
+    background: var(--ds-surface);
+    color: var(--ds-text);
+    clip-path: var(--ds-burst);
+    animation: ds-ring 0.55s ease-out;
+  }
+  @keyframes ds-ring {
+    15% {
+      rotate: -16deg;
+      scale: 1.3;
+    }
+    30% {
+      rotate: 13deg;
+    }
+    45% {
+      rotate: -9deg;
+    }
+    60% {
+      rotate: 6deg;
+      scale: 1.1;
+    }
+    80% {
+      rotate: -3deg;
+    }
+  }
+
+  /* ----- Empty state, credits and the page's sign-off ----- */
   [data-system="ben-day"] .ds-empty {
+    padding: 32px 16px 48px;
     border: none;
   }
-  [data-system="ben-day"] .ds-toast {
-    border: 3px solid var(--ds-text);
-    box-shadow: 4px 4px 0 var(--ds-accent);
+  .ds-empty-panel {
+    margin-bottom: 16px;
+  }
+  .ds-empty-panel > svg {
+    filter: drop-shadow(6px 6px 0 var(--ds-text));
+  }
+  [data-system="ben-day"] .ds-credits ol {
+    padding: 14px 18px;
+    border: 2px solid var(--ds-text);
+    background: var(--ds-bg);
+    column-rule: 1px solid var(--ds-border);
+  }
+  .ds-sign-off {
+    display: grid;
+    justify-items: center;
+    margin-top: 72px;
+    border-bottom: 10px solid var(--ds-text);
+  }
+  .ds-sign-off .ds-caption {
+    position: relative;
+    z-index: 1;
+    margin-bottom: -10px;
+    font-size: 20px;
   }
 
   /* ===================================================================================================

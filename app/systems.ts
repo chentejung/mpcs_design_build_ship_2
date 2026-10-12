@@ -104,7 +104,7 @@ export const benDay: DesignSystem = {
   id: "ben-day",
   name: "Ben-Day",
   board: americanComics,
-  essence: "Golden Age comic books: Ben-Day dots, thick ink outlines, hard shadows, and lettering that shouts.",
+  essence: "Golden Age comic books: Ben-Day dots, thick ink keylines, cover mastheads, balloons and captions, and lettering that shouts.",
   colors: {
     background: "newsprint",
     surface: "mustard",
@@ -131,13 +131,13 @@ export const benDay: DesignSystem = {
   shape: {
     radius: { control: 3, card: 0, poster: 0, badge: 0, panel: 0 },
     border: { control: 3, card: 4 },
-    shadow: "Hard 4px Ink offset, no blur.",
-    controls: "Buttons lean like action lettering, primary faces under a Ben-Day dot screen. Secondary buttons stand straight as mail-order coupons, a dashed cut line on Ben-Day Peach; filter chips are speech balloons with a tail.",
+    shadow: "Hard Ink offsets, no blur: 4px under controls, 5px under cards (9px when a card pops forward), 6px under panels. Selected chips and the Saved total cast Hero Red instead.",
+    controls: "Buttons lean like action lettering, primary faces under a Ben-Day dot screen. Secondary buttons stand straight as mail-order coupons, a dashed cut line on Ben-Day Peach. Filter chips are speech balloons whose tails alternate sides, and a chosen chip shouts in a jagged Ink balloon. A check overshoots its coupon box in Hero Red, a chosen radio fills in like a lens, and the toggle's knob turns into a starburst.",
   },
   icons: { save: "A starburst with a plus.", saved: "A solid starburst with the check knocked out.", remove: "Scissors, to clip the coupon." },
-  texture: { name: "Ben-Day dots", note: "A halftone dot screen in Hero Red and Aged Sepia over Newsprint." },
-  motif: { name: "Speech balloon", note: "Balloons carry the empty state and the filter chips; a starburst carries the Saved count and lands on saved posters as a “SAVED!” sticker." },
-  feel: { hover: "Controls tilt and their shadow grows.", press: "The shadow collapses and the control slams down." },
+  texture: { name: "Ben-Day dots on old newsprint", note: "A halftone dot screen in Hero Red and Aged Sepia over Newsprint, yellowing toward the edges like a comic kept in a drawer." },
+  motif: { name: "Comic cover", note: "A cover splash sits beside the headline: price box, ringed planet, and a rocket looping into a burst that counts the films. The header is the cover's red trade dress with a 10¢ corner box. Caption boxes narrate, balloons talk, a starburst counts and a “SAVED!” sticker lands on saved posters; the empty list is a panel with a silent phone, and a skyline closes each page under “To be continued…”." },
+  feel: { hover: "Controls tilt and their shadow grows; a card pops forward and its poster takes a red dot screen.", press: "The shadow collapses and the control slams down; the Saved count rings like a phone." },
 };
 
 export const haipai: DesignSystem = {

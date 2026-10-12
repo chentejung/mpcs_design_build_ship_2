@@ -20,6 +20,10 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
           <>
             <Dots id={`${uid}-red`} color={c.red} r={1.5} gap={9} angle={15} />
             <Dots id={`${uid}-sepia`} color={c.sepia} r={1.1} gap={9} angle={75} />
+            <radialGradient id={`${uid}-age`} r="75%">
+              <stop offset="55%" stopColor={c.peach} stopOpacity="0" />
+              <stop offset="100%" stopColor={c.sepia} stopOpacity="0.14" />
+            </radialGradient>
           </>
         )}
         {id === "haipai" && (
@@ -34,6 +38,7 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
         <>
           <rect width="100%" height="100%" fill={`url(#${uid}-red)`} opacity="0.14" />
           <rect width="100%" height="100%" fill={`url(#${uid}-sepia)`} opacity="0.1" />
+          <rect width="100%" height="100%" fill={`url(#${uid}-age)`} />
         </>
       )}
       {id === "haipai" && (

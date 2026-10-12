@@ -1,10 +1,17 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: a rising sun and vertical 上映中 · Ben-Day: a starburst and speech balloons · Haipai: cloud scrolls and seals.
+// Shōwa: a rising sun and vertical 上映中 · Ben-Day: a comic cover splash, balloons and a silent phone (its drawing kit:
+// pow, aero, xray, ring, diner, meanwhile) · Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
+import { CoverSplash } from "./aero";
 import { useSystemId } from "./context";
+import { Gasp, ThoughtBalloon } from "./diner";
+import { Skyline } from "./meanwhile";
+import { DotRamp } from "./pow";
+import { Phone } from "./ring";
+import { Rays, Spiral } from "./xray";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
 
@@ -88,13 +95,7 @@ export function HeroMotif({ count }: { count: number }) {
         <span lang="ja" className="ds-native text-(--ds-accent)" style={{ writingMode: "vertical-rl", fontSize: 30 }}>上映中</span>
       </div>
     );
-  if (id === "ben-day")
-    return (
-      <Starburst className="h-32 w-32 -rotate-6 md:h-44 md:w-44">
-        <text x="110" y="104" textAnchor="middle" fontSize="40" fill="#fff" style={{ fontFamily: "var(--ds-display-font)" }}>{count}</text>
-        <text x="110" y="136" textAnchor="middle" fontSize="24" fill="#fff" style={{ fontFamily: "var(--ds-display-font)" }}>FILMS!</text>
-      </Starburst>
-    );
+  if (id === "ben-day") return <CoverSplash count={count} className="pointer-events-none h-44 w-44 rotate-2 md:h-60 md:w-60" />;
   return (
     <div aria-hidden className="pointer-events-none flex flex-col items-center gap-2">
       <Seal glyph="映" size={72} />
@@ -111,14 +112,21 @@ export function Ornament() {
   return <CloudScroll className="w-10 shrink-0" />;
 }
 
-function Balloon({ children }: { children: React.ReactNode }) {
+// Ben-Day's empty Saved list is a comic panel: "Meanwhile…", a silent phone, and the heading in its thought balloon.
+function EmptyPanel({ heading }: { heading: React.ReactNode }) {
   const c = palette("ben-day");
   return (
-    <div className="relative mx-auto w-full max-w-xs">
-      <svg aria-hidden viewBox="0 0 320 170" className="block w-full">
-        <path d="M160 8C250 8 312 40 312 78C312 116 252 144 170 148L118 168L128 146C60 140 8 112 8 78C8 40 70 8 160 8Z" fill={c.newsprint} stroke={c.ink} strokeWidth="5" strokeLinejoin="round" />
+    <div className="ds-empty-panel relative mx-auto w-full max-w-md">
+      <svg aria-hidden viewBox="0 0 360 250" className="block w-full">
+        <rect x="4" y="4" width="352" height="242" fill={c.newsprint} />
+        <DotRamp x={12} y={150} w={150} h={90} gap={7} from={2.4} to={0.2} />
+        <ThoughtBalloon cx={208} cy={104} rx={126} ry={60} tx={92} ty={196} />
+        <Phone x={34} y={150} s={0.95} />
+        <rect x="4" y="4" width="352" height="242" fill="none" stroke={c.ink} strokeWidth="6" />
+        <rect x="4" y="4" width="128" height="30" fill={c.mustard} stroke={c.ink} strokeWidth="4" />
+        <text x="16" y="27" fontSize="20" fill={c.ink} style={{ fontFamily: "var(--font-bangers)", letterSpacing: "0.04em" }}>MEANWHILE…</text>
       </svg>
-      <div className="absolute inset-x-8 top-0 bottom-[16%] grid place-items-center text-center">{children}</div>
+      <div className="absolute top-[20%] right-[8%] bottom-[38%] left-[30%] grid place-items-center text-center">{heading}</div>
     </div>
   );
 }
@@ -131,9 +139,35 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
     <div className="ds-empty">
       {id === "showa" && <Sun glyph="空" className="mb-2 h-24 w-24" />}
       {id === "haipai" && <div className="mb-3"><Seal glyph="空" stamped={false} size={64} /></div>}
-      {id === "ben-day" ? <Balloon>{heading}</Balloon> : heading}
+      {id === "ben-day" ? <EmptyPanel heading={heading} /> : heading}
       <p className="ds-body ds-muted">Tap Save on any film and it shows up here.</p>
       {action && <div className="mt-5">{action}</div>}
+    </div>
+  );
+}
+
+// Drawn behind a poster's fallback while it loads or after it fails (Ben-Day only): the X-ray spiral turns while it
+// loads; a failed poster gasps under radiating rays.
+export function PosterArt({ state }: { state: string }) {
+  const id = useSystemId();
+  if (id !== "ben-day" || state === "loaded") return null;
+  if (state === "loading") return <Spiral className="ds-poster-spiral" />;
+  return (
+    <svg aria-hidden viewBox="0 0 100 150" preserveAspectRatio="xMidYMid slice" className="ds-poster-art">
+      <Rays cx={50} cy={62} r={140} n={30} spread={0.2} opacity={0.75} />
+      <Gasp cx={50} cy={58} r={36} />
+    </svg>
+  );
+}
+
+// The foot of each Eigakan page (Ben-Day only): the skyline under a "To be continued…" caption.
+export function SignOff() {
+  const id = useSystemId();
+  if (id !== "ben-day") return null;
+  return (
+    <div aria-hidden className="ds-sign-off">
+      <span className="ds-caption ds-label">To be continued…</span>
+      <Skyline className="block h-24 w-full" />
     </div>
   );
 }

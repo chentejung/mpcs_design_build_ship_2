@@ -1,8 +1,10 @@
 "use client";
-// A film's poster in its 2:3 frame. The fallback (title on Surface) sits behind the image, so it shows while the
-// poster loads and stays if the poster fails. `force` pins the loading or error state for the UI states section.
+// A film's poster in its 2:3 frame. The fallback (title on Surface, over the system's PosterArt) sits behind the
+// image, so it shows while the poster loads and stays if the poster fails. `force` pins the loading or error state for
+// the UI states section.
 import { useEffect, useRef, useState } from "react";
 import type { Film } from "@/app/films";
+import { PosterArt } from "./motifs";
 
 type PosterState = "loading" | "loaded" | "error";
 
@@ -20,6 +22,7 @@ export function Poster({ film, force }: { film: Film; force?: "loading" | "error
   return (
     <div className="ds-poster" data-poster={shown}>
       <div aria-hidden className="ds-poster-fallback">
+        <PosterArt state={shown} />
         <span className="ds-heading">{film.title}</span>
         <span className="ds-meta">{shown === "error" ? "⚠ Poster didn’t load" : film.year}</span>
       </div>

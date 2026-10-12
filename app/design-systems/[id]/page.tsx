@@ -13,6 +13,7 @@ import { Poster } from "@/components/system/poster";
 import {
   AppliedMock, ChipsSpecimen, ListRowsSpecimen, SaveSpecimen, TabsSpecimen, ToastSpecimen, ToggleSpecimen,
 } from "@/components/system/specimens";
+import { BenDayKit } from "@/components/system/ben-day-kit";
 import { SystemTheme } from "@/components/system/theme";
 
 export const dynamicParams = false;
@@ -311,28 +312,31 @@ function SpacingAndShape({ system }: { system: DesignSystem }) {
 
 function TextureAndMotif({ system }: { system: DesignSystem }) {
   return (
-    <div className="grid gap-12 md:grid-cols-3">
-      <Spec label={`Texture · ${system.texture.name}`}>
-        <div className="relative isolate h-44 overflow-hidden rounded-(--ds-radius-panel) border-2 border-(--ds-border)">
-          <SystemTheme system={system} className="absolute inset-0"><span /></SystemTheme>
-        </div>
-        <p className="ds-body ds-muted">{system.texture.note}</p>
-      </Spec>
-      <Spec label={`Motif · ${system.motif.name}`}>
-        <div className="flex h-44 items-center gap-6">
-          <HeroMotif count={25} />
-          <span className="ds-brand-mark">映</span>
-          <Ornament />
-        </div>
-        <p className="ds-body ds-muted">{system.motif.note}</p>
-      </Spec>
-      <Spec label="Interaction feel · try it">
-        <div className="flex h-44 flex-wrap items-center gap-4">
-          <Button variant="primary" icon="save">Save</Button>
-          <Chip label="Thriller" count={4} />
-        </div>
-        <p className="ds-body ds-muted">Hover: {system.feel.hover} Press: {system.feel.press}</p>
-      </Spec>
+    <div className="grid gap-14">
+      <div className="grid gap-12 md:grid-cols-3">
+        <Spec label={`Texture · ${system.texture.name}`}>
+          <div className="relative isolate h-44 overflow-hidden rounded-(--ds-radius-panel) border-2 border-(--ds-border)">
+            <SystemTheme system={system} className="absolute inset-0"><span /></SystemTheme>
+          </div>
+          <p className="ds-body ds-muted">{system.texture.note}</p>
+        </Spec>
+        <Spec label={`Motif · ${system.motif.name}`}>
+          <div className="flex min-h-44 items-center gap-6">
+            <HeroMotif count={25} />
+            <span className="ds-brand-mark">映</span>
+            <Ornament />
+          </div>
+          <p className="ds-body ds-muted">{system.motif.note}</p>
+        </Spec>
+        <Spec label="Interaction feel · try it">
+          <div className="flex h-44 flex-wrap items-center gap-4">
+            <Button variant="primary" icon="save">Save</Button>
+            <Chip label="Thriller" count={4} />
+          </div>
+          <p className="ds-body ds-muted">Hover: {system.feel.hover} Press: {system.feel.press}</p>
+        </Spec>
+      </div>
+      {system.id === "ben-day" && <BenDayKit />}
     </div>
   );
 }

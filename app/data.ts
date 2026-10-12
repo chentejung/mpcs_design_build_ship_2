@@ -1,5 +1,5 @@
 // Landing-page content. Figma links and the final site's source/case-study links are placeholders.
-import { boards, japaneseRetro } from "./boards";
+import { americanComics, boards } from "./boards";
 import { systems } from "./systems";
 
 export type MoodBoard = {
@@ -13,7 +13,7 @@ export type MoodBoard = {
 };
 
 // Landing-page cards, derived from the full boards in ./boards.ts.
-export const selectedBoard = "japanese-retro";
+export const selectedBoard = "american-comics";
 
 export const moodBoards: MoodBoard[] = boards.map((b) => ({
   id: b.id,
@@ -53,7 +53,7 @@ export const designSystems: DesignSystemCard[] = systems.map((ds, i) => ({
 export const finalSite = {
   url: "/movies",
   preview: "/movies/preview.jpg",
-  recipeImage: japaneseRetro.references[1].src,
+  recipeImage: americanComics.references[13].src,
   links: [
     { label: "Visit the live site", href: "/movies/" },
     { label: "Source code", href: "https://github.com/designbuildship/showa-studio" },
