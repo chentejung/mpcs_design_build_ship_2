@@ -7,7 +7,8 @@ Landing page with three sections: mood boards, design systems, and the final sit
 - No database, accounts, external APIs, or data storage. Links to subpages/Pinterest/Figma are placeholders.
 
 ## Layout
-- `app/boards.ts` — the three mood boards: palette (measured from the references), Pinterest references, landing tiles.
+- `app/boards.ts` — the three mood boards: 6-color palette (the set that best represents all 30 pictures; method in
+  the file header), Pinterest references, landing tiles.
 - `app/data.ts` — landing content: mood-board cards (derived from boards), design systems, final site, `selectedBoard`.
 - `app/page.tsx` — landing page; `components/ui.tsx` — shared ButtonLink/Card pieces.
 - `app/moodboards/[id]/page.tsx` — one page per board, themed by its palette. Build fails unless each board has exactly 30 artifacts (references + originals).
