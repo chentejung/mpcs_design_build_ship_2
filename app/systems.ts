@@ -64,7 +64,7 @@ export const showa: DesignSystem = {
   name: "Shōwa",
   alt: "昭和",
   board: japaneseRetro,
-  essence: "Shōwa-era poster print: fat gothic type extruded the Yokoo way, a rising sun, and cinema tickets in color plates that never quite line up.",
+  essence: "Shōwa-era poster print: fat gothic type extruded the Yokoo way, a rising sun, cinema tickets in color plates that never quite line up, and the Saved count hung as a paper lantern.",
   colors: {
     background: "washi",
     surface: "kinari",
@@ -92,13 +92,13 @@ export const showa: DesignSystem = {
     radius: { control: 4, card: 2, poster: 2, badge: 999, panel: 4 },
     border: { control: 2, card: 4 },
     shadow: "None. A red plate sits 3px out of register behind each control and input, like a misaligned print layer; panels, the signboard and the toast cast a solid red plate.",
-    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub. Filter chips are shop tags (値札) with clipped corners and a punched hole. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios are a color TV's knobs (つまみ) that turn up to 12 o'clock when chosen; a switched-on toggle's knob turns into a sparkle; the selected tab stands on a sawtooth; the select points down with a hand.",
+    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub. Filter chips are shop tags (値札) with clipped corners and a punched hole. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios are a color TV's knobs (つまみ) that turn up to 12 o'clock when chosen; a switched-on toggle's knob turns into a sparkle; the selected tab stands on a sawtooth; the select points down with a hand; the Saved count hangs as a paper lantern (提灯).",
   },
   icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice.", remove: "A bold cross." },
   texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter." },
   motif: {
     name: "Rising sun",
-    note: "A Hinomaru disc with soft rays beside 上映中 set vertically leads the hero; the same sun holds 空 when nothing is saved, and a 済 (“done”) seal lands on saved posters. From the Yokoo picture (22), the hero heading stands on an extrusion and a small sun in a sawtooth aura marks Now showing. This page also carries a drawing kit from four Mood Board 01 pictures (Yokoo 22, Koi Pond 02, Color TV Ad 25, Osaka Rainy Night 26): panels take flag corners, film strips divide the sections, radios are a color TV's knobs, and the title prints in 天然色.",
+    note: "A Hinomaru disc with soft rays beside 上映中 set vertically leads the hero; the same sun holds 空 when nothing is saved, and a 済 (“done”) seal lands on saved posters. From the Yokoo picture (22), the hero heading stands on an extrusion and a small sun in a sawtooth aura marks Now showing; from Osaka Rainy Night (26), the Saved count hangs as a paper lantern. This page also carries a drawing kit from four Mood Board 01 pictures (Yokoo 22, Koi Pond 02, Color TV Ad 25, Osaka Rainy Night 26): panels take flag corners, film strips divide the sections, radios are a color TV's knobs, and the title prints in 天然色.",
   },
   feel: { hover: "The red plate drifts further out of register.", press: "The plate snaps into register." },
 };

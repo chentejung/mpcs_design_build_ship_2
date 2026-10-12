@@ -27,9 +27,10 @@ board (spec: issue #5; why: `docs/adr/0001-one-design-system-per-mood-board.md`)
 - `components/system/` — components shared by Eigakan and the Design System pages (`SystemTheme`, controls, film card,
   poster, header, motifs, empty state, icons). Shōwa's drawing kit is one file per Mood Board 01 picture:
   `yokoo.tsx` (22: rays, sawtooth aura, sparkles, planet, cloud, eye, pointing hand, the hero sun), `koi.tsx` (02: the
-  sun over waves), `terebi.tsx` (25: `Tenneniro` 天然色 per-character inks) and `osaka.tsx` (26: the hero
-  signboard); `drawing-kit.tsx` shows them on Shōwa's page. Eigakan stays plain apart from the `/movies` hero's
-  extruded heading, gloss and small aura sun. The knob radios are CSS in `app/system.css`. Style them through `app/system.css`, not per-page classes; frozen
+  sun over waves), `terebi.tsx` (25: `Tenneniro` 天然色 per-character inks) and `osaka.tsx` (26: the signboard, a
+  lantern); `drawing-kit.tsx` shows them on Shōwa's page. Eigakan stays plain apart from the `/movies` hero's
+  extruded heading, gloss and small aura sun, and the Saved count, a paper lantern. The knob radios and lantern count
+  are CSS in `app/system.css`. Style them through `app/system.css`, not per-page classes; frozen
   hover/focus/pressed states use `data-state`. Each system gives the same controls its own shape (Shōwa tickets and
   shop tags, Ben-Day leaning panels, coupons and speech balloons, Haipai Deco octagons and mahjong tiles), drawn on
   `::before`/`::after` with masks so the element itself keeps its focus ring; `Icon` draws Save/Saved/Remove in the
