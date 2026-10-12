@@ -27,52 +27,7 @@ export const moodBoards: MoodBoard[] = boards.map((b) => ({
   ],
 }));
 
-export type DesignSystem = {
-  id: "clay" | "grid" | "soft";
-  label: string;
-  title: string;
-  selected?: boolean;
-  fonts: string;
-  tokens: string[];
-  links: { label: string; href: string }[];
-};
-
-export const designSystems: DesignSystem[] = [
-  {
-    id: "clay",
-    label: "SYSTEM A",
-    title: "Clay",
-    selected: true,
-    fonts: "Fraunces / Inter",
-    tokens: japaneseRetro.palette.map((color) => color.hex),
-    links: [
-      { label: "View system", href: "/design-systems/clay/" },
-      { label: "Token notes", href: "/design-systems/clay/#tokens" },
-    ],
-  },
-  {
-    id: "grid",
-    label: "SYSTEM B",
-    title: "Grid",
-    fonts: "Space Grotesk",
-    tokens: ["#111111", "#ffffff", "#ff4b1f", "#d9d9d4", "#1f4bff"],
-    links: [
-      { label: "View system", href: "/design-systems/grid/" },
-      { label: "Token notes", href: "/design-systems/grid/#tokens" },
-    ],
-  },
-  {
-    id: "soft",
-    label: "SYSTEM C",
-    title: "Soft",
-    fonts: "DM Sans",
-    tokens: ["#6d5dfc", "#b8b0ff", "#ffb38a", "#ffffff", "#2b2840"],
-    links: [
-      { label: "View system", href: "/design-systems/soft/" },
-      { label: "Token notes", href: "/design-systems/soft/#tokens" },
-    ],
-  },
-];
+export { designSystems, type DesignSystem } from "./design-systems/systems";
 
 export const finalSite = {
   url: "/movies/",
