@@ -14,7 +14,6 @@ import {
   AppliedMock, ChipsSpecimen, ListRowsSpecimen, SaveSpecimen, TabsSpecimen, ToastSpecimen, ToggleSpecimen,
 } from "@/components/system/specimens";
 import { SystemTheme } from "@/components/system/theme";
-import { Colophon } from "@/components/system/colophon";
 import { DrawingKit } from "@/components/system/drawing-kit";
 import { Tenneniro } from "@/components/system/terebi";
 
@@ -449,9 +448,6 @@ function Components({ system }: { system: DesignSystem }) {
       </Cell>
       <Cell label="Empty state">
         <EmptyState action={<span className={buttonClass("primary")}>Browse all movies →</span>} />
-      </Cell>
-      <Cell label="Colophon · the foot of every Eigakan page" wide>
-        <Colophon />
       </Cell>
     </div>
   );

@@ -16,7 +16,7 @@ export function SavedList() {
     <>
       <section className="pt-8 pb-8 md:pt-12">
         <Link href="/movies/" className="ds-link ds-body">← All movies</Link>
-        <h1 className="ds-display mt-4">Saved films</h1>
+        <h1 className="ds-display ds-display--flat mt-4">Saved films</h1>
         {ids.length > 0 && (
           <p className="ds-body mt-3">
             <span className="ds-meta text-base font-bold">{ids.length} {ids.length === 1 ? "film" : "films"} · {formatRuntime(total)}</span>, in the

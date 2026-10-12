@@ -5,7 +5,6 @@ import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
 import { Dots, Grain, Hatch } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
-import { Rays } from "./yokoo";
 
 export function Texture({ fixed = false }: { fixed?: boolean }) {
   const id = useSystemId();
@@ -30,15 +29,7 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
           </>
         )}
       </defs>
-      {id === "showa" && (
-        <>
-          {/* Faint Hinomaru rays fan in from the top corner, as if the sun stood just off the page. */}
-          <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMaxYMin slice" width="100%" height="100%" opacity="0.045">
-            <Rays cx={1000} cy={0} r={1500} n={56} ink={c.hinomaru} />
-          </svg>
-          <rect width="100%" height="100%" filter={`url(#${uid}-grain)`} style={{ mixBlendMode: "multiply" }} />
-        </>
-      )}
+      {id === "showa" && <rect width="100%" height="100%" filter={`url(#${uid}-grain)`} style={{ mixBlendMode: "multiply" }} />}
       {id === "ben-day" && (
         <>
           <rect width="100%" height="100%" fill={`url(#${uid}-red)`} opacity="0.14" />

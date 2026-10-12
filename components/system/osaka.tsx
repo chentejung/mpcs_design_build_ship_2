@@ -2,7 +2,7 @@
 // Shōwa's drawing kit after Osaka Rainy Night on the Japanese Retro board (picture 26): the vertical signboards
 // (看板) of Dōtonbori, each a framed board with a cap, and red paper lanterns (提灯). The signboard stands beside the
 // hero sun, headed by a sun over waves (koi.tsx) and closed by the cinema's ringed stamp; app/system.css hangs the
-// Saved count as a lantern. Rain shows as the rings on the koi pond.
+// Saved count as a lantern.
 import { useId } from "react";
 import { colors } from "@/app/boards";
 import { showa } from "@/app/systems";

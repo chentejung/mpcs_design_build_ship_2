@@ -2,7 +2,7 @@ import { films } from "@/app/films";
 
 export function Credits() {
   return (
-    <section aria-labelledby="poster-credits" className="ds-rule mt-20 pt-10">
+    <section aria-labelledby="poster-credits" className="mt-20 border-t-2 border-(--ds-border) pt-10">
       <h2 id="poster-credits" className="ds-heading text-2xl">Poster credits</h2>
       <p className="ds-body ds-muted mt-2 max-w-2xl">
         Posters used for a non-commercial class mock-up. Each poster belongs to the copyright holder listed below; images via Wikipedia.

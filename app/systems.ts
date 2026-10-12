@@ -64,7 +64,7 @@ export const showa: DesignSystem = {
   name: "Shōwa",
   alt: "昭和",
   board: japaneseRetro,
-  essence: "Shōwa-era posters: Tadanori Yokoo's rising sun and extruded type, a riso koi pond, a 1960s color-TV ad in 天然色 and Osaka's signboards and lanterns on a rainy night, printed in color plates that never quite line up.",
+  essence: "Shōwa-era poster print: fat gothic type and cinema tickets in color plates that never quite line up, with Tadanori Yokoo's rising sun, an Osaka signboard in 天然色 and a paper lantern in the hero.",
   colors: {
     background: "washi",
     surface: "kinari",
@@ -95,10 +95,10 @@ export const showa: DesignSystem = {
     controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub. Filter chips are shop tags (値札) with clipped corners and a punched hole. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios are a color TV's knobs (つまみ) that turn up to 12 o'clock when chosen; a switched-on toggle's knob turns into a sparkle; the selected tab stands on a sawtooth; the select points down with a hand; the Saved count hangs as a paper lantern (提灯).",
   },
   icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice.", remove: "A bold cross." },
-  texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter, with faint Hinomaru rays fanning in from the top corner." },
+  texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter." },
   motif: {
     name: "Yokoo sun on a Shōwa street",
-    note: "From four pictures on Mood Board 01, around a plain film list (posters in a double Sumi rule, Category badges as round seals, a 済 (“done”) seal on saved posters). Tadanori Yokoo (22): a rayed sun in a sawtooth aura with the cinema's eye at its centre leads the hero; panels and the empty state are framed in double rules with flag corners; film strips close the header and divide sections. Osaka Rainy Night (26): a capped signboard reading 上映中 stands beside the sun, and the Saved count is a paper lantern. Color TV Ad (25): native words print in 天然色 and radios are the set's knobs. Koi Pond (02): the empty state is a tiled pool where two koi circle in the rain, and the colophon is set like a poster's foot.",
+    note: "From four pictures on Mood Board 01, gathered in the hero around a plain film list (a plain header, posters in a double Sumi rule, Category badges as round seals, a 済 (“done”) seal on saved posters, a plain rising sun holding 空 when nothing is saved). Tadanori Yokoo (22): extruded Display type and a rayed sun in a sawtooth aura with the cinema's eye at its centre. Osaka Rainy Night (26): a capped signboard reading 上映中 beside the sun, and the Saved count as a paper lantern. Koi Pond (02): the sun rising over waves that heads the signboard. Color TV Ad (25): the signboard's word in 天然色. On this page panels take flag corners, film strips divide the sections, and radios are a color TV's knobs.",
   },
   feel: { hover: "The red plate drifts further out of register.", press: "The plate snaps into register." },
 };

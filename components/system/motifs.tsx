@@ -1,16 +1,35 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: a Yokoo rising sun (components/system/yokoo.tsx) beside an Osaka signboard (osaka.tsx), and a koi pond in the
-// rain for the empty state (koi.tsx) · Ben-Day: a starburst and speech balloons · Haipai: cloud scrolls and seals.
+// Shōwa: a Yokoo rising sun (components/system/yokoo.tsx) beside an Osaka signboard (osaka.tsx), and a plain rising
+// sun holding 空 for the empty state · Ben-Day: a starburst and speech balloons · Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
-import { KoiPond } from "./koi";
 import { Signboard } from "./osaka";
-import { Hand, HeroSun, SmallSun } from "./yokoo";
+import { HeroSun, SmallSun } from "./yokoo";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
+
+// A Hinomaru disc with soft rays, `glyph` in white at its centre.
+function Sun({ glyph, className = "" }: { glyph?: string; className?: string }) {
+  const c = palette("showa");
+  const ray = (i: number) => {
+    const at = (deg: number) => [100 + 140 * Math.cos((deg * Math.PI) / 180), 100 + 140 * Math.sin((deg * Math.PI) / 180)].map((v) => v.toFixed(1)).join(" ");
+    return `M100 100 L${at(i * 30 - 6)} L${at(i * 30 + 6)}Z`;
+  };
+  return (
+    <svg aria-hidden viewBox="0 0 200 200" className={className}>
+      <g fill={c.hinomaru} opacity="0.2">{Array.from({ length: 12 }, (_, i) => <path key={i} d={ray(i)} />)}</g>
+      <circle cx="100" cy="100" r="54" fill={c.hinomaru} />
+      {glyph && (
+        <text x="100" y="100" dy="0.36em" textAnchor="middle" fontSize="56" fill="#fff" style={{ fontFamily: "var(--ds-display-font)" }}>
+          {glyph}
+        </text>
+      )}
+    </svg>
+  );
+}
 
 function Starburst({ children, className = "" }: { children?: React.ReactNode; className?: string }) {
   const c = palette("ben-day");
@@ -114,16 +133,11 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
   const heading = <p className="ds-heading text-2xl md:text-3xl">{id === "ben-day" ? `${title}!` : title}</p>;
   return (
     <div className="ds-empty">
-      {id === "showa" && <KoiPond className="mb-2 w-52" />}
+      {id === "showa" && <Sun glyph="空" className="mb-2 h-24 w-24" />}
       {id === "haipai" && <div className="mb-3"><Seal glyph="空" stamped={false} size={64} /></div>}
       {id === "ben-day" ? <Balloon>{heading}</Balloon> : heading}
       <p className="ds-body ds-muted">Tap Save on any film and it shows up here.</p>
-      {action && (
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2">
-          {id === "showa" && <svg aria-hidden viewBox="0 0 64 38" className="w-12 shrink-0"><Hand x={1} y={1} k={2.4} /></svg>}
-          {action}
-        </div>
-      )}
+      {action && <div className="mt-5">{action}</div>}
     </div>
   );
 }

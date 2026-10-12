@@ -25,19 +25,19 @@ board (spec: issue #5; why: `docs/adr/0001-one-design-system-per-mood-board.md`)
 - `app/design-systems/[id]/page.tsx` — one page per Design System, themed by it: color roles, type roles, spacing and
   shape, texture and motif, components, control states, UI states, applied (a phone-width `/movies`).
 - `components/system/` — components shared by Eigakan and the Design System pages (`SystemTheme`, controls, film card,
-  poster, header, motifs, empty state, colophon, icons). Shōwa's drawing kit is one file per Mood Board 01 picture:
-  `yokoo.tsx` (22: rays, sawtooth aura, sparkles, planet, cloud, eye, pointing hand, the hero sun), `koi.tsx` (02: koi
-  drawn along a spine, momiji, stones, ripples, pool tiles, sun over waves, the koi-pond empty state), `terebi.tsx`
-  (25: `Tenneniro` 天然色 per-character inks) and `osaka.tsx` (26: the hero signboard, a lantern); `drawing-kit.tsx`
-  shows them on Shōwa's page. The knob radios and lantern count are CSS in `app/system.css`. Shōwa's film list
-  (poster frame, seal badges, tickets, tags) stays plain; the drawings live around it. Style them through `app/system.css`, not per-page classes; frozen
+  poster, header, motifs, empty state, icons). Shōwa's drawing kit is one file per Mood Board 01 picture:
+  `yokoo.tsx` (22: rays, sawtooth aura, sparkles, planet, cloud, eye, pointing hand, the hero sun), `koi.tsx` (02: the
+  sun over waves), `terebi.tsx` (25: `Tenneniro` 天然色 per-character inks) and `osaka.tsx` (26: the hero signboard, a
+  lantern); `drawing-kit.tsx` shows them on Shōwa's page. On Eigakan they gather in the `/movies` hero and the Saved
+  count; the header, film list, empty state and footer stay plain. The knob radios and lantern count are CSS in
+  `app/system.css`. Style them through `app/system.css`, not per-page classes; frozen
   hover/focus/pressed states use `data-state`. Each system gives the same controls its own shape (Shōwa tickets and
   shop tags, Ben-Day leaning panels, coupons and speech balloons, Haipai Deco octagons and mahjong tiles), drawn on
   `::before`/`::after` with masks so the element itself keeps its focus ring; `Icon` draws Save/Saved/Remove in the
   wrapping system's style, and new icons must stay `aria-hidden` (tests find controls by accessible name).
 - `app/films.ts` — Eigakan's 25 films (one category each), Native Titles, poster paths, and poster credits.
 - `app/movies/layout.tsx` — shared layout for `/movies` and `/movies/saved`: themed by the selected board's Design
-  System (Shōwa), holds the saved-list provider, poster credits and the colophon footer. Build fails unless the film list is valid (25 films, unique ids,
+  System (Shōwa), holds the saved-list provider and poster credits. Build fails unless the film list is valid (25 films, unique ids,
   known categories, poster files present, credits filled in).
 - `components/movies/` — Eigakan's wiring (filter, saved list, header links) around `components/system/`. Links between
   the `/movies` pages must be `next/link`; a plain `<a>` reloads the page and wipes the saved list.

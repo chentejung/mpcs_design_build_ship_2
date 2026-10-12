@@ -408,54 +408,6 @@
     line-height: 1.4;
   }
 
-  /* ----- Colophon: the band along the foot of Eigakan's pages ----- */
-  .ds-colophon {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 20px 32px;
-    padding-top: 20px;
-    border-top: var(--ds-control-border) solid var(--ds-border);
-  }
-  .ds-colophon-name {
-    font-family: var(--ds-display-font);
-    font-size: min(48px, 11cqi);
-    line-height: 1;
-    color: var(--ds-accent); /* large type only */
-    text-transform: uppercase;
-  }
-  .ds-colophon-tagline {
-    margin-top: 10px;
-    font-family: var(--ds-body-font);
-    font-size: var(--ds-body-size);
-    font-weight: 700;
-    letter-spacing: 0.3em;
-  }
-  .ds-colophon-facts {
-    display: grid;
-    gap: 4px;
-  }
-  .ds-colophon-facts li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .ds-colophon-facts li::before {
-    content: "";
-    width: 9px;
-    height: 9px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--ds-accent);
-  }
-  .ds-colophon-mark {
-    display: grid;
-    justify-items: center;
-    gap: 6px;
-    margin-left: auto;
-    text-align: center;
-  }
-
   /* ----- Film card and poster frame ----- */
   .ds-card {
     display: flex;
@@ -602,20 +554,17 @@
      (picture 22), Koi Pond (02), Color TV Ad (25) and Osaka Rainy Night (26).
      Buttons have punched side notches, and their icon sits in a perforated stub; filter chips are shop tags (値札)
      with clipped corners and a punched hole. Every shape prints twice: a color plate sits 3px out of register behind
-     the 2px Sumi keyline, drifts further on hover and snaps into register on press. The film list keeps to that:
-     posters sit in a double Sumi rule, Category badges are round seals, a 済 seal lands on saved posters.
-     Around it, the Yokoo layer: Display type is extruded; a sawtooth aura (後光) rings the brand; panels and the empty
-     state are framed in double rules with flag corners; film strips close the header, the sections and the toast.
-     Kinari is only ever a fill inside Sumi. Checked boxes take a ◯, the mark for "yes" on Japanese forms.
-     The street layer: native words print in 天然色 and radios are the TV's knobs (25); the Saved count hangs as a
-     paper lantern and the hero's signboard stands beside the sun (26); the empty state is a koi pond (02); the
-     colophon is a poster's foot (02, 25).
+     the 2px Sumi keyline, drifts further on hover and snaps into register on press. Eigakan keeps to that: a plain
+     header under a double rule, posters in a double Sumi rule, Category badges as round seals, a 済 seal on saved
+     posters. Kinari is only ever a fill inside Sumi. Checked boxes take a ◯, the mark for "yes" on Japanese forms.
+     The posters' drawings gather in the hero and on this system's page: extruded Display type and a Yokoo sun (22)
+     beside an Osaka signboard (26) headed by a sun over waves (02), its word in 天然色 (25); the Saved count hangs
+     as a paper lantern (26). On the Design System page panels take flag corners, film strips divide the sections
+     and frame the toast, and radios are a color TV's knobs (25).
      =================================================================================================== */
   [data-system="showa"] {
     /* A film strip: Washi sprocket holes punched in a Sumi band. */
     --ds-strip: repeating-linear-gradient(90deg, #0000 0 5px, var(--ds-bg) 5px 11px, #0000 11px 16px) 0 50% / 100% 4px no-repeat, var(--ds-text);
-    /* The sawtooth aura, 24 teeth. */
-    --ds-aura: polygon(50% 0%, 55.5% 8.4%, 62.9% 1.7%, 66.1% 11.2%, 75% 6.7%, 75.6% 16.7%, 85.4% 14.6%, 83.3% 24.4%, 93.3% 25%, 88.8% 33.9%, 98.3% 37.1%, 91.6% 44.5%, 100% 50%, 91.6% 55.5%, 98.3% 62.9%, 88.8% 66.1%, 93.3% 75%, 83.3% 75.6%, 85.4% 85.4%, 75.6% 83.3%, 75% 93.3%, 66.1% 88.8%, 62.9% 98.3%, 55.5% 91.6%, 50% 100%, 44.5% 91.6%, 37.1% 98.3%, 33.9% 88.8%, 25% 93.3%, 24.4% 83.3%, 14.6% 85.4%, 16.7% 75.6%, 6.7% 75%, 11.2% 66.1%, 1.7% 62.9%, 8.4% 55.5%, 0% 50%, 8.4% 44.5%, 1.7% 37.1%, 11.2% 33.9%, 6.7% 25%, 16.7% 24.4%, 14.6% 14.6%, 24.4% 16.7%, 25% 6.7%, 33.9% 11.2%, 37.1% 1.7%, 44.5% 8.4%);
   }
 
   /* Block type, extruded the Yokoo way: a Hinomaru depth under the Sumi face, closed by a Sumi edge. Type set in
@@ -630,6 +579,10 @@
     text-shadow:
       0.012em 0.012em 0 var(--depth), 0.024em 0.024em 0 var(--depth), 0.036em 0.036em 0 var(--depth),
       0.048em 0.048em 0 var(--depth), 0.06em 0.06em 0 var(--depth), 0.072em 0.072em 0 var(--ds-text);
+  }
+  /* A page heading that stays flat, like the Saved page's. */
+  [data-system="showa"] .ds-display.ds-display--flat {
+    text-shadow: none;
   }
   /* 天然色 (picture 25): a native word's first three characters print Hinomaru, Ai and Kogecha, as 天然色テレビ does
      in the ad; extruded, the red one stands on Sumi and the others on Hinomaru. */
@@ -803,34 +756,13 @@
     }
   }
 
-  /* ----- Brand: a rising-sun disc in a Kinari sawtooth aura, keylined in Sumi ----- */
+  /* ----- Brand: a rising-sun disc ----- */
   [data-system="showa"] .ds-brand-mark {
-    --aura: 7px;
-    position: relative;
-    border: 2px solid var(--ds-text);
     border-radius: 50%;
     background: var(--ds-accent);
     color: var(--ds-on-accent);
     font-family: var(--ds-display-font);
     font-size: 20px;
-    box-shadow: 0 0 0 2px var(--ds-bg);
-  }
-  /* The aura is drawn below its disc (z-index -1 in the parent's stacking context): Sumi, then Kinari inside it. */
-  [data-system="showa"] .ds-brand-mark::before,
-  [data-system="showa"] .ds-brand-mark::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    clip-path: var(--ds-aura);
-    pointer-events: none;
-  }
-  [data-system="showa"] .ds-brand-mark::before {
-    inset: calc(-1 * var(--aura));
-    background: var(--ds-text);
-  }
-  [data-system="showa"] .ds-brand-mark::after {
-    inset: calc(1.5px - var(--aura));
-    background: var(--ds-surface);
   }
 
   /* ----- Inputs and choices: the same misregistered red plate ----- */
@@ -929,12 +861,6 @@
       conic-gradient(from 135deg at top, #0000, var(--ds-selected) 1deg 89deg, #0000 90deg) 0 calc(100% - 2px) / 12px 6px repeat-x,
       linear-gradient(var(--ds-selected) 0 0) 0 100% / 100% 3px no-repeat;
   }
-  /* Links ripple into a wave (波) on hover. */
-  [data-system="showa"] .ds-link:hover,
-  [data-system="showa"] .ds-link[data-state="hover"] {
-    text-decoration-style: wavy;
-    text-decoration-thickness: 1.5px;
-  }
 
   /* ----- Badges: flat fills keylined in Sumi; on a poster, a round seal with a thin inner ring ----- */
   [data-system="showa"] .ds-badge {
@@ -959,7 +885,7 @@
     outline-offset: -5px;
   }
 
-  /* ----- Poster frame: a double Sumi rule. Panel and empty state: Yokoo's poster border ----- */
+  /* ----- Poster frame: a double Sumi rule. Panel: Yokoo's poster border ----- */
   [data-system="showa"] .ds-frame {
     padding: 5px;
     border: var(--ds-card-border) double var(--ds-text);
@@ -974,12 +900,8 @@
       var(--ds-surface);
     box-shadow: 6px 6px 0 var(--ds-accent);
   }
-  [data-system="showa"] .ds-empty {
-    position: relative;
-    border: 4px double var(--ds-text);
-  }
   /* Flag blocks (日の丸) at the corners, straddling the rule. */
-  [data-system="showa"] :is(.ds-panel, .ds-empty)::after {
+  [data-system="showa"] .ds-panel::after {
     --f: 14px;
     --o: 5px;
     --dot: radial-gradient(circle, var(--ds-accent) calc(var(--f) * 0.21), #0000 calc(var(--f) * 0.21 + 0.6px));
@@ -1000,10 +922,6 @@
       var(--rule) left top / var(--f) var(--f) no-repeat, var(--rule) right top / var(--f) var(--f) no-repeat,
       var(--rule) left bottom / var(--f) var(--f) no-repeat, var(--rule) right bottom / var(--f) var(--f) no-repeat;
   }
-  [data-system="showa"] .ds-empty::after {
-    --f: 18px;
-    --o: 7px;
-  }
 
   /* Saved: a 済 ("done") seal in a double ring, Accent as large type on the Scrim. */
   [data-system="showa"] .ds-saved-stamp {
@@ -1023,11 +941,11 @@
     content: "済";
   }
 
-  /* ----- Film strips: the header's edge, section rules and the toast ----- */
   [data-system="showa"] .ds-header {
-    padding-bottom: 12px;
+    border-bottom: 4px double var(--ds-text);
   }
-  [data-system="showa"] .ds-header::after,
+
+  /* ----- Film strips: section rules and the toast ----- */
   [data-system="showa"] .ds-rule::before {
     content: "";
     position: absolute;
@@ -1036,9 +954,6 @@
     height: 12px;
     background: var(--ds-strip);
     pointer-events: none;
-  }
-  [data-system="showa"] .ds-header::after {
-    bottom: 0;
   }
   [data-system="showa"] .ds-rule {
     position: relative;
@@ -1093,7 +1008,7 @@
     letter-spacing: 0.08em;
     writing-mode: vertical-rl;
   }
-  [data-system="showa"] :is(.ds-signboard-stamp, .ds-colophon-stamp) {
+  [data-system="showa"] .ds-signboard-stamp {
     display: grid;
     width: 40px;
     height: 40px;
@@ -1105,31 +1020,6 @@
     font-family: var(--ds-display-font);
     font-size: 20px; /* Accent as large type */
     line-height: 1;
-  }
-
-  /* ----- Colophon: the foot of a poster (pictures 02 and 25), the name large in Hinomaru over a tracked tagline,
-     Sumi rules between the parts, facts on Hinomaru, Ai and Kogecha bullets, and the ringed stamp with its year ----- */
-  [data-system="showa"] .ds-colophon {
-    border-top: 0;
-  }
-  [data-system="showa"] .ds-colophon-facts {
-    padding-left: 28px;
-    border-left: 2px solid var(--ds-text);
-  }
-  [data-system="showa"] .ds-colophon-facts li::before {
-    width: 11px;
-    height: 11px;
-  }
-  [data-system="showa"] .ds-colophon-facts li:nth-child(2)::before {
-    background: var(--ds-selected);
-  }
-  [data-system="showa"] .ds-colophon-facts li:nth-child(3)::before {
-    background: var(--ds-swatch-kogecha);
-  }
-  [data-system="showa"] .ds-colophon-stamp {
-    width: 56px;
-    height: 56px;
-    font-size: 28px;
   }
 
   /* ===================================================================================================
