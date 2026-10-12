@@ -41,7 +41,7 @@ export function Chip({ label, count, state, ...props }: React.ButtonHTMLAttribut
 
 export function CategoryBadge({ category, className = "" }: { category: Category; className?: string }) {
   return (
-    <span className={`ds-badge ${className}`} style={{ background: `var(--ds-cat-${category}-bg)`, color: `var(--ds-cat-${category}-fg)` }}>
+    <span className={`ds-badge ${className}`} style={{ "--cat-bg": `var(--ds-cat-${category}-bg)`, "--cat-fg": `var(--ds-cat-${category}-fg)` } as React.CSSProperties}>
       {categoryLabel[category]}
     </span>
   );

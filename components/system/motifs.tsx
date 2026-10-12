@@ -1,31 +1,14 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: a rising sun and vertical 上映中 · Ben-Day: a starburst and speech balloons · Haipai: cloud scrolls and seals.
+// Shōwa: a Yokoo rising sun (components/system/yokoo.tsx) and vertical 上映中 · Ben-Day: a starburst and speech
+// balloons · Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
+import { EmptySun, Hand, HeroSun, SmallSun } from "./yokoo";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
-
-function Sun({ glyph, className = "" }: { glyph?: string; className?: string }) {
-  const c = palette("showa");
-  const ray = (i: number) => {
-    const at = (deg: number) => [100 + 140 * Math.cos((deg * Math.PI) / 180), 100 + 140 * Math.sin((deg * Math.PI) / 180)].map((v) => v.toFixed(1)).join(" ");
-    return `M100 100 L${at(i * 30 - 6)} L${at(i * 30 + 6)}Z`;
-  };
-  return (
-    <svg aria-hidden viewBox="0 0 200 200" className={className}>
-      <g fill={c.hinomaru} opacity="0.2">{Array.from({ length: 12 }, (_, i) => <path key={i} d={ray(i)} />)}</g>
-      <circle cx="100" cy="100" r="54" fill={c.hinomaru} />
-      {glyph && (
-        <text x="100" y="100" dy="0.36em" textAnchor="middle" fontSize="56" fill="#fff" style={{ fontFamily: "var(--ds-display-font)" }}>
-          {glyph}
-        </text>
-      )}
-    </svg>
-  );
-}
 
 function Starburst({ children, className = "" }: { children?: React.ReactNode; className?: string }) {
   const c = palette("ben-day");
@@ -84,8 +67,8 @@ export function HeroMotif({ count }: { count: number }) {
   if (id === "showa")
     return (
       <div aria-hidden className="pointer-events-none flex items-start gap-3">
-        <Sun className="h-28 w-28 md:h-44 md:w-44" />
-        <span lang="ja" className="ds-native text-(--ds-accent)" style={{ writingMode: "vertical-rl", fontSize: 30 }}>上映中</span>
+        <HeroSun className="h-32 w-32 md:h-48 md:w-48" />
+        <span lang="ja" className="ds-native ds-extrude text-(--ds-accent)" style={{ writingMode: "vertical-rl", fontSize: 30 }}>上映中</span>
       </div>
     );
   if (id === "ben-day")
@@ -106,7 +89,7 @@ export function HeroMotif({ count }: { count: number }) {
 // Small ornament before a section heading or eyebrow.
 export function Ornament() {
   const id = useSystemId();
-  if (id === "showa") return <Sun className="h-5 w-5 shrink-0" />;
+  if (id === "showa") return <SmallSun className="h-6 w-6 shrink-0" />;
   if (id === "ben-day") return <Starburst className="h-6 w-6 shrink-0" />;
   return <CloudScroll className="w-10 shrink-0" />;
 }
@@ -129,11 +112,16 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
   const heading = <p className="ds-heading text-2xl md:text-3xl">{id === "ben-day" ? `${title}!` : title}</p>;
   return (
     <div className="ds-empty">
-      {id === "showa" && <Sun glyph="空" className="mb-2 h-24 w-24" />}
+      {id === "showa" && <EmptySun className="mb-1 w-44" />}
       {id === "haipai" && <div className="mb-3"><Seal glyph="空" stamped={false} size={64} /></div>}
       {id === "ben-day" ? <Balloon>{heading}</Balloon> : heading}
       <p className="ds-body ds-muted">Tap Save on any film and it shows up here.</p>
-      {action && <div className="mt-5">{action}</div>}
+      {action && (
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2">
+          {id === "showa" && <svg aria-hidden viewBox="0 0 64 38" className="w-12 shrink-0"><Hand x={1} y={1} k={2.4} /></svg>}
+          {action}
+        </div>
+      )}
     </div>
   );
 }

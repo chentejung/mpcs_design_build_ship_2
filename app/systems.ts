@@ -64,7 +64,7 @@ export const showa: DesignSystem = {
   name: "Shōwa",
   alt: "昭和",
   board: japaneseRetro,
-  essence: "Shōwa-era poster print: fat gothic type, a rising sun, and color plates that never quite line up.",
+  essence: "Shōwa-era poster print in Tadanori Yokoo's manner: fat extruded type, a rising sun with an eye at its heart, and color plates that never quite line up.",
   colors: {
     background: "washi",
     surface: "kinari",
@@ -91,13 +91,16 @@ export const showa: DesignSystem = {
   shape: {
     radius: { control: 4, card: 2, poster: 2, badge: 999, panel: 4 },
     border: { control: 2, card: 4 },
-    shadow: "None. A red plate sits 3px out of register behind each control, like a misaligned print layer.",
-    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub. Filter chips are shop tags (値札) with clipped corners and a punched hole; a checked box takes a ◯, the mark for “yes” on Japanese forms.",
+    shadow: "None. A red plate sits 3px out of register behind each control and input, like a misaligned print layer; panels and the toast cast a solid red plate.",
+    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub that rays fan out of. Filter chips are shop tags (値札) with clipped corners and a punched hole; a selected tag's rays rise from the hole. A checked box takes a ◯, the mark for “yes” on Japanese forms; a switched-on toggle's knob turns into a sparkle; the selected tab stands on a sawtooth; the select points down with a hand.",
   },
-  icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice.", remove: "A bold cross." },
-  texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter." },
-  motif: { name: "Rising sun", note: "A Hinomaru disc with rays behind the hero and the empty state; 上映中 set vertically; a 済 (“done”) seal lands on saved posters." },
-  feel: { hover: "The red plate drifts further out of register.", press: "The plate snaps into register." },
+  icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice, with rays so it rises like the sun.", remove: "A bold cross." },
+  texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter, with faint Hinomaru rays fanning in from the top corner." },
+  motif: {
+    name: "Yokoo rising sun",
+    note: "After Tadanori Yokoo (Mood Board 01, picture 22): a rayed sun in a sawtooth aura with the cinema's eye at its centre, a planet, a cloud and sparkles, behind the hero and the empty state. Category badges are ringed planets; posters and panels are framed in double rules with flag corners; film strips close the header and divide sections; 上映中 stands vertically in extruded type; a rayed 済 (“done”) seal lands on saved posters.",
+  },
+  feel: { hover: "The red plate drifts further out of register; a poster's sawtooth aura flares behind its frame.", press: "The plate snaps into register." },
 };
 
 export const benDay: DesignSystem = {

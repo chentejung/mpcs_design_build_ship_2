@@ -329,6 +329,8 @@
     align-items: center;
     padding: 0.3em 0.65em;
     border-radius: var(--ds-radius-badge);
+    background: var(--cat-bg);
+    color: var(--cat-fg);
     font-family: var(--ds-label-font);
     font-size: calc(var(--ds-label-size) * 0.85);
     font-weight: var(--ds-label-weight);
@@ -383,6 +385,9 @@
   }
   .ds-toast .ds-link {
     text-decoration-color: currentColor;
+  }
+  .ds-rule {
+    border-top: 2px solid var(--ds-border);
   }
   .ds-empty {
     display: grid;
@@ -535,11 +540,35 @@
   }
 
   /* ===================================================================================================
-     Shōwa 昭和: cinema tickets. Buttons have punched side notches, and their icon sits in a perforated stub;
-     filter chips are shop tags (値札) with clipped corners and a punched hole. Every shape prints twice: a
-     color plate sits 3px out of register behind the 2px Sumi keyline, drifts further on hover and snaps into
-     register on press. Checked boxes take a ◯, the mark for "yes" on Japanese forms.
+     Shōwa 昭和: cinema tickets and shop tags, printed like a Tadanori Yokoo poster (Mood Board 01, picture 22).
+     Buttons have punched side notches, and their icon sits in a perforated stub that rays fan out of; filter chips
+     are shop tags (値札) with clipped corners and a punched hole, and a selected tag's rays radiate from the hole.
+     Every shape prints twice: a color plate sits 3px out of register behind the 2px Sumi keyline, drifts further on
+     hover and snaps into register on press. The Yokoo layer: Display type is extruded; a sawtooth aura (後光) rings
+     the brand, the count and a hovered poster; Category badges are ringed planets; posters, panels and the empty
+     state are framed in double rules with flag corners; film strips close the header, the sections and the toast.
+     Kinari is only ever a fill inside Sumi. Checked boxes take a ◯, the mark for "yes" on Japanese forms.
      =================================================================================================== */
+  [data-system="showa"] {
+    /* A film strip: Washi sprocket holes punched in a Sumi band. */
+    --ds-strip: repeating-linear-gradient(90deg, #0000 0 5px, var(--ds-bg) 5px 11px, #0000 11px 16px) 0 50% / 100% 4px no-repeat, var(--ds-text);
+    /* The sawtooth aura, 24 teeth. */
+    --ds-aura: polygon(50% 0%, 55.5% 8.4%, 62.9% 1.7%, 66.1% 11.2%, 75% 6.7%, 75.6% 16.7%, 85.4% 14.6%, 83.3% 24.4%, 93.3% 25%, 88.8% 33.9%, 98.3% 37.1%, 91.6% 44.5%, 100% 50%, 91.6% 55.5%, 98.3% 62.9%, 88.8% 66.1%, 93.3% 75%, 83.3% 75.6%, 85.4% 85.4%, 75.6% 83.3%, 75% 93.3%, 66.1% 88.8%, 62.9% 98.3%, 55.5% 91.6%, 50% 100%, 44.5% 91.6%, 37.1% 98.3%, 33.9% 88.8%, 25% 93.3%, 24.4% 83.3%, 14.6% 85.4%, 16.7% 75.6%, 6.7% 75%, 11.2% 66.1%, 1.7% 62.9%, 8.4% 55.5%, 0% 50%, 8.4% 44.5%, 1.7% 37.1%, 11.2% 33.9%, 6.7% 25%, 16.7% 24.4%, 14.6% 14.6%, 24.4% 16.7%, 25% 6.7%, 33.9% 11.2%, 37.1% 1.7%, 44.5% 8.4%);
+  }
+
+  /* Block type, extruded the Yokoo way: a Hinomaru depth under the Sumi face, closed by a Sumi edge. Type set in
+     Accent stands on a Sumi depth instead. */
+  [data-system="showa"] :is(.ds-display, .ds-extrude) {
+    --depth: var(--ds-accent);
+    text-shadow:
+      0.012em 0.012em 0 var(--depth), 0.024em 0.024em 0 var(--depth), 0.036em 0.036em 0 var(--depth),
+      0.048em 0.048em 0 var(--depth), 0.06em 0.06em 0 var(--depth), 0.072em 0.072em 0 var(--ds-text);
+  }
+  [data-system="showa"] :is(.ds-extrude, .ds-display[class*="ds-accent"]) {
+    --depth: var(--ds-text);
+  }
+
+  /* ----- Tickets and tags ----- */
   [data-system="showa"] :is(.ds-btn, .ds-chip) {
     --ds-off: 3px;
     --ds-plate: transparent;
@@ -549,6 +578,9 @@
     background: transparent;
   }
   [data-system="showa"] .ds-chip {
+    --c: 8px; /* clipped corner */
+    --hole: 3.5px;
+    --hole-x: 14px;
     padding-left: 26px;
   }
   /* Both prints take the control's shape: --shape masks it and --edges strokes its cut edges in --line. */
@@ -574,9 +606,6 @@
   }
   [data-system="showa"] .ds-chip::before,
   [data-system="showa"] .ds-chip::after {
-    --c: 8px; /* clipped corner */
-    --hole: 3.5px;
-    --hole-x: 14px;
     --cut: #0000 calc(var(--c) - 0.5px), var(--line) var(--c) calc(var(--c) + var(--bw)), #0000 calc(var(--c) + var(--bw) + 0.5px);
     --edges:
       linear-gradient(135deg, var(--cut)) top left / 51% 51% no-repeat,
@@ -600,16 +629,21 @@
     --line: var(--ds-text); /* the keyline prints on top */
     --fill: transparent;
   }
-  /* The stub sits at the ticket's end, behind a perforation. */
+  /* The stub sits at the ticket's end, behind a perforation, and rays fan out of it from the icon. */
   [data-system="showa"] .ds-btn:has(.ds-btn-icon) {
     flex-direction: row-reverse;
     justify-content: space-between;
     padding-right: 0.8em;
   }
   [data-system="showa"] .ds-btn-icon {
+    --rays: color-mix(in srgb, var(--ds-accent) 24%, transparent);
     align-self: stretch;
     padding-left: 0.55em;
     border-left: 2px dashed currentColor;
+    background: repeating-conic-gradient(from 4deg at calc(50% + 0.275em) 50%, var(--rays) 0 9deg, #0000 9.5deg 17.5deg, var(--rays) 18deg);
+  }
+  [data-system="showa"] :is(.ds-btn--primary, .ds-btn[aria-pressed="true"], .ds-btn[aria-current="page"]) .ds-btn-icon {
+    --rays: color-mix(in srgb, var(--ds-on-accent) 22%, transparent);
   }
   [data-system="showa"] :is(.ds-btn--primary, .ds-btn[aria-pressed="true"]) {
     --ds-plate: var(--ds-accent);
@@ -624,8 +658,10 @@
   [data-system="showa"] .ds-chip {
     --ds-plate-line: transparent;
   }
+  /* A selected tag prints Ai with darker rays rising from its hole. */
   [data-system="showa"] .ds-chip[aria-pressed="true"] {
-    --ds-plate: var(--ds-selected);
+    --rays: color-mix(in srgb, var(--ds-text) 34%, transparent);
+    --ds-plate: repeating-conic-gradient(from 2deg at var(--hole-x) 50%, var(--rays) 0 8deg, #0000 8.5deg 15.5deg, var(--rays) 16deg), var(--ds-selected);
     --ds-plate-line: var(--ds-selected);
     background: transparent;
   }
@@ -641,12 +677,69 @@
     --line: transparent;
     transform: none;
   }
-  /* Count: a rising-sun disc, stamped with a thin outer ring. */
+
+  /* ----- Count and brand: a rising-sun disc in a Kinari sawtooth aura, keylined in Sumi ----- */
   [data-system="showa"] .ds-count {
+    --aura: 5px;
+    position: relative;
     min-width: 1.9em;
     height: 1.9em;
     border-radius: 50%;
-    box-shadow: 0 0 0 1.5px var(--ds-bg), 0 0 0 3px var(--ds-accent);
+    box-shadow: 0 0 0 1.5px var(--ds-bg);
+  }
+  [data-system="showa"] .ds-brand-mark {
+    --aura: 7px;
+    position: relative;
+    border: 2px solid var(--ds-text);
+    border-radius: 50%;
+    background: var(--ds-accent);
+    color: var(--ds-on-accent);
+    font-family: var(--ds-display-font);
+    font-size: 20px;
+    box-shadow: 0 0 0 2px var(--ds-bg);
+  }
+  /* The aura is drawn below its disc (z-index -1 in the parent's stacking context): Sumi, then Kinari inside it. */
+  [data-system="showa"] :is(.ds-count, .ds-brand-mark)::before,
+  [data-system="showa"] :is(.ds-count, .ds-brand-mark)::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    clip-path: var(--ds-aura);
+    pointer-events: none;
+  }
+  [data-system="showa"] :is(.ds-count, .ds-brand-mark)::before {
+    inset: calc(-1 * var(--aura));
+    background: var(--ds-text);
+  }
+  [data-system="showa"] :is(.ds-count, .ds-brand-mark)::after {
+    inset: calc(1.5px - var(--aura));
+    background: var(--ds-surface);
+  }
+
+  /* ----- Inputs and choices: the same misregistered red plate ----- */
+  [data-system="showa"] :is(.ds-input, .ds-select) {
+    --ds-shadow: 3px 3px 0 0 var(--ds-bg), 3px 3px 0 2px var(--ds-accent);
+    box-shadow: var(--ds-shadow);
+    transition: box-shadow 0.15s ease;
+  }
+  [data-system="showa"] :is(.ds-input, .ds-select):hover:not(:disabled),
+  [data-system="showa"] :is(.ds-input, .ds-select)[data-state="hover"] {
+    --ds-shadow: 5px 5px 0 0 var(--ds-bg), 5px 5px 0 2px var(--ds-accent);
+  }
+  /* The select points down with a hand (指差し) instead of an arrow. */
+  [data-system="showa"] .ds-select-wrap::after {
+    content: "";
+    width: 14px;
+    height: 25px;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 66'%3E%3Cg transform='translate(35 1) rotate(90)' fill='none' stroke='%23000' stroke-width='3.4' stroke-linejoin='round' stroke-linecap='round'%3E%3Crect x='0' y='3' width='11' height='25' rx='2' fill='%23000'/%3E%3Cpath d='M11 8c4-2 9-2 13 0l3 2h33a4.5 4.5 0 0 1 0 9H33v2a4 4 0 0 1 0 8h-2v1a3.5 3.5 0 0 1-3 4H17c-4 0-6-3-6-6Z'/%3E%3Cpath d='M33 21h-7M31 29h-6'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  [data-system="showa"] .ds-box {
+    --ds-shadow: 2px 2px 0 0 var(--ds-bg), 2px 2px 0 1.5px var(--ds-accent);
+    box-shadow: var(--ds-shadow);
+  }
+  [data-system="showa"] .ds-check input[type="radio"]:checked + .ds-box {
+    box-shadow: inset 0 0 0 4px var(--ds-bg), var(--ds-shadow);
   }
   [data-system="showa"] .ds-check input[type="checkbox"] + .ds-box svg,
   [data-system="showa"] .ds-check input[type="checkbox"]:checked + .ds-box svg {
@@ -671,14 +764,34 @@
     opacity: 1;
     scale: 1;
   }
-  [data-system="showa"] .ds-panel {
-    border: 2px solid var(--ds-text);
-    box-shadow: 6px 6px 0 var(--ds-accent);
+  /* A switched-on toggle turns its knob into a sparkle (キラキラ). */
+  [data-system="showa"] .ds-toggle-track {
+    box-shadow: 2px 2px 0 0 var(--ds-bg), 2px 2px 0 2px var(--ds-accent);
   }
-  [data-system="showa"] .ds-frame {
-    padding: 5px;
-    border: var(--ds-card-border) double var(--ds-text);
-    background: var(--ds-bg);
+  [data-system="showa"] .ds-toggle-track::after {
+    transition: left 0.15s ease, background-color 0.15s ease, scale 0.15s ease;
+  }
+  [data-system="showa"] .ds-toggle[aria-checked="true"] .ds-toggle-track::after {
+    clip-path: polygon(50% 0%, 59.2% 40.8%, 100% 50%, 59.2% 59.2%, 50% 100%, 40.8% 59.2%, 0% 50%, 40.8% 40.8%);
+    scale: 1.5;
+  }
+  /* The selected tab stands on a sawtooth. */
+  [data-system="showa"] .ds-tab[aria-selected="true"] {
+    border-bottom-color: transparent;
+    background:
+      conic-gradient(from 135deg at top, #0000, var(--ds-selected) 1deg 89deg, #0000 90deg) 0 calc(100% - 2px) / 12px 6px repeat-x,
+      linear-gradient(var(--ds-selected) 0 0) 0 100% / 100% 3px no-repeat;
+  }
+  /* Links ripple into a wave (波) on hover. */
+  [data-system="showa"] .ds-link:hover,
+  [data-system="showa"] .ds-link[data-state="hover"] {
+    text-decoration-style: wavy;
+    text-decoration-thickness: 1.5px;
+  }
+
+  /* ----- Badges: flat fills keylined in Sumi; on a poster, a ringed planet ----- */
+  [data-system="showa"] .ds-badge {
+    border: 1.5px solid var(--ds-text);
   }
   [data-system="showa"] .ds-category {
     top: -6px;
@@ -688,16 +801,138 @@
     height: 50px;
     place-items: center;
     padding: 0;
+    border: 0;
     border-radius: 50%;
+    background: transparent;
     font-size: 8.5px;
     letter-spacing: 0.04em;
     text-align: center;
     white-space: normal;
     transform: rotate(-12deg);
     outline: 1.5px solid currentColor;
-    outline-offset: -5px;
+    outline-offset: -6px;
   }
-  /* Saved: a 済 ("done") seal in a double ring, Accent as large type on the Scrim. */
+  /* The ring (Kinari between Sumi keylines) passes behind the planet's disc. */
+  [data-system="showa"] .ds-category::before,
+  [data-system="showa"] .ds-category::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  [data-system="showa"] .ds-category::before {
+    inset: 17px -11px;
+    border: 4px solid var(--ds-surface);
+    box-shadow: 0 0 0 1.5px var(--ds-text), inset 0 0 0 1.5px var(--ds-text);
+    rotate: 20deg;
+  }
+  [data-system="showa"] .ds-category::after {
+    inset: 0;
+    border: 2px solid var(--ds-text);
+    background: var(--cat-bg);
+  }
+
+  /* ----- Poster frame, panel, empty state: Yokoo's poster border ----- */
+  [data-system="showa"] .ds-card {
+    isolation: isolate;
+  }
+  [data-system="showa"] .ds-frame {
+    padding: 5px;
+    border: var(--ds-card-border) double var(--ds-text);
+    background: var(--ds-bg);
+  }
+  [data-system="showa"] .ds-panel {
+    position: relative;
+    border: 2px solid var(--ds-text);
+    /* Washi rays fan from the top corner over the Kinari, lightening it under the text. */
+    background:
+      repeating-conic-gradient(from 180deg at 100% 0, color-mix(in srgb, var(--ds-bg) 50%, transparent) 0 4deg, #0000 4.4deg 8.6deg, color-mix(in srgb, var(--ds-bg) 50%, transparent) 9deg),
+      var(--ds-surface);
+    box-shadow: 6px 6px 0 var(--ds-accent);
+  }
+  [data-system="showa"] .ds-empty {
+    position: relative;
+    border: 4px double var(--ds-text);
+  }
+  /* Flag blocks (日の丸) at the corners, straddling the rule. */
+  [data-system="showa"] :is(.ds-frame, .ds-panel, .ds-empty)::after {
+    --f: 12px;
+    --o: calc(var(--ds-card-border) + 2px);
+    --dot: radial-gradient(circle, var(--ds-accent) calc(var(--f) * 0.21), #0000 calc(var(--f) * 0.21 + 0.6px));
+    --paper: linear-gradient(var(--ds-bg) 0 0);
+    --rule: linear-gradient(var(--ds-text) 0 0);
+    content: "";
+    position: absolute;
+    inset: calc(-1 * var(--o));
+    z-index: 1;
+    pointer-events: none;
+    background:
+      var(--dot) left top / var(--f) var(--f) no-repeat, var(--dot) right top / var(--f) var(--f) no-repeat,
+      var(--dot) left bottom / var(--f) var(--f) no-repeat, var(--dot) right bottom / var(--f) var(--f) no-repeat,
+      var(--paper) left 2px top 2px / calc(var(--f) - 4px) calc(var(--f) - 4px) no-repeat,
+      var(--paper) right 2px top 2px / calc(var(--f) - 4px) calc(var(--f) - 4px) no-repeat,
+      var(--paper) left 2px bottom 2px / calc(var(--f) - 4px) calc(var(--f) - 4px) no-repeat,
+      var(--paper) right 2px bottom 2px / calc(var(--f) - 4px) calc(var(--f) - 4px) no-repeat,
+      var(--rule) left top / var(--f) var(--f) no-repeat, var(--rule) right top / var(--f) var(--f) no-repeat,
+      var(--rule) left bottom / var(--f) var(--f) no-repeat, var(--rule) right bottom / var(--f) var(--f) no-repeat;
+  }
+  [data-system="showa"] .ds-panel::after {
+    --f: 14px;
+    --o: 5px;
+  }
+  [data-system="showa"] .ds-empty::after {
+    --f: 18px;
+    --o: 7px;
+  }
+  /* Hover or focus: the poster's sawtooth aura (後光) flares behind its frame. */
+  [data-system="showa"] .ds-frame::before {
+    --t: 6px; /* tooth depth */
+    content: "";
+    position: absolute;
+    inset: calc(-1 * var(--ds-card-border) - 10px);
+    z-index: -1;
+    background: var(--ds-accent);
+    mask:
+      conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 0 0 / calc(2 * var(--t)) var(--t) repeat-x,
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 0 100% / calc(2 * var(--t)) var(--t) repeat-x,
+      conic-gradient(from 45deg at left, #0000, #000 1deg 89deg, #0000 90deg) 0 0 / var(--t) calc(2 * var(--t)) repeat-y,
+      conic-gradient(from -135deg at right, #0000, #000 1deg 89deg, #0000 90deg) 100% 0 / var(--t) calc(2 * var(--t)) repeat-y,
+      linear-gradient(#000 0 0) 50% 50% / calc(100% - 2 * var(--t)) calc(100% - 2 * var(--t)) no-repeat;
+    opacity: 0;
+    scale: 0.92;
+    pointer-events: none;
+    transition: opacity 0.15s ease, scale 0.25s cubic-bezier(0.3, 1.5, 0.5, 1);
+  }
+  [data-system="showa"] .ds-card:is(:hover, [data-state="hover"], :has(:focus-visible, [data-state="focus"])) .ds-frame::before {
+    opacity: 1;
+    scale: 1;
+  }
+  /* The fallback behind each poster: Washi rays over Kinari, turning slowly while the poster loads. */
+  [data-system="showa"] .ds-poster-fallback {
+    isolation: isolate;
+    overflow: hidden;
+  }
+  [data-system="showa"] .ds-poster-fallback::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    z-index: -1;
+    background: repeating-conic-gradient(color-mix(in srgb, var(--ds-bg) 55%, transparent) 0 7deg, #0000 7.5deg 14.5deg, color-mix(in srgb, var(--ds-bg) 55%, transparent) 15deg);
+  }
+  [data-system="showa"] .ds-poster[data-poster="loading"] .ds-poster-fallback {
+    animation: none;
+  }
+  [data-system="showa"] .ds-poster[data-poster="loading"] .ds-poster-fallback::before {
+    animation: ds-turn 16s linear infinite;
+  }
+  @keyframes ds-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  /* Saved: a 済 ("done") seal in a double ring, Accent as large type on the Scrim, with rays around it. */
   [data-system="showa"] .ds-saved-stamp {
     right: -6px;
     bottom: 14px;
@@ -714,18 +949,54 @@
   [data-system="showa"] .ds-saved-stamp::before {
     content: "済";
   }
-  [data-system="showa"] .ds-header {
-    border-bottom: 4px double var(--ds-text);
-  }
-  [data-system="showa"] .ds-brand-mark {
-    border-radius: 50%;
+  [data-system="showa"] .ds-saved-stamp::after {
+    content: "";
+    position: absolute;
+    inset: -16px;
+    z-index: -1;
     background: var(--ds-accent);
-    color: var(--ds-on-accent);
-    font-family: var(--ds-display-font);
-    font-size: 20px;
+    mask:
+      radial-gradient(closest-side, #0000 calc(100% - 9px), #000 calc(100% - 8.5px) calc(100% - 0.5px), #0000 100%),
+      repeating-conic-gradient(#000 0 7deg, #0000 7.5deg 22deg, #000 22.5deg);
+    mask-composite: intersect;
+  }
+
+  /* ----- Film strips: the header's edge, section rules and the toast ----- */
+  [data-system="showa"] .ds-header {
+    padding-bottom: 12px;
+  }
+  [data-system="showa"] .ds-header::after,
+  [data-system="showa"] .ds-rule::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 12px;
+    background: var(--ds-strip);
+    pointer-events: none;
+  }
+  [data-system="showa"] .ds-header::after {
+    bottom: 0;
+  }
+  [data-system="showa"] .ds-rule {
+    position: relative;
+    border-top: 0;
+  }
+  [data-system="showa"] .ds-rule::before {
+    top: 0;
+    height: 10px;
   }
   [data-system="showa"] .ds-toast {
+    --holes: repeating-linear-gradient(90deg, var(--ds-bg) 0 6px, #0000 6px 16px);
+    padding-block: 20px;
+    background: var(--holes) 6px 5px / 100% 4px no-repeat, var(--holes) 6px calc(100% - 5px) / 100% 4px no-repeat, var(--ds-text);
     box-shadow: 5px 5px 0 var(--ds-accent);
+  }
+  [data-system="showa"] .ds-row {
+    border-bottom: 2px dashed var(--ds-border);
+  }
+  [data-system="showa"] .ds-row .ds-poster {
+    border: 2px solid var(--ds-text);
   }
 
   /* ===================================================================================================
