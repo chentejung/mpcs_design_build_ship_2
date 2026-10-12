@@ -5,6 +5,7 @@
 // distance, weighting all pixels and saturated pixels (chroma > 30) equally so small vivid inks
 // aren't outvoted by paper. The paper, ink and lead red swatches are always kept.
 // `share` = % of pixels across the 30 pictures (each weighted equally) nearest this color, rounded to sum to 100.
+// Palettes and shares were computed with the claude-*.svg originals, before the generated ones replaced them.
 
 export type Swatch = {
   key: string;
@@ -27,9 +28,10 @@ export type Board = {
 };
 
 // File names say where a picture came from: pinterest-NN-<title>.jpg for references,
-// claude-NN-<title>.svg for originals drawn by Claude (see components/artifacts).
+// generated-NN-<title>.webp for AI-generated originals, claude-NN-<title>.svg for the earlier originals
+// drawn by Claude, no longer shown (see components/artifacts).
 export const slug = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-export const fileName = (source: "pinterest" | "claude", n: number, title: string, ext: string) =>
+export const fileName = (source: "pinterest" | "generated" | "claude", n: number, title: string, ext: string) =>
   `${source}-${String(n).padStart(2, "0")}-${slug(title)}.${ext}`;
 
 function refs(id: string, pins: string[], titles: string[]): Reference[] {

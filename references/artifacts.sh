@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Close-up inspection of a board's ORIGINAL artifacts (claude-*.svg; pinterest-* references are skipped), 3 per row at ~580px.
+# Close-up inspection of a board's ORIGINAL artifacts (generated-*.webp; pinterest-* references are skipped), 3 per row at ~580px.
 # Usage: bash references/artifacts.sh <board-id> [start=1] [count=6] [output.png]
 # Uses the current build in out/ (run serve.sh first). A temporary copy is served on port 8001
 # so fonts load same-origin; the user's preview on port 8000 is untouched.
@@ -21,7 +21,7 @@ import re, sys
 src, dst, start, count = sys.argv[1], sys.argv[2], int(sys.argv[3]), int(sys.argv[4])
 html = open(src, encoding="utf-8").read()
 html = re.sub(r"<script\b[^>]*>.*?</script>", "", html, flags=re.S)  # static markup only
-figures = [f for f in re.findall(r"<figure\b.*?</figure>", html, flags=re.S) if "/claude-" in f]
+figures = [f for f in re.findall(r"<figure\b.*?</figure>", html, flags=re.S) if "/generated-" in f]
 pick = figures[start - 1 : start - 1 + count]
 head = html[: html.index("<body")]
 body = ('<body style="margin:0;padding:16px;background:#777">'

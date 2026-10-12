@@ -1,10 +1,16 @@
 // Export every original artifact (SVG components) to a standalone file in public/moodboards/<board>/,
 // named claude-NN-<title>.svg so Claude-made pictures are distinguishable from pinterest-NN-*.jpg references.
 // Usage: npx tsx references/export-originals.tsx   (serve.sh runs this before every build)
+// Board pages now show the generated-*.webp originals instead; these SVGs are kept but not shown.
 import fs from "node:fs";
 import path from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
-import { originalsByBoard } from "@/components/artifacts";
+import { fileName } from "@/app/boards";
+import { originals as americanComics } from "@/components/artifacts/american-comics";
+import { originals as chineseRetro } from "@/components/artifacts/chinese-retro";
+import { originals as japaneseRetro } from "@/components/artifacts/japanese-retro";
+
+const svgOriginals = { "japanese-retro": japaneseRetro, "american-comics": americanComics, "chinese-retro": chineseRetro };
 
 const root = path.resolve(__dirname, "..");
 // Pictures shown via <img> can't reach the page's web fonts, so embed the one web font the art uses.
@@ -12,10 +18,11 @@ const bangers = fs.readFileSync(path.join(root, "node_modules/@fontsource/banger
 const fontFace = `<style>@font-face{font-family:Bangers;src:url(data:font/woff2;base64,${bangers}) format("woff2");}</style>`;
 
 let total = 0;
-for (const [board, originals] of Object.entries(originalsByBoard)) {
+for (const [board, originals] of Object.entries(svgOriginals)) {
   const dir = path.join(root, "public/moodboards", board);
   for (const stale of fs.readdirSync(dir).filter((f) => f.startsWith("claude-"))) fs.rmSync(path.join(dir, stale));
-  for (const { Component, src } of originals) {
+  for (const [i, { Component, title }] of originals.entries()) {
+    const src = `/moodboards/${board}/${fileName("claude", i + 1, title, "svg")}`;
     let svg = renderToStaticMarkup(<Component />);
     const [, w, h] = svg.match(/viewBox="0 0 (\d+) (\d+)"/)!;
     svg = svg
