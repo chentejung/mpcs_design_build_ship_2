@@ -1,14 +1,14 @@
 // Original Japanese-retro artifacts, drawn the way the board's references are printed:
 // Showa screen prints and riso posters — flat inks, stippled shading, solid cast shadows,
 // worn ink on cream stock, katakana/mincho titles, vertical copy, English fine print, hanko seals.
-import { colors, japaneseRetro } from "@/app/boards";
+import { colors, japaneseRetro } from "@/app/catalog-boards";
 import { Dots, Fine, Hatch, Print, Stipple, VText, burst, rand, type Original, type Texture } from "./print";
 
 const c = colors(japaneseRetro);
 const gothic = "'Hiragino Sans','Noto Sans JP','Noto Sans CJK JP','Yu Gothic',sans-serif";
 const mincho = "'Hiragino Mincho ProN','Noto Serif JP','Noto Serif CJK JP','Yu Mincho',serif";
 const latin = "'Helvetica Neue',Arial,sans-serif";
-const tex = (seed: number, extra: Texture = {}): Texture => ({ grain: 0.45, wear: 0.35, rough: 1.1, age: c.kogecha, ageStrength: 0.35, seed, ...extra });
+const tex = (seed: number, extra: Texture = {}): Texture => ({ grain: 0.45, wear: 0.35, rough: 1.1, age: c.sumi, ageStrength: 0.35, seed, ...extra });
 
 // Red seal stamp; characters run top-to-bottom, columns right-to-left.
 function Hanko({ x, y, s = 30, chars, color = c.hinomaru, paper = c.washi }: { x: number; y: number; s?: number; chars: string; color?: string; paper?: string }) {
@@ -49,7 +49,7 @@ function Crane({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
   );
 }
 
-function Palm({ x, y, h, lean, s = 1, trunk = c.kogecha, leaf = c.koke }: { x: number; y: number; h: number; lean: number; s?: number; trunk?: string; leaf?: string }) {
+function Palm({ x, y, h, lean, s = 1, trunk = c.sumi, leaf = c.koke }: { x: number; y: number; h: number; lean: number; s?: number; trunk?: string; leaf?: string }) {
   const tx = x + lean, ty = y - h;
   return (
     <g>
@@ -84,7 +84,7 @@ export function SunriseCrane() {
     </>}>
       <rect x="14" y="14" width="272" height="392" fill={c.kinari} />
       <circle cx="150" cy="196" r="98" fill={c.hinomaru} />
-      <circle cx="150" cy="196" r="98" fill={c.kogecha} opacity="0.5" filter={`url(#${id}-st)`} />
+      <circle cx="150" cy="196" r="98" fill={c.sumi} opacity="0.5" filter={`url(#${id}-st)`} />
       <rect x="14" y="286" width="272" height="120" fill={`url(#${id}-sea)`} />
       <rect x="14" y="282" width="272" height="7" fill={c.ai} />
       <Crane x={160} y={196} s={0.95} />
@@ -101,7 +101,7 @@ export function SunriseCrane() {
 export function MatchboxLabel() {
   const id = "jr-match";
   return (
-    <Print id={id} w={300} h={300} bg={c.karashi} texture={tex(21, { wear: 0.5 })} defs={<>
+    <Print id={id} w={300} h={300} bg={c.kinari} texture={tex(21, { wear: 0.5 })} defs={<>
       <Dots id={`${id}-dots`} color={c.hinomaru} r={1.3} gap={4.2} bg={c.washi} />
       <Stipple id={`${id}-st`} density={0.3} seed={9} />
     </>}>
@@ -111,7 +111,7 @@ export function MatchboxLabel() {
       <text x="150" y="44" textAnchor="middle" fontFamily={latin} fontWeight="800" fontSize="14" letterSpacing="5" fill={c.washi}>SAFETY MATCHES</text>
       <circle cx="150" cy="140" r="72" fill={`url(#${id}-dots)`} stroke={c.sumi} strokeWidth="2.5" />
       <circle cx="150" cy="140" r="60" fill={c.hinomaru} stroke={c.sumi} strokeWidth="1.5" />
-      <circle cx="150" cy="140" r="60" fill={c.kogecha} opacity="0.45" filter={`url(#${id}-st)`} />
+      <circle cx="150" cy="140" r="60" fill={c.sumi} opacity="0.45" filter={`url(#${id}-st)`} />
       <path d="M96 176 Q120 168 150 178 Q180 168 204 176 L204 186 Q150 176 96 186Z" fill={c.ai} />
       <Crane x={156} y={146} s={0.46} />
       {[["安", 40], ["全", 260]].map(([ch, x]) => (
@@ -150,9 +150,9 @@ export function ShinkansenPoster() {
         {Array.from({ length: 14 }, (_, i) => <rect key={i} x={2 + i * 13} y="292" width="1.6" height="12" fill={c.washi} />)}
         <path d="M196 290 C220 290 238 296 252 306 L214 306Z" fill={c.ai} />
         <path d="M-10 318 H226 C248 318 264 322 278 328 C264 334 240 336 200 336 H-10Z" fill={c.ai} />
-        <circle cx="282" cy="323" r="3" fill={c.karashi} />
+        <circle cx="282" cy="323" r="3" fill={c.kinari} />
         <path d="M70 284 l9 -13 l9 13 M150 284 l9 -13 l9 13" stroke={c.sumi} strokeWidth="1.5" fill="none" />
-        <rect x="-10" y="336" width="300" height="20" fill={c.kogecha} />
+        <rect x="-10" y="336" width="300" height="20" fill={c.sumi} />
         <line x1="14" y1="339" x2="286" y2="339" stroke={c.washi} strokeWidth="1.2" />
         {Array.from({ length: 28 }, (_, i) => <rect key={i} x={16 + i * 10} y="342" width="5" height="3" fill={c.sumi} />)}
         <rect x="14" y="356" width="272" height="50" fill={c.washi} />
@@ -191,7 +191,7 @@ export function CreamSoda() {
       <path d="M118 60 L142 220" stroke={c.hinomaru} strokeWidth="9" strokeDasharray="10 10" />
       <path d={glass} fill={c.washi} opacity="0.55" />
       <g clipPath={`url(#${id}-glass)`}>
-        <rect x="80" y="176" width="140" height="200" fill={c.seiji} />
+        <rect x="80" y="176" width="140" height="200" fill={c.koke} />
         <rect x="160" y="176" width="60" height="200" fill={c.ai} opacity="0.35" filter={`url(#${id}-st)`} />
         {bubbles.map(([x, y, rad], i) => <circle key={i} cx={x} cy={y} r={rad} fill="none" stroke={c.washi} strokeWidth="1.2" />)}
         <rect x="112" y="182" width="30" height="26" rx="5" fill={c.washi} opacity="0.55" transform="rotate(-12 127 195)" />
@@ -250,8 +250,8 @@ export function TokyoTower() {
         {buildings.map((b, i) => (
           <g key={i}>
             <rect x={b.x} y={406 - b.h} width={b.w} height={b.h} fill={c.sumi} />
-            {Array.from({ length: Math.floor(b.h / 12) }, (_, j) => (r() > 0.45 ? <rect key={j} x={b.x + 4} y={412 - b.h + j * 12} width="3" height="4" fill={c.karashi} /> : null))}
-            {Array.from({ length: Math.floor(b.h / 12) }, (_, j) => (r() > 0.55 ? <rect key={`b${j}`} x={b.x + 11} y={412 - b.h + j * 12} width="3" height="4" fill={c.karashi} /> : null))}
+            {Array.from({ length: Math.floor(b.h / 12) }, (_, j) => (r() > 0.45 ? <rect key={j} x={b.x + 4} y={412 - b.h + j * 12} width="3" height="4" fill={c.kinari} /> : null))}
+            {Array.from({ length: Math.floor(b.h / 12) }, (_, j) => (r() > 0.55 ? <rect key={`b${j}`} x={b.x + 11} y={412 - b.h + j * 12} width="3" height="4" fill={c.kinari} /> : null))}
           </g>
         ))}
       </g>
@@ -272,19 +272,19 @@ export function CityPopRecord() {
       <clipPath id={`${id}-sky`}><rect x="52" y="14" width="234" height="148" /></clipPath>
     </>}>
       <g clipPath={`url(#${id}-clip)`}>
-        {[[14, 60, c.ai], [74, 34, c.momo], [108, 28, c.kaki], [136, 26, c.karashi]].map(([y, hh, col]) => (
+        {[[14, 60, c.ai], [74, 34, c.hinomaru], [108, 28, c.hinomaru], [136, 26, c.kinari]].map(([y, hh, col]) => (
           <rect key={y as number} x="52" y={y as number} width="234" height={hh as number} fill={col as string} />
         ))}
         <g clipPath={`url(#${id}-sky)`}>
           <circle cx="170" cy="162" r="52" fill={c.washi} />
-          {[[132, 3], [142, 4], [151, 5]].map(([y, hh]) => <rect key={y} x="110" y={y} width="120" height={hh} fill={c.karashi} />)}
+          {[[132, 3], [142, 4], [151, 5]].map(([y, hh]) => <rect key={y} x="110" y={y} width="120" height={hh} fill={c.kinari} />)}
         </g>
         <rect x="200" y="98" width="86" height="102" fill={c.washi} />
         <rect x="258" y="98" width="28" height="102" fill={c.ai} opacity="0.6" />
-        {[112, 136, 160].map((y) => <rect key={y} x="208" y={y} width="44" height="12" fill={c.seiji} />)}
+        {[112, 136, 160].map((y) => <rect key={y} x="208" y={y} width="44" height="12" fill={c.koke} />)}
         <rect x="52" y="162" width="234" height="18" fill={c.washi} />
         {Array.from({ length: 12 }, (_, i) => <line key={i} x1={52 + i * 20} y1="174" x2={52 + i * 20} y2="180" stroke={c.kinari} strokeWidth="1" />)}
-        <rect x="52" y="180" width="234" height="106" fill={c.seiji} />
+        <rect x="52" y="180" width="234" height="106" fill={c.ai} />
         {ripples.map((y, i) => (
           <path key={y} d={`M${52 + (i % 2) * 14} ${y} q10 -4 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0`} stroke={c.washi} strokeWidth="1.4" fill="none" opacity={0.9 - i * 0.07} />
         ))}
@@ -295,7 +295,7 @@ export function CityPopRecord() {
       <VText x={33} y={28} text="シティポップ名盤" size={15} fill={c.washi} font={gothic} weight={900} />
       <VText x={33} y={210} text="税込二八〇〇円" size={7.5} fill={c.washi} font={gothic} />
       <text x="64" y="42" fontFamily={latin} fontWeight="800" fontSize="20" fill={c.washi} letterSpacing="1.5">MIDNIGHT POOL</text>
-      <text x="65" y="58" fontFamily={gothic} fontWeight="700" fontSize="10" fill={c.momo} letterSpacing="2">真夜中のプール</text>
+      <text x="65" y="58" fontFamily={gothic} fontWeight="700" fontSize="10" fill={c.hinomaru} letterSpacing="2">真夜中のプール</text>
       <text x="278" y="278" textAnchor="end" fontFamily={latin} fontWeight="700" fontSize="8" fill={c.washi} letterSpacing="3">YUKI HAYASE · 1983</text>
       <Frame w={300} h={300} />
     </Print>
@@ -310,36 +310,36 @@ export function KissatenMenu() {
       <clipPath id={`${id}-cup`}><path d="M74 96 H146 Q144 134 110 136 Q76 134 74 96Z" /></clipPath>
       <Stipple id={`${id}-st`} density={0.32} seed={6} />
     </>}>
-      <rect x="14" y="14" width="272" height="392" fill="none" stroke={c.kogecha} strokeWidth="3" />
-      <rect x="21" y="21" width="258" height="378" fill="none" stroke={c.kogecha} strokeWidth="1" />
-      {[0, 1, 2].map((i) => <path key={i} d={`M${100 + i * 10} 86 q-6 -10 0 -20 t0 -20`} stroke={c.kogecha} strokeWidth="1.6" fill="none" opacity="0.7" />)}
+      <rect x="14" y="14" width="272" height="392" fill="none" stroke={c.sumi} strokeWidth="3" />
+      <rect x="21" y="21" width="258" height="378" fill="none" stroke={c.sumi} strokeWidth="1" />
+      {[0, 1, 2].map((i) => <path key={i} d={`M${100 + i * 10} 86 q-6 -10 0 -20 t0 -20`} stroke={c.sumi} strokeWidth="1.6" fill="none" opacity="0.7" />)}
       <ellipse cx="112" cy="138" rx="50" ry="10" fill={c.washi} stroke={c.sumi} strokeWidth="2" />
       <path d="M146 104 Q166 104 161 119 Q156 130 140 127" stroke={c.sumi} strokeWidth="4" fill="none" />
       <path d="M74 96 H146 Q144 134 110 136 Q76 134 74 96Z" fill={c.washi} />
       <g clipPath={`url(#${id}-cup)`}>
         <rect x="70" y="108" width="80" height="6" fill={c.ai} />
-        <rect x="120" y="96" width="30" height="42" fill={c.kogecha} opacity="0.45" filter={`url(#${id}-st)`} />
+        <rect x="120" y="96" width="30" height="42" fill={c.sumi} opacity="0.45" filter={`url(#${id}-st)`} />
       </g>
       <path d="M74 96 H146 Q144 134 110 136 Q76 134 74 96Z" fill="none" stroke={c.sumi} strokeWidth="2" />
       <ellipse cx="110" cy="96" rx="36" ry="7" fill={c.washi} stroke={c.sumi} strokeWidth="2" />
-      <ellipse cx="110" cy="97" rx="30" ry="4.5" fill={c.kogecha} />
+      <ellipse cx="110" cy="97" rx="30" ry="4.5" fill={c.sumi} />
       <ellipse cx="206" cy="140" rx="42" ry="8" fill={c.washi} stroke={c.sumi} strokeWidth="2" />
-      <path d="M178 137 L187 100 Q206 94 225 100 L234 137Z" fill={c.karashi} stroke={c.sumi} strokeWidth="2" />
-      <path d="M210 100 L216 137 H234 L225 100Z" fill={c.kaki} opacity="0.5" filter={`url(#${id}-st)`} />
-      <path d="M187 100 Q206 94 225 100 L223 110 Q215 105 211 112 Q205 105 199 113 Q193 105 188 110Z" fill={c.kogecha} />
+      <path d="M178 137 L187 100 Q206 94 225 100 L234 137Z" fill={c.kinari} stroke={c.sumi} strokeWidth="2" />
+      <path d="M210 100 L216 137 H234 L225 100Z" fill={c.hinomaru} opacity="0.5" filter={`url(#${id}-st)`} />
+      <path d="M187 100 Q206 94 225 100 L223 110 Q215 105 211 112 Q205 105 199 113 Q193 105 188 110Z" fill={c.sumi} />
       <path d="M194 98 Q196 84 206 84 Q218 84 218 98Z" fill={c.washi} stroke={c.sumi} strokeWidth="1.5" />
       <circle cx="206" cy="80" r="6" fill={c.hinomaru} stroke={c.sumi} strokeWidth="1.5" />
-      <text x="150" y="192" textAnchor="middle" fontFamily={mincho} fontWeight="900" fontSize="34" fill={c.kogecha}>喫茶 純</text>
+      <text x="150" y="192" textAnchor="middle" fontFamily={mincho} fontWeight="900" fontSize="34" fill={c.sumi}>喫茶 純</text>
       <text x="150" y="212" textAnchor="middle" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill={c.hinomaru}>Kissaten Jun — since 1972</text>
-      <line x1="56" y1="226" x2="244" y2="226" stroke={c.kogecha} />
+      <line x1="56" y1="226" x2="244" y2="226" stroke={c.sumi} />
       {items.map(([n, p], i) => (
         <g key={n} fontFamily={gothic} fontSize="13" fill={c.sumi}>
           <text x="44" y={256 + i * 28}>{n}</text>
           <text x="256" y={256 + i * 28} textAnchor="end">{p}円</text>
-          <line x1="44" y1={263 + i * 28} x2="256" y2={263 + i * 28} stroke={c.kogecha} strokeDasharray="1.5 3.5" />
+          <line x1="44" y1={263 + i * 28} x2="256" y2={263 + i * 28} stroke={c.sumi} strokeDasharray="1.5 3.5" />
         </g>
       ))}
-      <Fine x={44} y={392} lines={["営業 8:00 — 22:00 · 定休日 水曜"]} size={7} fill={c.kogecha} font={gothic} weight={700} />
+      <Fine x={44} y={392} lines={["営業 8:00 — 22:00 · 定休日 水曜"]} size={7} fill={c.sumi} font={gothic} weight={700} />
       <Hanko x={238} y={370} s={26} chars="純" />
     </Print>
   );
@@ -352,7 +352,7 @@ export function SentoNoren() {
       <Hatch id={`${id}-planks`} color={c.sumi} width={0.8} gap={11} angle={0} />
       <Stipple id={`${id}-st`} density={0.22} seed={14} />
     </>}>
-      <rect x="14" y="96" width="272" height="294" fill={c.kogecha} />
+      <rect x="14" y="96" width="272" height="294" fill={c.sumi} />
       <rect x="14" y="96" width="272" height="294" fill={`url(#${id}-planks)`} opacity="0.35" transform="rotate(90 150 243)" />
       <path d="M8 98 Q82 98 112 62 Q150 24 188 62 Q218 98 292 98 V110 H8Z" fill={c.sumi} />
       {[0, 1, 2, 3].map((i) => <path key={i} d={`M${24 + i * 4} ${101 - i * 4} Q${86 + i * 2} ${101 - i * 4} ${114 + i * 1} ${66 - i * 3}`} stroke={c.washi} strokeWidth="0.8" fill="none" opacity="0.5" />)}
@@ -396,10 +396,10 @@ export function RedFujiStamp() {
       {perfX.map((x) => <g key={x}><circle cx={x} cy="14" r="5" fill={c.kinari} /><circle cx={x} cy="306" r="5" fill={c.kinari} /></g>)}
       {perfY.map((y) => <g key={y}><circle cx="14" cy={y} r="5" fill={c.kinari} /><circle cx="246" cy={y} r="5" fill={c.kinari} /></g>)}
       <g clipPath={`url(#${id}-img)`}>
-        <rect x="26" y="26" width="208" height="244" fill={c.seiji} />
+        <rect x="26" y="26" width="208" height="244" fill={c.ai} />
         {[[40, 70, 74], [96, 86, 90], [150, 58, 66], [60, 102, 50]].map(([x, y, w]) => <rect key={x} x={x} y={y} width={w} height="7" rx="3.5" fill={c.washi} />)}
         <path d="M26 270 V236 L110 112 Q130 100 150 112 L234 226 V270Z" fill={c.hinomaru} />
-        <path d="M130 106 Q150 108 234 226 V270 H160Z" fill={c.kogecha} opacity="0.5" filter={`url(#${id}-st)`} />
+        <path d="M130 106 Q150 108 234 226 V270 H160Z" fill={c.sumi} opacity="0.5" filter={`url(#${id}-st)`} />
         {[[118, 112, 104, 150], [126, 108, 120, 156], [136, 108, 140, 152], [144, 110, 156, 146]].map(([x1, y1, x2, y2]) => (
           <path key={x1} d={`M${x1} ${y1} L${x2} ${y2}`} stroke={c.washi} strokeWidth="3" strokeLinecap="round" />
         ))}
@@ -437,18 +437,18 @@ export function RainyAlley() {
         <polygon points="14,14 116,150 116,326 14,406" fill={c.ai} />
         <polygon points="286,14 184,150 184,326 286,406" fill={c.ai} opacity="0.75" />
         <rect x="116" y="150" width="68" height="176" fill={c.sumi} />
-        <polygon points="14,406 116,326 184,326 286,406" fill={c.kogecha} opacity="0.6" />
+        <polygon points="14,406 116,326 184,326 286,406" fill={c.sumi} opacity="0.6" />
         <g filter={`url(#${id}-blur)`} opacity="0.55">
-          <rect x="44" y="300" width="22" height="100" fill={c.karashi} />
-          <rect x="236" y="310" width="22" height="90" fill={c.seiji} />
-          <rect x="140" y="330" width="16" height="60" fill={c.momo} />
+          <rect x="44" y="300" width="22" height="100" fill={c.kinari} />
+          <rect x="236" y="310" width="22" height="90" fill={c.koke} />
+          <rect x="140" y="330" width="16" height="60" fill={c.hinomaru} />
         </g>
         <g filter={`url(#${id}-glow)`}>
           <rect x="38" y="56" width="34" height="170" rx="4" fill="none" stroke={c.hinomaru} strokeWidth="2.5" />
-          <text x="55" y="66" fontFamily={gothic} fontWeight="900" fontSize="26" fill="none" stroke={c.karashi} strokeWidth="1.6" style={{ writingMode: "vertical-rl" }}>スナック</text>
-          <rect x="228" y="80" width="34" height="150" rx="4" fill="none" stroke={c.seiji} strokeWidth="2.5" />
-          <text x="245" y="92" fontFamily={mincho} fontWeight="900" fontSize="28" fill="none" stroke={c.seiji} strokeWidth="1.6" style={{ writingMode: "vertical-rl" }}>居酒屋</text>
-          <text x="150" y="190" textAnchor="middle" fontFamily={latin} fontWeight="800" fontSize="16" fill="none" stroke={c.momo} strokeWidth="1.4" letterSpacing="2">BAR</text>
+          <text x="55" y="66" fontFamily={gothic} fontWeight="900" fontSize="26" fill="none" stroke={c.kinari} strokeWidth="1.6" style={{ writingMode: "vertical-rl" }}>スナック</text>
+          <rect x="228" y="80" width="34" height="150" rx="4" fill="none" stroke={c.koke} strokeWidth="2.5" />
+          <text x="245" y="92" fontFamily={mincho} fontWeight="900" fontSize="28" fill="none" stroke={c.koke} strokeWidth="1.6" style={{ writingMode: "vertical-rl" }}>居酒屋</text>
+          <text x="150" y="190" textAnchor="middle" fontFamily={latin} fontWeight="800" fontSize="16" fill="none" stroke={c.hinomaru} strokeWidth="1.4" letterSpacing="2">BAR</text>
           {[0, 1, 2].map((i) => <ellipse key={i} cx={126 + i * 10} cy={220 + i * 4} rx="4" ry="5.5" fill={c.hinomaru} />)}
         </g>
         {rain.map(([x, y, l], i) => <line key={i} x1={x} y1={y} x2={x - 3} y2={y + l} stroke={c.washi} strokeWidth="0.8" opacity="0.35" />)}
@@ -477,42 +477,42 @@ export function ManekiNeko() {
       <g clipPath={`url(#${id}-clip)`}>
         <rect x="14" y="14" width="272" height="392" fill={c.kinari} />
         <circle cx="150" cy="206" r="124" fill={c.hinomaru} />
-        <circle cx="150" cy="206" r="124" fill={c.kogecha} opacity="0.4" filter={`url(#${id}-st)`} />
+        <circle cx="150" cy="206" r="124" fill={c.sumi} opacity="0.4" filter={`url(#${id}-st)`} />
         <rect x="46" y="360" width="208" height="38" rx="8" fill={c.ai} />
-        {[56, 244].map((x) => <circle key={x} cx={x} cy="398" r="6" fill={c.karashi} />)}
+        {[56, 244].map((x) => <circle key={x} cx={x} cy="398" r="6" fill={c.kinari} />)}
       </g>
       <ellipse cx="150" cy="300" rx="82" ry="78" fill={c.washi} />
       <g clipPath={`url(#${id}-body)`}>
-        <path d="M180 240 Q240 260 236 340 L200 360 Q190 300 180 240Z" fill={c.kaki} />
-        <rect x="170" y="220" width="70" height="160" fill={c.kogecha} opacity="0.4" filter={`url(#${id}-st)`} />
+        <path d="M180 240 Q240 260 236 340 L200 360 Q190 300 180 240Z" fill={c.hinomaru} />
+        <rect x="170" y="220" width="70" height="160" fill={c.sumi} opacity="0.4" filter={`url(#${id}-st)`} />
       </g>
       <ellipse cx="150" cy="300" rx="82" ry="78" fill="none" stroke={c.sumi} strokeWidth="2.5" />
       <path d="M186 236 Q214 206 210 156 Q208 122 228 118 Q248 118 248 142 Q248 172 228 204 Q214 234 208 254Z" fill={c.washi} stroke={c.sumi} strokeWidth="2.5" />
-      {[[224, 126], [236, 128], [244, 138]].map(([x, y]) => <circle key={x} cx={x} cy={y} r="3.2" fill={c.momo} />)}
+      {[[224, 126], [236, 128], [244, 138]].map(([x, y]) => <circle key={x} cx={x} cy={y} r="3.2" fill={c.hinomaru} />)}
       <path d="M96 146 L100 86 L140 114Z M204 146 L200 86 L160 114Z" fill={c.washi} stroke={c.sumi} strokeWidth="2.5" strokeLinejoin="round" />
-      <path d="M104 132 L106 100 L128 116Z M196 132 L194 100 L172 116Z" fill={c.momo} />
+      <path d="M104 132 L106 100 L128 116Z M196 132 L194 100 L172 116Z" fill={c.hinomaru} />
       <circle cx="150" cy="172" r="64" fill={c.washi} />
       <g clipPath={`url(#${id}-head)`}>
-        <path d="M84 100 Q130 96 136 140 Q110 150 84 140Z" fill={c.kaki} />
+        <path d="M84 100 Q130 96 136 140 Q110 150 84 140Z" fill={c.hinomaru} />
         <path d="M170 100 Q214 104 218 150 Q192 140 176 128Z" fill={c.sumi} />
-        <rect x="170" y="108" width="60" height="130" fill={c.kogecha} opacity="0.35" filter={`url(#${id}-st)`} />
+        <rect x="170" y="108" width="60" height="130" fill={c.sumi} opacity="0.35" filter={`url(#${id}-st)`} />
       </g>
       <circle cx="150" cy="172" r="64" fill="none" stroke={c.sumi} strokeWidth="2.5" />
       {[126, 174].map((x) => (
         <g key={x}>
-          <ellipse cx={x} cy="168" rx="11" ry="12" fill={c.karashi} stroke={c.sumi} strokeWidth="2" />
+          <ellipse cx={x} cy="168" rx="11" ry="12" fill={c.kinari} stroke={c.sumi} strokeWidth="2" />
           <ellipse cx={x} cy="168" rx="3" ry="9" fill={c.sumi} />
         </g>
       ))}
-      <path d="M144 186 H156 L150 193Z" fill={c.momo} stroke={c.sumi} strokeWidth="1" />
+      <path d="M144 186 H156 L150 193Z" fill={c.hinomaru} stroke={c.sumi} strokeWidth="1" />
       <path d="M150 193 Q144 202 135 197 M150 193 Q156 202 165 197" stroke={c.sumi} strokeWidth="2" fill="none" />
       {[[-1, 0], [-1, 8], [1, 0], [1, 8]].map(([d, o]) => <line key={`${d}${o}`} x1={150 + d * 24} y1={188 + o} x2={150 + d * 62} y2={180 + o * 1.8} stroke={c.sumi} strokeWidth="1.2" />)}
-      {[118, 182].map((x) => <circle key={x} cx={x} cy="194" r="7" fill={c.momo} opacity="0.7" />)}
+      {[118, 182].map((x) => <circle key={x} cx={x} cy="194" r="7" fill={c.hinomaru} opacity="0.7" />)}
       <path d="M98 226 Q150 250 202 226 L204 238 Q150 264 96 238Z" fill={c.hinomaru} stroke={c.sumi} strokeWidth="1.5" />
-      <circle cx="150" cy="254" r="13" fill={c.karashi} stroke={c.kogecha} strokeWidth="2" />
-      <path d="M144 256 H156 M150 256 V266" stroke={c.kogecha} strokeWidth="2" />
-      <ellipse cx="124" cy="306" rx="28" ry="42" fill={c.karashi} stroke={c.kogecha} strokeWidth="2" />
-      <ellipse cx="124" cy="306" rx="20" ry="33" fill="none" stroke={c.kogecha} strokeWidth="1" />
+      <circle cx="150" cy="254" r="13" fill={c.kinari} stroke={c.sumi} strokeWidth="2" />
+      <path d="M144 256 H156 M150 256 V266" stroke={c.sumi} strokeWidth="2" />
+      <ellipse cx="124" cy="306" rx="28" ry="42" fill={c.kinari} stroke={c.sumi} strokeWidth="2" />
+      <ellipse cx="124" cy="306" rx="20" ry="33" fill="none" stroke={c.sumi} strokeWidth="1" />
       <VText x={124} y={280} text="千万両" size={14} fill={c.sumi} font={mincho} weight={900} />
       <path d="M100 326 Q112 344 138 342" stroke={c.sumi} strokeWidth="2" fill={c.washi} />
       <text x="26" y="60" fontFamily={mincho} fontWeight="900" fontSize="32" fill={c.sumi}>招き猫</text>
@@ -540,12 +540,12 @@ export function RamuneAd() {
           <rect x="14" y="14" width="272" height="190" fill={c.ai} />
           {caustics.map(([x, y, l, a], i) => <path key={i} d={`M0 0 q${l / 2} -4 ${l} 0`} stroke={c.washi} strokeWidth="2" fill="none" transform={`translate(${x} ${y}) rotate(${a - 90})`} />)}
         </g>
-        <polygon points="14,196 286,92 286,98 14,202" fill={c.seiji} />
-        <rect x="14" y="360" width="272" height="46" fill={c.karashi} />
+        <polygon points="14,196 286,92 286,98 14,202" fill={c.koke} />
+        <rect x="14" y="360" width="272" height="46" fill={c.kinari} />
       </g>
-      {[[64, 360, 34, 8], [212, 352, 26, 7], [172, 372, 16, 4]].map(([x, y, rx, ry]) => <ellipse key={x} cx={x} cy={y} rx={rx} ry={ry} fill={c.seiji} opacity="0.5" stroke={c.ai} strokeWidth="1.2" />)}
+      {[[64, 360, 34, 8], [212, 352, 26, 7], [172, 372, 16, 4]].map(([x, y, rx, ry]) => <ellipse key={x} cx={x} cy={y} rx={rx} ry={ry} fill={c.koke} opacity="0.5" stroke={c.ai} strokeWidth="1.2" />)}
       <g transform="rotate(-10 130 240)">
-        <path d={bottle} fill={c.seiji} opacity="0.9" />
+        <path d={bottle} fill={c.koke} opacity="0.9" />
         <g clipPath={`url(#${id}-bottle)`}>
           <rect x="96" y="214" width="70" height="150" fill={c.ai} opacity="0.3" />
           <rect x="104" y="208" width="6" height="140" rx="3" fill={c.washi} opacity="0.8" />
@@ -557,7 +557,7 @@ export function RamuneAd() {
         </g>
         <path d={bottle} fill="none" stroke={c.ai} strokeWidth="2" />
         <circle cx="130" cy="152" r="8.5" fill={c.washi} stroke={c.ai} strokeWidth="1.2" />
-        <circle cx="127" cy="149" r="2.5" fill={c.seiji} />
+        <circle cx="127" cy="149" r="2.5" fill={c.koke} />
         <rect x="118" y="111" width="24" height="9" rx="2" fill={c.hinomaru} />
       </g>
       {Array.from({ length: 14 }, (_, i) => {
@@ -576,7 +576,7 @@ export function RamuneAd() {
 
 export function ColorTvAd() {
   const id = "jr-tv";
-  const bars = [c.washi, c.karashi, c.seiji, c.koke, c.momo, c.hinomaru, c.ai];
+  const bars = [c.washi, c.kinari, c.koke, c.ai, c.hinomaru, c.kinari, c.sumi];
   return (
     <Print id={id} bg={c.washi} texture={tex(131)} defs={<>
       <clipPath id={`${id}-screen`}><rect x="68" y="158" width="128" height="124" rx="20" /></clipPath>
@@ -595,12 +595,12 @@ export function ColorTvAd() {
       <circle cx="198" cy="90" r="3" fill={c.sumi} />
       <path d="M134 142 Q150 126 166 142Z" fill={c.sumi} />
       <ellipse cx="150" cy="356" rx="110" ry="10" fill={c.sumi} opacity="0.25" />
-      <path d="M84 300 L70 352 M216 300 L230 352" stroke={c.kogecha} strokeWidth="7" strokeLinecap="round" />
-      <rect x="54" y="142" width="192" height="160" rx="14" fill={c.kogecha} stroke={c.sumi} strokeWidth="2.5" />
+      <path d="M84 300 L70 352 M216 300 L230 352" stroke={c.sumi} strokeWidth="7" strokeLinecap="round" />
+      <rect x="54" y="142" width="192" height="160" rx="14" fill={c.sumi} stroke={c.sumi} strokeWidth="2.5" />
       {[0, 1, 2, 3, 4].map((i) => <path key={i} d={`M58 ${150 + i * 32} q46 -6 92 0 t92 0`} stroke={c.kinari} strokeWidth="0.8" fill="none" opacity="0.35" />)}
       <rect x="64" y="154" width="136" height="132" rx="22" fill={c.sumi} />
       <g clipPath={`url(#${id}-screen)`}>
-        {bars.map((col, i) => <rect key={col} x={68 + i * 18.3} y="158" width="18.4" height="92" fill={col} />)}
+        {bars.map((col, i) => <rect key={i} x={68 + i * 18.3} y="158" width="18.4" height="92" fill={col} />)}
         <rect x="68" y="250" width="128" height="32" fill={c.ai} />
         <rect x="68" y="158" width="128" height="124" fill={`url(#${id}-scan)`} opacity="0.25" />
         <path d="M74 166 Q110 160 128 168 Q96 172 80 196Z" fill={c.washi} opacity="0.3" />
@@ -623,7 +623,7 @@ export function ColorTvAd() {
 
 export function VendingMachine() {
   const id = "jr-jihanki";
-  const cans = [c.seiji, c.karashi, c.momo, c.ai, c.kaki, c.koke];
+  const cans = [c.koke, c.kinari, c.hinomaru, c.ai, c.hinomaru, c.koke];
   return (
     <Print id={id} bg={c.sumi} texture={tex(141, { age: undefined, grain: 0.5 })} defs={<>
       <radialGradient id={`${id}-spill`} r="60%">
@@ -634,7 +634,7 @@ export function VendingMachine() {
     </>}>
       <rect x="14" y="14" width="272" height="330" fill={c.ai} />
       <rect x="14" y="14" width="272" height="330" fill={`url(#${id}-wall)`} opacity="0.5" />
-      <rect x="14" y="344" width="272" height="62" fill={c.kogecha} />
+      <rect x="14" y="344" width="272" height="62" fill={c.sumi} />
       <ellipse cx="150" cy="200" rx="150" ry="170" fill={`url(#${id}-spill)`} />
       <ellipse cx="150" cy="362" rx="110" ry="22" fill={`url(#${id}-spill)`} />
       <rect x="80" y="70" width="140" height="274" rx="6" fill={c.hinomaru} stroke={c.sumi} strokeWidth="2" />
@@ -649,19 +649,19 @@ export function VendingMachine() {
               <rect x={96 + i * 18.6} y={104 + row * 50} width="14" height="5" fill={c.washi} opacity="0.7" />
               <rect x={97 + i * 18.6} y={124 + row * 50} width="12" height="5" fill={c.sumi} />
               <text x={103 + i * 18.6} y={128 + row * 50} textAnchor="middle" fontFamily={latin} fontSize="3.6" fill={c.washi}>100</text>
-              <circle cx={103 + i * 18.6} cy={132 + row * 50} r="1.8" fill={c.karashi} />
+              <circle cx={103 + i * 18.6} cy={132 + row * 50} r="1.8" fill={c.kinari} />
             </g>
           ))}
         </g>
       ))}
       <text x="150" y="262" textAnchor="middle" fontFamily="Georgia,serif" fontStyle="italic" fontWeight="700" fontSize="22" fill={c.washi}>Drink!</text>
       <rect x="190" y="246" width="14" height="22" rx="2" fill={c.sumi} />
-      <rect x="194" y="250" width="6" height="1.5" fill={c.karashi} />
+      <rect x="194" y="250" width="6" height="1.5" fill={c.kinari} />
       <rect x="100" y="290" width="100" height="36" rx="3" fill={c.sumi} />
-      <rect x="104" y="294" width="92" height="10" fill={c.kogecha} />
+      <rect x="104" y="294" width="92" height="10" fill={c.sumi} />
       <path d="M232 344 q-4 -26 6 -34 l2 -14 l6 8 l6 -8 l2 14 q10 8 6 34Z" fill={c.sumi} />
-      <circle cx="243" cy="306" r="1.6" fill={c.karashi} />
-      <circle cx="251" cy="306" r="1.6" fill={c.karashi} />
+      <circle cx="243" cy="306" r="1.6" fill={c.kinari} />
+      <circle cx="251" cy="306" r="1.6" fill={c.kinari} />
       <path d="M254 340 q16 4 14 -16" stroke={c.sumi} strokeWidth="3" fill="none" />
       {[[70, 60], [228, 52], [62, 120], [240, 104]].map(([x, y]) => <circle key={x} cx={x} cy={y} r="1.3" fill={c.washi} />)}
       <VText x={266} y={30} text="真夜中の自販機" size={14} fill={c.washi} font={mincho} weight={900} />
@@ -702,13 +702,13 @@ export function HanabiFestival() {
     </>}>
       <g clipPath={`url(#${id}-clip)`}>
         <rect x="14" y="14" width="272" height="392" fill={c.ai} />
-        <Firework cx={100} cy={170} r={62} color={c.karashi} n={22} />
-        <Firework cx={214} cy={130} r={46} color={c.momo} n={18} />
+        <Firework cx={100} cy={170} r={62} color={c.kinari} n={22} />
+        <Firework cx={214} cy={130} r={46} color={c.hinomaru} n={18} />
         <Firework cx={196} cy={230} r={30} color={c.washi} n={14} />
-        <Firework cx={70} cy={262} r={22} color={c.kaki} n={12} />
+        <Firework cx={70} cy={262} r={22} color={c.hinomaru} n={12} />
         <rect x="14" y="320" width="272" height="86" fill={c.sumi} />
         <rect x="14" y="320" width="272" height="86" fill={`url(#${id}-river)`} opacity="0.6" />
-        {[[100, c.karashi], [214, c.momo], [196, c.washi], [70, c.kaki]].map(([x, col]) =>
+        {[[100, c.kinari], [214, c.hinomaru], [196, c.washi], [70, c.hinomaru]].map(([x, col]) =>
           [0, 1, 2, 3, 4].map((i) => <rect key={`${x}${i}`} x={(x as number) - 8 + ((i * 7) % 13)} y={340 + i * 12} width={14 - i * 2} height="2" fill={col as string} opacity="0.75" />),
         )}
         <path d="M14 318 Q150 280 286 318 V328 Q150 292 14 328Z" fill={c.sumi} />
@@ -725,7 +725,7 @@ export function HanabiFestival() {
               <line x1={x} y1={y} x2={x} y2={y + 6} stroke={c.sumi} strokeWidth="1.2" />
               <rect x={x - 7} y={y + 6} width="14" height="4" fill={c.sumi} />
               <ellipse cx={x} cy={y + 26} rx="13" ry="17" fill={c.hinomaru} />
-              {[-8, 0, 8].map((dy) => <ellipse key={dy} cx={x} cy={y + 26 + dy} rx={13 * Math.sqrt(1 - (dy / 17) ** 2)} ry="1.6" fill="none" stroke={c.kogecha} strokeWidth="0.6" opacity="0.6" />)}
+              {[-8, 0, 8].map((dy) => <ellipse key={dy} cx={x} cy={y + 26 + dy} rx={13 * Math.sqrt(1 - (dy / 17) ** 2)} ry="1.6" fill="none" stroke={c.sumi} strokeWidth="0.6" opacity="0.6" />)}
               <rect x={x - 7} y={y + 42} width="14" height="4" fill={c.sumi} />
               <text x={x} y={y + 31} textAnchor="middle" fontFamily={mincho} fontWeight="900" fontSize="12" fill={c.washi}>祭</text>
             </g>
@@ -750,8 +750,8 @@ export function KaijuPoster() {
     <Print id={id} bg={c.washi} texture={tex(161, { wear: 0.4 })} defs={<>
       {clipFrame(id)}
       <radialGradient id={`${id}-glow`} cx="62%" cy="38%" r="60%">
-        <stop offset="0%" stopColor={c.karashi} />
-        <stop offset="55%" stopColor={c.kaki} />
+        <stop offset="0%" stopColor={c.kinari} />
+        <stop offset="55%" stopColor={c.hinomaru} />
         <stop offset="100%" stopColor={c.hinomaru} />
       </radialGradient>
       <clipPath id={`${id}-body`}><path d={body} /></clipPath>
@@ -761,17 +761,17 @@ export function KaijuPoster() {
       <g clipPath={`url(#${id}-clip)`}>
         <rect x="14" y="14" width="272" height="392" fill={`url(#${id}-glow)`} />
         <rect x="14" y="14" width="272" height="392" fill={c.sumi} opacity="0.35" filter={`url(#${id}-st)`} />
-        <path d="M244 138 L292 64 L292 122Z" fill={c.seiji} />
+        <path d="M244 138 L292 64 L292 122Z" fill={c.koke} />
         <path d="M244 138 L292 84 L292 102Z" fill={c.washi} />
         {spikes.map(([x, y], i) => (
-          <path key={i} d={`M${x - 6} ${y + 6} L${x - 22} ${y - 8} L${x - 6} ${y - 4} L${x - 14} ${y - 22} L${x + 6} ${y - 6}Z`} fill={c.washi} stroke={c.seiji} strokeWidth="1.5" />
+          <path key={i} d={`M${x - 6} ${y + 6} L${x - 22} ${y - 8} L${x - 6} ${y - 4} L${x - 14} ${y - 22} L${x + 6} ${y - 6}Z`} fill={c.washi} stroke={c.koke} strokeWidth="1.5" />
         ))}
         <path d={body} fill={c.sumi} />
         <rect x="14" y="14" width="272" height="392" fill={`url(#${id}-hide)`} clipPath={`url(#${id}-body)`} />
         <path d="M230 138 l3 6 l3 -6 M236 139 l3 6 l3 -6" fill={c.washi} />
-        <circle cx="222" cy="126" r="3" fill={c.karashi} />
+        <circle cx="222" cy="126" r="3" fill={c.kinari} />
         {[[60, 300], [210, 330], [120, 352]].map(([x, y]) => (
-          <g key={x} fill={c.kogecha} opacity="0.85">
+          <g key={x} fill={c.sumi} opacity="0.85">
             <circle cx={x} cy={y} r="18" /><circle cx={x + 16} cy={y - 8} r="14" /><circle cx={x - 14} cy={y - 6} r="12" />
           </g>
         ))}
@@ -783,7 +783,7 @@ export function KaijuPoster() {
         ))}
         {[[54, 96], [80, 112], [40, 124]].map(([x, y]) => <path key={x} d={`M${x} ${y} l14 -4 l-4 4 l4 4Z`} fill={c.sumi} />)}
       </g>
-      <text x="26" y="70" fontFamily={gothic} fontWeight="900" fontSize="46" fill={c.karashi} stroke={c.sumi} strokeWidth="5" paintOrder="stroke">怪獣</text>
+      <text x="26" y="70" fontFamily={gothic} fontWeight="900" fontSize="46" fill={c.kinari} stroke={c.sumi} strokeWidth="5" paintOrder="stroke">怪獣</text>
       <text x="26" y="116" fontFamily={gothic} fontWeight="900" fontSize="40" fill={c.washi} stroke={c.sumi} strokeWidth="5" paintOrder="stroke">大決戦</text>
       <Fine x={28} y={134} lines={["KAIJU WAR · 総天然色"]} size={7} fill={c.sumi} font={latin} weight={800} spacing={1.5} />
       <rect x="14" y="372" width="272" height="34" fill={c.sumi} />
@@ -803,7 +803,7 @@ export function DarumaPrint() {
       <Stipple id={`${id}-st`} density={0.34} seed={2} />
     </>}>
       <rect x="14" y="14" width="272" height="392" fill={c.kinari} />
-      <ellipse cx="156" cy="384" rx="104" ry="12" fill={c.kogecha} opacity="0.5" />
+      <ellipse cx="156" cy="384" rx="104" ry="12" fill={c.sumi} opacity="0.5" />
       <path d={shape} fill={c.hinomaru} />
       <g clipPath={`url(#${id}-body)`}>
         <rect x="176" y="60" width="100" height="330" fill={c.sumi} opacity="0.45" filter={`url(#${id}-st)`} />
@@ -823,9 +823,9 @@ export function DarumaPrint() {
         </g>
       ))}
       <path d="M142 238 Q150 242 158 238" stroke={c.sumi} strokeWidth="2" fill="none" />
-      <text x="150" y="330" textAnchor="middle" fontFamily={mincho} fontWeight="900" fontSize="46" fill={c.karashi} stroke={c.sumi} strokeWidth="1.5" letterSpacing="4">必勝</text>
+      <text x="150" y="330" textAnchor="middle" fontFamily={mincho} fontWeight="900" fontSize="46" fill={c.kinari} stroke={c.sumi} strokeWidth="1.5" letterSpacing="4">必勝</text>
       {[[-1, 76], [1, 224]].map(([d, x]) => (
-        <path key={x} d={`M${x} 300 q${d * 10} -14 ${d * 22} -4 q${d * 8} 6 ${d * 2} 12 q${-d * 6} 4 ${-d * 8} -2`} stroke={c.karashi} strokeWidth="3" fill="none" strokeLinecap="round" />
+        <path key={x} d={`M${x} 300 q${d * 10} -14 ${d * 22} -4 q${d * 8} 6 ${d * 2} 12 q${-d * 6} 4 ${-d * 8} -2`} stroke={c.kinari} strokeWidth="3" fill="none" strokeLinecap="round" />
       ))}
       <VText x={268} y={30} text="七転び八起き" size={15} fill={c.sumi} font={mincho} weight={900} />
       <Fine x={26} y={398} lines={["DARUMA · FALL SEVEN TIMES, STAND UP EIGHT"]} size={6} fill={c.sumi} font={latin} weight={700} spacing={1} />

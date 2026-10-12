@@ -1,5 +1,6 @@
 import { designSystems, finalSite, moodBoards, type DesignSystem, type MoodBoard } from "./data";
 import { ButtonLink, Card, CardFooter, SectionHead } from "@/components/ui";
+import { systems as catalogSystems } from "./systems";
 import { SystemPreview } from "@/components/design-system";
 
 const sections = [
@@ -46,6 +47,10 @@ export default function Home() {
         <div className="grid gap-7 md:grid-cols-3">
           {designSystems.map((ds) => <DesignSystemCard key={ds.id} ds={ds} />)}
         </div>
+        <nav aria-label="Component studies" className="mt-8 flex flex-wrap items-center gap-5 text-sm">
+          <span className="text-muted">Component studies from main:</span>
+          {catalogSystems.map((system) => <a key={system.id} className="underline underline-offset-4" href={`/design-systems/${system.id}/`}>{system.name}</a>)}
+        </nav>
       </section>
 
       <section className="border-t-2 border-ink px-[6vw] py-24">

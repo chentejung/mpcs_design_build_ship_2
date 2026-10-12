@@ -50,3 +50,16 @@ Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-
 ### Domain docs
 
 Single-context: one `CONTEXT.md` plus `docs/adr/` at the repo root, created only when needed. See `docs/agents/domain.md`.
+
+## Merged component studies
+
+- The reviewed poster iteration remains at `/design-systems/clay`, `/grid`, and `/soft`, using
+  `app/design-systems/systems.ts`, `art-directions.ts`, and `components/design-system*`.
+- Main's Shōwa, Ben-Day, and Haipai studies remain at `/design-systems/showa`, `/ben-day`, and `/haipai`.
+  Their route body is `components/system/catalog-page.tsx`; `app/systems.ts` uses the SVG-study palettes
+  in `app/catalog-boards.ts`. The `catalog-*` CSS classes isolate these components from the poster iteration.
+- Preserve the current raster mood-board assets and movie-picker layout. Legacy SVG study sources/assets are
+  retained for the incoming component studies; do not replace the raster exports with them.
+- Native film titles and saved-runtime formatting come from `app/films.ts`; `app/movies/data.ts` retains the
+  current poster paths, identifiers, and copy. `app/fonts.ts` loads fonts for both iterations.
+- After merging, run `npm run test:design-systems`, `npm run test:movies`, and `npm test` against the built preview.

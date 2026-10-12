@@ -13,7 +13,7 @@ export type MoodBoard = {
 };
 
 // Landing-page cards, derived from the full boards in ./boards.ts.
-const selectedBoard = "japanese-retro";
+export const selectedBoard = "japanese-retro";
 
 export const moodBoards: MoodBoard[] = boards.map((b) => ({
   id: b.id,

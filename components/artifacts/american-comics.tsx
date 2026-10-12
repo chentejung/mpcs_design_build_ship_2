@@ -1,14 +1,14 @@
 // Original American-comics artifacts, drawn the way the board's covers were printed:
 // heavy black keylines and spot blacks, flat process colors printed slightly out of register,
 // Ben-Day dot tints for skin and sky, extruded mastheads, corner boxes, yellowed newsprint.
-import { americanComics, colors } from "@/app/boards";
+import { americanComics, colors } from "@/app/catalog-boards";
 import { Dots, Plate, Print, burst, rand, type Original, type Texture } from "./print";
 
 const c = colors(americanComics);
 // Legacy SVG lettering; current moodboards use generated WebP artwork instead.
 const bangers = { fontFamily: "Bangers, Impact, sans-serif" };
 const tex = (seed: number, extra: Texture = {}): Texture => ({
-  grain: 0.5, wear: 0.25, rough: 0.9, age: c.sepia, ageStrength: 0.5, fade: c.pulp, fadeStrength: 0.12, seed, ...extra,
+  grain: 0.5, wear: 0.25, rough: 0.9, age: c.sepia, ageStrength: 0.5, fade: c.newsprint, fadeStrength: 0.12, seed, ...extra,
 });
 const REG = { dx: 1.8, dy: 1.2 }; // color plates drift against the black keyline
 
@@ -54,7 +54,7 @@ function Comic({ id, w = 300, h = 420, seed, texture, border = 5, defs, children
 
 function Stars({ n, seed, x0, y0, w, h }: { n: number; seed: number; x0: number; y0: number; w: number; h: number }) {
   const r = rand(seed);
-  return <>{Array.from({ length: n }, (_, i) => <circle key={i} cx={x0 + r() * w} cy={y0 + r() * h} r={0.8 + r() * 2.2} fill={i % 4 ? c.newsprint : c.yellow} />)}</>;
+  return <>{Array.from({ length: n }, (_, i) => <circle key={i} cx={x0 + r() * w} cy={y0 + r() * h} r={0.8 + r() * 2.2} fill={i % 4 ? c.newsprint : c.mustard} />)}</>;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -117,7 +117,7 @@ export function TearsOfLove() {
         <tspan x="122" y="76">HAVE TOLD YOU</tspan>
         <tspan x="122" y="96">THE TRUTH!</tspan>
       </text>
-      <rect x="18" y="380" width="128" height="24" fill={c.yellow} stroke={c.ink} strokeWidth="2.5" />
+      <rect x="18" y="380" width="128" height="24" fill={c.mustard} stroke={c.ink} strokeWidth="2.5" />
       <text x="82" y="398" textAnchor="middle" style={bangers} fontSize="15" fill={c.ink}>TEARS OF LOVE #12</text>
     </Comic>
   );
@@ -128,27 +128,27 @@ export function WeirdSpaceTales() {
   return (
     <Comic id={id} h={440} seed={211} defs={<>
       <Dots id={`${id}-shade`} color={c.red} r={1.6} gap={5} />
-      <Dots id={`${id}-ground`} color={c.orange} r={1.8} gap={6} bg={c.mustard} />
+      <Dots id={`${id}-ground`} color={c.red} r={1.8} gap={6} bg={c.mustard} />
       <clipPath id={`${id}-front`}><rect x="140" y="190" width="180" height="40" /></clipPath>
       <clipPath id={`${id}-planet`}><circle cx="226" cy="196" r="46" /></clipPath>
     </>}>
       <rect x="10" y="10" width="280" height="420" fill={c.ink} />
       <Stars n={60} seed={4} x0={14} y0={130} w={272} h={230} />
       <Plate {...REG}>
-        <circle cx="60" cy="176" r="17" fill={c.pulp} />
+        <circle cx="60" cy="176" r="17" fill={c.newsprint} />
         <g transform="rotate(-18 226 196)">
-          <ellipse cx="226" cy="196" rx="82" ry="17" fill="none" stroke={c.yellow} strokeWidth="7" />
+          <ellipse cx="226" cy="196" rx="82" ry="17" fill="none" stroke={c.mustard} strokeWidth="7" />
         </g>
-        <circle cx="226" cy="196" r="46" fill={c.orange} />
+        <circle cx="226" cy="196" r="46" fill={c.red} />
         <g clipPath={`url(#${id}-planet)`}>
           {[170, 188, 210].map((y) => <rect key={y} x="170" y={y} width="120" height="8" fill={c.mustard} transform="rotate(-18 226 196)" />)}
           <circle cx="250" cy="214" r="44" fill={`url(#${id}-shade)`} />
         </g>
         <g transform="rotate(-18 226 196)">
-          <ellipse cx="226" cy="196" rx="82" ry="17" fill="none" stroke={c.yellow} strokeWidth="7" clipPath={`url(#${id}-front)`} />
+          <ellipse cx="226" cy="196" rx="82" ry="17" fill="none" stroke={c.mustard} strokeWidth="7" clipPath={`url(#${id}-front)`} />
         </g>
-        <path d="M14 316 C70 260 130 340 196 286" stroke={c.yellow} strokeWidth="12" fill="none" strokeLinecap="round" />
-        <path d="M14 316 C70 260 130 340 196 286" stroke={c.orange} strokeWidth="4" fill="none" strokeLinecap="round" />
+        <path d="M14 316 C70 260 130 340 196 286" stroke={c.mustard} strokeWidth="12" fill="none" strokeLinecap="round" />
+        <path d="M14 316 C70 260 130 340 196 286" stroke={c.red} strokeWidth="4" fill="none" strokeLinecap="round" />
         <path d="M10 360 L46 330 L70 350 L104 318 L132 352 L170 334 L206 356 L246 326 L290 352 V430 H10Z" fill={`url(#${id}-ground)`} />
       </Plate>
       <g stroke={c.ink} fill="none" strokeWidth="3">
@@ -157,14 +157,14 @@ export function WeirdSpaceTales() {
         <circle cx="66" cy="182" r="3" strokeWidth="1.5" />
         <circle cx="226" cy="196" r="46" />
         <path d="M10 360 L46 330 L70 350 L104 318 L132 352 L170 334 L206 356 L246 326 L290 352" strokeWidth="3.5" />
-        {[[70, 398, 20, 6], [190, 404, 28, 7], [250, 380, 14, 4]].map(([x, y, rx, ry]) => <ellipse key={x} cx={x} cy={y} rx={rx} ry={ry} fill={c.orange} strokeWidth="2.5" />)}
+        {[[70, 398, 20, 6], [190, 404, 28, 7], [250, 380, 14, 4]].map(([x, y, rx, ry]) => <ellipse key={x} cx={x} cy={y} rx={rx} ry={ry} fill={c.red} strokeWidth="2.5" />)}
       </g>
       <g transform="translate(176 270) rotate(42)">
         <Plate {...REG}>
           <path d="M0 -72 C18 -52 22 -12 20 40 H-20 C-22 -12 -18 -52 0 -72Z" fill={c.red} />
           <path d="M-20 20 L-42 58 L-20 46Z M20 20 L42 58 L20 46Z" fill={c.cyan} />
-          <path d="M-14 42 Q0 96 14 42Z" fill={c.yellow} />
-          <path d="M-7 42 Q0 74 7 42Z" fill={c.orange} />
+          <path d="M-14 42 Q0 96 14 42Z" fill={c.mustard} />
+          <path d="M-7 42 Q0 74 7 42Z" fill={c.red} />
           <path d="M8 -50 C14 -30 15 0 13 36 H20 C22 -12 18 -52 0 -72Z" fill={c.ink} opacity="0.85" />
         </Plate>
         <g stroke={c.ink} strokeWidth="3" fill="none" strokeLinejoin="round">
@@ -178,16 +178,16 @@ export function WeirdSpaceTales() {
         <rect x="-6" y="-14" width="12" height="18" rx="3" fill={c.newsprint} />
         <path d="M-4 4 l-3 12 M4 4 l3 12" />
       </g>
-      <polygon points={burst(66, 262, 50, 36, 14, 0.25)} fill={c.yellow} stroke={c.ink} strokeWidth="2.5" />
+      <polygon points={burst(66, 262, 50, 36, 14, 0.25)} fill={c.mustard} stroke={c.ink} strokeWidth="2.5" />
       <text textAnchor="middle" style={bangers} fontSize="14" fill={c.red}>
         <tspan x="66" y="256">TERROR FROM</tspan>
         <tspan x="66" y="272">THE RINGS!</tspan>
       </text>
       <rect x="10" y="10" width="280" height="104" fill={c.red} />
-      <rect x="10" y="114" width="280" height="16" fill={c.yellow} stroke={c.ink} strokeWidth="2" />
+      <rect x="10" y="114" width="280" height="16" fill={c.mustard} stroke={c.ink} strokeWidth="2" />
       <text x="150" y="127" textAnchor="middle" style={bangers} fontSize="12" fill={c.ink} letterSpacing="1.5">STRANGE STORIES OF TOMORROW!</text>
       <CornerBox x={18} y={18} price="10¢" issue="No.7" />
-      <Title x={78} y={56} text="WEIRD SPACE" size={36} fill={c.yellow} depth={4} />
+      <Title x={78} y={56} text="WEIRD SPACE" size={36} fill={c.mustard} depth={4} />
       <Title x={80} y={104} text="TALES" size={54} fill={c.newsprint} depth={6} rotate={-3} />
     </Comic>
   );
@@ -203,7 +203,7 @@ export function Krakoom() {
   return (
     <Comic id={id} w={300} h={300} seed={221} defs={<>
       <Dots id={`${id}-bg`} color={c.cyan} r={2} gap={7} bg={c.newsprint} />
-      <Dots id={`${id}-smoke`} color={c.ink} r={1.5} gap={5} bg={c.pulp} />
+      <Dots id={`${id}-smoke`} color={c.ink} r={1.5} gap={5} bg={c.newsprint} />
     </>}>
       <rect x="10" y="10" width="280" height="280" fill={`url(#${id}-bg)`} />
       {debris.map((d, i) => (
@@ -219,13 +219,13 @@ export function Krakoom() {
       ))}
       <Plate {...REG}>
         <polygon points={burst(150, 150, 132, 82, 13, 0.35)} fill={c.red} />
-        <polygon points={burst(150, 150, 104, 66, 13, 0.3)} fill={c.orange} />
-        <polygon points={burst(150, 150, 78, 50, 11, 0.3)} fill={c.yellow} />
+        <polygon points={burst(150, 150, 104, 66, 13, 0.3)} fill={c.red} />
+        <polygon points={burst(150, 150, 78, 50, 11, 0.3)} fill={c.mustard} />
         <circle cx="150" cy="150" r="30" fill={c.newsprint} />
       </Plate>
       <polygon points={burst(150, 150, 132, 82, 13, 0.35)} fill="none" stroke={c.ink} strokeWidth="4" strokeLinejoin="round" />
       <polygon points={burst(150, 150, 104, 66, 13, 0.3)} fill="none" stroke={c.ink} strokeWidth="2" strokeLinejoin="round" />
-      <Title x={150} y={172} text="KRAKOOM!" size={60} fill={c.yellow} depth={6} rotate={-10} anchor="middle" stroke={3.5} />
+      <Title x={150} y={172} text="KRAKOOM!" size={60} fill={c.mustard} depth={6} rotate={-10} anchor="middle" stroke={3.5} />
     </Comic>
   );
 }
@@ -236,14 +236,14 @@ export function MeanwhileCity() {
   const towers = Array.from({ length: 12 }, (_, i) => ({ x: 120 + i * 26 + r() * 6, w: 22 + r() * 12, h: 70 + r() * 110 }));
   return (
     <Comic id={id} w={420} h={260} seed={231} defs={<>
-      <Dots id={`${id}-sky`} color={c.cyan} r={1.9} gap={6} bg={c.blue} />
+      <Dots id={`${id}-sky`} color={c.cyan} r={1.9} gap={6} bg={c.cyan} />
       <Dots id={`${id}-moon`} color={c.mustard} r={1.5} gap={5} bg={c.newsprint} />
     </>}>
       <rect x="10" y="10" width="400" height="240" fill={`url(#${id}-sky)`} />
       <Plate {...REG}>
-        <polygon points="300,250 132,12 214,12" fill={c.yellow} opacity="0.55" />
+        <polygon points="300,250 132,12 214,12" fill={c.mustard} opacity="0.55" />
         <circle cx="344" cy="64" r="38" fill={`url(#${id}-moon)`} />
-        <ellipse cx="172" cy="34" rx="46" ry="20" fill={c.yellow} />
+        <ellipse cx="172" cy="34" rx="46" ry="20" fill={c.mustard} />
       </Plate>
       <circle cx="344" cy="64" r="38" fill="none" stroke={c.ink} strokeWidth="3" />
       <ellipse cx="172" cy="34" rx="46" ry="20" fill="none" stroke={c.ink} strokeWidth="2.5" />
@@ -251,7 +251,7 @@ export function MeanwhileCity() {
       {towers.map((t, i) => (
         <g key={i}>
           <rect x={t.x} y={250 - t.h} width={t.w} height={t.h} fill={c.ink} />
-          {Array.from({ length: Math.floor(t.h / 14) }, (_, j) => (r() > 0.5 ? <rect key={j} x={t.x + 4 + (j % 2) * 8} y={256 - t.h + j * 14} width="4" height="6" fill={c.yellow} /> : null))}
+          {Array.from({ length: Math.floor(t.h / 14) }, (_, j) => (r() > 0.5 ? <rect key={j} x={t.x + 4 + (j % 2) * 8} y={256 - t.h + j * 14} width="4" height="6" fill={c.mustard} /> : null))}
         </g>
       ))}
       <path d="M10 140 H108 V250 H10Z" fill={c.ink} />
@@ -263,7 +263,7 @@ export function MeanwhileCity() {
       <path d="M58 106 L62 84 M84 106 L80 84" stroke={c.cyan} strokeWidth="1.2" />
       <circle cx="71" cy="71" r="8.5" fill={c.ink} />
       <path d="M66 70 h4 M73 70 h4" stroke={c.newsprint} strokeWidth="1.6" strokeLinecap="round" />
-      <rect x="18" y="18" width="190" height="44" fill={c.yellow} stroke={c.ink} strokeWidth="3" />
+      <rect x="18" y="18" width="190" height="44" fill={c.mustard} stroke={c.ink} strokeWidth="3" />
       <text style={bangers} fontSize="16" fill={c.ink} letterSpacing="0.5">
         <tspan x="28" y="37">MEANWHILE, HIGH ABOVE</tspan>
         <tspan x="28" y="55">METRO CITY...</tspan>
@@ -285,22 +285,22 @@ export function CaptainComet() {
         return <polygon key={i} points={`170,240 ${170 + Math.cos(a) * 320},${240 + Math.sin(a) * 320} ${170 + Math.cos(a + 0.08) * 320},${240 + Math.sin(a + 0.08) * 320}`} fill={c.newsprint} opacity="0.85" />;
       })}
       {[[16, 54, 70], [74, 40, 60], [118, 26, 80], [150, 48, 46], [204, 36, 70], [244, 30, 50]].map(([x, w, h]) => (
-        <rect key={x} x={x} y={430 - h} width={w} height={h} fill={c.blue} stroke={c.ink} strokeWidth="2.5" />
+        <rect key={x} x={x} y={430 - h} width={w} height={h} fill={c.cyan} stroke={c.ink} strokeWidth="2.5" />
       ))}
       <Plate {...REG}>
-        <path d="M10 430 C60 380 100 340 150 300" stroke={c.yellow} strokeWidth="26" fill="none" strokeLinecap="round" />
-        <path d="M10 430 C60 380 100 340 150 300" stroke={c.orange} strokeWidth="10" fill="none" strokeLinecap="round" />
+        <path d="M10 430 C60 380 100 340 150 300" stroke={c.mustard} strokeWidth="26" fill="none" strokeLinecap="round" />
+        <path d="M10 430 C60 380 100 340 150 300" stroke={c.red} strokeWidth="10" fill="none" strokeLinecap="round" />
       </Plate>
       <g transform="translate(172 252) rotate(38) scale(1.25)">
         <Plate {...REG}>
           <path d="M-40 -10 Q-74 80 -54 170 Q0 136 54 170 Q74 80 40 -10Z" fill={c.red} />
-          <path d="M-16 58 L-20 150 H-4 L2 60Z M16 58 L20 150 H4 L-2 60Z" fill={c.blue} />
+          <path d="M-16 58 L-20 150 H-4 L2 60Z M16 58 L20 150 H4 L-2 60Z" fill={c.cyan} />
           <path d="M-20 130 H-4 V152 H-22Z M4 130 H20 L22 152 H4Z" fill={c.red} />
-          <path d="M-30 -40 Q-34 20 -20 60 H20 Q34 20 30 -40Z" fill={c.blue} />
-          <rect x="-21" y="50" width="42" height="9" fill={c.yellow} />
-          <circle cx="0" cy="-8" r="14" fill={c.yellow} />
-          <path d="M18 -40 L34 -44 L48 -114 L32 -118Z" fill={c.blue} />
-          <path d="M-28 -36 L-44 -32 L-50 28 L-36 30Z" fill={c.blue} />
+          <path d="M-30 -40 Q-34 20 -20 60 H20 Q34 20 30 -40Z" fill={c.cyan} />
+          <rect x="-21" y="50" width="42" height="9" fill={c.mustard} />
+          <circle cx="0" cy="-8" r="14" fill={c.mustard} />
+          <path d="M18 -40 L34 -44 L48 -114 L32 -118Z" fill={c.cyan} />
+          <path d="M-28 -36 L-44 -32 L-50 28 L-36 30Z" fill={c.cyan} />
           <circle cx="40" cy="-124" r="12" fill={c.red} />
           <circle cx="-43" cy="34" r="9" fill={c.red} />
           <circle cx="0" cy="-62" r="20" fill={`url(#${id}-skin)`} />
@@ -321,14 +321,14 @@ export function CaptainComet() {
         <path d="M-20 -70 Q-18 -86 0 -84 Q18 -86 20 -70 Q10 -78 0 -76 Q-10 -78 -20 -70Z" fill={c.ink} />
         <path d="M8 -42 Q16 -18 30 -38 Q24 0 20 60 H30 Q34 20 30 -40Z" fill={c.ink} opacity="0.9" />
       </g>
-      <polygon points={burst(232, 352, 46, 34, 14, 0.2)} fill={c.yellow} stroke={c.ink} strokeWidth="2.5" />
+      <polygon points={burst(232, 352, 46, 34, 14, 0.2)} fill={c.mustard} stroke={c.ink} strokeWidth="2.5" />
       <text textAnchor="middle" style={bangers} fontSize="16" fill={c.red}>
         <tspan x="232" y="348">FIRST</tspan>
         <tspan x="232" y="366">ISSUE!</tspan>
       </text>
-      <rect x="10" y="10" width="280" height="96" fill={c.blue} />
+      <rect x="10" y="10" width="280" height="96" fill={c.cyan} />
       <CornerBox x={18} y={18} price="12¢" issue="No.1" />
-      <Title x={82} y={44} text="CAPTAIN" size={28} fill={c.yellow} depth={3} />
+      <Title x={82} y={44} text="CAPTAIN" size={28} fill={c.mustard} depth={3} />
       <Title x={80} y={98} text="COMET" size={62} fill={c.red} depth={6} rotate={-4} />
       <rect x="10" y="400" width="280" height="30" fill={c.red} stroke={c.ink} strokeWidth="2.5" />
       <text x="150" y="421" textAnchor="middle" style={bangers} fontSize="17" fill={c.newsprint} letterSpacing="1">THE MAN WHO OUTRAN A STAR!</text>
@@ -400,7 +400,7 @@ export function RingRing() {
   const coil = Array.from({ length: 14 }, (_, i) => `q4 -7 8 0`).join(" ");
   return (
     <Comic id={id} w={300} h={300} seed={261} defs={<>
-      <Dots id={`${id}-bg`} color={c.red} r={2.2} gap={7} bg={c.yellow} />
+      <Dots id={`${id}-bg`} color={c.red} r={2.2} gap={7} bg={c.mustard} />
       <Dots id={`${id}-shade`} color={c.ink} r={1.2} gap={4} />
       <clipPath id={`${id}-base`}><path d={base} /></clipPath>
     </>}>
@@ -420,7 +420,7 @@ export function RingRing() {
       <circle cx="150" cy="198" r="34" fill={c.newsprint} stroke={c.ink} strokeWidth="3" />
       {Array.from({ length: 10 }, (_, i) => {
         const a = (-Math.PI / 2) + (i * Math.PI * 1.6) / 9;
-        return <circle key={i} cx={150 + Math.cos(a) * 23} cy={198 + Math.sin(a) * 23} r="5" fill={c.yellow} stroke={c.ink} strokeWidth="1.8" />;
+        return <circle key={i} cx={150 + Math.cos(a) * 23} cy={198 + Math.sin(a) * 23} r="5" fill={c.mustard} stroke={c.ink} strokeWidth="1.8" />;
       })}
       <circle cx="150" cy="198" r="10" fill={c.red} stroke={c.ink} strokeWidth="2" />
       <g transform="rotate(-8 150 134) translate(0 -14)">
@@ -439,13 +439,13 @@ export function RobotInvasion() {
   const r = rand(33);
   return (
     <Comic id={id} h={440} seed={271} defs={<>
-      <Dots id={`${id}-sky`} color={c.red} r={2} gap={6.5} bg={c.orange} />
-      <Dots id={`${id}-metal`} color={c.blue} r={1.5} gap={5} bg={c.cyan} />
+      <Dots id={`${id}-sky`} color={c.red} r={2} gap={6.5} bg={c.red} />
+      <Dots id={`${id}-metal`} color={c.cyan} r={1.5} gap={5} bg={c.cyan} />
     </>}>
       <rect x="10" y="10" width="280" height="420" fill={`url(#${id}-sky)`} />
       <Plate {...REG}>
-        <polygon points="142,166 30,400 86,400" fill={c.yellow} />
-        <polygon points="178,166 120,400 176,400" fill={c.yellow} />
+        <polygon points="142,166 30,400 86,400" fill={c.mustard} />
+        <polygon points="178,166 120,400 176,400" fill={c.mustard} />
       </Plate>
       <path d="M104 222 Q70 240 66 292" stroke={c.ink} strokeWidth="26" fill="none" strokeLinecap="round" />
       <path d="M104 222 Q70 240 66 292" stroke={c.cyan} strokeWidth="18" fill="none" strokeLinecap="round" />
@@ -476,20 +476,20 @@ export function RobotInvasion() {
       <circle cx="160" cy="112" r="6" fill={c.red} stroke={c.ink} strokeWidth="2.5" />
       {[142, 178].map((x) => (
         <g key={x}>
-          <circle cx={x} cy="164" r="11" fill={c.yellow} stroke={c.ink} strokeWidth="3" />
+          <circle cx={x} cy="164" r="11" fill={c.mustard} stroke={c.ink} strokeWidth="3" />
           <circle cx={x} cy="164" r="4.5" fill={c.red} />
         </g>
       ))}
       <rect x="136" y="180" width="48" height="12" fill={c.ink} />
       {[0, 1, 2, 3, 4].map((i) => <rect key={i} x={140 + i * 9} y="182" width="3" height="8" fill={c.newsprint} />)}
       <rect x="126" y="222" width="62" height="48" fill={c.newsprint} stroke={c.ink} strokeWidth="2.5" />
-      {[[140, 238, c.red], [160, 238, c.yellow], [178, 238, c.red]].map(([x, y, col]) => <circle key={x as number} cx={x as number} cy={y as number} r="5" fill={col as string} stroke={c.ink} strokeWidth="1.5" />)}
+      {[[140, 238, c.red], [160, 238, c.mustard], [178, 238, c.red]].map(([x, y, col]) => <circle key={x as number} cx={x as number} cy={y as number} r="5" fill={col as string} stroke={c.ink} strokeWidth="1.5" />)}
       <circle cx="150" cy="258" r="8" fill="none" stroke={c.ink} strokeWidth="2" />
       <line x1="150" y1="258" x2="156" y2="252" stroke={c.ink} strokeWidth="2" />
       {Array.from({ length: 9 }, (_, i) => ({ x: 10 + i * 32 + r() * 6, w: 26 + r() * 8, h: 30 + r() * 40 })).map((b, i) => (
         <g key={i}>
-          <rect x={b.x} y={430 - b.h} width={b.w} height={b.h} fill={c.blue} stroke={c.ink} strokeWidth="2.5" />
-          {[0, 1].map((j) => <rect key={j} x={b.x + 5 + j * 10} y={436 - b.h} width="5" height="7" fill={c.yellow} stroke={c.ink} strokeWidth="1" />)}
+          <rect x={b.x} y={430 - b.h} width={b.w} height={b.h} fill={c.cyan} stroke={c.ink} strokeWidth="2.5" />
+          {[0, 1].map((j) => <rect key={j} x={b.x + 5 + j * 10} y={436 - b.h} width="5" height="7" fill={c.mustard} stroke={c.ink} strokeWidth="1" />)}
         </g>
       ))}
       {[[46, 382], [62, 386], [244, 386]].map(([x, y]) => (
@@ -501,9 +501,9 @@ export function RobotInvasion() {
       ))}
       <rect x="10" y="10" width="280" height="98" fill={c.ink} />
       <CornerBox x={18} y={22} price="10¢" issue="No.3" />
-      <Title x={80} y={64} text="ROBOT" size={54} fill={c.yellow} depth={5} />
+      <Title x={80} y={64} text="ROBOT" size={54} fill={c.mustard} depth={5} />
       <Title x={84} y={100} text="INVASION!" size={34} fill={c.red} depth={3} />
-      <rect x="160" y="396" width="122" height="26" fill={c.yellow} stroke={c.ink} strokeWidth="2.5" />
+      <rect x="160" y="396" width="122" height="26" fill={c.mustard} stroke={c.ink} strokeWidth="2.5" />
       <text x="221" y="414" textAnchor="middle" style={bangers} fontSize="13" fill={c.ink}>THEY CAME FROM PLANET X!</text>
     </Comic>
   );

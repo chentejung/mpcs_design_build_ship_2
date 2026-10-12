@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { formatRuntime } from "@/app/films";
 import { MovieCard } from "../movie-card";
 import { movieById } from "../data";
 import { useMovies } from "../movies-context";
@@ -24,7 +25,7 @@ export default function SavedMoviesPage() {
         </section>
       ) : (
         <>
-          <div className="showa-results-heading"><h2>Saved films</h2><p role="status" aria-live="polite">{saved.length} {saved.length === 1 ? "film" : "films"} in your shortlist</p><span className="showa-catalog-label" aria-hidden="true">YOUR EVENING / あなたの夜</span></div>
+          <div className="showa-results-heading"><h2>Saved films</h2><p role="status" aria-live="polite">{saved.length} {saved.length === 1 ? "film" : "films"} · {formatRuntime(saved.reduce((total, movie) => total + movie.runtime, 0))}</p><span className="showa-catalog-label" aria-hidden="true">YOUR EVENING / あなたの夜</span></div>
           <section aria-label="Saved films" className="showa-movie-grid">{saved.map((movie) => <MovieCard key={movie.id} movie={movie} savedPage />)}</section>
         </>
       )}

@@ -1,3 +1,5 @@
+import { films, type NativeTitle } from "@/app/films";
+
 export const categories = ["Thriller", "Comedy", "Animation", "Action", "Science Fiction", "Romance", "Horror"] as const;
 export type Category = (typeof categories)[number];
 
@@ -11,11 +13,12 @@ export type Movie = {
   poster: string;
   creditHolder: string;
   source: string;
+  native?: NativeTitle;
 };
 
 const wikipedia = (slug: string) => `https://en.wikipedia.org/wiki/${slug}`;
 
-export const movies: Movie[] = [
+const movieEntries: Movie[] = [
   { id: "parasite", title: "Parasite", year: 2019, runtime: 132, category: "Thriller", synopsis: "A cash-strapped family finds an elegant way into a wealthy household.", poster: "/movies/posters/parasite.jpg", creditHolder: "CJ Entertainment", source: wikipedia("Parasite_(2019_film)") },
   { id: "se7en", title: "Se7en", year: 1995, runtime: 127, category: "Thriller", synopsis: "Two detectives track a killer who stages murders around the seven deadly sins.", poster: "/movies/posters/se7en.jpg", creditHolder: "New Line Cinema", source: wikipedia("Se7en") },
   { id: "gone-girl", title: "Gone Girl", year: 2014, runtime: 149, category: "Thriller", synopsis: "A disappearance turns a marriage into a national spectacle and a maze of clues.", poster: "/movies/posters/gone-girl.jpg", creditHolder: "20th Century Fox", source: wikipedia("Gone_Girl_(film)") },
@@ -42,5 +45,9 @@ export const movies: Movie[] = [
   { id: "get-out", title: "Get Out", year: 2017, runtime: 104, category: "Horror", synopsis: "A weekend visit with his girlfriend's family becomes a terrifying trap.", poster: "/movies/posters/get-out.jpg", creditHolder: "Universal Pictures", source: wikipedia("Get_Out") },
   { id: "ringu", title: "Ringu", year: 1998, runtime: 96, category: "Horror", synopsis: "A reporter investigates a cursed videotape before its seven-day deadline arrives.", poster: "/movies/posters/ringu.jpg", creditHolder: "Toho", source: wikipedia("Ring_(film)") },
 ];
+
+// Match by title because the reviewed iteration uses shorter identifiers for some films.
+const nativeByTitle = new Map(films.map((film) => [film.title, film.native]));
+export const movies: Movie[] = movieEntries.map((movie) => ({ ...movie, native: nativeByTitle.get(movie.title) }));
 
 export const movieById = new Map(movies.map((movie) => [movie.id, movie]));

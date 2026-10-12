@@ -18,6 +18,7 @@ export function MovieCard({ movie, savedPage = false }: { movie: Movie; savedPag
       <div className="showa-card-body">
         <p className="showa-card-kicker"><span>{movie.year}</span><i aria-hidden="true" />{movie.runtime} min</p>
         <h2 id={`film-${movie.id}`}>{movie.title}</h2>
+        {movie.native && <p className="showa-native-title" lang={movie.native.lang}>{movie.native.title}</p>}
         <p className="showa-card-synopsis">{movie.synopsis}</p>
       </div>
       <button type="button" onClick={() => savedPage ? remove(movie.id) : toggle(movie.id)} aria-pressed={savedPage ? undefined : saved} aria-label={`${savedPage ? "Remove" : saved ? "Unsave" : "Save"} ${movie.title}`} className={`showa-save-button ${saved && !savedPage ? "is-saved" : ""}`}>

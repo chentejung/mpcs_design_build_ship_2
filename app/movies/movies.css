@@ -236,3 +236,5 @@
 @media (prefers-reduced-motion: reduce) {
   .showa-site *, .showa-site *::before, .showa-site *::after { transition: none !important; scroll-behavior: auto !important; }
 }
+
+.showa-native-title { margin-top: .4rem; color: var(--showa-indigo); font: 500 .8rem/1.5 var(--font-noto-sans-kr), var(--font-noto-serif-tc), sans-serif; }

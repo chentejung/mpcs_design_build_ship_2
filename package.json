@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "serve": "bash references/serve.sh",
+    "test": "playwright test",
     "test:movies": "node references/test-movies.mjs",
     "test:design-systems": "node references/test-design-systems.mjs"
   },
@@ -16,6 +17,8 @@
   },
   "devDependencies": {
     "@fontsource/bangers": "^5.3.0",
+    "@fontsource/noto-serif": "^5.3.0",
+    "@playwright/test": "^1.64.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
