@@ -1,8 +1,7 @@
 // Mood board content: palettes, Pinterest references, and landing-card tiles.
 //
-// Palettes: k-means over all reference pixels, plus a second pass over saturated pixels only
-// (so small, vivid inks aren't averaged away), then curated by hand.
-// `share` = % of all reference pixels whose nearest palette color is this one (rounded).
+// Six signature colors per board, curated from reference and generated images.
+// `share` = % of sampled pixels across all 30 board images nearest this color (rounded).
 
 export type Swatch = {
   key: string;
@@ -22,13 +21,13 @@ export type Board = {
   pinterest: string;
   palette: Swatch[];
   references: Reference[];
-  tiles: [number, number, number]; // reference numbers (1-based) used on the landing card
+  tiles: [number, number, number]; // generated artwork numbers (1-based) used on the landing card
 };
 
 // File names say where a picture came from: pinterest-NN-<title>.jpg for references,
-// claude-NN-<title>.svg for originals drawn by Claude (see components/artifacts).
+// generated-NN-<title>.webp for AI-generated originals (see components/artifacts).
 export const slug = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-export const fileName = (source: "pinterest" | "claude", n: number, title: string, ext: string) =>
+export const fileName = (source: "pinterest" | "generated", n: number, title: string, ext: string) =>
   `${source}-${String(n).padStart(2, "0")}-${slug(title)}.${ext}`;
 
 function refs(id: string, pins: string[], titles: string[]): Reference[] {
@@ -44,19 +43,14 @@ export const japaneseRetro: Board = {
   title: "Japanese Retro",
   altTitle: "日本レトロ",
   pinterest: "https://www.pinterest.com/e12e/japanese-retro-poster-aesthetic/",
-  tiles: [2, 12, 5],
+  tiles: [1, 4, 5],
   palette: [
-    { key: "hinomaru", name: "Hinomaru Red", alt: "日の丸", hex: "#c7381c", share: 14, role: "Primary" },
-    { key: "sumi", name: "Sumi Ink", alt: "墨", hex: "#161816", share: 12, role: "Text" },
-    { key: "washi", name: "Washi Cream", alt: "和紙", hex: "#f3eddd", share: 16, role: "Background" },
-    { key: "kinari", name: "Kinari Paper", alt: "生成", hex: "#ebcb85", share: 15, role: "Surface" },
-    { key: "ai", name: "Ai Indigo", alt: "藍", hex: "#1f4a66", share: 8, role: "Secondary" },
-    { key: "karashi", name: "Karashi Mustard", alt: "芥子", hex: "#e0b54d", share: 7, role: "Accent" },
-    { key: "kaki", name: "Kaki Persimmon", alt: "柿", hex: "#d9663f", share: 4, role: "Accent" },
-    { key: "seiji", name: "Seiji Teal", alt: "青磁", hex: "#3f8a92", share: 5, role: "Accent" },
-    { key: "koke", name: "Koke Moss", alt: "苔", hex: "#788355", share: 8, role: "Accent" },
-    { key: "momo", name: "Momo Pink", alt: "桃", hex: "#e8919a", share: 3, role: "Highlight" },
-    { key: "kogecha", name: "Kogecha Brown", alt: "焦茶", hex: "#4e4430", share: 9, role: "Shadow" },
+    { key: "hinomaru", name: "Hinomaru Red", alt: "日の丸", hex: "#c7381c", share: 19, role: "Primary" },
+    { key: "sumi", name: "Sumi Ink", alt: "墨", hex: "#161816", share: 25, role: "Text" },
+    { key: "washi", name: "Washi Cream", alt: "和紙", hex: "#f3eddd", share: 10, role: "Background" },
+    { key: "kinari", name: "Kinari Paper", alt: "生成", hex: "#ebcb85", share: 21, role: "Surface" },
+    { key: "ai", name: "Ai Indigo", alt: "藍", hex: "#1f4a66", share: 15, role: "Secondary" },
+    { key: "seiji", name: "Seiji Teal", alt: "青磁", hex: "#3f8a92", share: 10, role: "Accent" },
   ],
   references: refs(
     "japanese-retro",
@@ -78,19 +72,14 @@ export const americanComics: Board = {
   title: "American Comics",
   altTitle: "POW!",
   pinterest: "https://www.pinterest.com/e12e/american-comics-aesthetic/",
-  tiles: [3, 14, 17],
+  tiles: [1, 5, 8],
   palette: [
-    { key: "red", name: "Hero Red", hex: "#dc2a24", share: 5, role: "Primary" },
-    { key: "ink", name: "Ink Black", hex: "#0d0c0d", share: 16, role: "Text" },
-    { key: "newsprint", name: "Newsprint", hex: "#f2eddd", share: 7, role: "Background" },
-    { key: "pulp", name: "Pulp Tan", hex: "#e3c6a9", share: 11, role: "Surface" },
-    { key: "blue", name: "Cape Blue", hex: "#105c88", share: 2, role: "Secondary" },
-    { key: "yellow", name: "Pow Yellow", hex: "#f4ec36", share: 2, role: "Accent" },
-    { key: "orange", name: "Blast Orange", hex: "#d15337", share: 11, role: "Accent" },
-    { key: "cyan", name: "Halftone Cyan", hex: "#10869c", share: 4, role: "Accent" },
-    { key: "mustard", name: "Golden Age Mustard", hex: "#d3bc2c", share: 8, role: "Accent" },
-    { key: "peach", name: "Ben-Day Peach", hex: "#ebba8a", share: 7, role: "Highlight" },
-    { key: "sepia", name: "Aged Sepia", hex: "#5b4b3c", share: 25, role: "Shadow" },
+    { key: "red", name: "Hero Red", hex: "#dc2a24", share: 23, role: "Primary" },
+    { key: "ink", name: "Ink Black", hex: "#0d0c0d", share: 25, role: "Text" },
+    { key: "newsprint", name: "Newsprint", hex: "#f2eddd", share: 5, role: "Background" },
+    { key: "pulp", name: "Pulp Tan", hex: "#e3c6a9", share: 23, role: "Surface" },
+    { key: "blue", name: "Cape Blue", hex: "#105c88", share: 18, role: "Secondary" },
+    { key: "yellow", name: "Pow Yellow", hex: "#f4ec36", share: 6, role: "Accent" },
   ],
   references: refs(
     "american-comics",
@@ -116,20 +105,14 @@ export const chineseRetro: Board = {
   title: "Chinese Retro",
   altTitle: "老上海 · 港風",
   pinterest: "https://www.pinterest.com/e12e/chinese-retro-aesthetic/",
-  tiles: [7, 20, 14],
+  tiles: [1, 3, 4],
   palette: [
-    { key: "vermilion", name: "Vermilion", alt: "朱红", hex: "#e14b32", share: 12, role: "Primary" },
-    { key: "ink", name: "Ink", alt: "墨", hex: "#2b2836", share: 6, role: "Text" },
-    { key: "xuan", name: "Xuan Paper", alt: "宣纸", hex: "#f4efe6", share: 9, role: "Background" },
-    { key: "rice", name: "Rice Beige", alt: "米黄", hex: "#daccb5", share: 13, role: "Surface" },
-    { key: "cobalt", name: "Cobalt", alt: "钴蓝", hex: "#184e7f", share: 2, role: "Secondary" },
-    { key: "imperial", name: "Imperial Yellow", alt: "明黄", hex: "#f2d63c", share: 4, role: "Accent" },
-    { key: "gold", name: "Antique Gold", alt: "古金", hex: "#c9b13c", share: 5, role: "Accent" },
-    { key: "pine", name: "Pine Green", alt: "松绿", hex: "#3b5b4e", share: 13, role: "Accent" },
-    { key: "willow", name: "Willow Green", alt: "柳绿", hex: "#819b4a", share: 7, role: "Accent" },
-    { key: "celadon", name: "Celadon", alt: "青瓷", hex: "#7b9d96", share: 11, role: "Accent" },
-    { key: "peach", name: "Peach Blossom", alt: "桃花", hex: "#d9997e", share: 10, role: "Highlight" },
-    { key: "jujube", name: "Jujube Red", alt: "枣红", hex: "#8d3c30", share: 8, role: "Shadow" },
+    { key: "vermilion", name: "Vermilion", alt: "朱红", hex: "#e14b32", share: 18, role: "Primary" },
+    { key: "ink", name: "Ink", alt: "墨", hex: "#2b2836", share: 13, role: "Text" },
+    { key: "xuan", name: "Xuan Paper", alt: "宣纸", hex: "#f4efe6", share: 6, role: "Background" },
+    { key: "rice", name: "Rice Beige", alt: "米黄", hex: "#daccb5", share: 24, role: "Surface" },
+    { key: "pine", name: "Pine Green", alt: "松绿", hex: "#3b5b4e", share: 21, role: "Accent" },
+    { key: "gold", name: "Antique Gold", alt: "古金", hex: "#c9b13c", share: 18, role: "Accent" },
   ],
   references: refs(
     "chinese-retro",

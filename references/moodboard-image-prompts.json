@@ -1,0 +1,278 @@
+{
+  "generator": "Built-in image_gen",
+  "delivery": "Generated PNGs converted to WebP at quality 90 without resizing or cropping.",
+  "assets": [
+    {
+      "board": "japanese-retro",
+      "number": 1,
+      "title": "Sunrise Crane",
+      "note": "日の出",
+      "filename": "generated-01-sunrise-crane.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone portrait artwork for a Japanese retro moodboard, first of a collection. Create an exquisite illustrated Japanese travel poster of a red-crowned crane gliding above a dark indigo sea at sunrise, luminous vermilion sun, warm washi ivory and ochre sky. Rich hand-painted gouache and woodblock-inspired feather detail, graceful anatomically convincing wings, rhythmic finely carved waves, elegant asymmetrical composition with generous sky. Sophisticated vintage print character, subtle paper fibers and ink variation, no heavy scratches or noise overlay. Full-bleed flat artwork, portrait 5:7 proportions. A small beautifully composed Japanese heading '日の出'. No other text, no watermark, no mockup, no frame, no collage. This replaces a crude geometric SVG: prioritize fluid drawing, nuanced pigment and convincing natural form."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 2,
+      "title": "Crane Matchbox",
+      "note": "マッチ",
+      "filename": "generated-02-crane-matchbox.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: An overhead editorial photograph of a beautiful small vintage Japanese matchbox, lid illustrated with two elegant white cranes and red sun in detailed woodblock print, vermilion and indigo on warm ivory, subtly worn cardboard and visible match heads beside box, warm directional window light. Tight composed product photograph, tactile printed paper, no extra text. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 3,
+      "title": "Shinkansen 1964",
+      "note": "新幹線",
+      "filename": "generated-03-shinkansen-1964.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: A magnificent illustrated 1964 Japanese railway travel poster: original round-nosed white and blue 0-series bullet train sweeps diagonally toward viewer, Mount Fuji and distant towns behind, hand-painted gouache with realistic mechanical detail and perspective, indigo, vermilion and ivory, small heading '新幹線' and '1964'. Optimistic mid-century composition. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 4,
+      "title": "Cream Soda",
+      "note": "喫茶",
+      "filename": "generated-04-cream-soda.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Photorealistic nostalgic kissaten cafe still life: tall fluted glass of luminous green melon soda with vanilla ice cream and a single red cherry, condensation and fine bubbles, stainless spoon, dark walnut counter, soft amber window light, subtle analog film colors. Intimate close-up with creamy defocused cafe background. No text. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 5,
+      "title": "Tokyo Tower",
+      "note": "東京",
+      "filename": "generated-05-tokyo-tower.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Beautiful hand-painted Japanese travel poster: Tokyo Tower rendered with intricate vermilion latticework rises over the 1960s city at dusk, layered indigo rooftops, warm golden windows and dusty peach sky, gouache pigment, confident painterly detail, dramatic low viewpoint. Small elegant heading '東京'. Subtle paper texture. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 6,
+      "title": "City Pop LP",
+      "note": "レコード",
+      "filename": "generated-06-city-pop-lp.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Square 1980s Japanese city-pop record sleeve artwork, airbrushed painterly summer evening coastal city, elevated expressway sweeping beside ocean, palm silhouettes, luminous peach sunset fading into teal and indigo, tiny apartment lights, sophisticated cinematic depth and lush analog color. No record mockup, full flat sleeve artwork. Only text 'SUMMER AFTER HOURS' in restrained elegant lettering. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 7,
+      "title": "Kissaten Menu",
+      "note": "献立",
+      "filename": "generated-07-kissaten-menu.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Vintage Japanese kissaten menu illustration, warm cream paper, exquisitely hand-painted coffee in porcelain cup, thick toast on plate, caramel custard with cherry, deliberate editorial still-life arrangement and generous space, sepia ink contours and gouache, ochre and moss green accents. Heading '喫茶' plus small readable 'COFFEE · TOAST · PUDDING'. Flat printed page, delicate illustration, no dense menu. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 8,
+      "title": "Sento Noren",
+      "note": "銭湯",
+      "filename": "generated-08-sento-noren.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Photorealistic intimate street photograph of an old Japanese neighborhood bathhouse entrance, indigo noren curtains with large cream 'ゆ', beautifully weathered wood, tiled threshold and warm light through textured glass, no people, natural fabric folds, quiet late-afternoon light, 1970s color-film character. Carefully framed portrait architectural detail. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 9,
+      "title": "Red Fuji Stamp",
+      "note": "切手",
+      "filename": "generated-09-red-fuji-stamp.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Exquisitely engraved vintage Japanese postage stamp artwork with visible perforated cream paper edge, Mount Fuji in vermilion at dawn, delicate indigo foothills and finely hatched clouds, restrained ochre, hand-carved intaglio linework, heading '日本郵便' and denomination '30'. Single large stamp filling image, warm ivory surround, refined collectible print. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 10,
+      "title": "Rainy Alley",
+      "note": "ネオン",
+      "filename": "generated-10-rainy-alley.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Photorealistic 1970s Japanese alley at night in rain, narrow atmospheric lane, tiny timber-fronted eateries, warm lanterns and teal reflected light rippling across wet pavement, distant umbrella silhouette, intimate street-level perspective, beautiful natural film grain and halation, indigo shadows and vermilion accents. Signage softly out of focus, no large readable text. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 11,
+      "title": "Maneki-neko",
+      "note": "招き猫",
+      "filename": "generated-11-maneki-neko.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Photorealistic characterful vintage ceramic maneki-neko in a small Japanese shop window, raised paw, warm ivory cracked glaze, vermilion ears and collar, muted gold coin, tiny hand-painted whiskers, indigo textile backdrop, soft warm side lighting and shallow focus. Tactile collectible object, charming face, no added typography. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 12,
+      "title": "Ramune Ad",
+      "note": "広告",
+      "filename": "generated-12-ramune-ad.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Beautiful mid-century Japanese ramune advertisement painted in rich watercolor and gouache: chilled pale teal glass Codd-neck bottle with marble, condensation, sparkling summer highlights, flowing water and one citrus slice, cream and indigo background with vermilion accent, dynamic refreshing poster composition. Large elegant heading 'ラムネ'. Physically convincing glass and painterly detail. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 13,
+      "title": "Color TV Ad",
+      "note": "テレビ",
+      "filename": "generated-13-color-tv-ad.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: 1960s Japanese electronics advertisement, richly illustrated walnut cabinet CRT color television in a warm restrained domestic setting, rounded screen displaying vivid colored abstract broadcast shapes, tactile wood grain, chrome knobs, olive and ochre shadows, sophisticated commercial gouache realism. Heading '天然色テレビ' and small 'COLOR TELEVISION'. Flat poster artwork. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 14,
+      "title": "Midnight Vending",
+      "note": "自販機",
+      "filename": "generated-14-midnight-vending.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Photorealistic Japanese midnight street corner, one glowing vintage red drinks vending machine under awning beside weathered concrete wall, luminous rows of bottles, indigo night and soft teal shadows, wet paving with subtle reflections, warm fluorescent spill, cinematic solitude, fine analog grain. No people, no legible brand text, portrait composition. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 15,
+      "title": "Hanabi Festival",
+      "note": "花火",
+      "filename": "generated-15-hanabi-festival.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Rich Japanese summer festival illustration, luminous vermilion and warm gold fireworks blooming above indigo river, delicately painted sparks and reflections, small yukata-clad spectators seen from behind at riverbank, distant festival lanterns, layered night atmosphere, expressive gouache and fine print texture. Small heading '花火'. No modern signage. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 16,
+      "title": "Kaiju Poster",
+      "note": "怪獣",
+      "filename": "generated-16-kaiju-poster.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Dramatic vintage Japanese creature-feature poster painted by a skilled mid-century movie illustrator, an original colossal horned sea creature with textured charcoal scales rises behind a 1960s harbor city, vivid vermilion sky, crashing teal waves, smoke and miniature buildings, strong cinematic diagonal, detailed anatomy and theatrical brushwork. Bold title '大怪獣'. Original creature design, no existing franchise characters. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "japanese-retro",
+      "number": 17,
+      "title": "Daruma",
+      "note": "達磨",
+      "filename": "generated-17-daruma.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone artwork for the japanese-retro moodboard. Primary request: Photorealistic artisan Japanese daruma doll, vermilion papier-mache body with hand-painted sumi brows and moustache, one filled eye and one blank eye, worn gold brushwork, resting on dark wooden shelf against softly blurred warm workshop, visible paper and paint texture, gentle side light. Characterful handcrafted object, tight portrait crop, no added text. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "chinese-retro",
+      "number": 1,
+      "title": "Golden Carp Label",
+      "note": "爆竹",
+      "filename": "generated-01-golden-carp-label.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the chinese-retro moodboard. Primary request: Ornate vintage Chinese Golden Carp firecracker packaging label, intricate hand-painted golden carp leaping through blue-green curling waves, vermilion border with elegant gold botanical filigree, ivory paper, nuanced lithographic shading and expressive scales. Heading '金鯉' in beautifully drawn Chinese lettering. Flat portrait printed artwork, subtle natural paper wear, no photograph or mockup. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "chinese-retro",
+      "number": 2,
+      "title": "Calendar Girl",
+      "note": "月份牌",
+      "filename": "generated-02-calendar-girl.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the chinese-retro moodboard. Primary request: Sophisticated Shanghai 1930s calendar-poster illustration: adult Chinese woman with beautifully natural face, finger-wave black hair, elegant jade silk qipao, holding a round silk fan, softly painted peonies and Art Deco window behind. Meticulous pastel and gouache commercial illustration, believable anatomy and silk texture, warm ivory, coral, muted jade, deep blue. Small heading '花樣年華'. Elegant lower ornamental panel without calendar numerals. Restrained printed-paper texture. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "chinese-retro",
+      "number": 3,
+      "title": "Longjing Tea Label",
+      "note": "茶葉",
+      "filename": "generated-03-longjing-tea-label.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the chinese-retro moodboard. Primary request: Beautiful vintage Chinese tea label illustration, misty terraced green tea hills near Hangzhou, finely painted tea sprig and ivory porcelain cup in foreground, delicate ink and gouache landscape inside ornate oval jade and gold border, warm ivory paper, vermilion seal. Heading '龍井茶'. Sophisticated old tea merchant packaging artwork, flat portrait design with exquisite fine detail. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "chinese-retro",
+      "number": 4,
+      "title": "Hong Kong Neon",
+      "note": "霓虹",
+      "filename": "generated-04-hong-kong-neon.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone artwork for the chinese-retro moodboard. Primary request: Photorealistic nostalgic 1980s Hong Kong street at night, dense projecting vertical neon signs over a narrow street, glowing vermilion and jade reflected on damp asphalt, tram wires and weathered upper-floor windows, atmospheric haze, authentic color-film halation, cinematic street perspective. Naturally blurred small signage, no prominent nonsensical text, no modern vehicles. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "chinese-retro",
+      "number": 5,
+      "title": "Double Happiness Cut",
+      "note": "剪紙",
+      "filename": "generated-05-double-happiness-cut.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the chinese-retro moodboard. Primary request: Macro editorial photograph of intricate traditional Chinese vermilion paper cutting laid on warm ivory paper, central double-happiness character '囍' surrounded by mirrored magpies, peonies and fine curling leaves. Remarkably delicate hand-cut fibers and tiny shadows reveal real paper depth. Balanced symmetrical craft, crisp detail, restrained natural light. One artwork fills portrait frame. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "chinese-retro",
+      "number": 6,
+      "title": "Red Envelope",
+      "note": "利是",
+      "filename": "generated-06-red-envelope.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the chinese-retro moodboard. Primary request: Elegant product photograph of a vintage Chinese red gift envelope on warm dark wood, rich vermilion textured paper embossed with intricate gold peony and flowing vine decoration and single beautiful gold '福' character. Soft side light catches real foil relief and paper fibers, tight composition with refined negative space, nostalgic warmth, premium craft without modern branding. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "chinese-retro",
+      "number": 7,
+      "title": "Flying Swallow Bicycle",
+      "note": "單車",
+      "filename": "generated-07-flying-swallow-bicycle.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the chinese-retro moodboard. Primary request: Vintage Chinese bicycle advertisement painted in detailed mid-century gouache: elegant black steel city bicycle with chrome fenders, chain guard and rear rack, convincingly rendered mechanical parts and spokes, against a softly illustrated old Shanghai lane with pale jade walls, small flying swallow overhead. Ivory, vermilion, muted jade and blue. Heading '飛燕' and small 'BICYCLES'. Refined flat portrait poster. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "chinese-retro",
+      "number": 8,
+      "title": "Thermos & Mug",
+      "note": "國貨",
+      "filename": "generated-08-thermos-mug.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone artwork for the chinese-retro moodboard. Primary request: Photorealistic nostalgic Chinese domestic still life: tall vermilion metal vacuum thermos decorated with vintage hand-painted peonies, beside white enamel lidded mug with dark blue rim, weathered wood table and faded jade wall, soft morning window light, subtle chipped enamel and brushed metal texture. Intimate restrained composition, warm 1970s film color. No added text. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "chinese-retro",
+      "number": 9,
+      "title": "Mahjong Table",
+      "note": "麻雀",
+      "filename": "generated-09-mahjong-table.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: standalone artwork for the chinese-retro moodboard. Primary request: Photorealistic overhead close-up of a nostalgic mahjong game on rich jade green felt, beautifully worn ivory and bamboo tiles arranged in plausible rows with a few discards, clear engraved traditional characters, circle and bamboo suits painted vermilion and green, a small porcelain tea cup near edge. Warm tungsten light and delicate wood patina, tactile documentary still life, no hands, no added text. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "american-comics",
+      "number": 1,
+      "title": "Tears of Love",
+      "note": "Romance",
+      "filename": "generated-01-tears-of-love.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the american-comics moodboard. Primary request: A richly drawn 1960s American romance comic panel: expressive adult dark-haired woman in red blouse, close-up three-quarter face, tear at her eye as she looks toward a distant departing silhouette, beautiful lifelike anatomy, dramatic black brush-ink shadows, restrained red and cyan halftones on ivory paper. Thought balloon reads exactly 'I SHOULD HAVE TOLD YOU!' Small caption 'TEARS OF LOVE'. Excellent hand-lettering and cinematic framing. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "american-comics",
+      "number": 2,
+      "title": "Weird Space Tales",
+      "note": "Sci-fi",
+      "filename": "generated-02-weird-space-tales.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the american-comics moodboard. Primary request: Spectacular original 1950s American pulp sci-fi comic cover: space explorer in silver bubble helmet on alien rocky terrain looks toward towering ringed planet and mysterious hovering saucer, exquisite energetic ink drawing and painted color, deep midnight blue, hot vermilion, ochre and cream, convincing anatomy and astonishing depth. Bold hand-lettered masthead 'WEIRD SPACE TALES'. Small '10¢' corner badge. Subtle newsprint. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "american-comics",
+      "number": 3,
+      "title": "Krakoom!",
+      "note": "SFX",
+      "filename": "generated-03-krakoom.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the american-comics moodboard. Primary request: Dramatic original American comic-book action artwork centered on huge beautifully hand-lettered 'KRAKOOM!' integrated into a spectacular explosive impact, jagged cream and yellow burst, chunks of flying masonry, billowing vermilion smoke, bold black brush inks and finely screened cyan shadows, cinematic depth, controlled detailed drawing. Full portrait panel, readable lettering fully inside margins, subtle newsprint, no other text. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "american-comics",
+      "number": 4,
+      "title": "Meanwhile...",
+      "note": "Panel",
+      "filename": "generated-04-meanwhile.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the american-comics moodboard. Primary request: Beautiful American noir comic establishing panel, dramatic view over richly detailed mid-century New York-style rooftops, water towers and fire escapes toward illuminated skyscrapers, tiny windows, brooding blue night and warm ochre highlights, masterful architectural pen and brush work, deep black shadows, subtle old comic ink texture. Cream caption box at top says exactly 'MEANWHILE...'. Atmospheric cinematic portrait panel. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "american-comics",
+      "number": 5,
+      "title": "Captain Comet #1",
+      "note": "Hero",
+      "filename": "generated-05-captain-comet-1.webp",
+      "prompt": "Use case: illustration-story. Create a portrait 5:7 vintage comic cover with the title 'CAPTAIN COMET', a small '#1' and a '10¢' price. Show an original adult science-fiction adventurer wearing a fully covered navy flight suit, red cape, gloves, boots and a simple gold comet badge, soaring above a beautifully illustrated Art Deco skyline in daylight. Friendly heroic expression, graceful athletic pose, detailed traditional ink drawing, rich blue, red and golden yellow printing on warm ivory newsprint. Dynamic perspective, refined hand-lettered title fully inside margins. Single flat finished illustration. No weapons, fighting or destruction. No existing character likeness, no publisher logos, no watermark."
+    },
+    {
+      "board": "american-comics",
+      "number": 6,
+      "title": "X-Ray Specs Ad",
+      "note": "Mail order",
+      "filename": "generated-06-x-ray-specs-ad.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the american-comics moodboard. Primary request: Whimsical beautifully illustrated 1950s comic-book mail-order advertisement, large hero drawing of cardboard novelty spiral-lens X-ray spectacles, small expressive adult demonstrator wearing them, refined vintage pen-and-ink crosshatching, cream newsprint with vermilion and ochre accents, lively elegant commercial layout. Headline 'X-RAY SPECS', price 'ONLY $1', footer 'AMAZING OPTICAL ILLUSION'. No other copy, readable lettering, no modern graphics. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "american-comics",
+      "number": 7,
+      "title": "Ring! Ring!",
+      "note": "Pop art",
+      "filename": "generated-07-ring-ring.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the american-comics moodboard. Primary request: Expressive 1960s American pop comic panel, close-up of a red rotary telephone ringing on a cyan desk, elegantly drawn adult woman's hand reaching toward receiver, dynamic cropped composition, convincing hand anatomy, thick varied black brush outlines, cream and yellow highlights, fine Ben-Day dots, strong cinematic shadow. Large integrated hand-lettered 'RING! RING!' at top. Detailed illustration, subtly aged newsprint. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    },
+    {
+      "board": "american-comics",
+      "number": 8,
+      "title": "Robot Invasion",
+      "note": "Pulp",
+      "filename": "generated-08-robot-invasion.webp",
+      "prompt": "Use case: illustration-story. Asset type: standalone artwork for the american-comics moodboard. Primary request: Spectacular original 1950s American pulp comic cover: towering retro robot with riveted steel plates, glass dome and glowing amber eyes strides through a richly detailed city street while small human silhouettes flee, dramatic low perspective, smoke and searchlights, masterful brush-ink contours and gouache-like color modeling, vermilion, deep cyan, yellow and aged ivory. Bold masthead 'ROBOT INVASION'. Original robot, no franchise imagery, subtle newsprint texture. Output: a single finished high-resolution raster image, portrait 5:7 proportions except square for the LP sleeve. Richly detailed and visually sophisticated. No collage, no watermark, no generic vector clip art, no heavy digital distress overlay. Keep all intended lettering comfortably inside image edges."
+    }
+  ]
+}

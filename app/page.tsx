@@ -10,8 +10,8 @@ const sections = [
 export default function Home() {
   return (
     <>
-      <nav className="sticky top-0 z-20 flex items-center justify-between border-b border-line bg-bg/85 px-[6vw] py-4 backdrop-blur">
-        <a href="#top" className="font-serif text-lg font-semibold">DBS / Week 2</a>
+      <nav className="sticky top-0 z-20 flex items-center justify-between border-b-2 border-ink bg-bg/95 px-[6vw] py-4 backdrop-blur">
+        <a href="#top" className="font-serif text-lg font-semibold"><span className="mr-2 text-accent">映</span> DBS / Week 2</a>
         <ul className="hidden gap-7 text-sm text-muted md:flex">
           {sections.map((s) => (
             <li key={s.id}><a href={`#${s.id}`} className="hover:text-ink">{s.label}</a></li>
@@ -33,26 +33,26 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="border-t border-line px-[6vw] py-24">
+      <section className="border-t-2 border-ink px-[6vw] py-24">
         <SectionHead id="moodboards" eyebrow="01 — Explore" title="Mood Boards" />
         <div className="grid gap-7 md:grid-cols-3">
           {moodBoards.map((board, i) => <MoodBoardCard key={board.id} board={board} index={i} />)}
         </div>
       </section>
 
-      <section className="border-t border-line px-[6vw] py-24">
+      <section className="border-t-2 border-ink px-[6vw] py-24">
         <SectionHead id="design-systems" eyebrow="02 — Define" title="Design Systems" />
         <div className="grid gap-7 md:grid-cols-3">
           {designSystems.map((ds) => <DesignSystemCard key={ds.id} ds={ds} />)}
         </div>
       </section>
 
-      <section className="border-t border-line px-[6vw] py-24">
+      <section className="border-t-2 border-ink px-[6vw] py-24">
         <SectionHead id="final" eyebrow="03 — Ship" title="The Final Site" />
         <FinalSite />
       </section>
 
-      <footer className="flex flex-wrap justify-between gap-3 border-t border-line px-[6vw] py-10 text-sm text-muted">
+      <footer className="flex flex-wrap justify-between gap-3 border-t-2 border-ink bg-[#ebcb85] px-[6vw] py-10 text-sm text-ink">
         <span>MPCS Design · Build · Ship — Week 2</span>
         <span className="flex gap-5">
           {sections.map((s) => <a key={s.id} href={`#${s.id}`} className="hover:text-ink">{s.label}</a>)}
@@ -146,21 +146,12 @@ function FinalSite() {
 
   return (
     <div className="grid items-center gap-12 lg:grid-cols-[1.5fr_1fr]">
-      <div className="overflow-hidden rounded-2xl border border-line bg-[#faf3ea] shadow-[0_30px_60px_-30px_rgba(42,36,32,0.45)]">
-        <div className="flex items-center gap-2 bg-[#ebe1d4] px-4 py-3">
-          {[0, 1, 2].map((i) => <i key={i} className="h-3 w-3 rounded-full bg-[#d1c2b1]" />)}
-          <span className="ml-3 flex-1 rounded-md bg-[#faf3ea] px-3 py-1 text-xs text-muted">{finalSite.url.replace("https://", "")}</span>
+      <div className="overflow-hidden border-2 border-ink bg-[#f3eddd] shadow-[9px_9px_0_#1f4a66]">
+        <div className="flex items-center gap-2 border-b-2 border-ink bg-[#ebcb85] px-4 py-3">
+          {[0, 1, 2].map((i) => <i key={i} className="h-3 w-3 rounded-full border border-ink bg-[#c7381c]" />)}
+          <span className="ml-3 flex-1 border border-ink bg-[#f3eddd] px-3 py-1 text-xs text-ink">{finalSite.url}</span>
         </div>
-        <div className="grid min-h-96 md:grid-cols-2">
-          <div className="flex flex-col justify-center gap-5 px-9 py-10">
-            <div className="flex gap-4 text-[0.7rem] uppercase tracking-widest text-[#9a7a62]">
-              <span>Prints</span><span>Shop</span><span>Journal</span>
-            </div>
-            <h4 className="font-serif text-4xl leading-tight text-[#3b2a20]">Showa nights, printed by hand.</h4>
-            <span className="self-start rounded-[10px] bg-accent px-4 py-2 text-sm text-white">Browse the prints</span>
-          </div>
-          <div className="min-h-56 bg-cover bg-[center_40%]" style={{ backgroundImage: `url(${finalSite.heroImage})` }} />
-        </div>
+        <img src={finalSite.heroImage} alt="Screenshot of the Eigakan movie picker showing its Japanese Retro design and film cards" className="block aspect-[1.5] w-full object-cover object-top" />
       </div>
 
       <div className="grid gap-4">

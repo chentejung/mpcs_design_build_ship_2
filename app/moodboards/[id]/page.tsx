@@ -36,6 +36,7 @@ export default async function MoodBoardPage({ params }: Props) {
   const board = boards[index];
   const artifacts = collage(board);
   const originalCount = artifacts.length - board.references.length;
+  const featured = originalsByBoard[board.id][board.tiles[0] - 1];
 
   // Each board page is themed with its own palette.
   const theme = {
@@ -46,9 +47,9 @@ export default async function MoodBoardPage({ params }: Props) {
 
   return (
     <main style={theme} className="min-h-screen bg-(--bg) text-(--ink)">
-      <nav className="flex items-center justify-between border-b border-(--ink)/15 px-[6vw] py-4">
+      <nav className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-(--ink) px-[6vw] py-4">
         <ButtonLink href="/#moodboards" variant="secondary">← Back to overview</ButtonLink>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {boards.map((b, i) => (
             <ButtonLink key={b.id} href={`/moodboards/${b.id}/`} variant={b.id === id ? "primary" : "secondary"}>0{i + 1}</ButtonLink>
           ))}
@@ -56,21 +57,25 @@ export default async function MoodBoardPage({ params }: Props) {
         </div>
       </nav>
 
-      <header className="px-[6vw] pt-20 pb-14">
-        <div className="text-xs font-semibold uppercase tracking-[0.14em] text-(--accent)">Mood Board 0{index + 1}</div>
-        <h1 className="mt-3 font-serif text-6xl md:text-8xl">
-          {board.title} <span className="text-(--accent)">{board.altTitle}</span>
-        </h1>
-        <div className="mt-6 flex flex-wrap gap-2 text-sm">
-          {[`${artifacts.length} artifacts`, `${board.references.length} references`, `${originalCount} originals`, `${board.palette.length} colors`].map((t) => (
-            <span key={t} className="rounded-full border border-(--ink)/20 px-3 py-1">{t}</span>
-          ))}
+      <header className="grid items-center gap-10 px-[6vw] pt-16 pb-14 lg:grid-cols-[1.1fr_.9fr]">
+        <div>
+          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-(--accent)">Mood Board 0{index + 1} / Visual archive</div>
+          <h1 className="mt-4 font-serif text-6xl leading-[.95] md:text-8xl">
+            {board.title} <span className="block text-[clamp(2rem,7vw,5.5rem)] text-(--accent)">{board.altTitle}</span>
+          </h1>
+          <p className="mt-7 max-w-xl text-lg leading-relaxed opacity-75">Thirty images, one visual language. Found references and newly illustrated scenes shape the six colors below.</p>
+          <div className="mt-7 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wider">
+            {[`${artifacts.length} images`, `${board.references.length} references`, `${originalCount} originals`, `${board.palette.length} colors`].map((t) => (
+              <span key={t} className="border border-(--ink)/40 px-3 py-2">{t}</span>
+            ))}
+          </div>
         </div>
+        <figure className="mx-auto w-full max-w-sm rotate-2 border-8 border-white bg-white shadow-[12px_12px_0_var(--ink)]"><img src={featured.src} alt={featured.title} className="aspect-[4/5] w-full object-cover" /><figcaption className="px-3 py-2 text-xs font-bold uppercase tracking-widest">Featured study / {featured.title}</figcaption></figure>
       </header>
 
       <section className="border-t border-(--ink)/15 px-[6vw] py-16">
         <h2 className="mb-6 font-serif text-3xl">Color Palette</h2>
-        {/* Bar widths = share of reference pixels nearest each color. */}
+        {/* Bar widths = share of all 30 board images nearest each color. */}
         <div className="mb-8 flex h-12 overflow-hidden rounded-lg ring-1 ring-(--ink)/20">
           {board.palette.map((p) => <span key={p.key} style={{ background: p.hex, flexGrow: p.share }} title={`${p.name} ${p.share}%`} />)}
         </div>

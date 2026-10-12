@@ -1,5 +1,6 @@
-// Landing-page content. Design-system and final-site links are placeholders until those pages exist.
+// Landing-page content shared by the overview and detail pages.
 import { boards, japaneseRetro } from "./boards";
+import { originalsByBoard } from "@/components/artifacts";
 
 export type MoodBoard = {
   id: string;
@@ -18,7 +19,7 @@ export const moodBoards: MoodBoard[] = boards.map((b) => ({
   id: b.id,
   title: b.title,
   selected: b.id === selectedBoard,
-  tiles: b.tiles.map((n) => b.references[n - 1].src),
+  tiles: b.tiles.map((n) => originalsByBoard[b.id][n - 1].src),
   palette: b.palette.map((p) => p.hex),
   links: [
     { label: "View board", href: `/moodboards/${b.id}/` },
@@ -43,10 +44,10 @@ export const designSystems: DesignSystem[] = [
     title: "Clay",
     selected: true,
     fonts: "Fraunces / Inter",
-    tokens: ["#c2562f", "#7a2e1f", "#8a8a2e", "#e9dcc0", "#2f8a7e"],
+    tokens: japaneseRetro.palette.map((color) => color.hex),
     links: [
       { label: "View system", href: "/design-systems/clay/" },
-      { label: "Figma", href: "https://www.figma.com/file/clay-design-system" },
+      { label: "Token notes", href: "/design-systems/clay/#tokens" },
     ],
   },
   {
@@ -57,7 +58,7 @@ export const designSystems: DesignSystem[] = [
     tokens: ["#111111", "#ffffff", "#ff4b1f", "#d9d9d4", "#1f4bff"],
     links: [
       { label: "View system", href: "/design-systems/grid/" },
-      { label: "Figma", href: "https://www.figma.com/file/grid-design-system" },
+      { label: "Token notes", href: "/design-systems/grid/#tokens" },
     ],
   },
   {
@@ -68,18 +69,18 @@ export const designSystems: DesignSystem[] = [
     tokens: ["#6d5dfc", "#b8b0ff", "#ffb38a", "#ffffff", "#2b2840"],
     links: [
       { label: "View system", href: "/design-systems/soft/" },
-      { label: "Figma", href: "https://www.figma.com/file/soft-design-system" },
+      { label: "Token notes", href: "/design-systems/soft/#tokens" },
     ],
   },
 ];
 
 export const finalSite = {
-  url: "https://showa-studio.example.com",
-  heroImage: japaneseRetro.references[12].src,
+  url: "/movies/",
+  heroImage: "/movies-preview.png",
   recipeImage: japaneseRetro.references[1].src,
   links: [
-    { label: "Visit the live site", href: "https://showa-studio.example.com" },
-    { label: "Source code", href: "https://github.com/designbuildship/showa-studio" },
+    { label: "Visit the live site", href: "/movies/" },
+    { label: "Source code", href: "https://github.com/chentejung/mpcs_design_build_ship_2" },
     { label: "Case study", href: "/case-study/" },
   ],
 };

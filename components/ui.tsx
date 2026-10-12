@@ -10,13 +10,13 @@ const isExternal = (href: string) => href.startsWith("http");
 export function ButtonLink({ href, children, variant = "primary", className = "" }: ButtonLinkProps) {
   const styles =
     variant === "primary"
-      ? "bg-ink text-bg hover:bg-accent"
-      : "border border-line bg-surface text-ink hover:border-ink";
+      ? "border border-ink bg-ink text-bg hover:bg-accent hover:border-accent shadow-[3px_3px_0_#ebcb85]"
+      : "border border-ink bg-surface text-ink hover:bg-[#ebcb85] shadow-[3px_3px_0_#1f4a66]";
   return (
     <a
       href={href}
       {...(isExternal(href) && { target: "_blank", rel: "noopener" })}
-      className={`inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium transition-colors ${styles} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center px-4 py-2 text-sm font-semibold transition-colors ${styles} ${className}`}
     >
       {children}
     </a>
@@ -35,12 +35,12 @@ export function SectionHead({ id, eyebrow, title }: { id: string; eyebrow: strin
 export function Card({ selected, children }: { selected?: boolean; children: React.ReactNode }) {
   return (
     <article
-      className={`relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(42,36,32,0.35)] ${
+      className={`relative flex flex-col overflow-hidden border border-ink bg-surface shadow-[5px_5px_0_#ebcb85] transition duration-300 hover:-translate-y-1 hover:shadow-[5px_9px_0_#ebcb85] ${
         selected ? "outline-2 outline-offset-4 outline-accent" : ""
       }`}
     >
       {selected && (
-        <span className="absolute top-3.5 left-3.5 z-10 rounded-full bg-accent px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-wider text-white">
+        <span className="absolute top-3.5 left-3.5 z-10 bg-accent px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-wider text-white">
           Selected
         </span>
       )}

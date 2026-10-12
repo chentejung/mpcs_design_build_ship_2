@@ -1,19 +1,53 @@
 import { fileName } from "@/app/boards";
-import type { Original } from "./print";
-import { originals as americanComics } from "./american-comics";
-import { originals as chineseRetro } from "./chinese-retro";
-import { originals as japaneseRetro } from "./japanese-retro";
 
-export type ExportedOriginal = Original & { src: string };
+// Generated raster artwork; art briefs live in references/moodboard-image-prompts.json.
+// Kept separate from legacy SVG components so builds never regenerate retired artwork.
+export type ExportedOriginal = { title: string; note: string; src: string };
 
-// Each original is exported to public/ as claude-NN-<title>.svg (references/export-originals.tsx),
-// and board pages show that file, so a board's folder holds exactly the pictures it displays.
-const exported = (board: string, list: Original[]): ExportedOriginal[] =>
-  list.map((o, i) => ({ ...o, src: `/moodboards/${board}/${fileName("claude", i + 1, o.title, "svg")}` }));
+const generated = (board: string, list: [string, string][]): ExportedOriginal[] =>
+  list.map(([title, note], i) => ({
+    title, note, src: `/moodboards/${board}/${fileName("generated", i + 1, title, "webp")}`,
+  }));
 
-// Board id -> its original artifacts.
 export const originalsByBoard: Record<string, ExportedOriginal[]> = {
-  "japanese-retro": exported("japanese-retro", japaneseRetro),
-  "american-comics": exported("american-comics", americanComics),
-  "chinese-retro": exported("chinese-retro", chineseRetro),
+  "japanese-retro": generated("japanese-retro", [
+    ["Sunrise Crane", "日の出"],
+    ["Crane Matchbox", "マッチ"],
+    ["Shinkansen 1964", "新幹線"],
+    ["Cream Soda", "喫茶"],
+    ["Tokyo Tower", "東京"],
+    ["City Pop LP", "レコード"],
+    ["Kissaten Menu", "献立"],
+    ["Sento Noren", "銭湯"],
+    ["Red Fuji Stamp", "切手"],
+    ["Rainy Alley", "ネオン"],
+    ["Maneki-neko", "招き猫"],
+    ["Ramune Ad", "広告"],
+    ["Color TV Ad", "テレビ"],
+    ["Midnight Vending", "自販機"],
+    ["Hanabi Festival", "花火"],
+    ["Kaiju Poster", "怪獣"],
+    ["Daruma", "達磨"],
+  ]),
+  "american-comics": generated("american-comics", [
+    ["Tears of Love", "Romance"],
+    ["Weird Space Tales", "Sci-fi"],
+    ["Krakoom!", "SFX"],
+    ["Meanwhile...", "Panel"],
+    ["Captain Comet #1", "Hero"],
+    ["X-Ray Specs Ad", "Mail order"],
+    ["Ring! Ring!", "Pop art"],
+    ["Robot Invasion", "Pulp"],
+  ]),
+  "chinese-retro": generated("chinese-retro", [
+    ["Golden Carp Label", "爆竹"],
+    ["Calendar Girl", "月份牌"],
+    ["Longjing Tea Label", "茶葉"],
+    ["Hong Kong Neon", "霓虹"],
+    ["Double Happiness Cut", "剪紙"],
+    ["Red Envelope", "利是"],
+    ["Flying Swallow Bicycle", "單車"],
+    ["Thermos & Mug", "國貨"],
+    ["Mahjong Table", "麻雀"],
+  ]),
 };

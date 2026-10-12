@@ -7,8 +7,8 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PORT=8000
 cd "$ROOT"
 
-echo "==> Exporting original artifacts to public/moodboards/*/claude-*.svg"
-npx tsx references/export-originals.tsx
+echo "==> Validating moodboards, palettes, and movies"
+npx tsx references/validate-artifacts.ts
 
 echo "==> Building static export into out/"
 npx next build
@@ -23,9 +23,11 @@ for _ in $(seq 20); do
   sleep 0.25
 done
 
-echo "==> Serving out/ at http://localhost:$PORT"
+echo "==> Serving out/ on 0.0.0.0:$PORT"
 cd out
-nohup python3 -m http.server "$PORT" > "$ROOT/.server.log" 2>&1 &
+nohup python3 -m http.server "$PORT" --bind 0.0.0.0 > "$ROOT/.server.log" 2>&1 &
 disown
 sleep 1
-curl -sf -o /dev/null "http://localhost:$PORT/" && echo "==> Server is up (pid $!). Log: .server.log"
+curl -sf -o /dev/null "http://127.0.0.1:$PORT/" && echo "==> Server is up (pid $!). Log: .server.log"
+VM_IP="$(hostname -I 2>/dev/null | awk '{print $1}')"
+if [ -n "$VM_IP" ]; then echo "==> VM address: http://$VM_IP:$PORT"; fi

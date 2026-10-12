@@ -5,7 +5,7 @@ import { americanComics, colors } from "@/app/boards";
 import { Dots, Plate, Print, burst, rand, type Original, type Texture } from "./print";
 
 const c = colors(americanComics);
-// Bangers is embedded into the exported SVG files (references/export-originals.tsx).
+// Legacy SVG lettering; current moodboards use generated WebP artwork instead.
 const bangers = { fontFamily: "Bangers, Impact, sans-serif" };
 const tex = (seed: number, extra: Texture = {}): Texture => ({
   grain: 0.5, wear: 0.25, rough: 0.9, age: c.sepia, ageStrength: 0.5, fade: c.pulp, fadeStrength: 0.12, seed, ...extra,

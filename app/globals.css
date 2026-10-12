@@ -8,12 +8,12 @@
 }
 
 @theme {
-  --color-bg: #f7f2ea;
+  --color-bg: #f3eddd;
   --color-surface: #fffdf9;
-  --color-ink: #2a2420;
-  --color-muted: #7a6f66;
-  --color-line: #e4dacd;
-  --color-accent: #c2562f;
+  --color-ink: #161816;
+  --color-muted: #6d665b;
+  --color-line: #d8c8ad;
+  --color-accent: #c7381c;
 }
 
 html {
@@ -22,4 +22,7 @@ html {
 
 body {
   @apply bg-bg text-ink font-sans antialiased;
+  background-image: linear-gradient(rgba(255,255,255,.16), rgba(255,255,255,.16)), repeating-linear-gradient(0deg, rgba(78,68,48,.025) 0, rgba(78,68,48,.025) 1px, transparent 1px, transparent 4px);
 }
+
+button, a { -webkit-tap-highlight-color: transparent; }
