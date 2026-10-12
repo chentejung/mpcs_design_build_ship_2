@@ -558,9 +558,9 @@
      header under a double rule, posters in a double Sumi rule, Category badges as round seals, a 済 seal on saved
      posters. Kinari is only ever a fill inside Sumi. Checked boxes take a ◯, the mark for "yes" on Japanese forms.
      The posters' drawings gather in the hero and on this system's page: extruded Display type and a Yokoo sun (22)
-     beside an Osaka signboard (26) headed by a sun over waves (02), its word in 天然色 (25); the Saved count hangs
-     as a paper lantern (26). On the Design System page panels take flag corners, film strips divide the sections
-     and frame the toast, and radios are a color TV's knobs (25).
+     beside an Osaka signboard (26) headed by a sun over waves (02), its word in 天然色 (25). On the Design System
+     page panels take flag corners, film strips divide the sections and frame the toast, and radios are a color TV's
+     knobs (25).
      =================================================================================================== */
   [data-system="showa"] {
     /* A film strip: Washi sprocket holes punched in a Sumi band. */
@@ -708,52 +708,12 @@
     transform: none;
   }
 
-  /* ----- Count: a paper lantern (提灯) from Dōtonbori (picture 26), ribbed Hinomaru between Sumi caps on its
-     cord. Count re-mounts when its number changes, so a new count sets the lantern swaying. ----- */
+  /* ----- Count: a rising-sun disc, stamped with a thin outer ring ----- */
   [data-system="showa"] .ds-count {
-    position: relative;
     min-width: 1.9em;
-    height: 2.15em;
-    margin-block: 0.4em;
-    padding: 0 0.4em;
-    border: 1.5px solid var(--ds-text);
-    border-radius: 42% / 50%;
-    background:
-      repeating-linear-gradient(#0000 0 0.32em, color-mix(in srgb, var(--ds-text) 28%, transparent) 0.32em calc(0.32em + 1px)) 0 0.1em,
-      var(--ds-accent);
-    transform-origin: 50% -0.6em;
-    animation: ds-sway 1.1s ease-out;
-  }
-  [data-system="showa"] .ds-count::before,
-  [data-system="showa"] .ds-count::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    width: 1.15em;
-    translate: -50% 0;
-    border-radius: 1.5px;
-    pointer-events: none;
-  }
-  [data-system="showa"] .ds-count::before {
-    top: -0.62em;
-    height: 0.82em;
-    background: linear-gradient(var(--ds-text) 0 0) 50% 0 / 1.5px 0.4em no-repeat, linear-gradient(var(--ds-text) 0 0) 0 100% / 100% 0.42em no-repeat;
-  }
-  [data-system="showa"] .ds-count::after {
-    bottom: -0.36em;
-    height: 0.42em;
-    background: var(--ds-text);
-  }
-  @keyframes ds-sway {
-    0% {
-      rotate: 9deg;
-    }
-    35% {
-      rotate: -6deg;
-    }
-    65% {
-      rotate: 3deg;
-    }
+    height: 1.9em;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1.5px var(--ds-bg), 0 0 0 3px var(--ds-accent);
   }
 
   /* ----- Brand: a rising-sun disc ----- */

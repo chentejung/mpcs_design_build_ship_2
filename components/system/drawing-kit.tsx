@@ -5,7 +5,7 @@ import { colors } from "@/app/boards";
 import { showa } from "@/app/systems";
 import { useSystemId } from "./context";
 import { SunOverWaves } from "./koi";
-import { Lantern, Signboard } from "./osaka";
+import { Signboard } from "./osaka";
 import { Tenneniro } from "./terebi";
 import { Aura, Cloud, Eye, Hand, Planet, Rays, Sparkle } from "./yokoo";
 
@@ -65,7 +65,6 @@ const groups: { picture: string; elements: Element[] }[] = [
   {
     picture: "Osaka Rainy Night · picture 26",
     elements: [
-      { name: "Lantern", jp: "提灯", note: "The Saved count hangs as a paper lantern and sways when the count changes.", art: <Lantern className="h-20 w-20" /> },
       { name: "Signboard", jp: "看板", note: "Stands beside the hero sun: a capped board, its word set top to bottom, the cinema's stamp below.",
         art: box(<div className="[zoom:0.36]"><Signboard text="上映中" stamp="映" /></div>) },
     ],

@@ -64,7 +64,7 @@ export const showa: DesignSystem = {
   name: "Shōwa",
   alt: "昭和",
   board: japaneseRetro,
-  essence: "Shōwa-era poster print: fat gothic type and cinema tickets in color plates that never quite line up, with Tadanori Yokoo's rising sun, an Osaka signboard in 天然色 and a paper lantern in the hero.",
+  essence: "Shōwa-era poster print: fat gothic type and cinema tickets in color plates that never quite line up, with Tadanori Yokoo's rising sun and an Osaka signboard in 天然色 in the hero.",
   colors: {
     background: "washi",
     surface: "kinari",
@@ -92,13 +92,13 @@ export const showa: DesignSystem = {
     radius: { control: 4, card: 2, poster: 2, badge: 999, panel: 4 },
     border: { control: 2, card: 4 },
     shadow: "None. A red plate sits 3px out of register behind each control and input, like a misaligned print layer; panels, the signboard and the toast cast a solid red plate.",
-    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub. Filter chips are shop tags (値札) with clipped corners and a punched hole. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios are a color TV's knobs (つまみ) that turn up to 12 o'clock when chosen; a switched-on toggle's knob turns into a sparkle; the selected tab stands on a sawtooth; the select points down with a hand; the Saved count hangs as a paper lantern (提灯).",
+    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub. Filter chips are shop tags (値札) with clipped corners and a punched hole. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios are a color TV's knobs (つまみ) that turn up to 12 o'clock when chosen; a switched-on toggle's knob turns into a sparkle; the selected tab stands on a sawtooth; the select points down with a hand.",
   },
   icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice.", remove: "A bold cross." },
   texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter." },
   motif: {
     name: "Yokoo sun on a Shōwa street",
-    note: "From four pictures on Mood Board 01, gathered in the hero around a plain film list (a plain header, posters in a double Sumi rule, Category badges as round seals, a 済 (“done”) seal on saved posters, a plain rising sun holding 空 when nothing is saved). Tadanori Yokoo (22): extruded Display type and a rayed sun in a sawtooth aura with the cinema's eye at its centre. Osaka Rainy Night (26): a capped signboard reading 上映中 beside the sun, and the Saved count as a paper lantern. Koi Pond (02): the sun rising over waves that heads the signboard. Color TV Ad (25): the signboard's word in 天然色. On this page panels take flag corners, film strips divide the sections, and radios are a color TV's knobs.",
+    note: "From four pictures on Mood Board 01, gathered in the hero around a plain film list (a plain header, posters in a double Sumi rule, Category badges as round seals, a 済 (“done”) seal on saved posters, a plain rising sun holding 空 when nothing is saved). Tadanori Yokoo (22): extruded Display type and a rayed sun in a sawtooth aura with the cinema's eye at its centre. Osaka Rainy Night (26): a capped signboard reading 上映中 beside the sun. Koi Pond (02): the sun rising over waves that heads the signboard. Color TV Ad (25): the signboard's word in 天然色. On this page panels take flag corners, film strips divide the sections, and radios are a color TV's knobs.",
   },
   feel: { hover: "The red plate drifts further out of register.", press: "The plate snaps into register." },
 };

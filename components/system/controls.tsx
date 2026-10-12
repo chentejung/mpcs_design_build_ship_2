@@ -47,8 +47,7 @@ export function CategoryBadge({ category, className = "" }: { category: Category
   );
 }
 
-// Keyed by its number, so a new count re-mounts and plays the system's entrance (Shōwa's lantern sways).
-export const Count = ({ n }: { n: number }) => <span key={n} className="ds-count">{n}</span>;
+export const Count = ({ n }: { n: number }) => <span className="ds-count">{n}</span>;
 
 export function TextInput({ state, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { state?: FrozenState }) {
   return <input data-state={state} className="ds-input" {...props} />;
