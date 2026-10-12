@@ -399,6 +399,63 @@
     text-align: center;
   }
 
+  /* A headline's gloss, tracked wide. */
+  .ds-kicker {
+    font-family: var(--ds-body-font);
+    font-size: calc(var(--ds-body-size) + 2px);
+    font-weight: 700;
+    letter-spacing: 0.5em;
+    line-height: 1.4;
+  }
+
+  /* ----- Colophon: the band along the foot of Eigakan's pages ----- */
+  .ds-colophon {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 32px;
+    padding-top: 20px;
+    border-top: var(--ds-control-border) solid var(--ds-border);
+  }
+  .ds-colophon-name {
+    font-family: var(--ds-display-font);
+    font-size: min(48px, 11cqi);
+    line-height: 1;
+    color: var(--ds-accent); /* large type only */
+    text-transform: uppercase;
+  }
+  .ds-colophon-tagline {
+    margin-top: 10px;
+    font-family: var(--ds-body-font);
+    font-size: var(--ds-body-size);
+    font-weight: 700;
+    letter-spacing: 0.3em;
+  }
+  .ds-colophon-facts {
+    display: grid;
+    gap: 4px;
+  }
+  .ds-colophon-facts li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ds-colophon-facts li::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--ds-accent);
+  }
+  .ds-colophon-mark {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    margin-left: auto;
+    text-align: center;
+  }
+
   /* ----- Film card and poster frame ----- */
   .ds-card {
     display: flex;
@@ -436,7 +493,8 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .ds *,
-    .ds *::before {
+    .ds *::before,
+    .ds *::after {
       animation: none !important;
       transition: none !important;
     }
@@ -540,7 +598,8 @@
   }
 
   /* ===================================================================================================
-     Shōwa 昭和: cinema tickets and shop tags, printed like a Tadanori Yokoo poster (Mood Board 01, picture 22).
+     Shōwa 昭和: cinema tickets and shop tags, printed like the Shōwa posters on Mood Board 01: Tadanori Yokoo
+     (picture 22), Koi Pond (02), Color TV Ad (25) and Osaka Rainy Night (26).
      Buttons have punched side notches, and their icon sits in a perforated stub that rays fan out of; filter chips
      are shop tags (値札) with clipped corners and a punched hole, and a selected tag's rays radiate from the hole.
      Every shape prints twice: a color plate sits 3px out of register behind the 2px Sumi keyline, drifts further on
@@ -548,6 +607,9 @@
      the brand, the count and a hovered poster; Category badges are ringed planets; posters, panels and the empty
      state are framed in double rules with flag corners; film strips close the header, the sections and the toast.
      Kinari is only ever a fill inside Sumi. Checked boxes take a ◯, the mark for "yes" on Japanese forms.
+     The street layer: native words print in 天然色 and radios are the TV's knobs (25); the Saved count hangs as a
+     paper lantern and the hero's signboard stands beside the sun (26); a press ripples like rain on the koi pond (02),
+     loading posters warm up as a color TV and failed ones show static (25); the colophon is a poster's foot (02, 25).
      =================================================================================================== */
   [data-system="showa"] {
     /* A film strip: Washi sprocket holes punched in a Sumi band. */
@@ -558,14 +620,36 @@
 
   /* Block type, extruded the Yokoo way: a Hinomaru depth under the Sumi face, closed by a Sumi edge. Type set in
      Accent stands on a Sumi depth instead. */
-  [data-system="showa"] :is(.ds-display, .ds-extrude) {
+  [data-system="showa"] .ds-display {
     --depth: var(--ds-accent);
+  }
+  [data-system="showa"] .ds-display[class*="ds-accent"] {
+    --depth: var(--ds-text);
+  }
+  [data-system="showa"] :is(.ds-display, .ds-display .ds-ink) {
     text-shadow:
       0.012em 0.012em 0 var(--depth), 0.024em 0.024em 0 var(--depth), 0.036em 0.036em 0 var(--depth),
       0.048em 0.048em 0 var(--depth), 0.06em 0.06em 0 var(--depth), 0.072em 0.072em 0 var(--ds-text);
   }
-  [data-system="showa"] :is(.ds-extrude, .ds-display[class*="ds-accent"]) {
+  /* 天然色 (picture 25): a native word's first three characters print Hinomaru, Ai and Kogecha, as 天然色テレビ does
+     in the ad; extruded, the red one stands on Sumi and the others on Hinomaru. */
+  [data-system="showa"] .ds-ink[data-ink="1"] {
     --depth: var(--ds-text);
+    color: var(--ds-accent);
+  }
+  [data-system="showa"] .ds-ink[data-ink="2"] {
+    --depth: var(--ds-accent);
+    color: var(--ds-selected);
+  }
+  [data-system="showa"] .ds-ink[data-ink="3"] {
+    --depth: var(--ds-accent);
+    color: var(--ds-swatch-kogecha);
+  }
+  /* Under a headline, its gloss tracked wide over a red rule, like "COLOR TELEVISION" under the ad's headline. */
+  [data-system="showa"] .ds-kicker {
+    display: inline-block;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--ds-accent);
   }
 
   /* ----- Tickets and tags ----- */
@@ -645,6 +729,34 @@
   [data-system="showa"] :is(.ds-btn--primary, .ds-btn[aria-pressed="true"], .ds-btn[aria-current="page"]) .ds-btn-icon {
     --rays: color-mix(in srgb, var(--ds-on-accent) 22%, transparent);
   }
+  /* Press: a ripple (波紋) spreads from the stub, as the rain does on the koi pond (picture 02). Held, the rings
+     gather round the icon; let go, they widen and fade. */
+  [data-system="showa"] .ds-btn-icon {
+    position: relative;
+  }
+  [data-system="showa"] .ds-btn-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 0.275em);
+    width: 1.5em;
+    height: 1.5em;
+    margin: -0.75em 0 0 -0.75em;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    outline: 1px solid currentColor;
+    outline-offset: 0.22em;
+    opacity: 0;
+    scale: 2.1;
+    pointer-events: none;
+    transition: scale 0.6s ease-out, opacity 0.6s ease-out;
+  }
+  [data-system="showa"] .ds-btn:active:not(:disabled) .ds-btn-icon::after,
+  [data-system="showa"] .ds-btn[data-state="pressed"] .ds-btn-icon::after {
+    opacity: 0.85;
+    scale: 0.7;
+    transition: none;
+  }
   [data-system="showa"] :is(.ds-btn--primary, .ds-btn[aria-pressed="true"]) {
     --ds-plate: var(--ds-accent);
     background: transparent;
@@ -678,15 +790,55 @@
     transform: none;
   }
 
-  /* ----- Count and brand: a rising-sun disc in a Kinari sawtooth aura, keylined in Sumi ----- */
+  /* ----- Count: a paper lantern (提灯) from Dōtonbori (picture 26), ribbed Hinomaru between Sumi caps on its
+     cord. Count re-mounts when its number changes, so a new count sets the lantern swaying. ----- */
   [data-system="showa"] .ds-count {
-    --aura: 5px;
     position: relative;
     min-width: 1.9em;
-    height: 1.9em;
-    border-radius: 50%;
-    box-shadow: 0 0 0 1.5px var(--ds-bg);
+    height: 2.15em;
+    margin-block: 0.4em;
+    padding: 0 0.4em;
+    border: 1.5px solid var(--ds-text);
+    border-radius: 42% / 50%;
+    background:
+      repeating-linear-gradient(#0000 0 0.32em, color-mix(in srgb, var(--ds-text) 28%, transparent) 0.32em calc(0.32em + 1px)) 0 0.1em,
+      var(--ds-accent);
+    transform-origin: 50% -0.6em;
+    animation: ds-sway 1.1s ease-out;
   }
+  [data-system="showa"] .ds-count::before,
+  [data-system="showa"] .ds-count::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 1.15em;
+    translate: -50% 0;
+    border-radius: 1.5px;
+    pointer-events: none;
+  }
+  [data-system="showa"] .ds-count::before {
+    top: -0.62em;
+    height: 0.82em;
+    background: linear-gradient(var(--ds-text) 0 0) 50% 0 / 1.5px 0.4em no-repeat, linear-gradient(var(--ds-text) 0 0) 0 100% / 100% 0.42em no-repeat;
+  }
+  [data-system="showa"] .ds-count::after {
+    bottom: -0.36em;
+    height: 0.42em;
+    background: var(--ds-text);
+  }
+  @keyframes ds-sway {
+    0% {
+      rotate: 9deg;
+    }
+    35% {
+      rotate: -6deg;
+    }
+    65% {
+      rotate: 3deg;
+    }
+  }
+
+  /* ----- Brand: a rising-sun disc in a Kinari sawtooth aura, keylined in Sumi ----- */
   [data-system="showa"] .ds-brand-mark {
     --aura: 7px;
     position: relative;
@@ -699,19 +851,19 @@
     box-shadow: 0 0 0 2px var(--ds-bg);
   }
   /* The aura is drawn below its disc (z-index -1 in the parent's stacking context): Sumi, then Kinari inside it. */
-  [data-system="showa"] :is(.ds-count, .ds-brand-mark)::before,
-  [data-system="showa"] :is(.ds-count, .ds-brand-mark)::after {
+  [data-system="showa"] .ds-brand-mark::before,
+  [data-system="showa"] .ds-brand-mark::after {
     content: "";
     position: absolute;
     z-index: -1;
     clip-path: var(--ds-aura);
     pointer-events: none;
   }
-  [data-system="showa"] :is(.ds-count, .ds-brand-mark)::before {
+  [data-system="showa"] .ds-brand-mark::before {
     inset: calc(-1 * var(--aura));
     background: var(--ds-text);
   }
-  [data-system="showa"] :is(.ds-count, .ds-brand-mark)::after {
+  [data-system="showa"] .ds-brand-mark::after {
     inset: calc(1.5px - var(--aura));
     background: var(--ds-surface);
   }
@@ -738,8 +890,38 @@
     --ds-shadow: 2px 2px 0 0 var(--ds-bg), 2px 2px 0 1.5px var(--ds-accent);
     box-shadow: var(--ds-shadow);
   }
+  /* Radios are the TV's knobs (つまみ, picture 25): a knurled rim round a Kinari face. Choosing one turns its pointer
+     from 7:30 up to 12 o'clock and lights the face Ai. */
+  [data-system="showa"] .ds-check input[type="radio"] + .ds-box {
+    --face: var(--ds-surface);
+    --pointer: var(--ds-text);
+    position: relative;
+    width: 24px;
+    height: 24px;
+    background:
+      radial-gradient(circle, var(--face) 0 5.5px, var(--ds-text) 6px 7px, #0000 7.5px),
+      repeating-conic-gradient(var(--ds-text) 0 10deg, var(--ds-bg) 10deg 20deg);
+  }
+  [data-system="showa"] .ds-check input[type="radio"] + .ds-box::after {
+    content: "";
+    position: absolute;
+    inset: 3.5px;
+    border-radius: 50%;
+    background: linear-gradient(var(--pointer) 0 0) 50% 0 / 2.5px 50% no-repeat;
+    rotate: -135deg;
+    transition: rotate 0.3s cubic-bezier(0.3, 1.5, 0.5, 1);
+  }
   [data-system="showa"] .ds-check input[type="radio"]:checked + .ds-box {
-    box-shadow: inset 0 0 0 4px var(--ds-bg), var(--ds-shadow);
+    --face: var(--ds-selected);
+    --pointer: var(--ds-on-selected);
+    border-color: var(--ds-text);
+    background:
+      radial-gradient(circle, var(--face) 0 5.5px, var(--ds-text) 6px 7px, #0000 7.5px),
+      repeating-conic-gradient(var(--ds-text) 0 10deg, var(--ds-bg) 10deg 20deg);
+    box-shadow: var(--ds-shadow);
+  }
+  [data-system="showa"] .ds-check input[type="radio"]:checked + .ds-box::after {
+    rotate: 0deg;
   }
   [data-system="showa"] .ds-check input[type="checkbox"] + .ds-box svg,
   [data-system="showa"] .ds-check input[type="checkbox"]:checked + .ds-box svg {
@@ -908,28 +1090,76 @@
     opacity: 1;
     scale: 1;
   }
-  /* The fallback behind each poster: Washi rays over Kinari, turning slowly while the poster loads. */
+  /* The fallback behind each poster is a color TV (picture 25): a screen in chrome trim set in a Kogecha cabinet, with
+     a grille and two knobs below it. The title rides on the screen as a caption (テロップ). While the poster loads the
+     screen shows a 天然色 test card with a bar rolling down it; if the poster fails, static (砂嵐). */
   [data-system="showa"] .ds-poster-fallback {
+    --knob: var(--ds-surface) 0 55%, var(--ds-text) 62% 96%, #0000 100%;
     isolation: isolate;
     overflow: hidden;
+    padding: 10% 12% 30%;
+    background:
+      radial-gradient(5.5% 3.7% at 80% 89%, var(--knob)), radial-gradient(5.5% 3.7% at 92% 89%, var(--knob)),
+      repeating-linear-gradient(var(--ds-text) 0 1.5px, #0000 1.5px 4px) 12% 89.5% / 52% 8% no-repeat,
+      repeating-linear-gradient(#0000 0 6px, color-mix(in srgb, var(--ds-text) 14%, transparent) 6px 7px, #0000 7px 11px, color-mix(in srgb, var(--ds-text) 8%, transparent) 11px 12px),
+      var(--ds-swatch-kogecha);
   }
-  [data-system="showa"] .ds-poster-fallback::before {
+  [data-system="showa"] .ds-poster-fallback::before,
+  [data-system="showa"] .ds-poster-fallback::after {
     content: "";
     position: absolute;
-    inset: -50%;
+    inset: 6% 8% 22%;
     z-index: -1;
-    background: repeating-conic-gradient(color-mix(in srgb, var(--ds-bg) 55%, transparent) 0 7deg, #0000 7.5deg 14.5deg, color-mix(in srgb, var(--ds-bg) 55%, transparent) 15deg);
+    border-radius: 16% / 11%;
+    pointer-events: none;
+  }
+  [data-system="showa"] .ds-poster-fallback::before {
+    background:
+      repeating-linear-gradient(#0000 0 2px, color-mix(in srgb, var(--ds-text) 13%, transparent) 2px 3px),
+      radial-gradient(14% 10% at 52% 54%, var(--ds-surface) 98%, #0000),
+      radial-gradient(36% 26% at 24% 28%, var(--ds-accent) 98%, #0000),
+      radial-gradient(30% 22% at 20% 92%, var(--ds-swatch-kogecha) 98%, #0000),
+      radial-gradient(46% 34% at 82% 74%, var(--ds-selected) 98%, #0000),
+      conic-gradient(from 10deg at 52% 50%, var(--ds-bg) 0 80deg, #0000 0),
+      var(--ds-surface);
+    box-shadow:
+      0 0 0 2px var(--ds-text), 0 0 0 5px var(--ds-surface), 0 0 0 7px var(--ds-text),
+      inset 0 0 1.4em color-mix(in srgb, var(--ds-text) 55%, transparent);
+  }
+  [data-system="showa"] .ds-poster-fallback > * {
+    justify-self: center;
+    max-width: 100%;
+    padding: 0.2em 0.45em;
+  }
+  [data-system="showa"] .ds-poster-fallback .ds-heading {
+    background: var(--ds-bg);
+    color: var(--ds-text);
+    box-shadow: 0 0 0 1.5px var(--ds-text), 3px 3px 0 1.5px var(--ds-accent);
+  }
+  [data-system="showa"] .ds-poster-fallback .ds-meta {
+    background: var(--ds-text);
+    color: var(--ds-bg);
   }
   [data-system="showa"] .ds-poster[data-poster="loading"] .ds-poster-fallback {
     animation: none;
   }
-  [data-system="showa"] .ds-poster[data-poster="loading"] .ds-poster-fallback::before {
-    animation: ds-turn 16s linear infinite;
+  [data-system="showa"] .ds-poster[data-poster="loading"] .ds-poster-fallback::after {
+    background: linear-gradient(#0000, color-mix(in srgb, var(--ds-bg) 55%, transparent) 45% 55%, #0000) 0 -60% / 100% 34% no-repeat;
+    animation: ds-roll 2.2s linear infinite;
   }
-  @keyframes ds-turn {
+  @keyframes ds-roll {
     to {
-      rotate: 1turn;
+      background-position: 0 160%;
     }
+  }
+  /* No signal: Washi snow (Sumi specks masked from noise) over the screen, still. */
+  [data-system="showa"] .ds-poster[data-poster="error"] .ds-poster-fallback::before {
+    background: repeating-linear-gradient(#0000 0 2px, color-mix(in srgb, var(--ds-text) 13%, transparent) 2px 3px), var(--ds-bg);
+  }
+  [data-system="showa"] .ds-poster[data-poster="error"] .ds-poster-fallback::after {
+    background: var(--ds-text);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.25'/%3E%3C/filter%3E%3Crect width='96' height='96' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 96px 96px;
+    opacity: 0.75;
   }
 
   /* Saved: a 済 ("done") seal in a double ring, Accent as large type on the Scrim, with rays around it. */
@@ -997,6 +1227,77 @@
   }
   [data-system="showa"] .ds-row .ds-poster {
     border: 2px solid var(--ds-text);
+  }
+
+  /* ----- Signboard (看板, picture 26): a Washi board in a double Sumi frame under a cap, headed by a sun over waves
+     (picture 02), its word in 天然色, the cinema's ringed stamp at its foot, a red plate out of register behind ----- */
+  [data-system="showa"] .ds-signboard {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    padding: 12px 9px 10px;
+    border: 4px double var(--ds-text);
+    background: var(--ds-bg);
+    box-shadow: 5px 5px 0 var(--ds-accent);
+  }
+  [data-system="showa"] .ds-signboard::before {
+    content: "";
+    position: absolute;
+    top: -11px;
+    right: -9px;
+    left: -9px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--ds-text);
+  }
+  [data-system="showa"] .ds-signboard-sun {
+    width: 40px;
+  }
+  [data-system="showa"] .ds-signboard-text {
+    font-family: var(--ds-display-font);
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    writing-mode: vertical-rl;
+  }
+  [data-system="showa"] :is(.ds-signboard-stamp, .ds-colophon-stamp) {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 2px solid var(--ds-accent);
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 2.5px var(--ds-bg), inset 0 0 0 4px var(--ds-accent);
+    color: var(--ds-accent);
+    font-family: var(--ds-display-font);
+    font-size: 20px; /* Accent as large type */
+    line-height: 1;
+  }
+
+  /* ----- Colophon: the foot of a poster (pictures 02 and 25), the name large in Hinomaru over a tracked tagline,
+     Sumi rules between the parts, facts on Hinomaru, Ai and Kogecha bullets, and the ringed stamp with its year ----- */
+  [data-system="showa"] .ds-colophon {
+    border-top: 0;
+  }
+  [data-system="showa"] .ds-colophon-facts {
+    padding-left: 28px;
+    border-left: 2px solid var(--ds-text);
+  }
+  [data-system="showa"] .ds-colophon-facts li::before {
+    width: 11px;
+    height: 11px;
+  }
+  [data-system="showa"] .ds-colophon-facts li:nth-child(2)::before {
+    background: var(--ds-selected);
+  }
+  [data-system="showa"] .ds-colophon-facts li:nth-child(3)::before {
+    background: var(--ds-swatch-kogecha);
+  }
+  [data-system="showa"] .ds-colophon-stamp {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
   }
 
   /* ===================================================================================================

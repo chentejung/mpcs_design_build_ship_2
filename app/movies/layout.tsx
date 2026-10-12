@@ -5,6 +5,7 @@ import { selectedBoard } from "@/app/data";
 import { categories, films } from "@/app/films";
 import { systemFor } from "@/app/systems";
 import { Credits } from "@/components/movies/credits";
+import { Colophon } from "@/components/system/colophon";
 import { Header } from "@/components/movies/header";
 import { SavedProvider } from "@/components/movies/saved";
 import { SystemTheme } from "@/components/system/theme";
@@ -42,9 +43,12 @@ export default function MoviesLayout({ children }: { children: React.ReactNode }
           {children}
           <Credits />
         </main>
-        <footer className="ds-fine ds-muted mx-auto mt-10 ds-rule flex max-w-7xl flex-wrap justify-between gap-3 px-[5vw] py-8">
-          <span>Eigakan 映画館 · Design Build Ship, Week 2</span>
-          <a href="/" className="ds-link">← Process page</a>
+        <footer className="ds-rule mx-auto mt-10 max-w-7xl px-[5vw] pt-10 pb-8">
+          <Colophon />
+          <div className="ds-fine ds-muted mt-8 flex flex-wrap justify-between gap-3">
+            <span>Eigakan 映画館 · Design Build Ship, Week 2</span>
+            <a href="/" className="ds-link">← Process page</a>
+          </div>
         </footer>
       </SavedProvider>
     </SystemTheme>

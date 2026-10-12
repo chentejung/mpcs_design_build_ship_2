@@ -2,12 +2,11 @@
 // Shōwa's drawing kit, after the Tadanori Yokoo picture on the Japanese Retro board (picture 22): flat fills inside
 // heavy Sumi keylines, rising-sun rays, a sawtooth aura (後光) around whatever is in focus, four-point sparkles,
 // ringed planets, scalloped clouds, the eye at the sun's centre, and a pointing hand. Kinari is only ever a fill
-// inside Sumi (app/systems.ts). motifs.tsx composes these into the hero, the ornament and the empty state.
+// inside Sumi (app/systems.ts). motifs.tsx composes these into the hero and the ornament; drawing-kit.tsx shows them.
 import { useId } from "react";
 import { colors } from "@/app/boards";
 import { showa } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
-import { useSystemId } from "./context";
 
 const c = colors(showa.board);
 
@@ -166,69 +165,5 @@ export function HeroSun({ className = "" }: { className?: string }) {
       <Sparkle x={22} y={30} r={10} fill={c.washi} k={2.5} />
       <Sparkle x={230} y={128} r={8} fill={c.hinomaru} k={2} />
     </svg>
-  );
-}
-
-// The empty state: the sun holds 空 ("empty"), with a planet, a cloud and sparkles around it.
-export function EmptySun({ className = "" }: { className?: string }) {
-  return (
-    <svg aria-hidden viewBox="0 0 200 172" className={className}>
-      <SunMark cx={100} cy={84} r={80} glyph="空" />
-      <Planet cx={30} cy={146} r={11} k={2.5} />
-      <Cloud x={138} y={152} s={0.85} k={2.5} />
-      <Sparkle x={20} y={26} r={12} k={2.5} />
-      <Sparkle x={184} y={44} r={8} fill={c.hinomaru} k={2} />
-    </svg>
-  );
-}
-
-// The kit on Shōwa's Design System page, one drawing per element; other systems have none.
-const tile = (children: React.ReactNode, viewBox = "0 0 80 80") => <svg aria-hidden viewBox={viewBox} className="h-20 w-20">{children}</svg>;
-const strip = Array.from({ length: 6 }, (_, i) => <rect key={i} x={4 + i * 13} y={36} width={7} height={8} rx={1} fill={c.washi} />);
-const flag = (x: number, y: number) => (
-  <g key={`${x}${y}`}>
-    <rect x={x} y={y} width={16} height={16} fill={c.washi} stroke={c.sumi} strokeWidth={2.5} />
-    <circle cx={x + 8} cy={y + 8} r={4} fill={c.hinomaru} />
-  </g>
-);
-
-const kit: { name: string; jp: string; note: string; art: React.ReactNode }[] = [
-  { name: "Rays", jp: "旭日", note: "Alternating wedges radiate from the focus: the sun, a selected tag's hole, a ticket stub.",
-    art: tile(<><Rays cx={40} cy={40} r={37} n={16} ground={c.washi} /><circle cx={40} cy={40} r={37} fill="none" stroke={c.sumi} strokeWidth={2.5} /></>) },
-  { name: "Aura", jp: "後光", note: "A sawtooth halo rings the sun, the brand, the Saved count and a hovered poster.",
-    art: tile(<><Aura cx={40} cy={40} r={36} teeth={22} depth={0.2} k={2.5} /><circle cx={40} cy={40} r={20} fill={c.hinomaru} stroke={c.sumi} strokeWidth={2.5} /></>) },
-  { name: "Sparkle", jp: "キラキラ", note: "Four-point stars fill the gaps; a switched-on toggle turns into one.",
-    art: tile(<><Sparkle x={34} y={42} r={26} k={2.5} /><Sparkle x={64} y={18} r={11} fill={c.hinomaru} k={2} /></>) },
-  { name: "Planet", jp: "惑星", note: "A ringed planet: Category badges orbit the poster corner.",
-    art: tile(<Planet cx={40} cy={40} r={19} k={2.5} />) },
-  { name: "Cloud", jp: "雲", note: "Scalloped puffs drift over the sun's rim.", art: tile(<Cloud x={16} y={42} s={0.95} k={2.5} />) },
-  { name: "Eye", jp: "目", note: "The cinema's eye looks out from the hero sun.", art: tile(<Eye cx={40} cy={40} w={66} k={2.5} />) },
-  { name: "Hand", jp: "指差し", note: "Points the way out of an empty list.", art: tile(<Hand x={6} y={24} s={1.08} k={2.5} />) },
-  { name: "Film strip", jp: "フィルム", note: "Sprocket bands close the header, divide sections and frame the toast.",
-    art: tile(<><rect x={0} y={30} width={80} height={20} fill={c.sumi} />{strip}</>) },
-  { name: "Flag corners", jp: "日の丸", note: "Poster borders: a double Sumi rule with flag blocks at its corners.",
-    art: tile(<><rect x={10} y={10} width={60} height={60} fill="none" stroke={c.sumi} strokeWidth={5} /><rect x={10} y={10} width={60} height={60} fill="none" stroke={c.washi} strokeWidth={1.6} />{[flag(2, 2), flag(62, 2), flag(2, 62), flag(62, 62)]}</>) },
-];
-
-export function DrawingKit() {
-  if (useSystemId() !== "showa") return null;
-  return (
-    <div className="grid gap-5">
-      <p className="ds-label ds-muted">Drawing kit · after Tadanori Yokoo, Mood Board 01 picture 22</p>
-      <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
-      <li className="grid content-start gap-2">
-        <span aria-hidden lang="ja" className="ds-display grid h-20 place-items-center justify-self-start text-[64px] leading-none">映</span>
-        <p className="ds-label">Block type <span lang="ja" className="ds-native text-[12px]">立体文字</span></p>
-        <p className="ds-fine ds-muted">Display type stands on a Hinomaru extrusion, closed by a Sumi edge.</p>
-      </li>
-      {kit.map((k) => (
-        <li key={k.name} className="grid content-start gap-2">
-          {k.art}
-          <p className="ds-label">{k.name} <span lang="ja" className="ds-native text-[12px]">{k.jp}</span></p>
-          <p className="ds-fine ds-muted">{k.note}</p>
-        </li>
-      ))}
-      </ul>
-    </div>
   );
 }

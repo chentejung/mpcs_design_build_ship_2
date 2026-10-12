@@ -1,12 +1,14 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: a Yokoo rising sun (components/system/yokoo.tsx) and vertical 上映中 · Ben-Day: a starburst and speech
-// balloons · Haipai: cloud scrolls and seals.
+// Shōwa: a Yokoo rising sun (components/system/yokoo.tsx) beside an Osaka signboard (osaka.tsx), and a koi pond in the
+// rain for the empty state (koi.tsx) · Ben-Day: a starburst and speech balloons · Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
-import { EmptySun, Hand, HeroSun, SmallSun } from "./yokoo";
+import { KoiPond } from "./koi";
+import { Signboard } from "./osaka";
+import { Hand, HeroSun, SmallSun } from "./yokoo";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
 
@@ -66,9 +68,9 @@ export function HeroMotif({ count }: { count: number }) {
   const id = useSystemId();
   if (id === "showa")
     return (
-      <div aria-hidden className="pointer-events-none flex items-start gap-3">
+      <div aria-hidden className="pointer-events-none flex items-start gap-5 pt-2.5">
         <HeroSun className="h-32 w-32 md:h-48 md:w-48" />
-        <span lang="ja" className="ds-native ds-extrude text-(--ds-accent)" style={{ writingMode: "vertical-rl", fontSize: 30 }}>上映中</span>
+        <Signboard text="上映中" stamp="映" />
       </div>
     );
   if (id === "ben-day")
@@ -112,7 +114,7 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
   const heading = <p className="ds-heading text-2xl md:text-3xl">{id === "ben-day" ? `${title}!` : title}</p>;
   return (
     <div className="ds-empty">
-      {id === "showa" && <EmptySun className="mb-1 w-44" />}
+      {id === "showa" && <KoiPond className="mb-2 w-52" />}
       {id === "haipai" && <div className="mb-3"><Seal glyph="空" stamped={false} size={64} /></div>}
       {id === "ben-day" ? <Balloon>{heading}</Balloon> : heading}
       <p className="ds-body ds-muted">Tap Save on any film and it shows up here.</p>

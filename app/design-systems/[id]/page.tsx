@@ -14,7 +14,9 @@ import {
   AppliedMock, ChipsSpecimen, ListRowsSpecimen, SaveSpecimen, TabsSpecimen, ToastSpecimen, ToggleSpecimen,
 } from "@/components/system/specimens";
 import { SystemTheme } from "@/components/system/theme";
-import { DrawingKit } from "@/components/system/yokoo";
+import { Colophon } from "@/components/system/colophon";
+import { DrawingKit } from "@/components/system/drawing-kit";
+import { Tenneniro } from "@/components/system/terebi";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => systems.map((s) => ({ id: s.id }));
@@ -57,7 +59,7 @@ export default async function DesignSystemPage({ params }: Props) {
             {selected && <span className="ds-badge" style={{ background: "var(--ds-accent)", color: "var(--ds-on-accent)" }}>Selected · ships as Eigakan</span>}
           </p>
           <h1 className="ds-display mt-4 text-[length:min(112px,16cqi)]">
-            {system.name} {system.alt && <span lang={system.id === "showa" ? "ja" : "zh-Hans"}>{system.alt}</span>}
+            {system.name} {system.alt && <span lang={system.id === "showa" ? "ja" : "zh-Hans"}><Tenneniro text={system.alt} /></span>}
           </h1>
           <p className="ds-body mt-5 max-w-xl text-lg">{system.essence}</p>
         </div>
@@ -321,7 +323,7 @@ function TextureAndMotif({ system }: { system: DesignSystem }) {
           <p className="ds-body ds-muted">{system.texture.note}</p>
         </Spec>
         <Spec label={`Motif · ${system.motif.name}`}>
-          <div className="flex h-44 items-center gap-6">
+          <div className="flex min-h-44 items-center gap-6">
             <HeroMotif count={25} />
             <span className="ds-brand-mark">映</span>
             <Ornament />
@@ -447,6 +449,9 @@ function Components({ system }: { system: DesignSystem }) {
       </Cell>
       <Cell label="Empty state">
         <EmptyState action={<span className={buttonClass("primary")}>Browse all movies →</span>} />
+      </Cell>
+      <Cell label="Colophon · the foot of every Eigakan page" wide>
+        <Colophon />
       </Cell>
     </div>
   );
