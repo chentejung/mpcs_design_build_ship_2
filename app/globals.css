@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-grotesk: var(--font-space-grotesk), sans-serif;
+  --font-dm: var(--font-dm-sans), sans-serif;
+}
+
+@theme {
+  --color-bg: #f7f2ea;
+  --color-surface: #fffdf9;
+  --color-ink: #2a2420;
+  --color-muted: #7a6f66;
+  --color-line: #e4dacd;
+  --color-accent: #c2562f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bg text-ink font-sans antialiased;
+}
