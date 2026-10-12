@@ -5,9 +5,9 @@ import {
   colorRoles, contrastChecks, gridColumns, spacingScale, systems, type DesignSystem, type ShapePart, type TypeRole,
 } from "@/app/systems";
 import { Button, buttonClass, CategoryBadge, Check, Chip, Count, Select, TextInput, type FrozenState } from "@/components/system/controls";
+import { Icon, type IconName } from "@/components/system/icons";
 import { FilmCard } from "@/components/system/film-card";
 import { Brand, HeaderBar, SavedLabel } from "@/components/system/header";
-import { CheckIcon } from "@/components/system/icons";
 import { EmptyState, HeroMotif, Ornament } from "@/components/system/motifs";
 import { Poster } from "@/components/system/poster";
 import {
@@ -77,7 +77,7 @@ export default async function DesignSystemPage({ params }: Props) {
           <TextureAndMotif system={system} />
         </Section>
         <Section n={5} title="Components" note="The same components Eigakan uses. Examples work where that's natural.">
-          <Components />
+          <Components system={system} />
         </Section>
         <Section n={6} title="Control states" note="No information appears only on hover. Selected differs from rest by more than color.">
           <ControlStates />
@@ -241,6 +241,19 @@ const shapeParts: { part: ShapePart; label: string }[] = [
 function SpacingAndShape({ system }: { system: DesignSystem }) {
   return (
     <div className="grid gap-12 md:grid-cols-2">
+      <div className="md:col-span-2">
+        <Spec label="Control shapes">
+          <p className="ds-body max-w-3xl">{system.shape.controls}</p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-5 pt-2">
+            <Button variant="primary" icon="save">Save</Button>
+            <Button icon="saved" aria-pressed>Saved</Button>
+            <Button variant="secondary" icon="remove">Remove</Button>
+            <Chip label="Thriller" count={4} aria-pressed={false} />
+            <Chip label="Comedy" count={4} aria-pressed />
+            <Count n={3} />
+          </div>
+        </Spec>
+      </div>
       <Spec label="Spacing scale">
         <div className="flex items-end gap-3">
           {spacingScale.map((px) => (
@@ -268,7 +281,7 @@ function SpacingAndShape({ system }: { system: DesignSystem }) {
       </Spec>
       <Spec label="Control height · at least 44px on touch">
         <div className="flex items-center gap-3">
-          <Button variant="primary">+ Save</Button>
+          <Button variant="primary" icon="save">Save</Button>
           <span className="ds-meta flex h-11 items-center border-y-2 border-(--ds-text) px-2">44px</span>
         </div>
       </Spec>
@@ -315,7 +328,7 @@ function TextureAndMotif({ system }: { system: DesignSystem }) {
       </Spec>
       <Spec label="Interaction feel · try it">
         <div className="flex h-44 flex-wrap items-center gap-4">
-          <Button variant="primary">+ Save</Button>
+          <Button variant="primary" icon="save">Save</Button>
           <Chip label="Thriller" count={4} />
         </div>
         <p className="ds-body ds-muted">Hover: {system.feel.hover} Press: {system.feel.press}</p>
@@ -335,15 +348,25 @@ function Cell({ label, wide = false, children }: { label: string; wide?: boolean
   );
 }
 
-function Components() {
+function Components({ system }: { system: DesignSystem }) {
   const spirited = filmById["spirited-away"];
   return (
     <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
       <Cell label="Buttons · primary and secondary">
         <div className="flex flex-wrap gap-4">
-          <Button variant="primary">+ Save</Button>
-          <Button variant="secondary">Remove</Button>
+          <Button variant="primary" icon="save">Save</Button>
+          <Button variant="secondary" icon="remove">Remove</Button>
         </div>
+      </Cell>
+      <Cell label="Icons · drawn in this system's style">
+        <ul className="grid gap-3">
+          {(Object.keys(system.icons) as IconName[]).map((name) => (
+            <li key={name} className="grid grid-cols-[44px_1fr] items-center gap-3">
+              <span className="grid h-11 w-11 place-items-center border-2 border-(--ds-border) text-[26px]" style={{ borderRadius: "var(--ds-radius-control)" }}><Icon name={name} /></span>
+              <span className="ds-body"><span className="ds-label">{name}</span> · {system.icons[name]}</span>
+            </li>
+          ))}
+        </ul>
       </Cell>
       <Cell label="Links">
         <p className="ds-body flex gap-6"><a href="#applied" className="ds-link">← All movies</a><a href="#applied" className="ds-link">Source ↗</a></p>
@@ -448,10 +471,10 @@ type StateCell = { label: string; node: React.ReactNode };
 
 function stateRows(): { control: string; states: StateCell[] }[] {
   const save = (state?: FrozenState, extra: React.ButtonHTMLAttributes<HTMLButtonElement> = {}) => (
-    <Button block state={state} aria-pressed={false} {...extra}>{extra["aria-pressed"] ? <><CheckIcon /> Saved</> : "+ Save"}</Button>
+    <Button block state={state} aria-pressed={false} icon={extra["aria-pressed"] ? "saved" : "save"} {...extra}>{extra["aria-pressed"] ? "Saved" : "Save"}</Button>
   );
   const chip = (state?: FrozenState, extra: React.ButtonHTMLAttributes<HTMLButtonElement> = {}) => <Chip label="Thriller" count={4} state={state} aria-pressed={false} {...extra} />;
-  const remove = (state?: FrozenState, extra: React.ButtonHTMLAttributes<HTMLButtonElement> = {}) => <Button block variant="secondary" state={state} {...extra}>Remove</Button>;
+  const remove = (state?: FrozenState, extra: React.ButtonHTMLAttributes<HTMLButtonElement> = {}) => <Button block variant="secondary" icon="remove" state={state} {...extra}>Remove</Button>;
   const link = (state?: FrozenState, current = false) => (
     <span data-state={state} aria-current={current ? "page" : undefined} className={buttonClass("secondary")}><SavedLabel count={2} /></span>
   );

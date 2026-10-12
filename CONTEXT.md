@@ -16,7 +16,8 @@ A picture on a Mood Board taken from Pinterest.
 _Avoid_: Pin, inspiration
 
 **Original**:
-A picture on a Mood Board drawn by Claude in the board's print style, using only the board's Palette.
+A picture on a Mood Board made for it rather than found: generated from an art brief in the board's style
+(`references/moodboard-image-prompts.json`).
 _Avoid_: Artifact (an Artifact is either a Reference or an Original), original title (see Native Title)
 
 **Palette**:
@@ -58,7 +59,7 @@ _Avoid_: Genre tag, filter
 
 **Native Title**:
 A Film's title in its original language and script, e.g. 七人の侍 for Seven Samurai.
-_Avoid_: Original title (an Original is a picture drawn by Claude)
+_Avoid_: Original title (an Original is a picture made for a Mood Board)
 
 **Saved List**:
 The visitor's ordered shortlist of Films, held only in memory and empty after any full page load.

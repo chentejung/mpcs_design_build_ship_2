@@ -1,7 +1,7 @@
 // Controls shared by Eigakan and the Design System pages; app/system.css styles them per system.
 // `state` freezes hover, focus or pressed for the Control states section.
 import { categoryLabel, type Category } from "@/app/films";
-import { CheckIcon } from "./icons";
+import { CheckIcon, Icon, type IconName } from "./icons";
 
 export type FrozenState = "hover" | "focus" | "pressed";
 type Variant = "primary" | "secondary";
@@ -9,12 +9,21 @@ type Variant = "primary" | "secondary";
 export const buttonClass = (variant?: Variant, block = false) =>
   ["ds-btn", variant && `ds-btn--${variant}`, block && "ds-btn--block"].filter(Boolean).join(" ");
 
-export function Button({ variant, block, state, className = "", ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+// The icon slot is each system's own: the stub of a Shōwa ticket, a Ben-Day burst, a Haipai seal.
+export const ButtonIcon = ({ name }: { name: IconName }) => <span aria-hidden className="ds-btn-icon"><Icon name={name} /></span>;
+
+export function Button({ variant, block, state, icon, className = "", children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant;
   block?: boolean;
   state?: FrozenState;
+  icon?: IconName;
 }) {
-  return <button type="button" data-state={state} className={`${buttonClass(variant, block)} ${className}`} {...props} />;
+  return (
+    <button type="button" data-state={state} className={`${buttonClass(variant, block)} ${className}`} {...props}>
+      {icon && <ButtonIcon name={icon} />}
+      {children}
+    </button>
+  );
 }
 
 export function Chip({ label, count, state, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & {

@@ -1,6 +1,5 @@
 "use client";
 import type { Film } from "@/app/films";
-import { CheckIcon } from "@/components/system/icons";
 import { Button } from "@/components/system/controls";
 import { useSaved } from "./saved";
 
@@ -9,8 +8,8 @@ export function SaveButton({ film }: { film: Film }) {
   const { isSaved, toggle } = useSaved();
   const saved = isSaved(film.id);
   return (
-    <Button block aria-pressed={saved} aria-label={`Save ${film.title}`} onClick={() => toggle(film.id)}>
-      {saved ? <><CheckIcon /> Saved</> : "+ Save"}
+    <Button block icon={saved ? "saved" : "save"} aria-pressed={saved} aria-label={`Save ${film.title}`} onClick={() => toggle(film.id)}>
+      {saved ? "Saved" : "Save"}
     </Button>
   );
 }
@@ -18,7 +17,7 @@ export function SaveButton({ film }: { film: Film }) {
 export function RemoveButton({ film }: { film: Film }) {
   const { remove } = useSaved();
   return (
-    <Button block variant="secondary" aria-label={`Remove ${film.title}`} onClick={() => remove(film.id)}>
+    <Button block variant="secondary" icon="remove" aria-label={`Remove ${film.title}`} onClick={() => remove(film.id)}>
       Remove
     </Button>
   );

@@ -507,34 +507,109 @@
     place-items: center;
   }
 
+  /* ----- Icons in buttons, and the stamp a saved film gets on its poster ----- */
+  .ds-btn-icon {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    font-size: 1.3em;
+    line-height: 1;
+  }
+  .ds-saved-stamp {
+    position: absolute;
+    z-index: 3;
+    display: none;
+    place-items: center;
+    pointer-events: none;
+    line-height: 1;
+  }
+  .ds-card:has(.ds-btn[aria-pressed="true"]) .ds-saved-stamp {
+    display: grid;
+    animation: ds-stamp 0.3s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  }
+  @keyframes ds-stamp {
+    from {
+      opacity: 0;
+      scale: 1.9;
+    }
+  }
+
   /* ===================================================================================================
-     Shōwa 昭和: flat print blocks with a 2px Sumi keyline; a color plate sits 3px out of register behind
-     each control, drifts further on hover and snaps into register on press.
+     Shōwa 昭和: cinema tickets. Buttons have punched side notches, and their icon sits in a perforated stub;
+     filter chips are shop tags (値札) with clipped corners and a punched hole. Every shape prints twice: a
+     color plate sits 3px out of register behind the 2px Sumi keyline, drifts further on hover and snaps into
+     register on press. Checked boxes take a ◯, the mark for "yes" on Japanese forms.
      =================================================================================================== */
   [data-system="showa"] :is(.ds-btn, .ds-chip) {
     --ds-off: 3px;
     --ds-plate: transparent;
     --ds-plate-line: var(--ds-accent);
+    --bw: var(--ds-control-border);
     border-color: transparent;
     background: transparent;
   }
+  [data-system="showa"] .ds-chip {
+    padding-left: 26px;
+  }
+  /* Both prints take the control's shape: --shape masks it and --edges strokes its cut edges in --line. */
   [data-system="showa"] :is(.ds-btn, .ds-chip)::before,
   [data-system="showa"] :is(.ds-btn, .ds-chip)::after {
     content: "";
     position: absolute;
-    inset: calc(-1 * var(--ds-control-border));
-    border-radius: inherit;
+    inset: calc(-1 * var(--bw));
+    border: var(--bw) solid var(--line);
+    background: var(--edges), var(--fill);
+    background-origin: border-box;
+    mask: var(--shape);
     pointer-events: none;
   }
+  [data-system="showa"] .ds-btn::before,
+  [data-system="showa"] .ds-btn::after {
+    --n: 6px; /* notch radius */
+    --ring: #0000 calc(var(--n) - 0.5px), var(--line) var(--n) calc(var(--n) + var(--bw)), #0000 calc(var(--n) + var(--bw) + 0.5px);
+    --edges: radial-gradient(circle at 0 50%, var(--ring)), radial-gradient(circle at 100% 50%, var(--ring));
+    --shape:
+      radial-gradient(circle at 0 50%, #0000 var(--n), #000 calc(var(--n) + 0.5px)) left / 51% 100% no-repeat,
+      radial-gradient(circle at 100% 50%, #0000 var(--n), #000 calc(var(--n) + 0.5px)) right / 51% 100% no-repeat;
+  }
+  [data-system="showa"] .ds-chip::before,
+  [data-system="showa"] .ds-chip::after {
+    --c: 8px; /* clipped corner */
+    --hole: 3.5px;
+    --hole-x: 14px;
+    --cut: #0000 calc(var(--c) - 0.5px), var(--line) var(--c) calc(var(--c) + var(--bw)), #0000 calc(var(--c) + var(--bw) + 0.5px);
+    --edges:
+      linear-gradient(135deg, var(--cut)) top left / 51% 51% no-repeat,
+      linear-gradient(45deg, var(--cut)) bottom left / 51% 51% no-repeat,
+      radial-gradient(circle at var(--hole-x) 50%, #0000 calc(var(--hole) - 0.5px), var(--line) var(--hole) calc(var(--hole) + var(--bw)), #0000 calc(var(--hole) + var(--bw) + 0.5px));
+    --shape:
+      radial-gradient(circle at var(--hole-x) 50%, #000 var(--hole), #0000 calc(var(--hole) + 0.5px)),
+      linear-gradient(135deg, #0000 var(--c), #000 calc(var(--c) + 0.5px)) top left / 51% 51% no-repeat,
+      linear-gradient(45deg, #0000 var(--c), #000 calc(var(--c) + 0.5px)) bottom left / 51% 51% no-repeat,
+      linear-gradient(#000 0 0) right / 50% 100% no-repeat;
+    mask-composite: exclude, add, add, add; /* the hole is punched out of the tag */
+  }
   [data-system="showa"] :is(.ds-btn, .ds-chip)::before {
+    --line: var(--ds-plate-line);
+    --fill: var(--ds-plate);
     z-index: -1;
-    border: var(--ds-control-border) solid var(--ds-plate-line);
-    background: var(--ds-plate);
     transform: translate(var(--ds-off), var(--ds-off));
     transition: transform 0.15s ease;
   }
   [data-system="showa"] :is(.ds-btn, .ds-chip)::after {
-    border: var(--ds-control-border) solid var(--ds-text); /* the keyline prints on top */
+    --line: var(--ds-text); /* the keyline prints on top */
+    --fill: transparent;
+  }
+  /* The stub sits at the ticket's end, behind a perforation. */
+  [data-system="showa"] .ds-btn:has(.ds-btn-icon) {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding-right: 0.8em;
+  }
+  [data-system="showa"] .ds-btn-icon {
+    align-self: stretch;
+    padding-left: 0.55em;
+    border-left: 2px dashed currentColor;
   }
   [data-system="showa"] :is(.ds-btn--primary, .ds-btn[aria-pressed="true"]) {
     --ds-plate: var(--ds-accent);
@@ -563,8 +638,38 @@
     --ds-off: 0px;
   }
   [data-system="showa"] :is(.ds-btn, .ds-chip):disabled::before {
+    --line: transparent;
     transform: none;
-    border-color: transparent;
+  }
+  /* Count: a rising-sun disc, stamped with a thin outer ring. */
+  [data-system="showa"] .ds-count {
+    min-width: 1.9em;
+    height: 1.9em;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1.5px var(--ds-bg), 0 0 0 3px var(--ds-accent);
+  }
+  [data-system="showa"] .ds-check input[type="checkbox"] + .ds-box svg,
+  [data-system="showa"] .ds-check input[type="checkbox"]:checked + .ds-box svg {
+    position: absolute; /* out of the grid, so the ◯ sits centered */
+    opacity: 0;
+  }
+  [data-system="showa"] .ds-check input[type="checkbox"] + .ds-box::after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    border: 3px solid var(--ds-selected);
+    border-radius: 50%;
+    opacity: 0;
+    scale: 1.5;
+    transition: opacity 0.12s ease, scale 0.12s ease;
+  }
+  [data-system="showa"] .ds-check input[type="checkbox"]:checked + .ds-box {
+    border-color: var(--ds-text);
+    background: var(--ds-bg);
+  }
+  [data-system="showa"] .ds-check input[type="checkbox"]:checked + .ds-box::after {
+    opacity: 1;
+    scale: 1;
   }
   [data-system="showa"] .ds-panel {
     border: 2px solid var(--ds-text);
@@ -592,6 +697,23 @@
     outline: 1.5px solid currentColor;
     outline-offset: -5px;
   }
+  /* Saved: a 済 ("done") seal in a double ring, Accent as large type on the Scrim. */
+  [data-system="showa"] .ds-saved-stamp {
+    right: -6px;
+    bottom: 14px;
+    width: 60px;
+    height: 60px;
+    border: 4px double var(--ds-accent);
+    border-radius: 50%;
+    background: var(--ds-scrim);
+    color: var(--ds-accent);
+    font-family: var(--ds-display-font);
+    font-size: 28px;
+    rotate: -14deg;
+  }
+  [data-system="showa"] .ds-saved-stamp::before {
+    content: "済";
+  }
   [data-system="showa"] .ds-header {
     border-bottom: 4px double var(--ds-text);
   }
@@ -607,25 +729,43 @@
   }
 
   /* ===================================================================================================
-     Ben-Day: 3px Ink outlines with a hard 4px Ink shadow; controls tilt on hover and slam down on press.
-     Save bursts into a starburst once saved.
+     Ben-Day: 3px Ink outlines with a hard 4px Ink shadow. Buttons lean like action lettering and primary faces
+     carry a Ben-Day dot screen; secondary buttons stand straight as mail-order coupons with a dashed cut line;
+     filter chips are speech balloons. Controls tilt on hover and slam down on press; Save bursts once saved.
      =================================================================================================== */
   [data-system="ben-day"] :is(.ds-btn, .ds-chip, .ds-input, .ds-select) {
     --ds-shadow: 4px 4px 0 var(--ds-text);
     box-shadow: var(--ds-shadow);
   }
+  [data-system="ben-day"] :is(.ds-btn, .ds-chip) {
+    --ds-dots: radial-gradient(color-mix(in srgb, var(--ds-text) 24%, transparent) 1.1px, transparent 1.7px) 0 0 / 6px 6px;
+    --ds-lean: skewX(-9deg);
+    transform: var(--ds-lean);
+  }
+  [data-system="ben-day"] .ds-btn--block {
+    width: calc(100% - 8px);
+    margin-inline: 4px; /* the lean stays inside the card */
+  }
+  [data-system="ben-day"] .ds-btn--primary {
+    background: var(--ds-dots), var(--ds-accent);
+  }
   [data-system="ben-day"] .ds-btn--secondary {
-    background: var(--ds-surface);
+    --ds-lean: rotate(0deg);
+    border-style: dashed;
+    background: radial-gradient(color-mix(in srgb, var(--ds-accent) 32%, transparent) 1px, transparent 1.6px) 0 0 / 6px 6px, var(--ds-swatch-peach);
+  }
+  [data-system="ben-day"] .ds-btn-icon {
+    rotate: -8deg;
   }
   [data-system="ben-day"] :is(.ds-btn, .ds-chip):hover:not(:disabled),
   [data-system="ben-day"] :is(.ds-btn, .ds-chip)[data-state="hover"] {
     --ds-shadow: 6px 6px 0 var(--ds-text);
-    transform: rotate(-2deg) translate(-1px, -2px);
+    transform: var(--ds-lean) rotate(-2deg) translate(-1px, -2px);
   }
   [data-system="ben-day"] :is(.ds-btn, .ds-chip):active:not(:disabled),
   [data-system="ben-day"] :is(.ds-btn, .ds-chip)[data-state="pressed"] {
     --ds-shadow: 0 0 0 var(--ds-text);
-    transform: translate(4px, 4px);
+    transform: var(--ds-lean) translate(4px, 4px);
   }
   /* Saved: a starburst behind, then the red face (redrawn on ::after so the burst can't paint over it). */
   [data-system="ben-day"] .ds-btn[aria-pressed="true"] {
@@ -638,7 +778,7 @@
     z-index: -1;
     border: var(--ds-control-border) solid var(--ds-text);
     border-radius: inherit;
-    background: var(--ds-accent);
+    background: var(--ds-dots), var(--ds-accent);
   }
   [data-system="ben-day"] .ds-btn[aria-pressed="true"]::before {
     content: "";
@@ -648,8 +788,41 @@
     background: var(--ds-surface);
     clip-path: polygon(50% 0%, 57% 22%, 75% 6%, 72% 28%, 96% 18%, 82% 40%, 100% 50%, 82% 60%, 96% 82%, 72% 72%, 75% 94%, 57% 78%, 50% 100%, 43% 78%, 25% 94%, 28% 72%, 4% 82%, 18% 60%, 0% 50%, 18% 40%, 4% 18%, 28% 28%, 25% 6%, 43% 22%);
   }
+  /* Chips: speech balloons. The tail is an Ink triangle with a face-colored one inside that opens it into the balloon. */
+  [data-system="ben-day"] .ds-chip {
+    --ds-lean: rotate(0deg);
+    --ds-face: var(--ds-bg);
+    margin-bottom: 8px;
+    padding: 0 1.35em;
+    border-radius: 50%;
+    background: var(--ds-face);
+  }
   [data-system="ben-day"] .ds-chip[aria-pressed="true"] {
-    background: var(--ds-selected);
+    --ds-face: var(--ds-selected);
+  }
+  [data-system="ben-day"] .ds-chip::before,
+  [data-system="ben-day"] .ds-chip::after {
+    content: "";
+    position: absolute;
+    top: calc(100% - 5px);
+    z-index: -1;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    pointer-events: none;
+  }
+  [data-system="ben-day"] .ds-chip::before {
+    left: 24%;
+    width: 17px;
+    height: 15px;
+    background: var(--ds-text);
+  }
+  [data-system="ben-day"] .ds-chip::after {
+    left: calc(24% + 3px);
+    width: 10px;
+    height: 9px;
+    background: var(--ds-face);
+  }
+  [data-system="ben-day"] .ds-box {
+    box-shadow: 2px 2px 0 var(--ds-text);
   }
   [data-system="ben-day"] .ds-panel {
     border: var(--ds-card-border) solid var(--ds-text);
@@ -691,16 +864,39 @@
     color: var(--ds-text);
     clip-path: polygon(50% 0%, 61% 25%, 85% 15%, 75% 39%, 100% 50%, 75% 61%, 85% 85%, 61% 75%, 50% 100%, 39% 75%, 15% 85%, 25% 61%, 0% 50%, 25% 39%, 15% 15%, 39% 25%);
   }
+  /* Saved: a "SAVED!" sticker, an Ink burst with a Mustard one inside. */
+  [data-system="ben-day"] .ds-saved-stamp {
+    --burst: polygon(50% 0%, 59% 20%, 79% 8%, 77% 30%, 99% 30%, 85% 48%, 100% 64%, 79% 70%, 84% 93%, 62% 83%, 50% 100%, 38% 83%, 16% 93%, 21% 70%, 0% 64%, 15% 48%, 1% 30%, 23% 30%, 21% 8%, 41% 20%);
+    right: -10px;
+    bottom: 10px;
+    width: 82px;
+    height: 74px;
+    background: var(--ds-text);
+    color: var(--ds-text);
+    font-family: var(--ds-display-font);
+    font-size: 18px;
+    letter-spacing: 0.03em;
+    clip-path: var(--burst);
+    rotate: 9deg;
+  }
+  [data-system="ben-day"] .ds-saved-stamp::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    background: var(--ds-surface);
+    clip-path: var(--burst);
+  }
+  [data-system="ben-day"] .ds-saved-stamp::after {
+    content: "SAVED!";
+    position: relative;
+  }
   [data-system="ben-day"] .ds-header {
     border-bottom: var(--ds-card-border) solid var(--ds-text);
     background: var(--ds-accent);
     color: var(--ds-on-accent);
   }
-  [data-system="ben-day"] .ds-header .ds-btn {
-    background: var(--ds-surface);
-    color: var(--ds-text);
-  }
   [data-system="ben-day"] .ds-btn[aria-current="page"] {
+    border-style: solid;
     background: var(--ds-text);
     color: var(--ds-bg);
   }
@@ -721,47 +917,134 @@
   }
 
   /* ===================================================================================================
-     Haipai 海派: square seal stamps with a carved inner hairline; Art Deco gold double rules with
-     notched corners. Gold brightens on hover; controls stamp down on press.
+     Haipai 海派: Art Deco octagons with cut corners and a carved inner hairline, like the frames on tea and
+     tobacco labels; filter chips are mahjong tiles with a Pine back that lifts on hover and presses flat;
+     radios are 方孔钱 coins. Gold brightens on hover; controls stamp down on press.
      =================================================================================================== */
-  [data-system="haipai"] :is(.ds-btn, .ds-chip) {
-    border-color: var(--ds-accent);
+  [data-system="haipai"] .ds-btn {
+    --ds-btn-face: var(--ds-bg);
+    --ds-btn-line: var(--ds-accent);
+    border-color: transparent;
+    background: transparent;
     color: var(--ds-accent);
   }
-  [data-system="haipai"] :is(.ds-btn, .ds-chip)::before {
+  /* The octagon is drawn twice: the face and its outline (::before), then the carved hairline (::after). */
+  [data-system="haipai"] .ds-btn::before,
+  [data-system="haipai"] .ds-btn::after {
+    --cut: #0000 calc(var(--c) - 0.5px), var(--line) var(--c) calc(var(--c) + var(--bw)), #0000 calc(var(--c) + var(--bw) + 0.5px);
+    --corner: #0000 var(--c), #000 calc(var(--c) + 0.5px);
+    content: "";
+    position: absolute;
+    border: var(--bw) solid var(--line);
+    background:
+      linear-gradient(135deg, var(--cut)) top left / 51% 51% no-repeat,
+      linear-gradient(225deg, var(--cut)) top right / 51% 51% no-repeat,
+      linear-gradient(315deg, var(--cut)) bottom right / 51% 51% no-repeat,
+      linear-gradient(45deg, var(--cut)) bottom left / 51% 51% no-repeat,
+      var(--fill);
+    background-origin: border-box;
+    mask:
+      linear-gradient(135deg, var(--corner)) top left / 51% 51% no-repeat,
+      linear-gradient(225deg, var(--corner)) top right / 51% 51% no-repeat,
+      linear-gradient(315deg, var(--corner)) bottom right / 51% 51% no-repeat,
+      linear-gradient(45deg, var(--corner)) bottom left / 51% 51% no-repeat;
+    pointer-events: none;
+  }
+  [data-system="haipai"] .ds-btn::before {
+    --c: 7px;
+    --bw: var(--ds-control-border);
+    --line: var(--ds-btn-line);
+    --fill: var(--ds-btn-face);
+    inset: calc(-1 * var(--ds-control-border));
+    z-index: -1;
+  }
+  [data-system="haipai"] .ds-btn::after {
+    --c: 5.5px;
+    --bw: 1px;
+    --line: currentColor;
+    --fill: transparent;
+    inset: 3px;
+    opacity: 0.55;
+    transition: opacity 0.15s ease;
+  }
+  [data-system="haipai"] .ds-btn--secondary {
+    --ds-btn-line: var(--ds-text);
+    color: var(--ds-text);
+  }
+  [data-system="haipai"] :is(.ds-btn--primary, .ds-btn[aria-pressed="true"]) {
+    --ds-btn-face: var(--ds-accent);
+    color: var(--ds-on-accent);
+  }
+  [data-system="haipai"] .ds-btn[aria-current="page"] {
+    --ds-btn-face: var(--ds-text);
+    --ds-btn-line: var(--ds-text);
+    color: var(--ds-bg);
+  }
+  [data-system="haipai"] .ds-btn:hover:not(:disabled)::after,
+  [data-system="haipai"] .ds-btn[data-state="hover"]::after {
+    --line: var(--ds-swatch-gold);
+    opacity: 1;
+  }
+  /* Chips: mahjong tiles. A carved face on a Pine back; selected tiles turn Pine on a Gold back. */
+  [data-system="haipai"] .ds-chip {
+    --ds-back: var(--ds-swatch-pine);
+    --ds-lift: 4px;
+    --ds-shadow: 0 var(--ds-lift) 0 0 var(--ds-back), 0 var(--ds-lift) 0 1px var(--ds-text);
+    margin-bottom: 6px;
+    border: 1px solid var(--ds-text);
+    border-radius: 7px;
+    background: var(--ds-bg);
+    color: var(--ds-text);
+    box-shadow: var(--ds-shadow);
+  }
+  [data-system="haipai"] .ds-chip::before {
     content: "";
     position: absolute;
     inset: 3px;
     border: 1px solid currentColor;
-    border-radius: 1px;
-    opacity: 0.55;
+    border-radius: 4px;
+    opacity: 0.35;
     pointer-events: none;
     transition: border-color 0.15s ease, opacity 0.15s ease;
   }
-  [data-system="haipai"] :is(.ds-btn--primary, .ds-btn[aria-pressed="true"]) {
-    color: var(--ds-on-accent);
-  }
-  [data-system="haipai"] .ds-btn[aria-current="page"] {
-    border-color: var(--ds-text);
-    color: var(--ds-bg);
-  }
-  [data-system="haipai"] .ds-chip {
-    border-color: var(--ds-text);
-    color: var(--ds-text);
-  }
   [data-system="haipai"] .ds-chip[aria-pressed="true"] {
-    border-color: var(--ds-selected);
+    --ds-back: var(--ds-swatch-gold);
+    background: var(--ds-selected);
     color: var(--ds-on-selected);
   }
-  [data-system="haipai"] :is(.ds-btn, .ds-chip):hover:not(:disabled)::before,
-  [data-system="haipai"] :is(.ds-btn, .ds-chip)[data-state="hover"]::before {
+  [data-system="haipai"] .ds-chip:hover:not(:disabled),
+  [data-system="haipai"] .ds-chip[data-state="hover"] {
+    --ds-lift: 6px;
+    transform: translateY(-2px);
+  }
+  [data-system="haipai"] .ds-chip:hover:not(:disabled)::before,
+  [data-system="haipai"] .ds-chip[data-state="hover"]::before {
     border-color: var(--ds-swatch-gold);
     opacity: 1;
   }
-  [data-system="haipai"] :is(.ds-btn, .ds-chip):active:not(:disabled),
-  [data-system="haipai"] :is(.ds-btn, .ds-chip)[data-state="pressed"] {
+  [data-system="haipai"] .ds-chip:active:not(:disabled),
+  [data-system="haipai"] .ds-chip[data-state="pressed"] {
+    --ds-lift: 1px;
+    transform: translateY(3px);
+  }
+  [data-system="haipai"] .ds-btn:active:not(:disabled),
+  [data-system="haipai"] .ds-btn[data-state="pressed"] {
     filter: brightness(0.88);
     transform: scale(0.95);
+  }
+  /* Radios: a coin, Selected with a square hole. */
+  [data-system="haipai"] .ds-check input[type="radio"] + .ds-box::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--ds-bg);
+    opacity: 0;
+  }
+  [data-system="haipai"] .ds-check input[type="radio"]:checked + .ds-box {
+    box-shadow: inset 0 0 0 1.5px var(--ds-bg);
+  }
+  [data-system="haipai"] .ds-check input[type="radio"]:checked + .ds-box::after {
+    opacity: 1;
   }
   [data-system="haipai"] .ds-panel {
     outline: 3px double var(--ds-swatch-gold);
@@ -792,13 +1075,27 @@
     writing-mode: vertical-rl;
     letter-spacing: 0.02em;
   }
+  /* Saved: a Vermilion seal reading 藏 ("kept"), Vermilion only as a seal with large type. */
+  [data-system="haipai"] .ds-saved-stamp {
+    right: 12px;
+    bottom: 12px;
+    width: 50px;
+    height: 50px;
+    border-radius: 3px;
+    background: var(--ds-swatch-vermilion);
+    box-shadow: inset 0 0 0 3px var(--ds-swatch-vermilion), inset 0 0 0 4px var(--ds-bg);
+    color: var(--ds-bg);
+    font-family: var(--ds-display-font);
+    font-size: 30px;
+    rotate: -5deg;
+  }
+  [data-system="haipai"] .ds-saved-stamp::before {
+    content: "藏";
+  }
   [data-system="haipai"] .ds-header {
     border-bottom: 4px double var(--ds-swatch-gold);
     background: var(--ds-surface);
     color: var(--ds-on-surface);
-  }
-  [data-system="haipai"] .ds-header .ds-btn:not([aria-current="page"]) {
-    background: var(--ds-bg);
   }
   [data-system="haipai"] .ds-brand-mark {
     border-radius: 2px;
@@ -811,9 +1108,11 @@
   [data-system="haipai"] .ds-count {
     border-radius: 2px;
   }
+  /* Empty: a moon gate (月洞门), arched in Gold. */
   [data-system="haipai"] .ds-empty {
-    border-style: solid;
-    border-color: var(--ds-swatch-gold);
+    padding-top: 72px;
+    border: 4px double var(--ds-swatch-gold);
+    border-radius: 50% 50% 6px 6px / 120px 120px 6px 6px;
   }
   [data-system="haipai"] .ds-toast {
     background: var(--ds-surface);

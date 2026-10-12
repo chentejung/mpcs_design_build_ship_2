@@ -4,7 +4,8 @@
 import { americanComics, colors } from "@/app/boards";
 import { Dots, Plate, Print, burst, rand, type Original, type Texture } from "./print";
 
-const c = colors(americanComics);
+// Halftone Cyan left the palette when the generated originals replaced these drawings; pinned so they render as drawn.
+const c: Record<string, string> = { ...colors(americanComics), cyan: "#10869c" };
 // Bangers is embedded into the exported SVG files (references/export-originals.tsx).
 const bangers = { fontFamily: "Bangers, Impact, sans-serif" };
 const tex = (seed: number, extra: Texture = {}): Texture => ({

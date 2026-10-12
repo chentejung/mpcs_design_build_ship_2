@@ -5,7 +5,7 @@
 // distance, weighting all pixels and saturated pixels (chroma > 30) equally so small vivid inks
 // aren't outvoted by paper. The paper, ink and lead red swatches are always kept.
 // `share` = % of pixels across the 30 pictures (each weighted equally) nearest this color, rounded to sum to 100.
-// Palettes and shares were computed with the claude-*.svg originals, before the generated ones replaced them.
+// references/palette.mjs holds the swatch pools and re-runs the choice; rerun it when a board's pictures change.
 
 export type Swatch = {
   key: string;
@@ -50,11 +50,11 @@ export const japaneseRetro: Board = {
   tiles: [2, 12, 5],
   palette: [
     { key: "hinomaru", name: "Hinomaru Red", alt: "日の丸", hex: "#c7381c", share: 17 },
-    { key: "sumi", name: "Sumi Ink", alt: "墨", hex: "#161816", share: 16 },
-    { key: "washi", name: "Washi Cream", alt: "和紙", hex: "#f3eddd", share: 20 },
-    { key: "kinari", name: "Kinari Paper", alt: "生成", hex: "#ebcb85", share: 23 },
-    { key: "ai", name: "Ai Indigo", alt: "藍", hex: "#1f4a66", share: 15 },
-    { key: "koke", name: "Koke Moss", alt: "苔", hex: "#788355", share: 9 },
+    { key: "sumi", name: "Sumi Ink", alt: "墨", hex: "#161816", share: 15 },
+    { key: "washi", name: "Washi Cream", alt: "和紙", hex: "#f3eddd", share: 13 },
+    { key: "kinari", name: "Kinari Paper", alt: "生成", hex: "#ebcb85", share: 20 },
+    { key: "ai", name: "Ai Indigo", alt: "藍", hex: "#1f4a66", share: 11 },
+    { key: "kogecha", name: "Kogecha Brown", alt: "焦茶", hex: "#4e4430", share: 24 },
   ],
   references: refs(
     "japanese-retro",
@@ -78,12 +78,12 @@ export const americanComics: Board = {
   pinterest: "https://www.pinterest.com/e12e/american-comics-aesthetic/",
   tiles: [3, 14, 17],
   palette: [
-    { key: "red", name: "Hero Red", hex: "#dc2a24", share: 16 },
-    { key: "ink", name: "Ink Black", hex: "#0d0c0d", share: 21 },
-    { key: "newsprint", name: "Newsprint", hex: "#f2eddd", share: 25 },
-    { key: "cyan", name: "Halftone Cyan", hex: "#10869c", share: 9 },
-    { key: "mustard", name: "Golden Age Mustard", hex: "#d3bc2c", share: 13 },
-    { key: "sepia", name: "Aged Sepia", hex: "#5b4b3c", share: 16 },
+    { key: "red", name: "Hero Red", hex: "#dc2a24", share: 15 },
+    { key: "ink", name: "Ink Black", hex: "#0d0c0d", share: 17 },
+    { key: "newsprint", name: "Newsprint", hex: "#f2eddd", share: 11 },
+    { key: "peach", name: "Ben-Day Peach", hex: "#ebba8a", share: 18 },
+    { key: "mustard", name: "Golden Age Mustard", hex: "#d3bc2c", share: 8 },
+    { key: "sepia", name: "Aged Sepia", hex: "#5b4b3c", share: 31 },
   ],
   references: refs(
     "american-comics",
@@ -111,12 +111,12 @@ export const chineseRetro: Board = {
   pinterest: "https://www.pinterest.com/e12e/chinese-retro-aesthetic/",
   tiles: [7, 20, 14],
   palette: [
-    { key: "vermilion", name: "Vermilion", alt: "朱红", hex: "#e14b32", share: 20 },
-    { key: "ink", name: "Ink", alt: "墨", hex: "#2b2836", share: 11 },
-    { key: "xuan", name: "Xuan Paper", alt: "宣纸", hex: "#f4efe6", share: 27 },
-    { key: "gold", name: "Antique Gold", alt: "古金", hex: "#c9b13c", share: 17 },
-    { key: "pine", name: "Pine Green", alt: "松绿", hex: "#3b5b4e", share: 17 },
-    { key: "jujube", name: "Jujube Red", alt: "枣红", hex: "#8d3c30", share: 8 },
+    { key: "vermilion", name: "Vermilion", alt: "朱红", hex: "#e14b32", share: 18 },
+    { key: "ink", name: "Ink", alt: "墨", hex: "#2b2836", share: 9 },
+    { key: "xuan", name: "Xuan Paper", alt: "宣纸", hex: "#f4efe6", share: 23 },
+    { key: "gold", name: "Antique Gold", alt: "古金", hex: "#c9b13c", share: 20 },
+    { key: "pine", name: "Pine Green", alt: "松绿", hex: "#3b5b4e", share: 16 },
+    { key: "jujube", name: "Jujube Red", alt: "枣红", hex: "#8d3c30", share: 14 },
   ],
   references: refs(
     "chinese-retro",

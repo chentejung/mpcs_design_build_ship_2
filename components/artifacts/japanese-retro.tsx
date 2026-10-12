@@ -4,7 +4,8 @@
 import { colors, japaneseRetro } from "@/app/boards";
 import { Dots, Fine, Hatch, Print, Stipple, VText, burst, rand, type Original, type Texture } from "./print";
 
-const c = colors(japaneseRetro);
+// Koke Moss left the palette when the generated originals replaced these drawings; pinned so they render as drawn.
+const c: Record<string, string> = { ...colors(japaneseRetro), koke: "#788355" };
 const gothic = "'Hiragino Sans','Noto Sans JP','Noto Sans CJK JP','Yu Gothic',sans-serif";
 const mincho = "'Hiragino Mincho ProN','Noto Serif JP','Noto Serif CJK JP','Yu Mincho',serif";
 const latin = "'Helvetica Neue',Arial,sans-serif";

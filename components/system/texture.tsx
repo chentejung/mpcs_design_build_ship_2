@@ -19,7 +19,7 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
         {id === "ben-day" && (
           <>
             <Dots id={`${uid}-red`} color={c.red} r={1.5} gap={9} angle={15} />
-            <Dots id={`${uid}-cyan`} color={c.cyan} r={1.3} gap={9} angle={75} />
+            <Dots id={`${uid}-sepia`} color={c.sepia} r={1.1} gap={9} angle={75} />
           </>
         )}
         {id === "haipai" && (
@@ -33,7 +33,7 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
       {id === "ben-day" && (
         <>
           <rect width="100%" height="100%" fill={`url(#${uid}-red)`} opacity="0.14" />
-          <rect width="100%" height="100%" fill={`url(#${uid}-cyan)`} opacity="0.12" />
+          <rect width="100%" height="100%" fill={`url(#${uid}-sepia)`} opacity="0.1" />
         </>
       )}
       {id === "haipai" && (

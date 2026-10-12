@@ -13,19 +13,23 @@ board (spec: issue #5; why: `docs/adr/0001-one-design-system-per-mood-board.md`)
 
 ## Layout
 - `app/boards.ts` — the three mood boards: 6-color palette (the set that best represents all 30 pictures; method in
-  the file header), Pinterest references, landing tiles.
+  the file header, chosen by `references/palette.mjs`), Pinterest references, landing tiles.
 - `app/data.ts` — landing content: mood-board and design-system cards (derived from boards and systems), final site,
   `selectedBoard`.
 - `app/systems.ts` — the three Design Systems (Shōwa, Ben-Day, Haipai): how each maps its board's swatches to color roles
-  (Muted/Border are blends), type roles, shape, texture, motif, feel. `systemStyle()` turns one into `--ds-*` CSS
+  (Muted/Border are blends), type roles, shape (incl. each system's control shapes), icons, texture, motif, feel.
+  `systemStyle()` turns one into `--ds-*` CSS
   variables and fails the build when a text pairing misses its contrast target (4.5:1 text, 3:1 large accent/states).
 - `app/fonts.ts` — every web font, self-hosted by `next/font` at build time (CJK fonts are unicode-range split, not
   preloaded). `app/system.css` — the shared components' styles, with each system's own controls, frames and feel.
 - `app/design-systems/[id]/page.tsx` — one page per Design System, themed by it: color roles, type roles, spacing and
   shape, texture and motif, components, control states, UI states, applied (a phone-width `/movies`).
 - `components/system/` — components shared by Eigakan and the Design System pages (`SystemTheme`, controls, film card,
-  poster, header, motifs, empty state). Style them through `app/system.css`, not per-page classes; frozen
-  hover/focus/pressed states use `data-state`.
+  poster, header, motifs, empty state, icons). Style them through `app/system.css`, not per-page classes; frozen
+  hover/focus/pressed states use `data-state`. Each system gives the same controls its own shape (Shōwa tickets and
+  shop tags, Ben-Day leaning panels, coupons and speech balloons, Haipai Deco octagons and mahjong tiles), drawn on
+  `::before`/`::after` with masks so the element itself keeps its focus ring; `Icon` draws Save/Saved/Remove in the
+  wrapping system's style, and new icons must stay `aria-hidden` (tests find controls by accessible name).
 - `app/films.ts` — Eigakan's 25 films (one category each), Native Titles, poster paths, and poster credits.
 - `app/movies/layout.tsx` — shared layout for `/movies` and `/movies/saved`: themed by the selected board's Design
   System (Shōwa), holds the saved-list provider and poster credits. Build fails unless the film list is valid (25 films, unique ids,
@@ -37,7 +41,8 @@ board (spec: issue #5; why: `docs/adr/0001-one-design-system-per-mood-board.md`)
 - `components/artifacts/index.ts` — each board's originals, in order, as shown on its board page: the AI-generated
   `generated-*.webp` pictures (art briefs in `references/moodboard-image-prompts.json`).
 - `components/artifacts/<board-id>.tsx` — earlier originals for each board (SVG components drawn by Claude in that
-  board's print style, using only its palette via `colors(board)`), still exported but no longer shown.
+  board's print style, using its palette via `colors(board)`, with swatches that have since left the palette pinned in
+  the file), still exported but no longer shown.
 - `components/artifacts/print.tsx` — shared print toolkit: `<Print>` sheet (paper grain, ink wear, edge wobble, aging,
   fading), `Grain` paper filter, `Plate` (misregistration), `Dots`/`Hatch` screens, `Stipple` shading,
   `Fine`/`VText`/`ArcText` type helpers. The Design Systems' textures reuse it.
@@ -64,6 +69,9 @@ All page tooling lives in `references/` — use these scripts rather than ad-hoc
   (`BASE_URL=http://localhost:PORT npm test` to target another server).
 - **Inspect artifacts:** to judge original artifacts at full size, run `bash references/artifacts.sh <board-id> [start] [count]`
   (default 1, 6). It renders only the originals, 3 per row at ~580px, from a temp copy served on port 8001.
+- **Palette:** when a board's pictures change, run `node references/palette.mjs` and copy its six swatches and shares
+  into `app/boards.ts`; then re-map any Design System roles that used a swatch that left. `app/systems.ts` throws on an
+  unknown swatch, but `components/system/texture.tsx` and `motifs.tsx` read `colors(board)` keys directly, so grep them.
 
 ## Agent skills
 

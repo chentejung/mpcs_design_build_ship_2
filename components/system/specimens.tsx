@@ -4,7 +4,6 @@
 import { useState } from "react";
 import { categories, filmById, films, formatRuntime, type Film } from "@/app/films";
 import { Button, Chip, Toast, Toggle } from "./controls";
-import { CheckIcon } from "./icons";
 import { FilmCard } from "./film-card";
 import { Brand, HeaderBar, SavedLabel } from "./header";
 import { Poster } from "./poster";
@@ -15,8 +14,8 @@ const countIn = (id: string) => (id === "all" ? films.length : films.filter((f) 
 export function SaveSpecimen({ film, initial = false }: { film: Film; initial?: boolean }) {
   const [saved, setSaved] = useState(initial);
   return (
-    <Button block aria-pressed={saved} aria-label={`Save ${film.title}`} onClick={() => setSaved(!saved)}>
-      {saved ? <><CheckIcon /> Saved</> : "+ Save"}
+    <Button block icon={saved ? "saved" : "save"} aria-pressed={saved} aria-label={`Save ${film.title}`} onClick={() => setSaved(!saved)}>
+      {saved ? "Saved" : "Save"}
     </Button>
   );
 }
@@ -76,7 +75,7 @@ export function ListRowsSpecimen() {
                 <p className="ds-heading truncate text-base">{f.title}</p>
                 <p className="ds-meta ds-muted">{f.year} · {formatRuntime(f.runtime)}</p>
               </div>
-              <Button variant="secondary" aria-label={`Remove ${f.title}`} onClick={() => setIds(ids.filter((x) => x !== id))}>Remove</Button>
+              <Button variant="secondary" icon="remove" aria-label={`Remove ${f.title}`} onClick={() => setIds(ids.filter((x) => x !== id))}>Remove</Button>
             </li>
           );
         })}
@@ -112,8 +111,8 @@ export function AppliedMock() {
                 film={f}
                 headingLevel={4}
                 action={
-                  <Button block aria-pressed={saved.includes(f.id)} aria-label={`Save ${f.title}`} onClick={() => toggle(f.id)}>
-                    {saved.includes(f.id) ? <><CheckIcon /> Saved</> : "+ Save"}
+                  <Button block icon={saved.includes(f.id) ? "saved" : "save"} aria-pressed={saved.includes(f.id)} aria-label={`Save ${f.title}`} onClick={() => toggle(f.id)}>
+                    {saved.includes(f.id) ? "Saved" : "Save"}
                   </Button>
                 }
               />
