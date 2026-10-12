@@ -3,7 +3,8 @@ import { useState } from "react";
 import { categories, films, type Category } from "@/app/films";
 import { Chip } from "@/components/system/controls";
 import { FilmCard } from "@/components/system/film-card";
-import { HeroMotif, Ornament } from "@/components/system/motifs";
+import { genreCounts } from "@/components/system/genres";
+import { CoverBlurb, CoverDress, Ornament, Splash } from "@/components/system/motifs";
 import { ScrollRow } from "@/components/system/scroll-row";
 import { SaveButton } from "./card";
 
@@ -14,22 +15,25 @@ export function Browse() {
   const [filter, setFilter] = useState<Filter>("all");
   const shown = filter === "all" ? films : films.filter((f) => f.category === filter);
   const options = [{ id: "all" as const, label: "All" }, ...categories];
+  const counts = genreCounts(films);
 
   return (
     <>
-      <section className="flex items-start justify-between gap-4 pt-10 pb-6 md:pt-14">
-        <div className="min-w-0">
-          <p className="ds-eyebrow ds-label flex items-center gap-2">
-            <Ornament /> Now showing · <span lang="ja">上映中</span>
-          </p>
-          <h1 className="ds-display mt-3">Pick tonight&rsquo;s film.</h1>
-          <p className="ds-body ds-muted mt-3 max-w-xl">
-            {films.length} films across seven genres. Save the ones you want to watch; your list stays while you browse and clears when you reload.
-          </p>
+      <section className="ds-hero grid items-start gap-x-6 gap-y-8 pt-10 pb-6 sm:grid-cols-[minmax(0,1fr)_auto] md:pt-14">
+        <div className="ds-hero-text min-w-0">
+          <CoverDress />
+          <div className="min-w-0">
+            <p className="ds-eyebrow ds-label flex items-center gap-2">
+              <Ornament /> Now showing · <span lang="ja">上映中</span>
+            </p>
+            <h1 className="ds-display mt-3">Pick tonight&rsquo;s film.</h1>
+            <p className="ds-body ds-muted mt-3 max-w-xl">
+              {films.length} films across seven genres. Save the ones you want to watch; your list stays while you browse and clears when you reload.
+            </p>
+            <CoverBlurb />
+          </div>
         </div>
-        <div className="hidden shrink-0 sm:block">
-          <HeroMotif count={films.length} />
-        </div>
+        <Splash filter={filter} counts={counts} onPick={setFilter} />
       </section>
 
       <ScrollRow role="group" aria-label="Filter by category" className="-mx-[5vw] px-[5vw]">
@@ -37,7 +41,7 @@ export function Browse() {
           <Chip
             key={o.id}
             label={o.label}
-            count={o.id === "all" ? films.length : films.filter((f) => f.category === o.id).length}
+            count={o.id === "all" ? films.length : counts[o.id]}
             aria-pressed={filter === o.id}
             onClick={() => setFilter(o.id)}
           />

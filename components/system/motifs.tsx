@@ -1,17 +1,21 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: a rising sun and vertical 上映中 · Ben-Day: a comic cover splash, balloons and a silent phone (its drawing kit:
-// pow, aero, xray, ring, diner, meanwhile) · Haipai: cloud scrolls and seals.
+// Shōwa: a rising sun and vertical 上映中 · Ben-Day: a comic cover, its splash a page of genre panels, and a phone that
+// rings for the Saved list and sits silent when it's empty (drawing kit: see components/system/ben-day-kit.tsx) ·
+// Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
+import type { Category } from "@/app/films";
 import { systems } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
-import { CoverSplash } from "./aero";
 import { useSystemId } from "./context";
+import { Planet, Rocket, Swoosh } from "./aero";
+import { Barcode, CodeSeal, CornerBox, PremiereSeal } from "./cover";
 import { Gasp, ThoughtBalloon } from "./diner";
+import { GenreFeature, genreArt, GenrePage } from "./genres";
 import { Skyline } from "./meanwhile";
-import { DotRamp } from "./pow";
-import { Phone } from "./ring";
-import { Rays, Spiral } from "./xray";
+import { DotRamp, SpeedLines } from "./pow";
+import { NotePad, Phone, RingArt } from "./ring";
+import { Spiral } from "./xray";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
 
@@ -85,7 +89,7 @@ function Seal({ glyph, stamped = true, size = 64 }: { glyph: string; stamped?: b
   );
 }
 
-// The big decoration beside a page's hero heading.
+// The big decoration beside a page's hero heading. Ben-Day's is a comic page of its seven genre panels.
 export function HeroMotif({ count }: { count: number }) {
   const id = useSystemId();
   if (id === "showa")
@@ -95,12 +99,71 @@ export function HeroMotif({ count }: { count: number }) {
         <span lang="ja" className="ds-native text-(--ds-accent)" style={{ writingMode: "vertical-rl", fontSize: 30 }}>上映中</span>
       </div>
     );
-  if (id === "ben-day") return <CoverSplash count={count} className="pointer-events-none h-44 w-44 rotate-2 md:h-60 md:w-60" />;
+  if (id === "ben-day")
+    return (
+      <div className="ds-splash">
+        <GenrePage />
+        <CodeSeal className="ds-code-seal" />
+      </div>
+    );
   return (
     <div aria-hidden className="pointer-events-none flex flex-col items-center gap-2">
       <Seal glyph="映" size={72} />
       <CloudScroll className="w-28 md:w-36" />
     </div>
+  );
+}
+
+// The /movies hero's splash. Ben-Day's follows the filter: all seven genre panels (pick one to filter), or the chosen
+// Category's panel. Other systems show their hero motif from 640px up (never in a phone-width preview).
+export function Splash({ filter, counts, onPick }: {
+  filter: Category | "all";
+  counts: Record<Category, number>;
+  onPick: (filter: Category | "all") => void;
+}) {
+  const id = useSystemId();
+  if (id !== "ben-day")
+    return (
+      <div className="hidden shrink-0 sm:block @max-md:hidden">
+        <HeroMotif count={Object.values(counts).reduce((a, b) => a + b, 0)} />
+      </div>
+    );
+  return (
+    <div className="ds-splash">
+      {filter === "all" ? <GenrePage counts={counts} onPick={onPick} /> : <GenreFeature category={filter} count={counts[filter]} onBack={() => onPick("all")} />}
+      <CodeSeal className="ds-code-seal" />
+    </div>
+  );
+}
+
+// Beside the hero heading (Ben-Day only): the cover's corner box.
+export function CoverDress() {
+  const id = useSystemId();
+  if (id !== "ben-day") return null;
+  return <CornerBox className="ds-corner-box" />;
+}
+
+// Under the hero's intro (Ben-Day only, from 640px): a premiere seal and the cover's shouted contents.
+export function CoverBlurb() {
+  const id = useSystemId();
+  if (id !== "ben-day") return null;
+  return (
+    <div aria-hidden className="ds-cover-blurb">
+      <PremiereSeal lines={["BIG", "25-FILM", "ISSUE!"]} />
+      <p><span>Thrills!</span> <span>Laughs!</span> <span>Robots!</span><br /><span>Heartbreak!</span> <span>Monsters!</span></p>
+    </div>
+  );
+}
+
+// Beside the Saved list's heading (Ben-Day only): the phone ringing, the pad noting what's lined up.
+export function SavedSplash({ count }: { count: number }) {
+  const id = useSystemId();
+  if (id !== "ben-day" || count === 0) return null;
+  return (
+    <svg aria-hidden viewBox="0 0 200 250" className="ds-saved-splash">
+      <RingArt note={[`${count} ${count === 1 ? "film" : "films"}`, "tonight!"]} />
+      <rect x="2" y="2" width="196" height="246" fill="none" stroke="var(--ds-text)" strokeWidth="4" />
+    </svg>
   );
 }
 
@@ -120,8 +183,9 @@ function EmptyPanel({ heading }: { heading: React.ReactNode }) {
       <svg aria-hidden viewBox="0 0 360 250" className="block w-full">
         <rect x="4" y="4" width="352" height="242" fill={c.newsprint} />
         <DotRamp x={12} y={150} w={150} h={90} gap={7} from={2.4} to={0.2} />
-        <ThoughtBalloon cx={208} cy={104} rx={126} ry={60} tx={92} ty={196} />
-        <Phone x={34} y={150} s={0.95} />
+        <ThoughtBalloon cx={214} cy={98} rx={124} ry={58} tx={84} ty={160} />
+        <Phone x={14} y={150} s={0.62} />
+        <NotePad x={250} y={184} lines={["Pick a", "film!"]} rotate={6} />
         <rect x="4" y="4" width="352" height="242" fill="none" stroke={c.ink} strokeWidth="6" />
         <rect x="4" y="4" width="128" height="30" fill={c.mustard} stroke={c.ink} strokeWidth="4" />
         <text x="16" y="27" fontSize="20" fill={c.ink} style={{ fontFamily: "var(--font-bangers)", letterSpacing: "0.04em" }}>MEANWHILE…</text>
@@ -147,15 +211,17 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
 }
 
 // Drawn behind a poster's fallback while it loads or after it fails (Ben-Day only): the X-ray spiral turns while it
-// loads; a failed poster gasps under radiating rays.
-export function PosterArt({ state }: { state: string }) {
+// loads; a failed poster shows its Category's genre panel, with a GASP!
+export function PosterArt({ state, category }: { state: string; category: Category }) {
   const id = useSystemId();
   if (id !== "ben-day" || state === "loaded") return null;
   if (state === "loading") return <Spiral className="ds-poster-spiral" />;
+  const Art = genreArt[category];
   return (
-    <svg aria-hidden viewBox="0 0 100 150" preserveAspectRatio="xMidYMid slice" className="ds-poster-art">
-      <Rays cx={50} cy={62} r={140} n={30} spread={0.2} opacity={0.75} />
-      <Gasp cx={50} cy={58} r={36} />
+    <svg aria-hidden viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" className="ds-poster-art">
+      <svg y="25" width="200" height="250" viewBox="0 0 200 250"><Art /></svg>
+      <rect width="200" height="25" fill="var(--ds-text)" /><rect y="275" width="200" height="25" fill="var(--ds-text)" />
+      <Gasp cx={150} cy={52} r={40} />
     </svg>
   );
 }
@@ -166,8 +232,16 @@ export function SignOff() {
   if (id !== "ben-day") return null;
   return (
     <div aria-hidden className="ds-sign-off">
-      <span className="ds-caption ds-label">To be continued…</span>
-      <Skyline className="block h-24 w-full" />
+      <div className="flex w-full max-w-7xl items-end justify-between gap-4 px-[5vw]">
+        <span className="ds-caption ds-label">To be continued…</span>
+        <Barcode className="w-24 shrink-0" />
+      </div>
+      <Skyline className="block h-24 w-full">
+        <Planet cx={300} cy={30} r={11} k={2} />
+        <Swoosh d="M380 64C430 30 470 52 520 34" w={5} k={2} />
+        <SpeedLines x={500} y={36} length={60} n={4} gap={5} width={3} angle={-12} />
+        <Rocket x={536} y={30} s={0.55} rotate={-14} k={2} />
+      </Skyline>
     </div>
   );
 }

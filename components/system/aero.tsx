@@ -1,13 +1,9 @@
 // Ben-Day's drawing kit, from the Captain Aero Comics cover (Mood Board 02, picture 25): a ringed planet, a finned
-// rocket riding a looping Mustard exhaust trail, a field of colored star dots, and the cover's price box. They
-// compose into the cover splash beside the /movies headline. The cover's extruded masthead is the Display type
-// (app/system.css).
-import { useId } from "react";
+// rocket riding a looping Mustard exhaust trail, a field of colored star dots, and the cover's price box. The rocket
+// and planet fly over the sign-off's skyline; the cover's extruded masthead is the Display type (app/system.css).
 import { colors } from "@/app/boards";
 import { benDay } from "@/app/systems";
 import { rand } from "@/components/artifacts/print";
-import { Impact, Sfx } from "./pow";
-import { Rays } from "./xray";
 
 const c = colors(benDay.board);
 
@@ -87,30 +83,5 @@ export function PriceBox({ x, y, w = 44, h = 46, price = "10¢", issue = "No. 25
       <text x={x + w / 2} y={y + h * 0.56} textAnchor="middle" fontSize={h * 0.5} fill={c.red} style={font}>{price}</text>
       <text x={x + w / 2} y={y + h * 0.92} textAnchor="middle" fontSize={h * 0.24} fill={c.mustard} style={font}>{issue}</text>
     </g>
-  );
-}
-
-// The /movies splash: a cover panel where a rocket loops past a ringed planet into a burst that counts the films.
-export function CoverSplash({ count, className = "" }: { count: number; className?: string }) {
-  const clip = `splash-${useId().replace(/:/g, "")}`;
-  return (
-    <svg aria-hidden viewBox="0 0 260 260" className={className}>
-      <defs>
-        <clipPath id={clip}><rect x="6" y="6" width="248" height="248" /></clipPath>
-      </defs>
-      <g clipPath={`url(#${clip})`}>
-        <rect width="260" height="260" fill={c.newsprint} />
-        <Rays cx={120} cy={150} r={260} n={40} spread={0.14} opacity={0.75} />
-        <Stars x={10} y={10} w={240} h={120} n={18} />
-        <Planet cx={200} cy={62} r={24} />
-        <Swoosh d="M-10 236C40 150 120 250 170 190S240 96 300 112" />
-        <Rocket x={206} y={142} s={0.95} rotate={-38} />
-      </g>
-      <Impact cx={112} cy={160} r={92} seed={5} />
-      <Sfx x={112} y={166} size={58} face={c.mustard} rotate={-9}>{String(count)}</Sfx>
-      <Sfx x={116} y={204} size={30} face={c.newsprint} rotate={-9} depth={3}>FILMS!</Sfx>
-      <rect x="6" y="6" width="248" height="248" fill="none" stroke={c.ink} strokeWidth="6" />
-      <PriceBox x={14} y={14} />
-    </svg>
   );
 }

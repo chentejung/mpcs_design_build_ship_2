@@ -2,10 +2,12 @@
 // Interactive examples for the Design System pages. They hold their own state; nothing here touches Eigakan's
 // saved list.
 import { useState } from "react";
-import { categories, filmById, films, formatRuntime, type Film } from "@/app/films";
+import { categories, filmById, films, formatRuntime, type Category, type Film } from "@/app/films";
 import { Button, Chip, Toast, Toggle } from "./controls";
 import { FilmCard } from "./film-card";
+import { genreCounts } from "./genres";
 import { Brand, HeaderBar, SavedLabel } from "./header";
+import { CoverDress, Splash } from "./motifs";
 import { Poster } from "./poster";
 import { ScrollRow } from "./scroll-row";
 
@@ -20,12 +22,16 @@ export function SaveSpecimen({ film, initial = false }: { film: Film; initial?: 
   );
 }
 
-export function ChipsSpecimen({ limit }: { limit?: number }) {
-  const [active, setActive] = useState("all");
-  const options = [{ id: "all", label: "All" }, ...categories].slice(0, limit);
+// Filter chips; pass `active` and `onPick` to drive them from outside (the Applied mock's splash shares them).
+export function ChipsSpecimen({ limit, active: shown, onPick }: { limit?: number; active?: string; onPick?: (id: Category | "all") => void }) {
+  const [own, setOwn] = useState("all");
+  const active = shown ?? own;
+  const options = [{ id: "all" as const, label: "All" }, ...categories].slice(0, limit);
   return (
     <ScrollRow role="group" aria-label="Filter by category (example)">
-      {options.map((o) => <Chip key={o.id} label={o.label} count={countIn(o.id)} aria-pressed={active === o.id} onClick={() => setActive(o.id)} />)}
+      {options.map((o) => (
+        <Chip key={o.id} label={o.label} count={countIn(o.id)} aria-pressed={active === o.id} onClick={() => (onPick ? onPick(o.id) : setOwn(o.id))} />
+      ))}
     </ScrollRow>
   );
 }
@@ -90,7 +96,9 @@ export function ListRowsSpecimen() {
 // /movies at phone width, built from the same components.
 export function AppliedMock() {
   const [saved, setSaved] = useState<string[]>([]);
-  const shown = ["parasite", "spirited-away", "seven-samurai", "in-the-mood-for-love"].map((id) => filmById[id]);
+  const [filter, setFilter] = useState<Category | "all">("all");
+  const matching = filter === "all" ? films : films.filter((f) => f.category === filter);
+  const shown = filter === "all" ? ["parasite", "spirited-away", "seven-samurai", "in-the-mood-for-love"].map((id) => filmById[id]) : matching.slice(0, 4);
   const toggle = (id: string) => setSaved((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   return (
     <div className="ds-phone mx-auto h-[820px] w-[390px] max-w-full overflow-y-auto rounded-[28px] border-[6px] border-(--ds-text) bg-(--ds-bg) shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
@@ -100,10 +108,16 @@ export function AppliedMock() {
         action={<span className="ds-btn ds-btn--secondary"><SavedLabel count={saved.length} /></span>}
       />
       <div className="px-4 pb-10">
-        <p className="ds-eyebrow ds-label mt-6 flex items-center gap-2">Now showing · <span lang="ja">上映中</span></p>
-        <p className="ds-display mt-2">Pick tonight&rsquo;s film.</p>
-        <div className="-mx-4 mt-5 px-4"><ChipsSpecimen /></div>
-        <p className="ds-status ds-meta ds-muted mt-2 mb-5">Showing 25 of 25</p>
+        <div className="ds-hero-text pt-6">
+          <CoverDress />
+          <div className="min-w-0">
+            <p className="ds-eyebrow ds-label flex items-center gap-2">Now showing · <span lang="ja">上映中</span></p>
+            <p className="ds-display mt-2">Pick tonight&rsquo;s film.</p>
+          </div>
+        </div>
+        <div className="mt-6"><Splash filter={filter} counts={genreCounts(films)} onPick={setFilter} /></div>
+        <div className="-mx-4 mt-5 px-4"><ChipsSpecimen active={filter} onPick={setFilter} /></div>
+        <p className="ds-status ds-meta ds-muted mt-2 mb-5">Showing {matching.length} of {films.length}</p>
         <ul aria-label="Movies (example)" className="grid grid-cols-2 gap-x-3 gap-y-8">
           {shown.map((f) => (
             <li key={f.id}>

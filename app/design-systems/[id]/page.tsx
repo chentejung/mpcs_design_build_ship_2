@@ -49,7 +49,7 @@ export default async function DesignSystemPage({ params }: Props) {
         </div>
       </nav>
 
-      <header className="flex flex-wrap items-start justify-between gap-8 px-[6vw] pt-16 pb-12">
+      <header className="ds-hero flex flex-wrap items-start justify-between gap-8 px-[6vw] pt-16 pb-12">
         <div className="max-w-3xl">
           <p className="ds-label flex flex-wrap items-center gap-2">
             <Ornament /> Design System 0{index + 1} · built on the{" "}
@@ -321,7 +321,7 @@ function TextureAndMotif({ system }: { system: DesignSystem }) {
           <p className="ds-body ds-muted">{system.texture.note}</p>
         </Spec>
         <Spec label={`Motif · ${system.motif.name}`}>
-          <div className="flex min-h-44 items-center gap-6">
+          <div className="flex min-h-44 flex-wrap items-center gap-6">
             <HeroMotif count={25} />
             <span className="ds-brand-mark">映</span>
             <Ornament />

@@ -473,6 +473,9 @@
   .ds-card-action {
     margin-top: auto;
   }
+  .ds-card-shout {
+    display: none; /* a hook for systems that letter a balloon on hovered cards */
+  }
 
   /* ----- Phone-width previews (the Applied section): phone rules keyed to the frame, not the viewport ----- */
   .ds-phone {
@@ -490,6 +493,18 @@
   }
   .ds-phone .ds-scroll-row[data-more="true"] {
     mask-image: linear-gradient(to right, #000 calc(100% - 56px), transparent);
+  }
+  .ds-phone .ds-splash {
+    width: 100%;
+  }
+  .ds-phone .ds-cover-blurb {
+    display: none;
+  }
+  .ds-phone .ds-corner-box {
+    width: 54px;
+  }
+  .ds-phone .ds-genre-label {
+    font-size: 10px;
   }
 
   /* ----- Site header ----- */
@@ -1208,11 +1223,280 @@
     margin-top: 72px;
     border-bottom: 10px solid var(--ds-text);
   }
-  .ds-sign-off .ds-caption {
+  .ds-sign-off > div {
     position: relative;
     z-index: 1;
-    margin-bottom: -10px;
+    margin-bottom: -14px;
+  }
+  .ds-sign-off .ds-caption {
     font-size: 20px;
+  }
+  .ds-sign-off svg:not(:last-child) {
+    filter: drop-shadow(3px 3px 0 var(--ds-text));
+    rotate: 2deg;
+  }
+
+  /* ----- The /movies cover: corner box beside the masthead; a splash of genre panels with the approval seal on its
+     corner. A panel is a button that filters to its Category; once chosen, its panel takes the narrator's caption and
+     a burst counting its films. ----- */
+  [data-system="ben-day"] .ds-hero-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .ds-corner-box {
+    width: 72px;
+    flex-shrink: 0;
+    filter: drop-shadow(4px 4px 0 var(--ds-text));
+    rotate: -2deg;
+  }
+  .ds-splash {
+    position: relative;
+    width: 100%;
+  }
+  @media (min-width: 640px) {
+    .ds-hero .ds-splash {
+      width: min(440px, 44vw);
+    }
+  }
+  .ds-code-seal {
+    position: absolute;
+    top: -16px;
+    right: -12px;
+    z-index: 3;
+    width: 54px;
+    filter: drop-shadow(3px 3px 0 var(--ds-text));
+    pointer-events: none;
+    rotate: 8deg;
+  }
+  .ds-splash:has(.ds-genre-feature) .ds-code-seal {
+    right: auto;
+    left: calc(56% - 44px); /* on the chosen panel's corner, clear of the caption */
+  }
+  .ds-genre-page {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 8px;
+  }
+  .ds-genre {
+    position: relative;
+    display: block;
+    grid-column: span 3;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ds-text);
+    box-shadow: 4px 4px 0 var(--ds-text);
+    text-align: left;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .ds-genre:nth-child(-n + 3) {
+    grid-column: span 4;
+  }
+  .ds-genre-art {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  button.ds-genre {
+    cursor: pointer;
+  }
+  button.ds-genre:hover,
+  button.ds-genre[data-state="hover"] {
+    z-index: 2;
+    box-shadow: 8px 8px 0 var(--ds-text);
+    transform: translate(-2px, -3px) rotate(-1.5deg);
+  }
+  button.ds-genre:active {
+    box-shadow: 0 0 0 var(--ds-text);
+    transform: translate(4px, 4px);
+  }
+  .ds-genre-label {
+    position: absolute;
+    bottom: 7px;
+    left: -5px;
+    padding: 3px 6px 2px;
+    border: 2px solid var(--ds-text);
+    background: var(--ds-swatch-mustard);
+    box-shadow: 2px 2px 0 var(--ds-text);
+    color: var(--ds-text);
+    font-size: 12px;
+    white-space: nowrap;
+    rotate: -2deg;
+  }
+  .ds-genre-count {
+    font-family: var(--ds-meta-font);
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .ds-genre-feature {
+    display: grid;
+    grid-template-columns: 56% minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+  .ds-genre-feature > .ds-genre {
+    grid-column: auto;
+  }
+  .ds-genre--feature {
+    animation: ds-pop 0.35s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  }
+  @keyframes ds-pop {
+    from {
+      opacity: 0;
+      scale: 0.7;
+      rotate: -6deg;
+    }
+  }
+  /* The count burst: an Ink burst with a Mustard one inside, the number set large. */
+  .ds-genre-burst {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    width: 150px;
+    aspect-ratio: 1;
+    place-content: center;
+    padding: 30px;
+    color: var(--ds-text);
+    font-family: var(--ds-display-font);
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+    rotate: -8deg;
+  }
+  .ds-genre-burst span {
+    font-size: 44px;
+  }
+  .ds-genre-burst::before,
+  .ds-genre-burst::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--ds-text);
+    clip-path: polygon(50% 0%, 59% 20%, 79% 8%, 77% 30%, 99% 30%, 85% 48%, 100% 64%, 79% 70%, 84% 93%, 62% 83%, 50% 100%, 38% 83%, 16% 93%, 21% 70%, 0% 64%, 15% 48%, 1% 30%, 23% 30%, 21% 8%, 41% 20%);
+  }
+  .ds-genre-burst::after {
+    inset: 6px;
+    background: var(--ds-red-dots, none), var(--ds-swatch-mustard);
+  }
+  /* Under the masthead: a premiere seal and a tilted blurb, the way covers shout their contents. */
+  .ds-cover-blurb {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 28px;
+  }
+  .ds-cover-blurb svg {
+    width: 104px;
+    flex-shrink: 0;
+    filter: drop-shadow(4px 4px 0 var(--ds-text));
+    rotate: -10deg;
+  }
+  .ds-cover-blurb p {
+    color: var(--ds-bg);
+    font-family: var(--ds-display-font);
+    font-size: clamp(22px, 2.4vw, 30px);
+    letter-spacing: 0.03em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1.5px var(--ds-text);
+    paint-order: stroke fill;
+    text-shadow: 1px 1px 0 var(--ds-text), 2px 2px 0 var(--ds-text), 3px 3px 0 var(--ds-text), 4px 4px 0 var(--ds-text);
+    rotate: -4deg;
+  }
+  .ds-cover-blurb p span:nth-child(even) {
+    color: var(--ds-swatch-mustard);
+  }
+  @media (max-width: 639px) {
+    .ds-cover-blurb {
+      display: none;
+    }
+    .ds-corner-box {
+      width: 54px;
+    }
+    .ds-genre-label {
+      font-size: 10px;
+    }
+    .ds-genre-burst {
+      width: 124px;
+      padding: 26px;
+      font-size: 12px;
+    }
+    .ds-genre-burst span {
+      font-size: 34px;
+    }
+  }
+
+  /* The Saved list's ringing phone. */
+  .ds-saved-splash {
+    width: clamp(116px, 28vw, 220px);
+    flex-shrink: 0;
+    filter: drop-shadow(6px 6px 0 var(--ds-text));
+    rotate: 2deg;
+  }
+
+  /* Cards: an issue box on the poster's corner, and a "LOOK!" balloon (picture 17) that pops up on hover. */
+  [data-system="ben-day"] .ds-card {
+    position: relative;
+  }
+  [data-system="ben-day"] .ds-frame::before {
+    content: "No. " attr(data-issue);
+    position: absolute;
+    top: -14px;
+    right: 10px;
+    z-index: 2;
+    padding: 3px 5px 2px;
+    background: var(--ds-text);
+    color: var(--ds-swatch-mustard);
+    font-family: var(--ds-display-font);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    rotate: 4deg;
+  }
+  [data-system="ben-day"] .ds-card-shout {
+    position: absolute;
+    top: -22px;
+    right: -14px;
+    z-index: 5;
+    display: block;
+    width: 64px;
+    height: 46px;
+    opacity: 0;
+    pointer-events: none;
+    scale: 0.3;
+    transform-origin: 30% 100%;
+    transition: opacity 0.15s ease, scale 0.25s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  [data-system="ben-day"] .ds-card-shout::before,
+  [data-system="ben-day"] .ds-card-shout::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  [data-system="ben-day"] .ds-card-shout::before {
+    background: var(--ds-text);
+    clip-path: path("M32 1C50 1 63 9 63 19C63 29 52 36 38 37L28 46L29 37C13 36 1 29 1 19C1 9 14 1 32 1Z");
+  }
+  [data-system="ben-day"] .ds-card-shout::after {
+    content: "LOOK!";
+    padding-top: 9px;
+    background: var(--ds-bg);
+    clip-path: path("M32 4C48 4 60 11 60 19C60 27 50 33 37 34L31 40L32 34C15 33 4 27 4 19C4 11 16 4 32 4Z");
+    color: var(--ds-text);
+    font-family: var(--ds-display-font);
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+  [data-system="ben-day"] .ds-card:hover .ds-card-shout,
+  [data-system="ben-day"] .ds-card[data-state="hover"] .ds-card-shout {
+    opacity: 1;
+    scale: 1;
   }
 
   /* ===================================================================================================

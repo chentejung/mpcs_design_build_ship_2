@@ -46,3 +46,26 @@ export function Gasp({ cx, cy, r, word = "GASP!", fill = c.newsprint }: { cx: nu
     </g>
   );
 }
+
+// Balloon lettering: centered lines of Bangers in Ink.
+export function Lettering({ cx, cy, lines, size = 12, fill = c.ink }: { cx: number; cy: number; lines: string[]; size?: number; fill?: string }) {
+  const lh = size * 1.08;
+  const y0 = cy - ((lines.length - 1) * lh) / 2 + size * 0.36;
+  return (
+    <g textAnchor="middle" fontSize={size} fill={fill} style={{ fontFamily: "var(--font-bangers)", letterSpacing: "0.03em" }}>
+      {lines.map((l, i) => <text key={i} x={cx} y={y0 + i * lh}>{l}</text>)}
+    </g>
+  );
+}
+
+// A shout balloon with its lines lettered inside.
+export function Shout({ cx, cy, rx, ry, lines, size = 12, fill = c.newsprint, k = 2.4 }: {
+  cx: number; cy: number; rx: number; ry: number; lines: string[]; size?: number; fill?: string; k?: number;
+}) {
+  return (
+    <g>
+      <polygon points={shout(cx, cy, rx, ry, 18)} fill={fill} stroke={c.ink} strokeWidth={k} strokeLinejoin="round" />
+      <Lettering cx={cx} cy={cy} lines={lines} size={size} />
+    </g>
+  );
+}

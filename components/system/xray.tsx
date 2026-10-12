@@ -74,3 +74,52 @@ export function Emanata({ cx, cy, r, len = 8, angles = [-150, -120, -90, -60, -3
     </g>
   );
 }
+
+// A four-point twinkle and a lightning bolt, the ad's decorations on the specs' frame.
+const twinkle = (x: number, y: number, r: number) => `M${x} ${y - r}L${x + r * 0.28} ${y - r * 0.28}L${x + r} ${y}L${x + r * 0.28} ${y + r * 0.28}L${x} ${y + r}L${x - r * 0.28} ${y + r * 0.28}L${x - r} ${y}L${x - r * 0.28} ${y - r * 0.28}Z`;
+const bolt = (x: number, y: number, s: number) => `M${x} ${y}l${4 * s} 0l${-3 * s} ${6 * s}l${4 * s} 0l${-8 * s} ${10 * s}l${2 * s} ${-7 * s}l${-4 * s} 0Z`;
+
+// The X-ray specs: a red cardboard frame with spiral lenses, its black arms folding back into depth.
+export function Specs({ x = 0, y = 0, s = 1 }: { x?: number; y?: number; s?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} strokeLinejoin="round">
+      <path d="M18 104L30 52L46 46L36 100Z" fill={c.ink} stroke={c.ink} strokeWidth="3" />
+      <path d="M182 104L172 52L156 46L164 100Z" fill={c.ink} stroke={c.ink} strokeWidth="3" />
+      <path d="M30 52L46 46L44 54L32 58Z" fill={c.sepia} />
+      <path
+        d="M14 96H186C192 96 195 102 193 108L187 154C185 162 179 166 171 166H116C110 166 106 160 101 150H99C94 160 90 166 84 166H29C21 166 15 162 13 154L7 108C5 102 8 96 14 96Z"
+        fill={c.red} stroke={c.ink} strokeWidth="4"
+      />
+      <path d="M16 100H184" stroke={c.newsprint} strokeWidth="2" opacity="0.5" />
+      <g fill={c.mustard} stroke={c.ink} strokeWidth="1.2">
+        <path d={twinkle(100, 112, 7)} />
+        <path d={twinkle(19, 116, 5)} />
+        <path d={twinkle(181, 116, 5)} />
+        <path d={bolt(94, 128, 1)} />
+        <path d={twinkle(176, 156, 4)} />
+        <path d={twinkle(24, 156, 4)} />
+      </g>
+      <SpiralLens cx={58} cy={130} r={27} turns={3.5} k={3} />
+      <SpiralLens cx={142} cy={130} r={27} turns={3.5} k={3} />
+    </g>
+  );
+}
+
+// The Comedy panel: the specs hanging in a burst of rays, laughter flying, "ONLY $1".
+export function ComedyArt() {
+  return (
+    <g>
+      <rect width="200" height="250" fill={c.newsprint} />
+      <Rays cx={100} cy={128} r={240} n={44} spread={0.3} opacity={0.55} />
+      <circle cx="100" cy="128" r="58" fill={c.mustard} opacity="0.55" />
+      <Specs x={4} y={-6} s={0.96} />
+      <Emanata cx={100} cy={124} r={80} len={10} angles={[-104, -90, -76]} k={2.5} />
+      <Sfx x={58} y={46} size={38} rotate={-14} face={c.red}>HA!</Sfx>
+      <Sfx x={146} y={40} size={32} rotate={10} face={c.mustard}>HA!</Sfx>
+      <path d="M0 206H200V250H0Z" fill={c.red} stroke={c.ink} strokeWidth="4" />
+      <path d="M0 212H200" stroke={c.mustard} strokeWidth="2" />
+      <Sfx x={82} y={240} size={28} rotate={-4} face={c.mustard} depth={2}>AMAZING!</Sfx>
+      <PriceBurst cx={168} cy={196} r={28} />
+    </g>
+  );
+}

@@ -22,7 +22,7 @@ export function Poster({ film, force }: { film: Film; force?: "loading" | "error
   return (
     <div className="ds-poster" data-poster={shown}>
       <div aria-hidden className="ds-poster-fallback">
-        <PosterArt state={shown} />
+        <PosterArt state={shown} category={film.category} />
         <span className="ds-heading">{film.title}</span>
         <span className="ds-meta">{shown === "error" ? "⚠ Poster didn’t load" : film.year}</span>
       </div>

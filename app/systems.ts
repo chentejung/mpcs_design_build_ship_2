@@ -104,7 +104,7 @@ export const benDay: DesignSystem = {
   id: "ben-day",
   name: "Ben-Day",
   board: americanComics,
-  essence: "Golden Age comic books: Ben-Day dots, thick ink keylines, cover mastheads, balloons and captions, and lettering that shouts.",
+  essence: "Golden Age comic books: Ben-Day dots, thick ink keylines, cover mastheads, a panel for every genre, and lettering that shouts.",
   colors: {
     background: "newsprint",
     surface: "mustard",
@@ -136,7 +136,7 @@ export const benDay: DesignSystem = {
   },
   icons: { save: "A starburst with a plus.", saved: "A solid starburst with the check knocked out.", remove: "Scissors, to clip the coupon." },
   texture: { name: "Ben-Day dots on old newsprint", note: "A halftone dot screen in Hero Red and Aged Sepia over Newsprint, yellowing toward the edges like a comic kept in a drawer." },
-  motif: { name: "Comic cover", note: "A cover splash sits beside the headline: price box, ringed planet, and a rocket looping into a burst that counts the films. The header is the cover's red trade dress with a 10¢ corner box. Caption boxes narrate, balloons talk, a starburst counts and a “SAVED!” sticker lands on saved posters; the empty list is a panel with a silent phone, and a skyline closes each page under “To be continued…”." },
+  motif: { name: "Comic cover", note: "/movies is a comic cover: a corner box and premiere seal by the masthead, and a splash of seven genre panels, each drawn after a picture on the board (a tearful eye, a noir street, X-ray specs, KRAKOOM!, a giant robot, a monster's hand, a popcorn cartoon). Pick a panel to filter. Caption boxes narrate, balloons talk, a “SAVED!” sticker lands on saved posters, a red phone rings for the Saved list and sits silent when it's empty, and a skyline closes each page under “To be continued…”." },
   feel: { hover: "Controls tilt and their shadow grows; a card pops forward and its poster takes a red dot screen.", press: "The shadow collapses and the control slams down; the Saved count rings like a phone." },
 };
 
