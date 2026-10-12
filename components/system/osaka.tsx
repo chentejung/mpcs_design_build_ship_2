@@ -1,7 +1,7 @@
 "use client";
 // Shōwa's drawing kit after Osaka Rainy Night on the Japanese Retro board (picture 26): the vertical signboards
-// (看板) of Dōtonbori, each a framed board with a cap. The signboard stands beside the hero sun, headed by a sun over
-// waves (koi.tsx) and closed by the cinema's ringed stamp.
+// (看板) of Dōtonbori, each a framed board with a cap, headed here by a sun over waves (koi.tsx) and closed by the
+// cinema's ringed stamp. drawing-kit.tsx shows it.
 import { SunOverWaves } from "./koi";
 import { Tenneniro } from "./terebi";
 

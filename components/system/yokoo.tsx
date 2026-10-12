@@ -2,7 +2,7 @@
 // Shōwa's drawing kit, after the Tadanori Yokoo picture on the Japanese Retro board (picture 22): flat fills inside
 // heavy Sumi keylines, rising-sun rays, a sawtooth aura (後光) around whatever is in focus, four-point sparkles,
 // ringed planets, scalloped clouds, the eye at the sun's centre, and a pointing hand. Kinari is only ever a fill
-// inside Sumi (app/systems.ts). motifs.tsx composes these into the hero and the ornament; drawing-kit.tsx shows them.
+// inside Sumi (app/systems.ts). motifs.tsx uses the small sun as the ornament; drawing-kit.tsx shows the rest.
 import { useId } from "react";
 import { colors } from "@/app/boards";
 import { showa } from "@/app/systems";
@@ -117,53 +117,12 @@ export function Hand({ x, y, s = 1, rotate = 0, k }: { x: number; y: number; s?:
   );
 }
 
-// The rising sun, drawn the Yokoo way: alternating rays in a keylined disc, the sawtooth aura, the red sun, and at
-// its centre the cinema's eye or a glyph. Drawn in a 200-unit box around (cx, cy), scaled by r / 100.
-export function SunMark({ cx = 100, cy = 100, r = 100, eye = false, glyph, rays = true, k = 3 }: {
-  cx?: number; cy?: number; r?: number; eye?: boolean; glyph?: string; rays?: boolean; k?: number;
-}) {
-  const s = r / 100;
-  const ks = k / s;
-  return (
-    <g transform={`translate(${cx - 100 * s} ${cy - 100 * s}) scale(${s})`}>
-      {rays && (
-        <>
-          <Rays cx={100} cy={100} r={96} n={24} ground={c.washi} />
-          <circle cx={100} cy={100} r={96} fill="none" stroke={c.sumi} strokeWidth={ks} />
-        </>
-      )}
-      <Aura cx={100} cy={100} r={rays ? 66 : 96} teeth={rays ? 30 : 26} depth={rays ? 0.15 : 0.18} k={ks} />
-      <circle cx={100} cy={100} r={rays ? 50 : 70} fill={c.hinomaru} stroke={c.sumi} strokeWidth={ks} />
-      {eye && <Eye cx={100} cy={100} w={66} k={ks} />}
-      {glyph && (
-        <text x={100} y={100} dy="0.36em" textAnchor="middle" fontSize={rays ? 52 : 74} fill="#fff" style={{ fontFamily: "var(--ds-display-font)" }}>
-          {glyph}
-        </text>
-      )}
-    </g>
-  );
-}
-
 // A pocket version of the sun for 20px ornaments: aura and disc, keylines kept thick enough to print.
 export function SmallSun({ className = "" }: { className?: string }) {
   return (
     <svg aria-hidden viewBox="0 0 24 24" className={className}>
       <polygon points={burst(12, 12, 11.4, 8.6, 14)} fill={c.kinari} stroke={c.sumi} strokeWidth="1.5" strokeLinejoin="round" />
       <circle cx="12" cy="12" r="5.6" fill={c.hinomaru} stroke={c.sumi} strokeWidth="1.5" />
-    </svg>
-  );
-}
-
-// The hero: the sun with the eye at its centre, a planet and a cloud drifting over its rim, and sparkles.
-export function HeroSun({ className = "" }: { className?: string }) {
-  return (
-    <svg aria-hidden viewBox="0 0 240 240" className={className}>
-      <SunMark cx={120} cy={112} r={100} eye />
-      <Planet cx={38} cy={196} r={15} k={3} />
-      <Cloud x={170} y={204} k={3} />
-      <Sparkle x={216} y={24} r={16} k={2.5} />
-      <Sparkle x={22} y={30} r={10} fill={c.washi} k={2.5} />
-      <Sparkle x={230} y={128} r={8} fill={c.hinomaru} k={2} />
     </svg>
   );
 }

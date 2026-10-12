@@ -64,7 +64,7 @@ export const showa: DesignSystem = {
   name: "Shōwa",
   alt: "昭和",
   board: japaneseRetro,
-  essence: "Shōwa-era poster print: fat gothic type and cinema tickets in color plates that never quite line up, with Tadanori Yokoo's rising sun and an Osaka signboard in 天然色 in the hero.",
+  essence: "Shōwa-era poster print: fat gothic type extruded the Yokoo way, a rising sun, and cinema tickets in color plates that never quite line up.",
   colors: {
     background: "washi",
     surface: "kinari",
@@ -97,8 +97,8 @@ export const showa: DesignSystem = {
   icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice.", remove: "A bold cross." },
   texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter." },
   motif: {
-    name: "Yokoo sun on a Shōwa street",
-    note: "From four pictures on Mood Board 01, gathered in the hero around a plain film list (a plain header, posters in a double Sumi rule, Category badges as round seals, a 済 (“done”) seal on saved posters, a plain rising sun holding 空 when nothing is saved). Tadanori Yokoo (22): extruded Display type and a rayed sun in a sawtooth aura with the cinema's eye at its centre. Osaka Rainy Night (26): a capped signboard reading 上映中 beside the sun. Koi Pond (02): the sun rising over waves that heads the signboard. Color TV Ad (25): the signboard's word in 天然色. On this page panels take flag corners, film strips divide the sections, and radios are a color TV's knobs.",
+    name: "Rising sun",
+    note: "A Hinomaru disc with soft rays beside 上映中 set vertically leads the hero; the same sun holds 空 when nothing is saved, and a 済 (“done”) seal lands on saved posters. From the Yokoo picture (22), the hero heading stands on an extrusion and a small sun in a sawtooth aura marks Now showing. This page also carries a drawing kit from four Mood Board 01 pictures (Yokoo 22, Koi Pond 02, Color TV Ad 25, Osaka Rainy Night 26): panels take flag corners, film strips divide the sections, radios are a color TV's knobs, and the title prints in 天然色.",
   },
   feel: { hover: "The red plate drifts further out of register.", press: "The plate snaps into register." },
 };

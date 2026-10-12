@@ -1,13 +1,11 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: a Yokoo rising sun (components/system/yokoo.tsx) beside an Osaka signboard (osaka.tsx), and a plain rising
-// sun holding 空 for the empty state · Ben-Day: a starburst and speech balloons · Haipai: cloud scrolls and seals.
+// Shōwa: a rising sun and vertical 上映中 · Ben-Day: a starburst and speech balloons · Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
-import { Signboard } from "./osaka";
-import { HeroSun, SmallSun } from "./yokoo";
+import { SmallSun } from "./yokoo";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
 
@@ -87,9 +85,9 @@ export function HeroMotif({ count }: { count: number }) {
   const id = useSystemId();
   if (id === "showa")
     return (
-      <div aria-hidden className="pointer-events-none flex items-start gap-5 pt-2.5">
-        <HeroSun className="h-32 w-32 md:h-48 md:w-48" />
-        <Signboard text="上映中" stamp="映" />
+      <div aria-hidden className="pointer-events-none flex items-start gap-3">
+        <Sun className="h-28 w-28 md:h-44 md:w-44" />
+        <span lang="ja" className="ds-native text-(--ds-accent)" style={{ writingMode: "vertical-rl", fontSize: 30 }}>上映中</span>
       </div>
     );
   if (id === "ben-day")
