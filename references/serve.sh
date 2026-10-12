@@ -7,6 +7,9 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PORT=8000
 cd "$ROOT"
 
+echo "==> Exporting original artifacts to public/moodboards/*/claude-*.svg"
+npx tsx references/export-originals.tsx
+
 echo "==> Building static export into out/"
 npx next build
 

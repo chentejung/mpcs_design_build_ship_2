@@ -25,10 +25,16 @@ export type Board = {
   tiles: [number, number, number]; // reference numbers (1-based) used on the landing card
 };
 
+// File names say where a picture came from: pinterest-NN-<title>.jpg for references,
+// claude-NN-<title>.svg for originals drawn by Claude (see components/artifacts).
+export const slug = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+export const fileName = (source: "pinterest" | "claude", n: number, title: string, ext: string) =>
+  `${source}-${String(n).padStart(2, "0")}-${slug(title)}.${ext}`;
+
 function refs(id: string, pins: string[], titles: string[]): Reference[] {
   return pins.map((pin, i) => ({
     title: titles[i],
-    src: `/moodboards/${id}/ref-${String(i + 1).padStart(2, "0")}.jpg`,
+    src: `/moodboards/${id}/${fileName("pinterest", i + 1, titles[i], "jpg")}`,
     href: `https://www.pinterest.com/pin/${pin}/`,
   }));
 }

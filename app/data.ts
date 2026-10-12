@@ -1,5 +1,5 @@
 // Landing-page content. Design-system and final-site links are placeholders until those pages exist.
-import { boards } from "./boards";
+import { boards, japaneseRetro } from "./boards";
 
 export type MoodBoard = {
   id: string;
@@ -75,8 +75,8 @@ export const designSystems: DesignSystem[] = [
 
 export const finalSite = {
   url: "https://showa-studio.example.com",
-  heroImage: "/moodboards/japanese-retro/ref-13.jpg",
-  recipeImage: "/moodboards/japanese-retro/ref-02.jpg",
+  heroImage: japaneseRetro.references[12].src,
+  recipeImage: japaneseRetro.references[1].src,
   links: [
     { label: "Visit the live site", href: "https://showa-studio.example.com" },
     { label: "Source code", href: "https://github.com/designbuildship/showa-studio" },
