@@ -7,6 +7,7 @@
 // checkSystem() fails the build when a text pairing misses its contrast target; systemStyle() runs it, so no page can
 // be themed by a failing system.
 import { americanComics, chineseRetro, japaneseRetro, type Board } from "./boards";
+import type { IconName } from "@/components/system/icons";
 import type { Category } from "./films";
 
 type Ink = string; // a Palette swatch key, or "white"
@@ -40,7 +41,8 @@ export type DesignSystem = {
   };
   type: Record<TypeRole, TypeSpec>;
   quotes?: FontRef; // a face for ’ “ ” when the system's fonts set them full-width
-  shape: { radius: Record<ShapePart, number>; border: { control: number; card: number }; shadow: string };
+  shape: { radius: Record<ShapePart, number>; border: { control: number; card: number }; shadow: string; controls: string };
+  icons: Record<IconName, string>; // what each icon draws (components/system/icons.tsx)
   texture: { name: string; note: string };
   motif: { name: string; note: string };
   feel: { hover: string; press: string };
@@ -74,8 +76,8 @@ export const showa: DesignSystem = {
     focus: "ai",
     muted: 0.7,
     border: 0.22,
-    categories: { thriller: "ai", comedy: "kinari", animation: "kinari", action: "hinomaru", "science-fiction": "ai", romance: "hinomaru", horror: "sumi" },
-    restricted: "Koke Moss stays out of text roles: it reaches only 4.39:1 with Sumi and 3.47:1 on Washi.",
+    categories: { thriller: "kogecha", comedy: "kinari", animation: "kinari", action: "hinomaru", "science-fiction": "ai", romance: "hinomaru", horror: "sumi" },
+    restricted: "Kinari Paper never carries text or a keyline on Washi: the two are only 1.34:1 apart, so Kinari is always a fill inside Sumi.",
   },
   type: {
     Display: { font: font.dela, size: 56, weight: 400, tracking: -0.01 },
@@ -90,9 +92,11 @@ export const showa: DesignSystem = {
     radius: { control: 4, card: 2, poster: 2, badge: 999, panel: 4 },
     border: { control: 2, card: 4 },
     shadow: "None. A red plate sits 3px out of register behind each control, like a misaligned print layer.",
+    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub. Filter chips are shop tags (値札) with clipped corners and a punched hole; a checked box takes a ◯, the mark for “yes” on Japanese forms.",
   },
+  icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice.", remove: "A bold cross." },
   texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter." },
-  motif: { name: "Rising sun", note: "A Hinomaru disc with rays behind the hero and the empty state; 上映中 set vertically." },
+  motif: { name: "Rising sun", note: "A Hinomaru disc with rays behind the hero and the empty state; 上映中 set vertically; a 済 (“done”) seal lands on saved posters." },
   feel: { hover: "The red plate drifts further out of register.", press: "The plate snaps into register." },
 };
 
@@ -107,13 +111,13 @@ export const benDay: DesignSystem = {
     text: "ink",
     accent: "red",
     onAccent: "white",
-    selected: "cyan",
-    onSelected: "ink",
-    focus: "cyan",
+    selected: "ink",
+    onSelected: "mustard",
+    focus: "ink",
     muted: 0.75,
     border: 0.9,
-    categories: { thriller: "ink", comedy: "mustard", animation: "cyan", action: "red", "science-fiction": "cyan", romance: "red", horror: "sepia" },
-    restricted: "White text never sits on Halftone Cyan: it reaches only 4.28:1, so Selected uses Ink.",
+    categories: { thriller: "ink", comedy: "mustard", animation: "peach", action: "red", "science-fiction": "sepia", romance: "red", horror: "ink" },
+    restricted: "Ben-Day Peach and Golden Age Mustard never carry text on Newsprint (1.50:1 and 1.63:1): they are fills behind Ink, or Mustard lettering on Ink.",
   },
   type: {
     Display: { font: font.bangers, size: 64, weight: 400, tracking: 0.02 },
@@ -128,9 +132,11 @@ export const benDay: DesignSystem = {
     radius: { control: 3, card: 0, poster: 0, badge: 0, panel: 0 },
     border: { control: 3, card: 4 },
     shadow: "Hard 4px Ink offset, no blur.",
+    controls: "Buttons lean like action lettering, primary faces under a Ben-Day dot screen. Secondary buttons stand straight as mail-order coupons, a dashed cut line on Ben-Day Peach; filter chips are speech balloons with a tail.",
   },
-  texture: { name: "Ben-Day dots", note: "A halftone dot screen in Hero Red and Halftone Cyan over Newsprint." },
-  motif: { name: "Speech balloon", note: "Balloons carry the empty state; a starburst carries the Saved count." },
+  icons: { save: "A starburst with a plus.", saved: "A solid starburst with the check knocked out.", remove: "Scissors, to clip the coupon." },
+  texture: { name: "Ben-Day dots", note: "A halftone dot screen in Hero Red and Aged Sepia over Newsprint." },
+  motif: { name: "Speech balloon", note: "Balloons carry the empty state and the filter chips; a starburst carries the Saved count and lands on saved posters as a “SAVED!” sticker." },
   feel: { hover: "Controls tilt and their shadow grows.", press: "The shadow collapses and the control slams down." },
 };
 
@@ -169,11 +175,13 @@ export const haipai: DesignSystem = {
   shape: {
     radius: { control: 2, card: 0, poster: 0, badge: 2, panel: 0 },
     border: { control: 1, card: 2 },
-    shadow: "None. Gold double rules frame cards and panels instead.",
+    shadow: "None on cards and panels: Gold double rules frame them. Mahjong-tile chips stand on a 4px Pine back.",
+    controls: "Art Deco octagons with cut corners and a carved inner hairline, like the frames on tea and tobacco labels. Filter chips are mahjong tiles on a Pine back; radios are 方孔钱 coins with a square hole.",
   },
+  icons: { save: "An uncut seal with a plus.", saved: "A stamped seal with the check knocked out.", remove: "A cancelled seal." },
   texture: { name: "Xuan fibres", note: "Long, soft paper fibres and a faint hatch, like rice paper under ink." },
-  motif: { name: "Cloud scroll and seal", note: "祥云 scrolls frame headings; a square seal carries the brand and the empty state." },
-  feel: { hover: "Gold rules brighten.", press: "The control stamps down like a seal." },
+  motif: { name: "Cloud scroll and seal", note: "祥云 scrolls frame headings; a square seal carries the brand and the empty state, which stands in a moon gate (月洞门); a 藏 (“kept”) seal lands on saved posters." },
+  feel: { hover: "Gold rules brighten and tiles lift off their back.", press: "Buttons stamp down like a seal; tiles press flat." },
 };
 
 export const systems = [showa, benDay, haipai];

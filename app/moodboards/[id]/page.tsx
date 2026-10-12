@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { Metadata } from "next";
 import { boards, type Board, type Reference } from "@/app/boards";
 import { resolveColors, systemFor } from "@/app/systems";
@@ -28,6 +30,8 @@ function collage(board: Board): Artifact[] {
     if (board.references[i]) out.push({ kind: "reference", ...board.references[i] });
   }
   if (out.length !== ARTIFACT_COUNT) throw new Error(`${board.id}: expected ${ARTIFACT_COUNT} artifacts, got ${out.length}`);
+  const missing = out.filter((a) => !fs.existsSync(path.join(process.cwd(), "public", a.src)));
+  if (missing.length) throw new Error(`${board.id}: missing pictures ${missing.map((a) => a.src).join(", ")}`);
   return out;
 }
 
