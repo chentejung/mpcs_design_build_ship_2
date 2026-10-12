@@ -1,4 +1,4 @@
-// Landing-page content. Design-system and final-site links are placeholders until those pages exist.
+// Landing-page content. Design-system links and the final site's source/case-study links are placeholders.
 import { boards, japaneseRetro } from "./boards";
 
 export type MoodBoard = {
@@ -12,7 +12,7 @@ export type MoodBoard = {
 };
 
 // Landing-page cards, derived from the full boards in ./boards.ts.
-const selectedBoard = "japanese-retro";
+export const selectedBoard = "japanese-retro";
 
 export const moodBoards: MoodBoard[] = boards.map((b) => ({
   id: b.id,
@@ -73,12 +73,13 @@ export const designSystems: DesignSystem[] = [
   },
 ];
 
+// The final site is Eigakan at /movies; `preview` is a screenshot of it.
 export const finalSite = {
-  url: "https://showa-studio.example.com",
-  heroImage: japaneseRetro.references[12].src,
+  url: "/movies",
+  preview: "/movies/preview.jpg",
   recipeImage: japaneseRetro.references[1].src,
   links: [
-    { label: "Visit the live site", href: "https://showa-studio.example.com" },
+    { label: "Visit the live site", href: "/movies/" },
     { label: "Source code", href: "https://github.com/designbuildship/showa-studio" },
     { label: "Case study", href: "/case-study/" },
   ],

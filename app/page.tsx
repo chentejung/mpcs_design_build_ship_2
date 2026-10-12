@@ -149,18 +149,11 @@ function FinalSite() {
       <div className="overflow-hidden rounded-2xl border border-line bg-[#faf3ea] shadow-[0_30px_60px_-30px_rgba(42,36,32,0.45)]">
         <div className="flex items-center gap-2 bg-[#ebe1d4] px-4 py-3">
           {[0, 1, 2].map((i) => <i key={i} className="h-3 w-3 rounded-full bg-[#d1c2b1]" />)}
-          <span className="ml-3 flex-1 rounded-md bg-[#faf3ea] px-3 py-1 text-xs text-muted">{finalSite.url.replace("https://", "")}</span>
+          <span className="ml-3 flex-1 rounded-md bg-[#faf3ea] px-3 py-1 text-xs text-muted">{finalSite.url}</span>
         </div>
-        <div className="grid min-h-96 md:grid-cols-2">
-          <div className="flex flex-col justify-center gap-5 px-9 py-10">
-            <div className="flex gap-4 text-[0.7rem] uppercase tracking-widest text-[#9a7a62]">
-              <span>Prints</span><span>Shop</span><span>Journal</span>
-            </div>
-            <h4 className="font-serif text-4xl leading-tight text-[#3b2a20]">Showa nights, printed by hand.</h4>
-            <span className="self-start rounded-[10px] bg-accent px-4 py-2 text-sm text-white">Browse the prints</span>
-          </div>
-          <div className="min-h-56 bg-cover bg-[center_40%]" style={{ backgroundImage: `url(${finalSite.heroImage})` }} />
-        </div>
+        <a href={live.href}>
+          <img src={finalSite.preview} alt="Eigakan 映画館: the movie picker at /movies" className="block w-full" />
+        </a>
       </div>
 
       <div className="grid gap-4">
