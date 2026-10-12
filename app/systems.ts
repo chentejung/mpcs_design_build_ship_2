@@ -92,15 +92,15 @@ export const showa: DesignSystem = {
     radius: { control: 4, card: 2, poster: 2, badge: 999, panel: 4 },
     border: { control: 2, card: 4 },
     shadow: "None. A red plate sits 3px out of register behind each control and input, like a misaligned print layer; panels, the signboard and the toast cast a solid red plate.",
-    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub that rays fan out of. Filter chips are shop tags (値札) with clipped corners and a punched hole; a selected tag's rays rise from the hole. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios are a color TV's knobs (つまみ) that turn up to 12 o'clock when chosen; a switched-on toggle's knob turns into a sparkle; the selected tab stands on a sawtooth; the select points down with a hand; the Saved count hangs as a paper lantern (提灯).",
+    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub. Filter chips are shop tags (値札) with clipped corners and a punched hole. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios are a color TV's knobs (つまみ) that turn up to 12 o'clock when chosen; a switched-on toggle's knob turns into a sparkle; the selected tab stands on a sawtooth; the select points down with a hand; the Saved count hangs as a paper lantern (提灯).",
   },
-  icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice, with rays so it rises like the sun.", remove: "A bold cross." },
+  icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice.", remove: "A bold cross." },
   texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter, with faint Hinomaru rays fanning in from the top corner." },
   motif: {
     name: "Yokoo sun on a Shōwa street",
-    note: "From four pictures on Mood Board 01. Tadanori Yokoo (22): a rayed sun in a sawtooth aura with the cinema's eye at its centre leads the hero; Category badges are ringed planets; posters and panels are framed in double rules with flag corners; film strips close the header and divide sections; a rayed 済 (“done”) seal lands on saved posters. Osaka Rainy Night (26): a capped signboard reading 上映中 stands beside the sun, and the Saved count is a paper lantern. Color TV Ad (25): native words print in 天然色, and a TV set waits behind each poster, showing a test card while it loads and static if it fails. Koi Pond (02): the empty state is a tiled pool where two koi circle in the rain, and the colophon is set like a poster's foot.",
+    note: "From four pictures on Mood Board 01, around a plain film list (posters in a double Sumi rule, Category badges as round seals, a 済 (“done”) seal on saved posters). Tadanori Yokoo (22): a rayed sun in a sawtooth aura with the cinema's eye at its centre leads the hero; panels and the empty state are framed in double rules with flag corners; film strips close the header and divide sections. Osaka Rainy Night (26): a capped signboard reading 上映中 stands beside the sun, and the Saved count is a paper lantern. Color TV Ad (25): native words print in 天然色 and radios are the set's knobs. Koi Pond (02): the empty state is a tiled pool where two koi circle in the rain, and the colophon is set like a poster's foot.",
   },
-  feel: { hover: "The red plate drifts further out of register; a poster's sawtooth aura flares behind its frame.", press: "The plate snaps into register and a ripple spreads from the ticket's stub, like rain on the koi pond." },
+  feel: { hover: "The red plate drifts further out of register.", press: "The plate snaps into register." },
 };
 
 export const benDay: DesignSystem = {

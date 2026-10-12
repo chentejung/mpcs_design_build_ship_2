@@ -1,7 +1,7 @@
 "use client";
 // Icons. CheckIcon is a drawn check mark: the ✓ character is missing from several system fonts and falls back to a
 // √-like glyph. Icon draws an action in the wrapping system's own style (descriptions in app/systems.ts):
-// Shōwa: a bold plus, a rising-sun ◎ nijū-maru, a bold cross · Ben-Day: starbursts and mail-order scissors ·
+// Shōwa: a bold plus, ◎ nijū-maru, a bold cross · Ben-Day: starbursts and mail-order scissors ·
 // Haipai: an uncut seal, a stamped seal, a cancelled seal.
 import { useId } from "react";
 import { burst } from "@/components/artifacts/print";
@@ -37,27 +37,13 @@ function Knockout({ shape, mark }: { shape: React.ReactNode; mark: React.ReactNo
   );
 }
 
-// Eight short rays around the Shōwa ◎, so the double circle reads as a rising sun.
-const showaRays = Array.from({ length: 8 }, (_, i) => {
-  const a = (i * Math.PI) / 4;
-  const at = (r: number) => `${(8 + r * Math.cos(a)).toFixed(2)} ${(8 + r * Math.sin(a)).toFixed(2)}`;
-  return `M${at(6.3)}L${at(7.7)}`;
-}).join("");
-
 const check = <path d="M4.6 8.3l2.3 2.3 4.6-5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />;
 
 export function Icon({ name }: { name: IconName }) {
   const id = useSystemId();
   if (id === "showa") {
     if (name === "save") return svg(<path d="M8 2.5v11M2.5 8h11" strokeWidth="2.8" />);
-    if (name === "saved")
-      return svg(
-        <>
-          <circle cx="8" cy="8" r="4.9" strokeWidth="1.6" />
-          <circle cx="8" cy="8" r="1.9" strokeWidth="1.6" />
-          <path d={showaRays} strokeWidth="1.5" strokeLinecap="round" />
-        </>,
-      );
+    if (name === "saved") return svg(<><circle cx="8" cy="8" r="6.3" strokeWidth="1.7" /><circle cx="8" cy="8" r="2.9" strokeWidth="1.7" /></>);
     return svg(<path d="M3.4 3.4l9.2 9.2M12.6 3.4l-9.2 9.2" strokeWidth="2.6" />);
   }
   if (id === "ben-day") {

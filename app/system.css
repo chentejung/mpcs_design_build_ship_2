@@ -600,16 +600,16 @@
   /* ===================================================================================================
      Shōwa 昭和: cinema tickets and shop tags, printed like the Shōwa posters on Mood Board 01: Tadanori Yokoo
      (picture 22), Koi Pond (02), Color TV Ad (25) and Osaka Rainy Night (26).
-     Buttons have punched side notches, and their icon sits in a perforated stub that rays fan out of; filter chips
-     are shop tags (値札) with clipped corners and a punched hole, and a selected tag's rays radiate from the hole.
-     Every shape prints twice: a color plate sits 3px out of register behind the 2px Sumi keyline, drifts further on
-     hover and snaps into register on press. The Yokoo layer: Display type is extruded; a sawtooth aura (後光) rings
-     the brand, the count and a hovered poster; Category badges are ringed planets; posters, panels and the empty
+     Buttons have punched side notches, and their icon sits in a perforated stub; filter chips are shop tags (値札)
+     with clipped corners and a punched hole. Every shape prints twice: a color plate sits 3px out of register behind
+     the 2px Sumi keyline, drifts further on hover and snaps into register on press. The film list keeps to that:
+     posters sit in a double Sumi rule, Category badges are round seals, a 済 seal lands on saved posters.
+     Around it, the Yokoo layer: Display type is extruded; a sawtooth aura (後光) rings the brand; panels and the empty
      state are framed in double rules with flag corners; film strips close the header, the sections and the toast.
      Kinari is only ever a fill inside Sumi. Checked boxes take a ◯, the mark for "yes" on Japanese forms.
      The street layer: native words print in 天然色 and radios are the TV's knobs (25); the Saved count hangs as a
-     paper lantern and the hero's signboard stands beside the sun (26); a press ripples like rain on the koi pond (02),
-     loading posters warm up as a color TV and failed ones show static (25); the colophon is a poster's foot (02, 25).
+     paper lantern and the hero's signboard stands beside the sun (26); the empty state is a koi pond (02); the
+     colophon is a poster's foot (02, 25).
      =================================================================================================== */
   [data-system="showa"] {
     /* A film strip: Washi sprocket holes punched in a Sumi band. */
@@ -713,49 +713,16 @@
     --line: var(--ds-text); /* the keyline prints on top */
     --fill: transparent;
   }
-  /* The stub sits at the ticket's end, behind a perforation, and rays fan out of it from the icon. */
+  /* The stub sits at the ticket's end, behind a perforation. */
   [data-system="showa"] .ds-btn:has(.ds-btn-icon) {
     flex-direction: row-reverse;
     justify-content: space-between;
     padding-right: 0.8em;
   }
   [data-system="showa"] .ds-btn-icon {
-    --rays: color-mix(in srgb, var(--ds-accent) 24%, transparent);
     align-self: stretch;
     padding-left: 0.55em;
     border-left: 2px dashed currentColor;
-    background: repeating-conic-gradient(from 4deg at calc(50% + 0.275em) 50%, var(--rays) 0 9deg, #0000 9.5deg 17.5deg, var(--rays) 18deg);
-  }
-  [data-system="showa"] :is(.ds-btn--primary, .ds-btn[aria-pressed="true"], .ds-btn[aria-current="page"]) .ds-btn-icon {
-    --rays: color-mix(in srgb, var(--ds-on-accent) 22%, transparent);
-  }
-  /* Press: a ripple (波紋) spreads from the stub, as the rain does on the koi pond (picture 02). Held, the rings
-     gather round the icon; let go, they widen and fade. */
-  [data-system="showa"] .ds-btn-icon {
-    position: relative;
-  }
-  [data-system="showa"] .ds-btn-icon::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: calc(50% + 0.275em);
-    width: 1.5em;
-    height: 1.5em;
-    margin: -0.75em 0 0 -0.75em;
-    border: 1.5px solid currentColor;
-    border-radius: 50%;
-    outline: 1px solid currentColor;
-    outline-offset: 0.22em;
-    opacity: 0;
-    scale: 2.1;
-    pointer-events: none;
-    transition: scale 0.6s ease-out, opacity 0.6s ease-out;
-  }
-  [data-system="showa"] .ds-btn:active:not(:disabled) .ds-btn-icon::after,
-  [data-system="showa"] .ds-btn[data-state="pressed"] .ds-btn-icon::after {
-    opacity: 0.85;
-    scale: 0.7;
-    transition: none;
   }
   [data-system="showa"] :is(.ds-btn--primary, .ds-btn[aria-pressed="true"]) {
     --ds-plate: var(--ds-accent);
@@ -770,10 +737,8 @@
   [data-system="showa"] .ds-chip {
     --ds-plate-line: transparent;
   }
-  /* A selected tag prints Ai with darker rays rising from its hole. */
   [data-system="showa"] .ds-chip[aria-pressed="true"] {
-    --rays: color-mix(in srgb, var(--ds-text) 34%, transparent);
-    --ds-plate: repeating-conic-gradient(from 2deg at var(--hole-x) 50%, var(--rays) 0 8deg, #0000 8.5deg 15.5deg, var(--rays) 16deg), var(--ds-selected);
+    --ds-plate: var(--ds-selected);
     --ds-plate-line: var(--ds-selected);
     background: transparent;
   }
@@ -971,7 +936,7 @@
     text-decoration-thickness: 1.5px;
   }
 
-  /* ----- Badges: flat fills keylined in Sumi; on a poster, a ringed planet ----- */
+  /* ----- Badges: flat fills keylined in Sumi; on a poster, a round seal with a thin inner ring ----- */
   [data-system="showa"] .ds-badge {
     border: 1.5px solid var(--ds-text);
   }
@@ -985,40 +950,16 @@
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: transparent;
     font-size: 8.5px;
     letter-spacing: 0.04em;
     text-align: center;
     white-space: normal;
     transform: rotate(-12deg);
     outline: 1.5px solid currentColor;
-    outline-offset: -6px;
-  }
-  /* The ring (Kinari between Sumi keylines) passes behind the planet's disc. */
-  [data-system="showa"] .ds-category::before,
-  [data-system="showa"] .ds-category::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  [data-system="showa"] .ds-category::before {
-    inset: 17px -11px;
-    border: 4px solid var(--ds-surface);
-    box-shadow: 0 0 0 1.5px var(--ds-text), inset 0 0 0 1.5px var(--ds-text);
-    rotate: 20deg;
-  }
-  [data-system="showa"] .ds-category::after {
-    inset: 0;
-    border: 2px solid var(--ds-text);
-    background: var(--cat-bg);
+    outline-offset: -5px;
   }
 
-  /* ----- Poster frame, panel, empty state: Yokoo's poster border ----- */
-  [data-system="showa"] .ds-card {
-    isolation: isolate;
-  }
+  /* ----- Poster frame: a double Sumi rule. Panel and empty state: Yokoo's poster border ----- */
   [data-system="showa"] .ds-frame {
     padding: 5px;
     border: var(--ds-card-border) double var(--ds-text);
@@ -1038,9 +979,9 @@
     border: 4px double var(--ds-text);
   }
   /* Flag blocks (日の丸) at the corners, straddling the rule. */
-  [data-system="showa"] :is(.ds-frame, .ds-panel, .ds-empty)::after {
-    --f: 12px;
-    --o: calc(var(--ds-card-border) + 2px);
+  [data-system="showa"] :is(.ds-panel, .ds-empty)::after {
+    --f: 14px;
+    --o: 5px;
     --dot: radial-gradient(circle, var(--ds-accent) calc(var(--f) * 0.21), #0000 calc(var(--f) * 0.21 + 0.6px));
     --paper: linear-gradient(var(--ds-bg) 0 0);
     --rule: linear-gradient(var(--ds-text) 0 0);
@@ -1059,110 +1000,12 @@
       var(--rule) left top / var(--f) var(--f) no-repeat, var(--rule) right top / var(--f) var(--f) no-repeat,
       var(--rule) left bottom / var(--f) var(--f) no-repeat, var(--rule) right bottom / var(--f) var(--f) no-repeat;
   }
-  [data-system="showa"] .ds-panel::after {
-    --f: 14px;
-    --o: 5px;
-  }
   [data-system="showa"] .ds-empty::after {
     --f: 18px;
     --o: 7px;
   }
-  /* Hover or focus: the poster's sawtooth aura (後光) flares behind its frame. */
-  [data-system="showa"] .ds-frame::before {
-    --t: 6px; /* tooth depth */
-    content: "";
-    position: absolute;
-    inset: calc(-1 * var(--ds-card-border) - 10px);
-    z-index: -1;
-    background: var(--ds-accent);
-    mask:
-      conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 0 0 / calc(2 * var(--t)) var(--t) repeat-x,
-      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 0 100% / calc(2 * var(--t)) var(--t) repeat-x,
-      conic-gradient(from 45deg at left, #0000, #000 1deg 89deg, #0000 90deg) 0 0 / var(--t) calc(2 * var(--t)) repeat-y,
-      conic-gradient(from -135deg at right, #0000, #000 1deg 89deg, #0000 90deg) 100% 0 / var(--t) calc(2 * var(--t)) repeat-y,
-      linear-gradient(#000 0 0) 50% 50% / calc(100% - 2 * var(--t)) calc(100% - 2 * var(--t)) no-repeat;
-    opacity: 0;
-    scale: 0.92;
-    pointer-events: none;
-    transition: opacity 0.15s ease, scale 0.25s cubic-bezier(0.3, 1.5, 0.5, 1);
-  }
-  [data-system="showa"] .ds-card:is(:hover, [data-state="hover"], :has(:focus-visible, [data-state="focus"])) .ds-frame::before {
-    opacity: 1;
-    scale: 1;
-  }
-  /* The fallback behind each poster is a color TV (picture 25): a screen in chrome trim set in a Kogecha cabinet, with
-     a grille and two knobs below it. The title rides on the screen as a caption (テロップ). While the poster loads the
-     screen shows a 天然色 test card with a bar rolling down it; if the poster fails, static (砂嵐). */
-  [data-system="showa"] .ds-poster-fallback {
-    --knob: var(--ds-surface) 0 55%, var(--ds-text) 62% 96%, #0000 100%;
-    isolation: isolate;
-    overflow: hidden;
-    padding: 10% 12% 30%;
-    background:
-      radial-gradient(5.5% 3.7% at 80% 89%, var(--knob)), radial-gradient(5.5% 3.7% at 92% 89%, var(--knob)),
-      repeating-linear-gradient(var(--ds-text) 0 1.5px, #0000 1.5px 4px) 12% 89.5% / 52% 8% no-repeat,
-      repeating-linear-gradient(#0000 0 6px, color-mix(in srgb, var(--ds-text) 14%, transparent) 6px 7px, #0000 7px 11px, color-mix(in srgb, var(--ds-text) 8%, transparent) 11px 12px),
-      var(--ds-swatch-kogecha);
-  }
-  [data-system="showa"] .ds-poster-fallback::before,
-  [data-system="showa"] .ds-poster-fallback::after {
-    content: "";
-    position: absolute;
-    inset: 6% 8% 22%;
-    z-index: -1;
-    border-radius: 16% / 11%;
-    pointer-events: none;
-  }
-  [data-system="showa"] .ds-poster-fallback::before {
-    background:
-      repeating-linear-gradient(#0000 0 2px, color-mix(in srgb, var(--ds-text) 13%, transparent) 2px 3px),
-      radial-gradient(14% 10% at 52% 54%, var(--ds-surface) 98%, #0000),
-      radial-gradient(36% 26% at 24% 28%, var(--ds-accent) 98%, #0000),
-      radial-gradient(30% 22% at 20% 92%, var(--ds-swatch-kogecha) 98%, #0000),
-      radial-gradient(46% 34% at 82% 74%, var(--ds-selected) 98%, #0000),
-      conic-gradient(from 10deg at 52% 50%, var(--ds-bg) 0 80deg, #0000 0),
-      var(--ds-surface);
-    box-shadow:
-      0 0 0 2px var(--ds-text), 0 0 0 5px var(--ds-surface), 0 0 0 7px var(--ds-text),
-      inset 0 0 1.4em color-mix(in srgb, var(--ds-text) 55%, transparent);
-  }
-  [data-system="showa"] .ds-poster-fallback > * {
-    justify-self: center;
-    max-width: 100%;
-    padding: 0.2em 0.45em;
-  }
-  [data-system="showa"] .ds-poster-fallback .ds-heading {
-    background: var(--ds-bg);
-    color: var(--ds-text);
-    box-shadow: 0 0 0 1.5px var(--ds-text), 3px 3px 0 1.5px var(--ds-accent);
-  }
-  [data-system="showa"] .ds-poster-fallback .ds-meta {
-    background: var(--ds-text);
-    color: var(--ds-bg);
-  }
-  [data-system="showa"] .ds-poster[data-poster="loading"] .ds-poster-fallback {
-    animation: none;
-  }
-  [data-system="showa"] .ds-poster[data-poster="loading"] .ds-poster-fallback::after {
-    background: linear-gradient(#0000, color-mix(in srgb, var(--ds-bg) 55%, transparent) 45% 55%, #0000) 0 -60% / 100% 34% no-repeat;
-    animation: ds-roll 2.2s linear infinite;
-  }
-  @keyframes ds-roll {
-    to {
-      background-position: 0 160%;
-    }
-  }
-  /* No signal: Washi snow (Sumi specks masked from noise) over the screen, still. */
-  [data-system="showa"] .ds-poster[data-poster="error"] .ds-poster-fallback::before {
-    background: repeating-linear-gradient(#0000 0 2px, color-mix(in srgb, var(--ds-text) 13%, transparent) 2px 3px), var(--ds-bg);
-  }
-  [data-system="showa"] .ds-poster[data-poster="error"] .ds-poster-fallback::after {
-    background: var(--ds-text);
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.25'/%3E%3C/filter%3E%3Crect width='96' height='96' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 96px 96px;
-    opacity: 0.75;
-  }
 
-  /* Saved: a 済 ("done") seal in a double ring, Accent as large type on the Scrim, with rays around it. */
+  /* Saved: a 済 ("done") seal in a double ring, Accent as large type on the Scrim. */
   [data-system="showa"] .ds-saved-stamp {
     right: -6px;
     bottom: 14px;
@@ -1178,17 +1021,6 @@
   }
   [data-system="showa"] .ds-saved-stamp::before {
     content: "済";
-  }
-  [data-system="showa"] .ds-saved-stamp::after {
-    content: "";
-    position: absolute;
-    inset: -16px;
-    z-index: -1;
-    background: var(--ds-accent);
-    mask:
-      radial-gradient(closest-side, #0000 calc(100% - 9px), #000 calc(100% - 8.5px) calc(100% - 0.5px), #0000 100%),
-      repeating-conic-gradient(#000 0 7deg, #0000 7.5deg 22deg, #000 22.5deg);
-    mask-composite: intersect;
   }
 
   /* ----- Film strips: the header's edge, section rules and the toast ----- */
