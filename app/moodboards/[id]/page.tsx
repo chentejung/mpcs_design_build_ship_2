@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { boards, byRole, type Board, type Reference } from "@/app/boards";
 import { originalsByBoard } from "@/components/artifacts";
-import type { Original } from "@/components/artifacts/print";
+import type { ExportedOriginal } from "@/components/artifacts";
 import { ButtonLink } from "@/components/ui";
 
 const ARTIFACT_COUNT = 30;
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `${boards.find((b) => b.id === id)!.title} — Mood Board` };
 }
 
-type Artifact = ({ kind: "reference" } & Reference) | ({ kind: "original" } & Original);
+type Artifact = ({ kind: "reference" } & Reference) | ({ kind: "original" } & ExportedOriginal);
 
 // Interleave originals and references so the board reads as one collage.
 function collage(board: Board): Artifact[] {
@@ -93,7 +93,7 @@ export default async function MoodBoardPage({ params }: Props) {
         <div className="columns-2 gap-4 md:columns-3 xl:columns-5">
           {artifacts.map((a, i) => (
             <figure key={`${a.kind}-${a.title}`} className="mb-4 break-inside-avoid overflow-hidden rounded-xl border border-(--ink)/15 bg-white/40">
-              {a.kind === "reference" ? <img src={a.src} alt={a.title} className="block w-full" /> : <a.Component />}
+              <img src={a.src} alt={a.title} className="block w-full" />
               <figcaption className="flex items-center justify-between gap-2 px-3 py-2.5 text-xs">
                 <span>
                   <span className="mr-1.5 font-mono text-(--accent)">{String(i + 1).padStart(2, "0")}</span>
