@@ -23,7 +23,7 @@ Landing page with three sections: mood boards, design systems, and the final sit
     Art briefs are recorded in `references/moodboard-image-prompts.json`; these images are not regenerated during builds.
 - `public/color_theme/1/` — earlier earth-tone images, currently unused.
 - `public/movies/posters/` — one-time local poster assets for the movie picker; no poster is fetched at runtime.
-- `app/movies/movies.css` — the live site's Japanese Retro treatment: board-derived washi, indigo, vermilion, kinari, and teal tokens with Clay's Fraunces/Inter type.
+- `app/movies/movies.css` — Japanese Retro cinema-program styling using the board's six tokens and Clay's Fraunces/Inter type: bilingual program tabs, numbered poster frames, perforated save tickets, vermilion saved stamps, and a compact night-street marquee.
 
 ## Workflow
 All page tooling lives in `references/` — use these scripts rather than ad-hoc commands.
@@ -35,6 +35,7 @@ All page tooling lives in `references/` — use these scripts rather than ad-hoc
   live port-8000 server, so run `serve.sh` first. Screenshots are only visible to Claude, not the user.
 - **Inspect artifacts:** to judge original artifacts at full size, run `bash references/artifacts.sh <board-id> [start] [count]`
   (default 1, 6). It renders only the originals, 3 per row at ~580px, from a temp copy served on port 8001.
+- **Browser tests:** after building, run `npm run test:movies`. Requires Firefox and `.local/bin/geckodriver` (or set `GECKODRIVER` to its path). Checks categories, save/remove behavior, navigation, reload reset, credits, mobile overflow, and the landing-page link against the static export using temporary loopback servers.
 
 ## Agent skills
 

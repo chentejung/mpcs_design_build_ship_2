@@ -29,9 +29,9 @@ export default function MoviesLayout({ children }: { children: ReactNode }) {
       {children}
       <footer className="showa-footer">
         <div className="showa-container">
-          <div className="showa-footer-top"><div><p className="showa-footer-brand">Eigakan <span>映画館</span></p><p className="showa-eyebrow">A pocket cinema for a wandering evening</p></div><p className="showa-footer-note">Posters used for a non-commercial class mock-up. Rights belong to the credited copyright holders. Images are hosted with this site.</p></div>
+          <div className="showa-footer-top"><div><p className="showa-footer-brand">Eigakan <span lang="ja">映画館</span></p><p className="showa-eyebrow">THE END OF THE PROGRAM. THE START OF A GOOD NIGHT.</p></div><p className="showa-footer-note">Posters used for a non-commercial class mock-up. Rights belong to the credited copyright holders.</p></div>
           <details className="showa-credits"><summary>Poster credits &amp; sources <span>({movies.length})</span></summary><ul>{movies.map((movie) => <li key={movie.id}><strong>{movie.title}</strong> · {movie.creditHolder} · <a href={movie.source} target="_blank" rel="noreferrer">Source ↗</a></li>)}</ul></details>
-          <div className="showa-footer-bottom"><span>Japanese Retro × Clay</span><span>25 films / 7 moods</span><span>Saved choices clear on reload</span></div>
+          <div className="showa-footer-bottom"><span>選ぶ楽しみ、観る楽しみ。</span><span>25 films / 7 moods</span><span>Saved choices clear on reload</span></div>
         </div>
       </footer>
     </div>

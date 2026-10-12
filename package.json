@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "serve": "bash references/serve.sh"
+    "serve": "bash references/serve.sh",
+    "test:movies": "node references/test-movies.mjs"
   },
   "dependencies": {
     "next": "^16.4.0",
