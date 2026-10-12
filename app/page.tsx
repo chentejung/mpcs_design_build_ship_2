@@ -1,4 +1,9 @@
 import { designSystems, finalSite, moodBoards, type DesignSystemCard as DesignSystemCardData, type MoodBoard } from "./data";
+import { filmById } from "./films";
+import { resolveColors, systems } from "./systems";
+import { Button, Chip } from "@/components/system/controls";
+import { FilmCard } from "@/components/system/film-card";
+import { SystemTheme } from "@/components/system/theme";
 import { ButtonLink, Card, CardFooter, SectionHead } from "@/components/ui";
 
 const sections = [
@@ -84,9 +89,34 @@ function MoodBoardCard({ board, index }: { board: MoodBoard; index: number }) {
   );
 }
 
+// Each card previews its system in its own components: the same Parasite card, the type, the colors, the shapes.
 function DesignSystemCard({ ds }: { ds: DesignSystemCardData }) {
+  const system = systems.find((s) => s.id === ds.id)!;
+  const roles = resolveColors(system);
+  const parasite = filmById["parasite"];
   return (
     <Card selected={ds.selected}>
+      <SystemTheme system={system} className={`border-b border-line p-5 ${ds.selected ? "pt-13" : ""}`}>
+        <div inert className="grid grid-cols-[124px_1fr] gap-5">
+          <FilmCard film={parasite} headingLevel={4} action={<Button block>+ Save</Button>} />
+          <div className="grid content-start gap-4">
+            <div>
+              <p className="ds-display text-6xl">Aa</p>
+              <p className="ds-fine ds-muted mt-1">{system.type.Display.font.family} / {system.type.Body.font.family}</p>
+            </div>
+            <div className="flex">
+              {[roles.background, roles.surface, roles.text, roles.accent, roles.selected].map((hex, i) => (
+                <span key={i} className="h-7 flex-1 border border-black/15" style={{ background: hex }} />
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2.5">
+              <Button variant="primary">Save</Button>
+              <Chip label="Thriller" aria-pressed />
+            </div>
+            <p className="ds-fine ds-muted">{system.essence}</p>
+          </div>
+        </div>
+      </SystemTheme>
       <CardFooter label={ds.label} title={ds.title}>
         {ds.links.map((l, i) => (
           <ButtonLink key={l.href} href={l.href} variant={i === 0 ? "primary" : "secondary"}>{l.label}</ButtonLink>
@@ -116,7 +146,7 @@ function FinalSite() {
       <div className="grid gap-4">
         <RecipeRow label="Mood Board" title={board.title} thumb={<img src={finalSite.recipeImage} alt="" className="h-full w-full object-cover" />} />
         <div className="text-center text-2xl leading-none text-accent">+</div>
-        <RecipeRow label={ds.label} title={ds.title} thumb={<span className="font-serif text-2xl">Aa</span>} />
+        <RecipeRow label={ds.label} title={ds.title} thumb={<span className="text-2xl" style={{ fontFamily: `var(${ds.displayFont})` }}>Aa</span>} />
         <ButtonLink href={live.href} className="mt-2 py-3.5 text-base">{live.label} →</ButtonLink>
         <div className="flex justify-center gap-2">
           {rest.map((l) => <ButtonLink key={l.href} href={l.href} variant="secondary">{l.label}</ButtonLink>)}

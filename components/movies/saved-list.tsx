@@ -1,10 +1,13 @@
 "use client";
 import Link from "next/link";
 import { filmById, formatRuntime } from "@/app/films";
-import { MovieCard, RemoveButton } from "./card";
+import { buttonClass } from "@/components/system/controls";
+import { FilmCard } from "@/components/system/film-card";
+import { EmptyState } from "@/components/system/motifs";
+import { RemoveButton } from "./card";
 import { useSaved } from "./saved";
 
-// /movies/saved: saved films in the order they were saved.
+// /movies/saved: saved films in the order they were saved, with their total running time.
 export function SavedList() {
   const { ids } = useSaved();
   const total = ids.reduce((sum, id) => sum + filmById[id].runtime, 0);
@@ -12,30 +15,23 @@ export function SavedList() {
   return (
     <>
       <section className="pt-8 pb-8 md:pt-12">
-        <Link href="/movies/" className="text-sm opacity-70 hover:opacity-100">← All movies</Link>
-        <h1 className="mt-4 font-serif text-4xl leading-[1.05] md:text-6xl">Saved films</h1>
+        <Link href="/movies/" className="ds-link ds-body">← All movies</Link>
+        <h1 className="ds-display mt-4">Saved films</h1>
         {ids.length > 0 && (
-          <p className="mt-3 text-sm opacity-75">
-            <span className="font-semibold tabular-nums">{ids.length} {ids.length === 1 ? "film" : "films"} · {formatRuntime(total)}</span>, in the
+          <p className="ds-body mt-3">
+            <span className="ds-meta text-base font-bold">{ids.length} {ids.length === 1 ? "film" : "films"} · {formatRuntime(total)}</span>, in the
             order you saved them.
           </p>
         )}
       </section>
 
       {ids.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-(--ink)/25 px-6 py-16 text-center">
-          <span aria-hidden className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-(--accent) font-serif text-2xl text-white">空</span>
-          <p className="mt-4 font-serif text-2xl">Nothing saved yet</p>
-          <p className="mt-1 text-sm opacity-70">Tap Save on any film and it shows up here.</p>
-          <Link href="/movies/" className="mt-6 inline-flex rounded-[10px] bg-(--ink) px-4 py-2.5 text-sm font-medium text-(--bg) hover:bg-(--accent) hover:text-white">
-            Browse all movies →
-          </Link>
-        </div>
+        <EmptyState action={<Link href="/movies/" className={buttonClass("primary")}>Browse all movies →</Link>} />
       ) : (
         <ul aria-label="Saved movies" className="grid grid-cols-2 gap-x-4 gap-y-9 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {ids.map((id) => (
             <li key={id}>
-              <MovieCard film={filmById[id]} action={<RemoveButton film={filmById[id]} />} />
+              <FilmCard film={filmById[id]} action={<RemoveButton film={filmById[id]} />} />
             </li>
           ))}
         </ul>

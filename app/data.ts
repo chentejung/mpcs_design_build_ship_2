@@ -31,6 +31,7 @@ export type DesignSystemCard = {
   id: string;
   label: string;
   title: string;
+  displayFont: string; // CSS variable of the system's display font
   selected?: boolean;
   links: { label: string; href: string }[];
 };
@@ -40,6 +41,7 @@ export const designSystems: DesignSystemCard[] = systems.map((ds, i) => ({
   id: ds.id,
   label: `DESIGN SYSTEM 0${i + 1}`,
   title: ds.alt ? `${ds.name} ${ds.alt}` : ds.name,
+  displayFont: ds.type.Display.font.variable,
   selected: ds.board.id === selectedBoard,
   links: [
     { label: "View system", href: `/design-systems/${ds.id}/` },

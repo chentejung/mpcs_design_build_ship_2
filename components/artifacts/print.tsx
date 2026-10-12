@@ -43,10 +43,7 @@ export function Print({ id, w = 300, h = 420, bg, texture = {}, defs, children }
           <feComposite in="keepSpeck" in2="keepScuff" operator="in" result="keep" />
           <feComposite in="wobbled" in2="keep" operator="in" />
         </filter>
-        <filter id={`${id}-grain`} {...region}>
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed={seed + 3} />
-          <feColorMatrix type="matrix" values={`1.3 0 0 0 0.2  1.3 0 0 0 0.2  1.3 0 0 0 0.2  0 0 0 0 ${grain}`} />
-        </filter>
+        <Grain id={`${id}-grain`} {...region} grain={grain} seed={seed + 3} />
         {age && (
           <radialGradient id={`${id}-age`} r="75%">
             <stop offset="55%" stopColor={age} stopOpacity="0" />
@@ -61,6 +58,21 @@ export function Print({ id, w = 300, h = 420, bg, texture = {}, defs, children }
       {age && <rect width={w} height={h} fill={`url(#${id}-age)`} style={{ mixBlendMode: "multiply" }} />}
       <rect width={w} height={h} filter={`url(#${id}-grain)`} style={{ mixBlendMode: "multiply" }} />
     </svg>
+  );
+}
+
+// Paper grain: fractal noise to multiply over a sheet. `frequency` "x y" stretches it into fibres.
+export function Grain({ id, grain = 0.4, seed = 1, frequency = "0.85", ...region }: {
+  id: string;
+  grain?: number;
+  seed?: number;
+  frequency?: string;
+} & React.SVGProps<SVGFilterElement>) {
+  return (
+    <filter id={id} {...region}>
+      <feTurbulence type="fractalNoise" baseFrequency={frequency} numOctaves="2" seed={seed} />
+      <feColorMatrix type="matrix" values={`1.3 0 0 0 0.2  1.3 0 0 0 0.2  1.3 0 0 0 0.2  0 0 0 0 ${grain}`} />
+    </filter>
   );
 }
 

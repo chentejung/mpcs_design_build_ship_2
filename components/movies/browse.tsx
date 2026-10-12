@@ -1,7 +1,11 @@
 "use client";
 import { useState } from "react";
 import { categories, films, type Category } from "@/app/films";
-import { MovieCard, SaveButton } from "./card";
+import { Chip } from "@/components/system/controls";
+import { FilmCard } from "@/components/system/film-card";
+import { HeroMotif, Ornament } from "@/components/system/motifs";
+import { ScrollRow } from "@/components/system/scroll-row";
+import { SaveButton } from "./card";
 
 type Filter = Category | "all";
 
@@ -13,42 +17,40 @@ export function Browse() {
 
   return (
     <>
-      <section className="pt-10 pb-6 md:pt-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-(--accent)">Now showing · 上映中</p>
-        <h1 className="mt-2 font-serif text-4xl leading-[1.05] md:text-6xl">Pick tonight&rsquo;s film.</h1>
-        <p className="mt-3 max-w-xl text-sm opacity-75 md:text-base">
-          {films.length} films across seven genres. Save the ones you want to watch; your list stays while you browse and clears when you reload.
-        </p>
+      <section className="flex items-start justify-between gap-4 pt-10 pb-6 md:pt-14">
+        <div className="min-w-0">
+          <p className="ds-label flex items-center gap-2">
+            <Ornament /> Now showing · <span lang="ja">上映中</span>
+          </p>
+          <h1 className="ds-display mt-3">Pick tonight&rsquo;s film.</h1>
+          <p className="ds-body ds-muted mt-3 max-w-xl">
+            {films.length} films across seven genres. Save the ones you want to watch; your list stays while you browse and clears when you reload.
+          </p>
+        </div>
+        <div className="hidden shrink-0 sm:block">
+          <HeroMotif count={films.length} />
+        </div>
       </section>
 
-      <div role="group" aria-label="Filter by category" className="-mx-[5vw] flex gap-2 overflow-x-auto px-[5vw] [scrollbar-width:none] md:flex-wrap">
-        {options.map((o) => {
-          const active = filter === o.id;
-          const count = o.id === "all" ? films.length : films.filter((f) => f.category === o.id).length;
-          return (
-            <button
-              key={o.id}
-              type="button"
-              aria-pressed={active}
-              onClick={() => setFilter(o.id)}
-              className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-                active ? "border-(--second) bg-(--second) text-white" : "border-(--ink)/20 hover:border-(--ink)"
-              }`}
-            >
-              {o.label}
-              <span aria-hidden className="ml-1.5 tabular-nums opacity-60">{count}</span>
-            </button>
-          );
-        })}
-      </div>
-      <p aria-live="polite" className="mt-3 mb-6 text-xs opacity-65">
+      <ScrollRow role="group" aria-label="Filter by category" className="-mx-[5vw] px-[5vw]">
+        {options.map((o) => (
+          <Chip
+            key={o.id}
+            label={o.label}
+            count={o.id === "all" ? films.length : films.filter((f) => f.category === o.id).length}
+            aria-pressed={filter === o.id}
+            onClick={() => setFilter(o.id)}
+          />
+        ))}
+      </ScrollRow>
+      <p aria-live="polite" className="ds-meta ds-muted mt-3 mb-6">
         Showing {shown.length} of {films.length}
       </p>
 
       <ul aria-label="Movies" className="grid grid-cols-2 gap-x-4 gap-y-9 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {shown.map((f) => (
           <li key={f.id}>
-            <MovieCard film={f} action={<SaveButton film={f} />} />
+            <FilmCard film={f} action={<SaveButton film={f} />} />
           </li>
         ))}
       </ul>

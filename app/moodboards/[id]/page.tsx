@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { boards, byRole, type Board, type Reference } from "@/app/boards";
+import { boards, type Board, type Reference } from "@/app/boards";
+import { resolveColors, systemFor } from "@/app/systems";
 import { originalsByBoard } from "@/components/artifacts";
 import type { ExportedOriginal } from "@/components/artifacts";
 import { ButtonLink } from "@/components/ui";
@@ -37,12 +38,10 @@ export default async function MoodBoardPage({ params }: Props) {
   const artifacts = collage(board);
   const originalCount = artifacts.length - board.references.length;
 
-  // Each board page is themed with its own palette.
-  const theme = {
-    "--bg": byRole(board, "Background"),
-    "--ink": byRole(board, "Text"),
-    "--accent": byRole(board, "Primary"),
-  } as React.CSSProperties;
+  // Each board page takes its colors and title font from the Design System extracted from it.
+  const system = systemFor(board.id);
+  const roles = resolveColors(system);
+  const theme = { "--bg": roles.background, "--ink": roles.text, "--accent": roles.accent } as React.CSSProperties;
 
   return (
     <main style={theme} className="min-h-screen bg-(--bg) text-(--ink)">
@@ -58,7 +57,7 @@ export default async function MoodBoardPage({ params }: Props) {
 
       <header className="px-[6vw] pt-20 pb-14">
         <div className="text-xs font-semibold uppercase tracking-[0.14em] text-(--accent)">Mood Board 0{index + 1}</div>
-        <h1 className="mt-3 font-serif text-6xl md:text-8xl">
+        <h1 className="mt-3 text-6xl md:text-8xl" style={{ fontFamily: `var(${system.type.Display.font.variable}), var(--font-noto-sans-kr), var(--font-noto-serif-tc)` }}>
           {board.title} <span className="text-(--accent)">{board.altTitle}</span>
         </h1>
         <div className="mt-6 flex flex-wrap gap-2 text-sm">
@@ -81,7 +80,7 @@ export default async function MoodBoardPage({ params }: Props) {
               <div className="p-3 text-sm">
                 <div className="font-semibold">{p.name} {p.alt && <span className="opacity-60">{p.alt}</span>}</div>
                 <div className="font-mono text-xs uppercase">{p.hex}</div>
-                <div className="text-xs opacity-60">{p.role} · {p.share}%</div>
+                <div className="text-xs opacity-60">{p.share}%</div>
               </div>
             </div>
           ))}

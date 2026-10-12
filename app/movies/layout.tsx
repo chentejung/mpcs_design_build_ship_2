@@ -1,12 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
-import { boards, byRole } from "@/app/boards";
 import { selectedBoard } from "@/app/data";
 import { categories, films } from "@/app/films";
+import { systemFor } from "@/app/systems";
 import { Credits } from "@/components/movies/credits";
 import { Header } from "@/components/movies/header";
 import { SavedProvider } from "@/components/movies/saved";
+import { SystemTheme } from "@/components/system/theme";
 
 const FILM_COUNT = 25;
 
@@ -30,30 +31,22 @@ function checkFilms() {
   if (errors.length) throw new Error(`Film list is invalid:\n- ${errors.join("\n- ")}`);
 }
 
-// The final site combines the selected mood board's palette with the Clay system's type (Fraunces / Inter).
+// The final site ships the Selected Pair: the selected Mood Board's own Design System styles every component.
 export default function MoviesLayout({ children }: { children: React.ReactNode }) {
   checkFilms();
-  const board = boards.find((b) => b.id === selectedBoard)!;
-  const theme = {
-    "--bg": byRole(board, "Background"),
-    "--ink": byRole(board, "Text"),
-    "--accent": byRole(board, "Primary"),
-    "--second": byRole(board, "Secondary"),
-  } as React.CSSProperties;
-
   return (
-    <div style={theme} className="min-h-screen bg-(--bg) text-(--ink)">
+    <SystemTheme system={systemFor(selectedBoard)} fixed className="min-h-screen">
       <SavedProvider>
         <Header />
         <main className="mx-auto max-w-7xl px-[5vw]">
           {children}
           <Credits />
         </main>
-        <footer className="mx-auto mt-10 flex max-w-7xl flex-wrap justify-between gap-3 border-t border-(--ink)/15 px-[5vw] py-8 text-xs opacity-70">
+        <footer className="ds-fine ds-muted mx-auto mt-10 flex max-w-7xl flex-wrap justify-between gap-3 border-t-2 border-(--ds-border) px-[5vw] py-8">
           <span>Eigakan 映画館 · Design Build Ship, Week 2</span>
-          <a href="/" className="hover:text-(--accent)">← Process page</a>
+          <a href="/" className="ds-link">← Process page</a>
         </footer>
       </SavedProvider>
-    </div>
+    </SystemTheme>
   );
 }
