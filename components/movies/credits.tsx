@@ -2,12 +2,12 @@ import { films } from "@/app/films";
 
 export function Credits() {
   return (
-    <section aria-labelledby="poster-credits" className="mt-20 border-t-2 border-(--ds-border) pt-10">
+    <section aria-labelledby="poster-credits" className="ds-credits mt-20 border-t-2 border-(--ds-border) pt-10">
       <h2 id="poster-credits" className="ds-heading text-2xl">Poster credits</h2>
       <p className="ds-body ds-muted mt-2 max-w-2xl">
         Posters used for a non-commercial class mock-up. Each poster belongs to the copyright holder listed below; images via Wikipedia.
       </p>
-      <ol className="ds-fine mt-5 gap-x-10 sm:columns-2 lg:columns-3">
+      <ol className="ds-credits-list ds-fine mt-5">
         {films.map((f) => (
           <li key={f.id} className="break-inside-avoid py-0.5">
             <span className="font-bold">{f.title}</span> ({f.year}) — {f.credit.publicDomain ? `Public domain (${f.credit.holder})` : `© ${f.credit.holder}`} ·{" "}

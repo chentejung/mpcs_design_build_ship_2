@@ -51,8 +51,10 @@ export type DesignSystem = {
 const font = {
   dela: { family: "Dela Gothic One", variable: "--font-dela" },
   zenKaku: { family: "Zen Kaku Gothic New", variable: "--font-zen-kaku" },
-  bangers: { family: "Bangers", variable: "--font-bangers" },
-  comicNeue: { family: "Comic Neue", variable: "--font-comic-neue" },
+  fugaz: { family: "Fugaz One", variable: "--font-fugaz" },
+  anton: { family: "Anton", variable: "--font-anton" },
+  robotoSlab: { family: "Roboto Slab", variable: "--font-roboto-slab" },
+  robotoCondensed: { family: "Roboto Condensed", variable: "--font-roboto-condensed" },
   notoSansKr: { family: "Noto Sans KR", variable: "--font-noto-sans-kr" },
   zcool: { family: "ZCOOL QingKe HuangYou", variable: "--font-zcool" },
   notoSerifSc: { family: "Noto Serif SC", variable: "--font-noto-serif-sc" },
@@ -103,44 +105,49 @@ export const showa: DesignSystem = {
   feel: { hover: "The face turns Kinari (or its ink deepens) and the sun rises.", press: "The label prints flat and the sun sets." },
 };
 
-export const benDay: DesignSystem = {
-  id: "ben-day",
-  name: "Ben-Day",
+export const pulp: DesignSystem = {
+  id: "pulp",
+  name: "Pulp",
   board: americanComics,
-  essence: "Golden Age comic books: Ben-Day dots, thick ink outlines, hard shadows, and lettering that shouts.",
+  essence: "Newsstand pulp covers and illustrated one-sheets: masthead lettering extruded in 3D over a hypnotic spiral, rockets looping ringed planets, a corner issue box and blurbs that shout, pop-art panels in halftone, and a billing block at the foot, printed on yellowed pulp paper.",
   colors: {
     background: "newsprint",
-    surface: "mustard",
+    surface: "sepia",
     text: "ink",
     accent: "red",
     onAccent: "white",
     selected: "ink",
     onSelected: "mustard",
     focus: "ink",
-    muted: 0.75,
-    border: 0.9,
-    categories: { thriller: "ink", comedy: "mustard", animation: "peach", action: "red", "science-fiction": "sepia", romance: "red", horror: "ink" },
-    restricted: "Ben-Day Peach and Golden Age Mustard never carry text on Newsprint (1.50:1 and 1.63:1): they are fills behind Ink, or Mustard lettering on Ink.",
+    muted: 0.74,
+    border: 0.85,
+    onSurface: "newsprint",
+    mutedOnSurface: 0.8,
+    categories: { thriller: "sepia", comedy: "mustard", animation: "peach", action: "red", "science-fiction": "ink", romance: "red", horror: "ink" },
+    restricted: "Ben-Day Peach and Golden Age Mustard never carry text on Newsprint (1.50:1 and 1.63:1): they are grounds under Ink, or Mustard lettering on Ink, as the masthead's yellow sits on Space Fleet's night.",
   },
   type: {
-    Display: { font: font.bangers, size: 64, weight: 400, tracking: 0.02 },
-    Heading: { font: font.bangers, size: 22, weight: 400, tracking: 0.03 },
-    Body: { font: font.comicNeue, size: 15, weight: 400 },
-    Label: { font: font.bangers, size: 15, weight: 400, tracking: 0.08, upper: true },
-    Meta: { font: font.comicNeue, size: 12, weight: 700 },
+    Display: { font: font.fugaz, size: 64, weight: 400 },
+    Heading: { font: font.anton, size: 20, weight: 400, tracking: 0.01 }, // condensed, so "Spider-Man: Into the Spider-Verse" keeps to 2 lines at 168px
+    Body: { font: font.robotoSlab, size: 15, weight: 400 },
+    Label: { font: font.anton, size: 15, weight: 400, tracking: 0.07, upper: true },
+    Meta: { font: font.robotoSlab, size: 12, weight: 700 },
     Native: { font: font.notoSansKr, size: 14, weight: 700 },
-    "Fine print": { font: font.comicNeue, size: 11, weight: 400 },
+    "Fine print": { font: font.robotoCondensed, size: 11, weight: 400 },
   },
   shape: {
-    radius: { control: 3, card: 0, poster: 0, badge: 0, panel: 0 },
-    border: { control: 3, card: 4 },
-    shadow: "Hard 4px Ink offset, no blur.",
-    controls: "Buttons lean like action lettering, primary faces under a Ben-Day dot screen. Secondary buttons stand straight as mail-order coupons, a dashed cut line on Ben-Day Peach; filter chips are speech balloons with a tail.",
+    radius: { control: 0, card: 0, poster: 0, badge: 0, panel: 0 },
+    border: { control: 3, card: 3 },
+    shadow: "No shadow: a 3D extrusion. Controls, poster frames and panels stand on a block 5–6px deep with bevelled corners, in Ink (Hero Red under Newsprint faces), as the masthead letters of Captain Aero and Space Fleet do; hover raises the block off it, press punches it flat.",
+    controls: "Masthead blocks: Save rests as a Newsprint face on an Ink extrusion and prints Hero Red once saved, as the primary button is. Secondary buttons are the cover's corner issue box, a Newsprint face with a double rule, on a Hero Red extrusion. Filter chips are the Bijou's marquee boards, a Category's pop-art panel at the head and a string of bulbs above and below that light up when selected. A checked box takes a Mustard check on Ink, radios are ringed planets, the switched-on toggle and the selected tab light up like the marquee, and the Saved count is printed as the issue number (No. 3).",
   },
-  icons: { save: "A starburst with a plus.", saved: "A solid starburst with the check knocked out.", remove: "Scissors, to clip the coupon.", back: "A solid starburst with an arrow knocked out, pointing back." },
-  texture: { name: "Ben-Day dots", note: "A halftone dot screen in Hero Red and Aged Sepia over Newsprint." },
-  motif: { name: "Speech balloon", note: "Balloons carry the empty state and the filter chips; a starburst carries the Saved count and lands on saved posters as a “SAVED!” sticker." },
-  feel: { hover: "Controls tilt and their shadow grows.", press: "The shadow collapses and the control slams down." },
+  icons: { save: "Look!'s speech balloon with a plus.", saved: "A solid balloon with the check knocked out.", remove: "Krakoom!'s blast with a cross knocked out.", back: "The balloon with an arrow knocked out, pointing back." },
+  texture: { name: "Yellowed pulp paper", note: "Newsprint with long pulp fibres, toned to Peach at its edges and freckled with Sepia foxing, under a coarse Sepia halftone that thickens toward the corners like a cover's printed vignette. Every drawing is inked in heavy Ink keylines, shaded in dot screens, and printed a hair out of register." },
+  motif: {
+    name: "The pulp cover",
+    note: "The /bijou hero is a pulp cover: THE BIJOU extruded in Mustard and Hero Red over Space Fleet's (26) hypnotic spiral, Captain Aero's (25) rocket looping a ringed planet from Weird Space Tales (03) under The Mask's (08) searchlit skyline, with a corner issue box and a 25 FILMS! blurb; on phones it widens into a banner lettered two-tone, as American Psycho's (20) masthead is. The header is the Bijou's marquee, its bulbs strung along its foot. Every Category is a pop-art panel cut from one picture: Ring! Ring!'s (13) telephone and red lips, The Mask's grin, Look!'s (17) balloon, Pow!'s (16) fist, the saucer, Into the Unknown's (29) claw, and Krakoom!'s (05) blast for All. A HELD OVER! snipe is pasted across saved posters; the empty Saved page is Look!'s pointing hand under an empty balloon; the credits are set as a one-sheet's billing block, and every page closes on THE END.",
+  },
+  feel: { hover: "The block rises off its extrusion and the marquee bulbs chase.", press: "The block is punched flat into its extrusion and the bulbs flash." },
 };
 
 export const haipai: DesignSystem = {
@@ -187,7 +194,7 @@ export const haipai: DesignSystem = {
   feel: { hover: "Gold rules brighten and tiles lift off their back.", press: "Buttons stamp down like a seal; tiles press flat." },
 };
 
-export const systems = [showa, benDay, haipai];
+export const systems = [showa, pulp, haipai];
 export const systemFor = (boardId: string) => systems.find((s) => s.board.id === boardId)!;
 
 // The fixed parts of the checklist that every system shares.
@@ -330,7 +337,7 @@ export function systemStyle(s: DesignSystem): React.CSSProperties {
     "--ds-error": r.error, "--ds-on-surface": r.onSurface, "--ds-muted-on-surface": r.mutedOnSurface,
     "--ds-control-border": `${s.shape.border.control}px`, "--ds-card-border": `${s.shape.border.card}px`,
   };
-  for (const p of s.board.palette) vars[`--ds-swatch-${p.key}`] = p.hex; // ornaments: gold rules, seals, dot screens
+  for (const p of s.board.palette) vars[`--ds-swatch-${p.key}`] = p.hex; // ornaments: gold rules, seals, marquee bulbs
   for (const category of Object.keys(s.colors.categories) as Category[]) {
     const { bg, fg } = categoryColors(s, category);
     vars[`--ds-cat-${category}-bg`] = bg;

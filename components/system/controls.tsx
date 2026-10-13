@@ -1,4 +1,4 @@
-// Controls shared by Eigakan and the Design System pages; app/system.css styles them per system.
+// Controls shared by the Final Site and the Design System pages; app/system.css styles them per system.
 // `state` freezes hover, focus or pressed for the Control states section.
 import { categoryLabel, type Category } from "@/app/films";
 import { GenreIcon } from "./genre-icons";
@@ -10,7 +10,7 @@ type Variant = "primary" | "secondary";
 export const buttonClass = (variant?: Variant, block = false) =>
   ["ds-btn", variant && `ds-btn--${variant}`, block && "ds-btn--block"].filter(Boolean).join(" ");
 
-// The icon slot is each system's own: a Shōwa sun, a Ben-Day burst, a Haipai seal.
+// The icon slot is each system's own: a Shōwa sun, a Pulp balloon, a Haipai seal.
 export const ButtonIcon = ({ name }: { name: IconName }) => <span aria-hidden className="ds-btn-icon"><Icon name={name} /></span>;
 
 export function Button({ variant, block, state, icon, className = "", children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & {

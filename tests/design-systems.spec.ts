@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 const sections = ["Color roles", "Type roles", "Spacing and shape", "Texture and motif", "Components", "Control states", "UI states", "Applied"];
 const systems = [
   { name: "Shōwa", path: "/design-systems/showa/" },
-  { name: "Ben-Day", path: "/design-systems/ben-day/" },
+  { name: "Pulp", path: "/design-systems/pulp/" },
   { name: "Haipai", path: "/design-systems/haipai/" },
 ];
 

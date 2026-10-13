@@ -1,26 +1,18 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: the Fuji Sunrise poster and a Shiba waiting by an empty bowl · Ben-Day: a starburst and speech balloons ·
-// Haipai: cloud scrolls and seals.
+// Shōwa: the Fuji Sunrise poster and a Shiba waiting by an empty bowl · Pulp: The Bijou's pulp cover and Look!'s
+// pointing hand under an empty balloon · Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
-import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
 import { FujiMark, FujiPoster, SignOff as FujiSignOff, SunOrnament } from "./fuji";
+import { PulpCover, TheEnd } from "./pulp/cover";
+import { Blast } from "./pulp/krakoom";
+import { LookPanel } from "./pulp/look";
+import { PlanetMark } from "./pulp/weird-space-tales";
 import { WaitingShiba } from "./shiba";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
-
-function Starburst({ children, className = "" }: { children?: React.ReactNode; className?: string }) {
-  const c = palette("ben-day");
-  return (
-    <svg aria-hidden viewBox="0 0 220 220" className={className}>
-      <polygon points={burst(110, 110, 106, 70, 14, 0.12)} fill={c.mustard} stroke={c.ink} strokeWidth="5" strokeLinejoin="round" />
-      <polygon points={burst(110, 110, 70, 52, 14, 0.1)} fill={c.red} />
-      {children}
-    </svg>
-  );
-}
 
 // 祥云: a cloud of three spiral curls on a trailing line.
 function CloudScroll({ className = "", flip = false }: { className?: string; flip?: boolean }) {
@@ -62,18 +54,12 @@ function Seal({ glyph, stamped = true, size = 64 }: { glyph: string; stamped?: b
   );
 }
 
-// The big decoration beside a page's hero heading; `wide` is the banner above it on phones (Shōwa only).
+// The big decoration beside a page's hero heading; `wide` is the banner above it on phones (Shōwa and Pulp).
 export function HeroMotif({ count, wide = false }: { count: number; wide?: boolean }) {
   const id = useSystemId();
   if (id === "showa") return <FujiPoster wide={wide} className={wide ? "block w-full" : "block w-56 md:w-64 lg:w-72"} />;
+  if (id === "pulp") return <PulpCover count={count} wide={wide} className={`ds-cover ${wide ? "block w-full" : "block w-56 md:w-64 lg:w-72"}`} />;
   if (wide) return null;
-  if (id === "ben-day")
-    return (
-      <Starburst className="h-32 w-32 -rotate-6 md:h-44 md:w-44">
-        <text x="110" y="104" textAnchor="middle" fontSize="40" fill="#fff" style={{ fontFamily: "var(--ds-display-font)" }}>{count}</text>
-        <text x="110" y="136" textAnchor="middle" fontSize="24" fill="#fff" style={{ fontFamily: "var(--ds-display-font)" }}>FILMS!</text>
-      </Starburst>
-    );
   return (
     <div aria-hidden className="pointer-events-none flex flex-col items-center gap-2">
       <Seal glyph="映" size={72} />
@@ -86,18 +72,16 @@ export function HeroMotif({ count, wide = false }: { count: number; wide?: boole
 export function Ornament() {
   const id = useSystemId();
   if (id === "showa") return <SunOrnament className="h-6 w-6 shrink-0" />;
-  if (id === "ben-day") return <Starburst className="h-6 w-6 shrink-0" />;
+  if (id === "pulp") return <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 shrink-0"><Blast cx={12} cy={12} r={11} w={1.3} rubble={false} /></svg>;
   return <CloudScroll className="w-10 shrink-0" />;
 }
 
-function Balloon({ children }: { children: React.ReactNode }) {
-  const c = palette("ben-day");
+// Pulp's empty state: the heading is set inside Look!'s balloon, over the drawing, so it stays real text.
+function LookBalloon({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative mx-auto w-full max-w-xs">
-      <svg aria-hidden viewBox="0 0 320 170" className="block w-full">
-        <path d="M160 8C250 8 312 40 312 78C312 116 252 144 170 148L118 168L128 146C60 140 8 112 8 78C8 40 70 8 160 8Z" fill={c.newsprint} stroke={c.ink} strokeWidth="5" strokeLinejoin="round" />
-      </svg>
-      <div className="absolute inset-x-8 top-0 bottom-[16%] grid place-items-center text-center">{children}</div>
+    <div className="relative mx-auto mb-3 w-full max-w-sm">
+      <LookPanel className="block w-full" />
+      <div className="absolute top-[9%] right-[5%] left-[15%] h-[52%] grid place-items-center px-[6%] text-center">{children}</div>
     </div>
   );
 }
@@ -105,30 +89,34 @@ function Balloon({ children }: { children: React.ReactNode }) {
 // "Nothing saved yet", told in each system's motif.
 export function EmptyState({ action, title = "Nothing saved yet" }: { action?: React.ReactNode; title?: string }) {
   const id = useSystemId();
-  const heading = <p className="ds-heading text-2xl md:text-3xl">{id === "ben-day" ? `${title}!` : title}</p>;
+  const heading = <p className="ds-heading text-2xl md:text-3xl">{id === "pulp" ? `${title}!` : title}</p>;
   return (
     <div className="ds-empty">
       {id === "showa" && <WaitingShiba className="mb-2 w-60 max-w-full" />}
       {id === "haipai" && <div className="mb-3"><Seal glyph="空" stamped={false} size={64} /></div>}
-      {id === "ben-day" ? <Balloon>{heading}</Balloon> : heading}
+      {id === "pulp" ? <LookBalloon>{heading}</LookBalloon> : heading}
       <p className="ds-body ds-muted">Tap Save on any film and it shows up here.</p>
       {action && <div className="mt-5">{action}</div>}
     </div>
   );
 }
 
-// The brand mark before "Eigakan 映画館": Shōwa's is the Fuji poster in miniature, the others set 映 in their own frame.
+// The brand mark before the site's name: Shōwa's is the Fuji poster in miniature, Pulp's the ringed planet, Haipai's
+// sets 映 in a seal.
 export function BrandMark() {
   const id = useSystemId();
   return (
     <span aria-hidden className="ds-brand-mark">
-      {id === "showa" ? <FujiMark className="h-full w-full" /> : "映"}
+      {id === "showa" ? <FujiMark className="h-full w-full" /> : id === "pulp" ? <PlanetMark className="h-full w-full" /> : "映"}
     </span>
   );
 }
 
-// The closing illustration above an Eigakan page's footer: Shōwa's sun setting behind Fuji. Other systems close plain.
+// The closing illustration above a Final Site page's footer: Shōwa's sun setting behind Fuji, Pulp's THE END.
+// Haipai closes plain.
 export function SignOff() {
-  if (useSystemId() !== "showa") return null;
-  return <div aria-hidden className="ds-sign-off"><FujiSignOff className="block h-full w-full" /></div>;
+  const id = useSystemId();
+  if (id === "showa") return <div aria-hidden className="ds-sign-off"><FujiSignOff className="block h-full w-full" /></div>;
+  if (id === "pulp") return <div aria-hidden className="ds-sign-off"><TheEnd className="block h-full w-full" /></div>;
+  return null;
 }

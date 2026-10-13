@@ -8,7 +8,7 @@ import { SaveButton } from "./card";
 
 type Filter = Category | "all";
 
-// /movies: single-select category filter over the full list. The filter is local state, so it resets on reload.
+// /bijou: single-select category filter over the full list. The filter is local state, so it resets on reload.
 export function Browse() {
   const [filter, setFilter] = useState<Filter>("all");
   const shown = filter === "all" ? films : films.filter((f) => f.category === filter);
@@ -22,10 +22,10 @@ export function Browse() {
         </div>
         <div className="min-w-0">
           <p className="ds-label flex items-center gap-2">
-            <Ornament /> Now showing · <span lang="ja">上映中</span>
+            <Ornament /> Now showing · Tonight only
           </p>
           <h1 className="ds-display mt-3">Pick tonight&rsquo;s film.</h1>
-          <p lang="ja" className="ds-kicker mt-4">今夜の一本を選ぼう</p>
+          <p className="ds-kicker mt-4">{films.length} features! 7 genres! One night only!</p>
           <p className="ds-body ds-muted mt-4 max-w-xl">
             {films.length} films across seven genres. Save the ones you want to watch; your list stays while you browse and clears when you reload.
           </p>

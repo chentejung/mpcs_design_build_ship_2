@@ -1,6 +1,6 @@
 "use client";
-// The saved list lives only in React state. The provider is mounted in the /movies layout, so it
-// survives client-side navigation between /movies and /movies/saved; any full page load starts empty.
+// The saved list lives only in React state. The provider is mounted in the /bijou layout, so it
+// survives client-side navigation between /bijou and /bijou/saved; any full page load starts empty.
 // Nothing is written to localStorage, sessionStorage, cookies, or the URL.
 import { createContext, useContext, useState } from "react";
 

@@ -142,7 +142,7 @@ function FinalSite() {
           <span className="ml-3 flex-1 rounded-md bg-[#faf3ea] px-3 py-1 text-xs text-muted">{finalSite.url}</span>
         </div>
         <a href={live.href}>
-          <img src={finalSite.preview} alt="Eigakan 映画館: the movie picker at /movies" className="block w-full" />
+          <img src={finalSite.preview} alt={`${finalSite.name}: the movie picker at ${finalSite.url}`} className="block w-full" />
         </a>
       </div>
 

@@ -2,8 +2,8 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
 const pages = [
-  "/", "/movies/", "/movies/saved/",
-  "/design-systems/showa/", "/design-systems/ben-day/", "/design-systems/haipai/",
+  "/", "/bijou/", "/bijou/saved/",
+  "/design-systems/showa/", "/design-systems/pulp/", "/design-systems/haipai/",
   "/moodboards/japanese-retro/", "/moodboards/american-comics/", "/moodboards/chinese-retro/",
 ];
 const widths = [320, 360, 390];
@@ -30,15 +30,15 @@ for (const width of widths) {
   });
 
   test(`the header's brand and Saved link stay apart at ${width}px`, async ({ page }) => {
-    await open(page, "/movies/", width);
-    const brand = await box(page.getByRole("link", { name: "Eigakan 映画館" }));
+    await open(page, "/bijou/", width);
+    const brand = await box(page.getByRole("link", { name: "The Bijou" }));
     const saved = await box(page.getByRole("link", { name: "Saved (0)" }));
     expect(apart(brand, saved)).toBe(true);
     expect(saved.x + saved.width).toBeLessThanOrEqual(width);
   });
 
   test(`film cards keep title, synopsis and Save apart at ${width}px`, async ({ page }) => {
-    await open(page, "/movies/", width);
+    await open(page, "/bijou/", width);
     for (const card of (await page.getByRole("list", { name: "Movies" }).getByRole("listitem").all()).slice(0, 6)) {
       const title = await box(card.getByRole("heading"));
       const synopsis = await box(card.locator(".ds-card-synopsis"));
@@ -50,7 +50,7 @@ for (const width of widths) {
 }
 
 test("filter chips all wrap into view on a phone and every one can be reached", async ({ page }) => {
-  await open(page, "/movies/", 320);
+  await open(page, "/bijou/", 320);
   const chips = page.getByRole("group", { name: "Filter by category" }).getByRole("button");
   for (const chip of await chips.all()) {
     const b = await box(chip);

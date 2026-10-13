@@ -1,6 +1,6 @@
 "use client";
 // Shōwa's drawing kit on its Design System page, grouped by the Mood Board 01 picture each element comes from, then
-// the brushwork they are all drawn in (references/showa-brushwork.jpg); other systems have none. Elements
+// the brushwork they are all drawn in (references/showa-brushwork.jpg). Pulp shows its own (pulp/kit.tsx); Haipai has none. Elements
 // app/system.css draws (the radios, the pinstripes, the red band, the brushed kicker) are shown as the live pieces.
 import { colors } from "@/app/boards";
 import { categories } from "@/app/films";
@@ -9,6 +9,7 @@ import { useSystemId } from "./context";
 import { FujiMark, FujiPoster, Mist, Pine, Shore, SignOff } from "./fuji";
 import { GenreIcon, genreGlyphs } from "./genre-icons";
 import { Portrait } from "./nouvelle";
+import { PulpKit } from "./pulp/kit";
 import { Lantern } from "./osaka";
 import { RamenBowl } from "./ramen";
 import { useSvgId, Wear } from "./screenprint";
@@ -103,7 +104,9 @@ const groups: { picture: string; label?: string; elements: Element[] }[] = [
 ];
 
 export function DrawingKit() {
-  if (useSystemId() !== "showa") return null;
+  const system = useSystemId();
+  if (system === "pulp") return <PulpKit />;
+  if (system !== "showa") return null;
   return (
     <div className="grid gap-12">
       {groups.map((g) => (

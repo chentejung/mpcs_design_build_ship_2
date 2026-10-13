@@ -2,8 +2,10 @@
 // Icons. CheckIcon is a drawn check mark: the ✓ character is missing from several system fonts and falls back to a
 // √-like glyph. Icon draws an action in the wrapping system's own style (descriptions in app/systems.ts):
 // Shōwa: suns — an unrisen ring with a plus, a risen sun with the check knocked out, a sun with a cross knocked out, a
-// sun with an arrow knocked out pointing back · Ben-Day: starbursts and mail-order scissors · Haipai: an uncut seal, a
-// stamped seal, a cancelled seal, a seal with an arrow pointing back.
+// sun with an arrow knocked out pointing back · Pulp: Look!'s speech balloon with a plus, the balloon solid with the
+// check knocked out, Krakoom!'s blast with a cross knocked out, the balloon with an arrow knocked out pointing back ·
+// Haipai: an uncut
+// seal, a stamped seal, a cancelled seal, a seal with an arrow pointing back.
 import { useId } from "react";
 import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
@@ -50,18 +52,12 @@ export function Icon({ name }: { name: IconName }) {
     if (name === "back") return <Knockout shape={sun} mark={back} />;
     return <Knockout shape={sun} mark={<path d="M5.4 5.4l5.2 5.2M10.6 5.4l-5.2 5.2" strokeWidth="1.9" strokeLinecap="round" />} />;
   }
-  if (id === "ben-day") {
-    const star = burst(8, 8, 7.8, 4.6, 9, 0.12);
-    if (name === "save") return svg(<><polygon points={star} strokeWidth="1.3" strokeLinejoin="round" /><path d="M8 5.2v5.6M5.2 8h5.6" strokeWidth="1.8" /></>);
-    if (name === "saved") return <Knockout shape={<polygon points={star} />} mark={check} />;
-    if (name === "back") return <Knockout shape={<polygon points={star} />} mark={back} />;
-    return svg(
-      <g strokeWidth="1.4" strokeLinecap="round">
-        <circle cx="4.2" cy="11.6" r="2.2" />
-        <circle cx="11.8" cy="11.6" r="2.2" />
-        <path d="M5.6 9.9L12.4 2M10.4 9.9L3.6 2" />
-      </g>,
-    );
+  if (id === "pulp") {
+    const balloon = "M8 1.6C12.3 1.6 15.2 4 15.2 7.1C15.2 10.2 12.3 12.6 8 12.6C7.4 12.6 6.8 12.5 6.2 12.4L2.6 15L3.5 11.4C1.8 10.4 0.8 8.8 0.8 7.1C0.8 4 3.7 1.6 8 1.6Z";
+    if (name === "save") return svg(<><path d={balloon} strokeWidth="1.5" strokeLinejoin="round" /><path d="M8 4.5v5.2M5.4 7.1h5.2" strokeWidth="1.9" /></>);
+    if (name === "saved") return <Knockout shape={<path d={balloon} />} mark={<path d="M5 7.3l2.1 2.1 3.9-4.3" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" fill="none" />} />;
+    if (name === "remove") return <Knockout shape={<polygon points={burst(8, 8, 7.9, 4.8, 9, 0.16)} />} mark={<path d="M5.9 5.9l4.2 4.2M10.1 5.9l-4.2 4.2" strokeWidth="1.7" strokeLinecap="round" />} />;
+    return <Knockout shape={<path d={balloon} />} mark={<path d="M11 7.1H5.3M7.8 4.6L5.3 7.1l2.5 2.5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />} />;
   }
   const seal = <rect x="2" y="2" width="12" height="12" rx="1.2" />;
   if (name === "save") return svg(<g strokeWidth="1.4">{seal}<path d="M8 5v6M5 8h6" /></g>);

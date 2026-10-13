@@ -46,11 +46,12 @@ _Avoid_: Token, swatch role
 The selected Mood Board and the Design System extracted from it, which the Final Site ships.
 
 **Final Site**:
-Eigakan 映画館, the movie picker at `/movies`, built with the Selected Pair.
+The Bijou, the movie picker at `/bijou`, built with the Selected Pair (American Comics + Pulp). It replaced Eigakan 映画館
+at `/movies`, built with Japanese Retro + Shōwa.
 _Avoid_: Demo, live site
 
 **Film**:
-One of Eigakan's 25 movies, in exactly one Category.
+One of The Bijou's 25 movies, in exactly one Category.
 _Avoid_: Movie item, title
 
 **Category**:

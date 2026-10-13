@@ -4,11 +4,11 @@
 #   path    URL path to capture (default: /)
 #   output  PNG destination (default: .screenshots/<timestamp>.png)
 #   width   viewport width (default: 1400); height: capture height (default: 3000)
-# Requires the server from references/serve.sh to be running on port 8000.
+# Requires the server from references/serve.sh to be running on port 8000 (or on $PORT, if set).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PORT=8000
+PORT="${PORT:-8000}"
 URL_PATH="${1:-/}"
 OUT="${2:-$ROOT/.screenshots/$(date +%Y%m%d-%H%M%S).png}"
 WIDTH="${3:-1400}"

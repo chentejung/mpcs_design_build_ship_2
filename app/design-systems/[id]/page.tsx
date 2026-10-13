@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { selectedBoard } from "@/app/data";
+import { finalSite, selectedBoard } from "@/app/data";
 import { categories, filmById, formatRuntime, type Film } from "@/app/films";
 import {
   colorRoles, contrastChecks, gridColumns, spacingScale, systems, type DesignSystem, type ShapePart, type TypeRole,
@@ -54,7 +54,7 @@ export default async function DesignSystemPage({ params }: Props) {
           <p className="ds-label flex flex-wrap items-center gap-2">
             <Ornament /> Design System 0{index + 1} · built on the{" "}
             <a href={`/moodboards/${system.board.id}/`} className="ds-link">{system.board.title} {system.board.altTitle}</a> mood board
-            {selected && <span className="ds-badge" style={{ background: "var(--ds-accent)", color: "var(--ds-on-accent)" }}>Selected · ships as Eigakan</span>}
+            {selected && <span className="ds-badge" style={{ "--cat-bg": "var(--ds-accent)", "--cat-fg": "var(--ds-on-accent)" } as React.CSSProperties}>Selected · ships as {finalSite.name}</span>}
           </p>
           <h1 className="ds-display mt-4 text-[length:min(112px,16cqi)]">
             {system.name} {system.alt && <span lang={system.id === "showa" ? "ja" : "zh-Hans"}>{system.alt}</span>}
@@ -68,7 +68,7 @@ export default async function DesignSystemPage({ params }: Props) {
         <Section n={1} title="Color roles" note="Every color comes from the board's Palette, plus white only for text on Accent or Selected. Ratios are computed from the hex values (WCAG 2).">
           <ColorRoles system={system} />
         </Section>
-        <Section n={2} title="Type roles" note="Set in Eigakan's own content.">
+        <Section n={2} title="Type roles" note={`Set in ${finalSite.name}'s own content.`}>
           <TypeRoles system={system} />
         </Section>
         <Section n={3} title="Spacing and shape">
@@ -77,7 +77,7 @@ export default async function DesignSystemPage({ params }: Props) {
         <Section n={4} title="Texture and motif">
           <TextureAndMotif system={system} />
         </Section>
-        <Section n={5} title="Components" note="The same components Eigakan uses. Examples work where that's natural.">
+        <Section n={5} title="Components" note={`The same components ${finalSite.name} uses. Examples work where that's natural.`}>
           <Components system={system} />
         </Section>
         <Section n={6} title="Control states" note="No information appears only on hover. Selected differs from rest by more than color.">
@@ -86,7 +86,7 @@ export default async function DesignSystemPage({ params }: Props) {
         <Section n={7} title="UI states">
           <UiStates />
         </Section>
-        <Section n={8} title="Applied" note="/movies at phone width, built from this system's components.">
+        <Section n={8} title="Applied" note={`${finalSite.url} at phone width, built from this system's components.`}>
           <AppliedMock />
         </Section>
       </main>
@@ -163,7 +163,7 @@ function ColorRoles({ system }: { system: DesignSystem }) {
         </Spec>
         <div className="grid content-start gap-6">
           <Spec label="Accent as text">
-            <p className="ds-body">Accent text is for large type only (24px, or 19px bold): <span className="ds-display text-[28px] text-(--ds-accent)">上映中</span></p>
+            <p className="ds-body">Accent text is for large type only (24px, or 19px bold): <span className="ds-display text-[28px] text-(--ds-accent)">Now showing</span></p>
           </Spec>
           <Spec label="Error">
             <p className="ds-body"><span aria-hidden>⚠</span> Couldn&rsquo;t load posters. Error never uses a hue: every Accent here is red.</p>
@@ -198,7 +198,7 @@ const typeSamples: Record<TypeRole, React.ReactNode> = {
   ),
   Native: (
     <div className="ds-native grid gap-1">
-      <p lang="ja">映画館 · 上映中 · 空</p>
+      <p><span lang="ja">千と千尋の神隠し</span> · <span lang="ja">となりのトトロ</span> · <span lang="zh-Hant">臥虎藏龍</span></p>
       <p><span lang="ja">七人の侍</span> · <span lang="ko">기생충</span> · <span lang="zh-Hant">花樣年華</span></p>
     </div>
   ),

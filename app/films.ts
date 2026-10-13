@@ -1,4 +1,4 @@
-// Eigakan's film list: the single source for /movies and /movies/saved.
+// The Bijou's film list: the single source for /bijou and /bijou/saved.
 // Posters were downloaded once from each film's English Wikipedia article and resized to 300×450;
 // the site only loads the local copies. `credit` names the poster's copyright holder (the distributor,
 // as Wikipedia attributes it; two are now public domain) and links the Wikipedia file page it came from.

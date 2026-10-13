@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Rebuild the static site and (re)start the preview server on port 8000.
-# Usage: bash references/serve.sh   (or: npm run serve)
+# Usage: bash references/serve.sh   (or: npm run serve); PORT=6666 bash references/serve.sh serves on another port.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PORT=8000
+PORT="${PORT:-8000}"
 cd "$ROOT"
 
 echo "==> Exporting original artifacts to public/moodboards/*/claude-*.svg"
