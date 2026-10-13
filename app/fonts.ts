@@ -2,8 +2,8 @@
 // them in out/. The CJK fonts are split by unicode-range, so a page only loads the characters it uses; they are
 // not preloaded. Noto Sans KR and Noto Serif TC are fallbacks for Native Titles the display fonts don't cover.
 import {
-  Bangers, Comic_Neue, Dela_Gothic_One, Fraunces, Inter, Noto_Sans_KR, Noto_Serif_SC, Noto_Serif_TC, ZCOOL_QingKe_HuangYou,
-  Zen_Kaku_Gothic_New,
+  Anton, Dela_Gothic_One, Fraunces, Fugaz_One, Inter, Noto_Sans_KR, Noto_Serif_SC, Noto_Serif_TC, Roboto_Condensed, Roboto_Slab,
+  ZCOOL_QingKe_HuangYou, Zen_Kaku_Gothic_New,
 } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -15,9 +15,11 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const dela = Dela_Gothic_One({ weight: "400", subsets: ["latin"], variable: "--font-dela", preload: false });
 const zenKaku = Zen_Kaku_Gothic_New({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-zen-kaku", preload: false });
 
-// Ben-Day
-const bangers = Bangers({ weight: "400", subsets: ["latin"], variable: "--font-bangers" });
-const comicNeue = Comic_Neue({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-comic-neue" });
+// Pulp
+const fugaz = Fugaz_One({ weight: "400", subsets: ["latin"], variable: "--font-fugaz" });
+const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton" });
+const robotoSlab = Roboto_Slab({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-roboto-slab" });
+const robotoCondensed = Roboto_Condensed({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-roboto-condensed" });
 
 // Haipai
 const zcool = ZCOOL_QingKe_HuangYou({ weight: "400", subsets: ["latin"], variable: "--font-zcool", preload: false });
@@ -40,6 +42,6 @@ const latinQuotes = localFont({
 const notoSansKr = Noto_Sans_KR({ weight: "700", subsets: ["latin"], variable: "--font-noto-sans-kr", preload: false });
 const notoSerifTc = Noto_Serif_TC({ weight: "400", subsets: ["latin"], variable: "--font-noto-serif-tc", preload: false });
 
-export const fontVariables = [fraunces, inter, dela, zenKaku, bangers, comicNeue, zcool, notoSerifSc, latinQuotes, notoSansKr, notoSerifTc]
+export const fontVariables = [fraunces, inter, dela, zenKaku, fugaz, anton, robotoSlab, robotoCondensed, zcool, notoSerifSc, latinQuotes, notoSansKr, notoSerifTc]
   .map((f) => f.variable)
   .join(" ");

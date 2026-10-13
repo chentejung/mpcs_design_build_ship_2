@@ -1,4 +1,5 @@
-// Eigakan's header pieces. The caller supplies the elements: next/link on /movies, plain spans in previews.
+// The Final Site's header pieces. The caller supplies the elements: next/link on /bijou, plain spans in previews.
+import { finalSite } from "@/app/data";
 import { Count } from "./controls";
 import { BrandMark } from "./motifs";
 
@@ -17,9 +18,7 @@ export function Brand() {
   return (
     <>
       <BrandMark />
-      <span className="ds-brand-name ds-heading text-xl leading-none">
-        Eigakan <span lang="ja">映画館</span>
-      </span>
+      <span className="ds-brand-name ds-heading text-xl leading-none">{finalSite.name}</span>
     </>
   );
 }

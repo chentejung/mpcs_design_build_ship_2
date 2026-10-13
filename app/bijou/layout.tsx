@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
-import { selectedBoard } from "@/app/data";
+import { finalSite, selectedBoard } from "@/app/data";
 import { categories, films } from "@/app/films";
 import { systemFor } from "@/app/systems";
 import { Credits } from "@/components/movies/credits";
@@ -13,7 +13,7 @@ import { SystemTheme } from "@/components/system/theme";
 const FILM_COUNT = 25;
 
 export const metadata: Metadata = {
-  title: { template: "%s — Eigakan 映画館", default: "Eigakan 映画館" },
+  title: { template: `%s — ${finalSite.name}`, default: finalSite.name },
   description: "Pick tonight's film from 25 movies across seven genres.",
 };
 
@@ -45,7 +45,7 @@ export default function MoviesLayout({ children }: { children: React.ReactNode }
         </main>
         <SignOff />
         <footer className="ds-footer ds-fine ds-muted mx-auto flex max-w-7xl flex-wrap justify-between gap-3 px-[5vw] py-8">
-          <span>Eigakan 映画館 · Design Build Ship, Week 2</span>
+          <span>{finalSite.name} · Design Build Ship, Week 2</span>
           <a href="/" className="ds-link">← Process page</a>
         </footer>
       </SavedProvider>

@@ -1,5 +1,5 @@
-// Landing-page content. Figma links and the final site's source/case-study links are placeholders.
-import { boards, japaneseRetro } from "./boards";
+// Landing-page content.
+import { americanComics, boards } from "./boards";
 import { systems } from "./systems";
 
 export type MoodBoard = {
@@ -13,7 +13,7 @@ export type MoodBoard = {
 };
 
 // Landing-page cards, derived from the full boards in ./boards.ts.
-export const selectedBoard = "japanese-retro";
+export const selectedBoard = "american-comics";
 
 export const moodBoards: MoodBoard[] = boards.map((b) => ({
   id: b.id,
@@ -23,7 +23,6 @@ export const moodBoards: MoodBoard[] = boards.map((b) => ({
   palette: b.palette.map((p) => p.hex),
   links: [
     { label: "View board", href: `/moodboards/${b.id}/` },
-    { label: "Pinterest", href: b.pinterest },
   ],
 }));
 
@@ -45,18 +44,14 @@ export const designSystems: DesignSystemCard[] = systems.map((ds, i) => ({
   selected: ds.board.id === selectedBoard,
   links: [
     { label: "View system", href: `/design-systems/${ds.id}/` },
-    { label: "Figma", href: `https://www.figma.com/file/${ds.id}-design-system` },
   ],
 }));
 
-// The final site is Eigakan at /movies; `preview` is a screenshot of it.
+// The final site is The Bijou at /bijou; `preview` is a screenshot of it.
 export const finalSite = {
-  url: "/movies",
-  preview: "/movies/preview.jpg",
-  recipeImage: japaneseRetro.references[1].src,
-  links: [
-    { label: "Visit the live site", href: "/movies/" },
-    { label: "Source code", href: "https://github.com/designbuildship/showa-studio" },
-    { label: "Case study", href: "/case-study/" },
-  ],
+  name: "The Bijou",
+  url: "/bijou",
+  preview: "/bijou/preview.jpg",
+  recipeImage: americanComics.references[17].src, // Space Fleet
+  live: { label: "Visit the live site", href: "/bijou/" },
 };

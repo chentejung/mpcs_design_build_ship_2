@@ -1,8 +1,8 @@
 "use client";
 // Shōwa's drawing kit on its Design System page, grouped by the Mood Board 01 picture each element comes from, then
 // the woodblock finish and landscape pieces they are all cut in, after the ukiyo-e-style print that sets the four
-// posters together (references/showa-brushwork.jpg); other systems have none. Elements app/system.css draws (the
-// radios, the pinstripes, the red band, the brushed kicker) are shown as the live pieces.
+// posters together (references/showa-brushwork.jpg). Pulp shows its own kit (pulp/kit.tsx); Haipai has none.
+// Elements app/system.css draws (the radios, pinstripes, red band and brushed kicker) are shown as live pieces.
 import { colors } from "@/app/boards";
 import { categories } from "@/app/films";
 import { showa } from "@/app/systems";
@@ -10,6 +10,7 @@ import { useSystemId } from "./context";
 import { FujiMark, FujiPoster, Hills, Isle, Lake, Mist, paperInks, Pine, Shore, SignOff, Sun } from "./fuji";
 import { GenreIcon, genreGlyphs } from "./genre-icons";
 import { Portrait } from "./nouvelle";
+import { PulpKit } from "./pulp/kit";
 import { Lantern } from "./osaka";
 import { RamenBowl } from "./ramen";
 import { WaitingShiba } from "./shiba";
@@ -55,7 +56,7 @@ const groups: { picture: string; label?: string; elements: Element[] }[] = [
   {
     picture: "Fuji Sunrise · picture 04",
     elements: [
-      { name: "Poster", jp: "ポスター", note: "A sun behind Fuji on its own sheet: snow running down the gullies, cloud bands, blue hills, wooded islands, a lake, rocks and a pine, エイガ on a title slip and EIGAKAN in the margin: the /movies hero.",
+      { name: "Poster", jp: "ポスター", note: "A sun behind Fuji on its own sheet: snow running down the gullies, cloud bands, blue hills, wooded islands, a lake, rocks and a pine, エイガ on a title slip and EIGAKAN in the margin: the Shōwa hero.",
         art: box(<FujiPoster className="h-full" />, "h-48 w-36 justify-self-start") },
       { name: "Banner", jp: "横長", note: "The poster widened into a landscape for phones, with Nouvelle Vague's red band carrying 上映中.", art: wideArt(<FujiPoster wide className="h-full max-w-full" />), wide: true },
       { name: "Brand mark", jp: "マーク", note: "The print in 40px, before Eigakan 映画館.", art: box(<FujiMark className="h-16 w-16" />) },
@@ -130,7 +131,9 @@ const groups: { picture: string; label?: string; elements: Element[] }[] = [
 ];
 
 export function DrawingKit() {
-  if (useSystemId() !== "showa") return null;
+  const system = useSystemId();
+  if (system === "pulp") return <PulpKit />;
+  if (system !== "showa") return null;
   return (
     <div className="grid gap-12">
       {groups.map((g) => (

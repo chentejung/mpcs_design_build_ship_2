@@ -1,5 +1,5 @@
 "use client";
-// Interactive examples for the Design System pages. They hold their own state; nothing here touches Eigakan's
+// Interactive examples for the Design System pages. They hold their own state; nothing here touches the Final Site's
 // saved list.
 import { useState } from "react";
 import { categories, filmById, films, formatRuntime, type Film } from "@/app/films";
@@ -38,7 +38,7 @@ export function TabsSpecimen() {
   const tabs = ["All movies", "Saved (3)"];
   const [active, setActive] = useState(0);
   return (
-    <div role="tablist" aria-label="Eigakan pages (example)" className="ds-tabs">
+    <div role="tablist" aria-label="The Bijou pages (example)" className="ds-tabs">
       {tabs.map((t, i) => (
         <button key={t} type="button" role="tab" aria-selected={active === i} onClick={() => setActive(i)} className="ds-tab">
           {t}
@@ -86,7 +86,7 @@ export function ListRowsSpecimen() {
   );
 }
 
-// /movies at phone width, built from the same components.
+// /bijou at phone width, built from the same components.
 export function AppliedMock() {
   const [saved, setSaved] = useState<string[]>([]);
   const shown = ["parasite", "spirited-away", "seven-samurai", "in-the-mood-for-love"].map((id) => filmById[id]);
@@ -99,7 +99,7 @@ export function AppliedMock() {
         action={<span className="ds-btn ds-btn--secondary"><SavedLabel count={saved.length} /></span>}
       />
       <div className="px-4 pb-10">
-        <p className="ds-label pt-6">Now showing · <span lang="ja">上映中</span></p>
+        <p className="ds-label pt-6">Now showing · Tonight only</p>
         <p className="ds-display mt-2">Pick tonight&rsquo;s film.</p>
         <div className="-mx-4 mt-5 px-4"><ChipsSpecimen /></div>
         <p className="ds-meta ds-muted mt-2 mb-5">Showing 25 of 25</p>

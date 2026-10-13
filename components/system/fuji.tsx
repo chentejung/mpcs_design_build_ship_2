@@ -6,8 +6,8 @@
 // summit to pale at its foot with its snow running down the gullies in long fingers, Kinari cloud bands (霞) with
 // Kogecha undersides crossing it, ranges of blue hills, wooded islands, a lake ruled in Ai, a pine (松) reaching in,
 // and Sumi rocks and grass closing the foreground. Here the print says エイガ ("movie") on a title slip (短冊) and
-// EIGAKAN in its margin, leads /movies and this system's page, shrinks to the brand mark and the All pictogram, and
-// widens into the sign-off at the foot of every Eigakan page.
+// EIGAKAN in its margin, appears on this system's page, shrinks to the brand mark and the All pictogram, and
+// widens into the sign-off when Shōwa is used for a final-site page.
 import { colors } from "@/app/boards";
 import { showa } from "@/app/systems";
 import { Bokashi, band, line, needles, Paper, rng, scratches, stroke, useSvgId, Woodblock, type Pt } from "./woodblock";
@@ -314,7 +314,7 @@ const Sky = ({ id, x, y, width, height }: { id: string; x: number; y: number; wi
   </>
 );
 
-// The /movies hero: a print on its own sheet, tall beside the heading, wide (with Nouvelle Vague's red band carrying
+// The Shōwa hero: a print on its own sheet, tall beside the heading, wide (with Nouvelle Vague's red band carrying
 // 上映中) above it on phones.
 export function FujiPoster({ wide = false, className = "" }: { wide?: boolean; className?: string }) {
   const id = useSvgId();

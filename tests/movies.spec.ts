@@ -1,4 +1,4 @@
-// Eigakan behavior, as a visitor sees it: elements are found by role and accessible name only.
+// The Bijou's behavior, as a visitor sees it: elements are found by role and accessible name only.
 import { expect, test, type Page } from "@playwright/test";
 
 const byCategory: Record<string, string[]> = {
@@ -22,7 +22,7 @@ async function open(page: Page, path: string) {
   await page.goto(path, { waitUntil: "networkidle" });
 }
 
-test.beforeEach(async ({ page }) => open(page, "/movies/"));
+test.beforeEach(async ({ page }) => open(page, "/bijou/"));
 
 test("opens on all 25 movies with All selected", async ({ page }) => {
   await expect(movies(page)).toHaveCount(25);
@@ -57,7 +57,7 @@ test("Save toggles the film and updates the header count", async ({ page }) => {
 test("saved page lists films in save order, and Remove takes one off", async ({ page }) => {
   for (const title of ["Toy Story", "Ringu", "Die Hard"]) await save(page, title).click();
   await savedLink(page, 3).click();
-  await expect(page).toHaveURL(/\/movies\/saved\/$/);
+  await expect(page).toHaveURL(/\/bijou\/saved\/$/);
   await expect(savedMovies(page).getByRole("heading")).toHaveText(["Toy Story", "Ringu", "Die Hard"]);
 
   await page.getByRole("button", { name: "Remove Ringu" }).click();
@@ -102,7 +102,7 @@ test("the saved list survives clicking back and forth between the pages", async 
   for (let i = 0; i < 3; i++) {
     await savedLink(page, 1).click();
     await expect(savedMovies(page).getByRole("heading")).toHaveText(["Arrival"]);
-    await page.getByRole("link", { name: "Eigakan 映画館" }).click();
+    await page.getByRole("link", { name: "The Bijou" }).click();
     await expect(save(page, "Arrival")).toHaveAttribute("aria-pressed", "true");
   }
 });
@@ -115,14 +115,14 @@ test("a reload or a typed URL starts with an empty list", async ({ page }) => {
   await expect(save(page, "Arrival")).toHaveAttribute("aria-pressed", "false");
 
   await save(page, "Arrival").click();
-  await open(page, "/movies/saved/");
+  await open(page, "/bijou/saved/");
   await expect(page.getByText("Nothing saved yet")).toBeVisible();
   await page.getByRole("link", { name: "Browse all movies →" }).click();
   await expect(movies(page)).toHaveCount(25);
 });
 
 test("poster credits list every film on both pages", async ({ page }) => {
-  for (const path of ["/movies/", "/movies/saved/"]) {
+  for (const path of ["/bijou/", "/bijou/saved/"]) {
     await open(page, path);
     const credits = page.getByRole("region", { name: "Poster credits" });
     await expect(credits).toContainText("Posters used for a non-commercial class mock-up.");
@@ -134,6 +134,6 @@ test("poster credits list every film on both pages", async ({ page }) => {
 test("the landing page's Final Site card opens the movie site", async ({ page }) => {
   await open(page, "/");
   await page.getByRole("link", { name: "Visit the live site →" }).click();
-  await expect(page).toHaveURL(/\/movies\/$/);
+  await expect(page).toHaveURL(/\/bijou\/$/);
   await expect(movies(page)).toHaveCount(25);
 });

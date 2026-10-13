@@ -5,12 +5,13 @@
 // All, Fuji at sunrise (fuji.tsx) · Thriller, the watching eye · Comedy, the grin · Horror, the fallen bob ·
 // Romance, the cheeks pressed into a heart (nouvelle.tsx) · Animation, the Shiba · Action, crossed chopsticks
 // (shiba.tsx) · Sci-Fi, the ramen egg as a planet (ramen.tsx). They head the filter chips and Category badges and are
-// decoration only: the label next to them says the Category. Other systems draw none.
+// decoration only: the label next to them says the Category. Pulp draws its own (pulp/genre.tsx); Haipai draws none.
 import { colors } from "@/app/boards";
 import type { Category } from "@/app/films";
 import { showa } from "@/app/systems";
 import { useSystemId } from "./context";
 import { FujiGlyph } from "./fuji";
+import { PulpGenreIcon } from "./pulp/genre";
 import { EyeGlyph, HairGlyph, HeartGlyph, LipsGlyph } from "./nouvelle";
 import { EggGlyph } from "./ramen";
 import { useSvgId, Woodblock } from "./woodblock";
@@ -34,7 +35,9 @@ const ring = "M23.4 11.8A11.3 11.3 0 1 1 0.8 11.8A11.3 11.3 0 1 1 23.4 11.8ZM21.
 
 export function GenreIcon({ id, className = "ds-genre-icon" }: { id: Category | "all"; className?: string }) {
   const uid = useSvgId();
-  if (useSystemId() !== "showa") return null;
+  const system = useSystemId();
+  if (system === "pulp") return <PulpGenreIcon id={id} className={className} />;
+  if (system !== "showa") return null;
   const Glyph = genreGlyphs[id].glyph;
   return (
     <svg aria-hidden viewBox="0 0 24 24" className={className}>
