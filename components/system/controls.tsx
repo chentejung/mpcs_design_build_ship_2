@@ -10,7 +10,7 @@ type Variant = "primary" | "secondary";
 export const buttonClass = (variant?: Variant, block = false) =>
   ["ds-btn", variant && `ds-btn--${variant}`, block && "ds-btn--block"].filter(Boolean).join(" ");
 
-// The icon slot is each system's own: a Shōwa sun, a Ben-Day burst, a Haipai seal.
+// The icon slot is each system's own: a Shōwa printed label, a Ben-Day burst, a Haipai seal.
 export const ButtonIcon = ({ name }: { name: IconName }) => <span aria-hidden className="ds-btn-icon"><Icon name={name} /></span>;
 
 export function Button({ variant, block, state, icon, className = "", children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -52,7 +52,7 @@ export function CategoryBadge({ category, className = "" }: { category: Category
   );
 }
 
-// Keyed by its number, so a new count re-mounts and plays the system's entrance (Shōwa's lantern sways).
+// Keyed by its number, so systems can animate a changed count independently.
 export const Count = ({ n }: { n: number }) => <span key={n} className="ds-count">{n}</span>;
 
 export function TextInput({ state, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { state?: FrozenState }) {

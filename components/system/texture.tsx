@@ -13,18 +13,11 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
   const uid = useId().replace(/:/g, "");
   const pos = fixed ? "fixed" : "absolute";
 
+  if (id === "showa") return <div aria-hidden="true" className={`showa-paper pointer-events-none ${pos} inset-0 -z-10`} />;
+
   return (
     <svg aria-hidden className={`pointer-events-none ${pos} inset-0 -z-10 h-full w-full`}>
       <defs>
-        {id === "showa" && (
-          <>
-            <Grain id={`${uid}-grain`} grain={0.5} seed={4} />
-            <radialGradient id={`${uid}-age`} cx="50%" cy="40%" r="75%">
-              <stop offset="55%" stopColor={c.kinari} stopOpacity="0" />
-              <stop offset="100%" stopColor={c.kinari} stopOpacity="0.55" />
-            </radialGradient>
-          </>
-        )}
         {id === "ben-day" && (
           <>
             <Dots id={`${uid}-red`} color={c.red} r={1.5} gap={9} angle={15} />
@@ -38,12 +31,6 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
           </>
         )}
       </defs>
-      {id === "showa" && (
-        <>
-          <rect width="100%" height="100%" fill={`url(#${uid}-age)`} />
-          <rect width="100%" height="100%" filter={`url(#${uid}-grain)`} style={{ mixBlendMode: "multiply" }} />
-        </>
-      )}
       {id === "ben-day" && (
         <>
           <rect width="100%" height="100%" fill={`url(#${uid}-red)`} opacity="0.14" />

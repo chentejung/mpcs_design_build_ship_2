@@ -13,6 +13,7 @@ import { Lantern } from "./osaka";
 import { RamenBowl } from "./ramen";
 import { useSvgId, Wear } from "./screenprint";
 import { WaitingShiba } from "./shiba";
+import { PrintAssetKit } from "./showa-print";
 
 const box = (children: React.ReactNode, className = "h-20 w-20") => <div aria-hidden inert className={`grid place-items-center ${className}`}>{children}</div>;
 // Wide drawings keep their own proportions inside the row's height.
@@ -40,9 +41,9 @@ const groups: { picture: string; label?: string; elements: Element[] }[] = [
   {
     picture: "Fuji Sunrise · picture 04",
     elements: [
-      { name: "Poster", jp: "ポスター", note: "A red sun behind Fuji's streaked snow, mist, a lake, rocks and a pine on old paper, エイガ on a title slip and EIGAKAN below: the /movies hero.",
+      { name: "Poster study", jp: "ポスター", note: "The vector companion to the landscape print: a red sun, carved snow, lake mist and a pine on old paper.",
         art: box(<FujiPoster className="h-full" />, "h-40 w-28 justify-self-start") },
-      { name: "Banner", jp: "横長", note: "The poster widened into a landscape for phones, with Nouvelle Vague's red band carrying 上映中.", art: wideArt(<FujiPoster wide className="h-full max-w-full" />), wide: true },
+      { name: "Banner study", jp: "横長", note: "A wider vector composition with Nouvelle Vague's red band carrying 上映中.", art: wideArt(<FujiPoster wide className="h-full max-w-full" />), wide: true },
       { name: "Brand mark", jp: "マーク", note: "The poster in 40px, before Eigakan 映画館.", art: box(<FujiMark className="h-16 w-16" />) },
       pictogram("all", "全部"),
       { name: "Sign-off", jp: "夕日", note: "The sun setting behind Fuji across a lake between two pines, at the foot of every Eigakan page, over a pinstripe band.",
@@ -52,7 +53,7 @@ const groups: { picture: string; label?: string; elements: Element[] }[] = [
   {
     picture: "Shiba & Sake · picture 06",
     elements: [
-      { name: "Waiting Shiba", jp: "待つ", note: "Sitting up on a rock, eyes shut, by an empty bowl: the Saved page before anything is saved.",
+      { name: "Waiting Shiba study", jp: "待つ", note: "A full-body vector companion to the Shiba emblem: sitting on a rock, eyes shut, by an empty bowl.",
         art: wideArt(<WaitingShiba className="h-full max-w-full" />), wide: true },
       pictogram("animation", "柴犬"),
       pictogram("action", "箸"),
@@ -106,6 +107,7 @@ export function DrawingKit() {
   if (useSystemId() !== "showa") return null;
   return (
     <div className="grid gap-12">
+      <PrintAssetKit />
       {groups.map((g) => (
         <div key={g.picture} className="grid gap-5">
           <p className="ds-label ds-muted">{g.label ?? `Drawing kit · after ${g.picture}, Mood Board 01`}</p>

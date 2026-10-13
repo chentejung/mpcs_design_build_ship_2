@@ -1,0 +1,16 @@
+{
+  "mode": "Built-in image_gen",
+  "reference": "public/showa/poster-scene.png",
+  "assets": [
+    {
+      "file": "public/showa/shiba-emblem.png",
+      "web": "public/showa/shiba-emblem.webp",
+      "prompt": "Use case: illustration-story. Asset type: compact website mascot icon. Input image 1 is a STYLE AND SUBJECT REFERENCE, not an edit target. Create one isolated square Shiba Inu head-and-shoulders emblem derived from the relaxed Shiba in the reference. Warm ochre fur, cream cheeks, small dark closed eyes and nose, relaxed upward-facing expression, a small vermilion neckerchief. Centered, strong simple silhouette legible at 64px; generous clean margin. Japanese retro poster illustration, ukiyo-e-inspired woodblock carving, dry ink, fine carved fur marks, irregular ink edges and subtle printed wear. Limited palette warm cream #f3eddd, ochre #c48b42, vermilion #c7381c, deep indigo #1f4a66, sumi #161816. Actual transparent background outside the illustration; opaque warm paper within the silhouette. No scenery, circle frame, lettering, watermark, modern vector look, glossy rendering, gradient or drop shadow. Output a single polished reusable PNG icon."
+    },
+    {
+      "file": "public/showa/fuji-landscape.png",
+      "web": "public/showa/fuji-landscape.webp",
+      "prompt": "Use case: illustration-story. Asset type: wide landscape graphic for a Japanese retro cinema website. Input image 1 is the STYLE REFERENCE. Create an original landscape-only companion print matching the reference's ukiyo-e-inspired woodblock textures and worn vintage poster illustration. A large imperfect vermilion sun behind indigo Mount Fuji with finely carved cream snow strokes; calm lake and thin layered mist in the foreground; sparse dark pine branches framing the upper right, low rocky shoreline. Horizontal 3:2 composition, expansive quiet cream sky, strong bold silhouettes, unusually beautiful fine engraved hatching and ink erosion. Flat limited palette warm cream #f3eddd, muted straw #ebcb85, vermilion #c7381c, blue-green #1f4a66, sumi #161816. Warm matte fibrous paper, ink skips, slightly uneven print registration, restrained authentic weathering. A small even paper border around all edges. No person, dog, food, text, lettering, logo, watermark, gradient or glossy 3D. This will be a reusable scenic website graphic with live HTML captions outside the artwork."
+    }
+  ]
+}

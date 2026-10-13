@@ -1,17 +1,17 @@
 "use client";
 // Icons. CheckIcon is a drawn check mark: the ✓ character is missing from several system fonts and falls back to a
 // √-like glyph. Icon draws an action in the wrapping system's own style (descriptions in app/systems.ts):
-// Shōwa: suns — an unrisen ring with a plus, a risen sun with the check knocked out, a sun with a cross knocked out, a
-// sun with an arrow knocked out pointing back · Ben-Day: starbursts and mail-order scissors · Haipai: an uncut seal, a
-// stamped seal, a cancelled seal, a seal with an arrow pointing back.
+// Shōwa: tapered brush marks and a ringed check · Ben-Day: starbursts and mail-order scissors ·
+// Haipai: an uncut seal, a stamped seal, a cancelled seal.
 import { useId } from "react";
 import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
 
 export function CheckIcon() {
+  const showa = useSystemId() === "showa";
   return (
     <svg aria-hidden viewBox="0 0 16 16" width="1em" height="1em" className="inline-block shrink-0">
-      <path d="M2.5 8.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+      {showa ? <path d="m1.5 8 2-1.4 3 3.3 6.8-7.5 1.5 1.7-8.4 9.4Z" fill="currentColor" /> : <path d="M2.5 8.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />}
     </svg>
   );
 }
@@ -44,11 +44,11 @@ const back = <path d="M11.2 8H5.2M7.9 5.2L5.1 8l2.8 2.8" strokeWidth="1.9" strok
 export function Icon({ name }: { name: IconName }) {
   const id = useSystemId();
   if (id === "showa") {
-    const sun = <circle cx="8" cy="8" r="7.2" />;
-    if (name === "save") return svg(<><circle cx="8" cy="8" r="6.4" strokeWidth="1.6" /><path d="M8 4.6v6.8M4.6 8h6.8" strokeWidth="2" /></>);
-    if (name === "saved") return <Knockout shape={sun} mark={check} />;
-    if (name === "back") return <Knockout shape={sun} mark={back} />;
-    return <Knockout shape={sun} mark={<path d="M5.4 5.4l5.2 5.2M10.6 5.4l-5.2 5.2" strokeWidth="1.9" strokeLinecap="round" />} />;
+    if (name === "back") return svg(back);
+    // Filled, tapered brush contours stay legible at 16px without a grain filter.
+    if (name === "save") return svg(<path stroke="none" fill="currentColor" d="m6.9 1.8 2.2.3-.1 4.7 5.2.2-.3 2.3-5-.2-.3 5.2-2.1-.3.2-4.9-5-.3.2-2.2 5 .3Z" />);
+    if (name === "saved") return svg(<><path d="M13.9 7.8c.3 3.9-2.6 6.4-6.1 6.3S1.6 11.5 1.9 7.6 4.6 1.5 8.2 1.8c3.2.2 5.2 2.1 5.7 6Z" strokeWidth="1.5" /><path stroke="none" fill="currentColor" d="m4 7.8 1.4-1 2 2 3.1-4.4 1.6 1.2-4.5 5.8Z" /></>);
+    return svg(<path stroke="none" fill="currentColor" d="m3.6 2 4.5 4.4 4.4-4.1 1.5 1.8L9.6 8l4.1 4.6-1.9 1.3-3.9-4.4-4.6 4.2L2 12l4.4-4.1L2.2 3.5Z" />);
   }
   if (id === "ben-day") {
     const star = burst(8, 8, 7.8, 4.6, 9, 0.12);

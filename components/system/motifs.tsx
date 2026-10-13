@@ -7,7 +7,7 @@ import { systems } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
 import { FujiMark, FujiPoster, SignOff as FujiSignOff, SunOrnament } from "./fuji";
-import { WaitingShiba } from "./shiba";
+import { ShibaEmblem } from "./showa-print";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
 
@@ -108,7 +108,7 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
   const heading = <p className="ds-heading text-2xl md:text-3xl">{id === "ben-day" ? `${title}!` : title}</p>;
   return (
     <div className="ds-empty">
-      {id === "showa" && <WaitingShiba className="mb-2 w-60 max-w-full" />}
+      {id === "showa" && <ShibaEmblem className="showa-empty-emblem" />}
       {id === "haipai" && <div className="mb-3"><Seal glyph="空" stamped={false} size={64} /></div>}
       {id === "ben-day" ? <Balloon>{heading}</Balloon> : heading}
       <p className="ds-body ds-muted">Tap Save on any film and it shows up here.</p>

@@ -3,8 +3,9 @@ import { useState } from "react";
 import { categories, films, type Category } from "@/app/films";
 import { Chip } from "@/components/system/controls";
 import { FilmCard } from "@/components/system/film-card";
-import { HeroMotif, Ornament } from "@/components/system/motifs";
+import { Ornament } from "@/components/system/motifs";
 import { SaveButton } from "./card";
+import { PosterHeroArt } from "@/components/system/showa-print";
 
 type Filter = Category | "all";
 
@@ -16,10 +17,7 @@ export function Browse() {
 
   return (
     <>
-      <section className="grid items-center gap-x-10 gap-y-6 pt-6 pb-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:pt-12 md:pt-14">
-        <div className="sm:hidden">
-          <HeroMotif count={films.length} wide />
-        </div>
+      <section className="showa-browse-hero">
         <div className="min-w-0">
           <p className="ds-label flex items-center gap-2">
             <Ornament /> Now showing · <span lang="ja">上映中</span>
@@ -30,9 +28,7 @@ export function Browse() {
             {films.length} films across seven genres. Save the ones you want to watch; your list stays while you browse and clears when you reload.
           </p>
         </div>
-        <div className="hidden sm:block">
-          <HeroMotif count={films.length} />
-        </div>
+        <PosterHeroArt landscape />
       </section>
 
       <div role="group" aria-label="Filter by category" className="ds-chip-row">

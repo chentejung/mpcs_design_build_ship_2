@@ -15,6 +15,7 @@ import {
 } from "@/components/system/specimens";
 import { SystemTheme } from "@/components/system/theme";
 import { DrawingKit } from "@/components/system/drawing-kit";
+import { PosterHeroArt, PrintReferences } from "@/components/system/showa-print";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => systems.map((s) => ({ id: s.id }));
@@ -49,22 +50,23 @@ export default async function DesignSystemPage({ params }: Props) {
         </div>
       </nav>
 
-      <header className="flex flex-wrap items-start justify-between gap-8 px-[6vw] pt-16 pb-12">
+      <header className={id === "showa" ? "showa-system-hero px-[6vw]" : "flex flex-wrap items-start justify-between gap-8 px-[6vw] pt-16 pb-12"}>
         <div className="max-w-3xl">
           <p className="ds-label flex flex-wrap items-center gap-2">
             <Ornament /> Design System 0{index + 1} · built on the{" "}
             <a href={`/moodboards/${system.board.id}/`} className="ds-link">{system.board.title} {system.board.altTitle}</a> mood board
             {selected && <span className="ds-badge" style={{ background: "var(--ds-accent)", color: "var(--ds-on-accent)" }}>Selected · ships as Eigakan</span>}
           </p>
-          <h1 className="ds-display mt-4 text-[length:min(112px,16cqi)]">
+          <h1 className={`ds-display mt-4 ${id === "showa" ? "" : "text-[length:min(112px,16cqi)]"}`}>
             {system.name} {system.alt && <span lang={system.id === "showa" ? "ja" : "zh-Hans"}>{system.alt}</span>}
           </h1>
           <p className="ds-body mt-5 max-w-xl text-lg">{system.essence}</p>
         </div>
-        <HeroMotif count={25} />
+        {id === "showa" ? <PosterHeroArt /> : <HeroMotif count={25} />}
       </header>
 
       <main className="px-[6vw] pb-24">
+        {id === "showa" && <PrintReferences />}
         <Section n={1} title="Color roles" note="Every color comes from the board's Palette, plus white only for text on Accent or Selected. Ratios are computed from the hex values (WCAG 2).">
           <ColorRoles system={system} />
         </Section>

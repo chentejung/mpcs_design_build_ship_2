@@ -550,6 +550,81 @@
     --ds-brush: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M7 7C50 3 120 2 193 4L197 9L192 14L199 20L193 26L197 32L190 37C130 39 60 39 9 36L2 31L8 26L1 19L7 13Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
     --ds-pinstripe: repeating-linear-gradient(90deg, var(--ds-selected) 0 5px, var(--ds-bg) 5px 6.5px);
   }
+  [data-system="showa"] .ds-body { line-height: 1.65; }
+  [data-system="showa"] .ds-display { text-wrap: balance; }
+  [data-system="showa"] .ds-display [lang="ja"] { color: var(--ds-accent); }
+  [data-system="showa"] .ds-kicker { letter-spacing: .25em; }
+  [data-system="showa"] .ds-label { line-height: 1.45; }
+  .showa-paper {
+    background-image: url('/showa/washi.svg');
+    background-size: 240px 240px;
+    box-shadow: inset 0 0 100px color-mix(in srgb, var(--ds-swatch-kogecha) 5%, transparent);
+  }
+  .showa-print-art { display: block; width: 100%; height: auto; }
+  .showa-hero-motif { width: clamp(140px, 17vw, 220px); }
+  .showa-hero-art {
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid var(--ds-border);
+    background: var(--ds-bg);
+    box-shadow: 5px 6px 0 color-mix(in srgb, var(--ds-swatch-kogecha) 12%, transparent);
+  }
+  .showa-hero-art img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+  .showa-hero-art figcaption {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    padding: 12px 3px 2px; font-size: 11px; font-weight: 700; letter-spacing: .08em;
+  }
+  [data-system="showa"] .showa-system-hero {
+    display: grid; grid-template-columns: 1.05fr 1fr; align-items: center;
+    gap: clamp(32px, 5vw, 80px); padding-block: 64px;
+  }
+  [data-system="showa"] .showa-system-hero h1 { font-size: clamp(52px, 7vw, 104px); line-height: 1.15; }
+  [data-system="showa"] .showa-system-hero h1 [lang="ja"] { display: block; }
+  .showa-system-hero .ds-badge { margin-top: 12px; }
+  .showa-browse-hero {
+    display: grid; grid-template-columns: 1.15fr 1fr; align-items: center;
+    gap: 40px; padding-block: 48px;
+  }
+  .showa-browse-hero .ds-display { font-size: clamp(36px, 4.4vw, 62px); }
+  .showa-references { padding: 36px 0 52px; border-top: 2px solid var(--ds-text); }
+  .showa-reference-heading { margin-bottom: 28px; }
+  .showa-reference-heading h2 { margin: 10px 0; font-size: clamp(23px, 3vw, 32px); }
+  .showa-reference-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+  .showa-reference-grid figure { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 14px; }
+  .showa-reference-grid figure img { width: 76px; height: 112px; object-fit: cover; border: 1px solid var(--ds-border); }
+  .showa-reference-grid figcaption .ds-label { font-size: 11px; letter-spacing: .05em; }
+  .showa-reference-grid figcaption .ds-label span { color: var(--ds-muted); }
+  .showa-reference-grid figcaption .ds-body { margin-top: 8px; font-size: 13px; }
+  .showa-drawing-kit { display: grid; gap: 28px; }
+  .showa-art-block { padding: 12px; border: 1px solid var(--ds-border); background: var(--ds-bg) url('/showa/washi.svg'); }
+  .showa-asset-kit { display: grid; gap: 28px; }
+  .showa-asset-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; align-items: stretch; }
+  .showa-asset-card { min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--ds-border); padding: 12px; background: var(--ds-bg) url('/showa/washi.svg'); }
+  .showa-asset-card figcaption { display: grid; gap: 10px; padding: 20px 8px 8px; border-top: 1px solid var(--ds-border); }
+  .showa-asset-card .ds-link { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; }
+  .showa-emblem-stage { display: grid; place-items: center; flex: 1; min-height: 200px; padding: 24px; }
+  .showa-shiba-emblem { display: block; height: auto; object-fit: contain; }
+  .showa-emblem-stage .showa-shiba-emblem { width: min(100%, 240px); }
+  .showa-landscape-preview { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; }
+  .showa-empty-emblem { width: 144px; max-width: 100%; margin-bottom: 20px; }
+  .showa-emblem-sizes { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; padding-block: 16px; border-block: 1px solid var(--ds-border); }
+  .showa-emblem-sizes figure { display: grid; justify-items: center; align-content: end; gap: 12px; }
+  .showa-emblem-32 { width: 32px; }
+  .showa-emblem-48 { width: 48px; }
+  .showa-emblem-64 { width: 64px; }
+  .showa-emblem-sizes > p { flex: 1 1 200px; }
+  @media (max-width: 1100px) {
+    .showa-reference-grid figure { grid-template-columns: 1fr; }
+    .showa-reference-grid figure img { width: 100%; height: 180px; object-fit: contain; object-position: left; border: 0; }
+  }
+  @media (max-width: 700px) {
+    [data-system="showa"] .showa-system-hero, .showa-browse-hero { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 32px; }
+    [data-system="showa"] .showa-system-hero h1 [lang="ja"] { display: inline; }
+    .showa-reference-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
+    .showa-asset-grid { grid-template-columns: minmax(0, 1fr); }
+    .showa-hero-art figcaption { font-size: 10px; }
+    .showa-reference-grid figure img { height: 160px; }
+  }
 
   /* The headline's gloss on a Hinomaru band, as ヌーベルバーグ runs down Nouvelle Vague's, laid in one stroke of the
      brush: its ends torn, and dragged dry in places. */
@@ -598,6 +673,7 @@
     background: transparent;
     color: var(--ds-on-accent);
   }
+  [data-system="showa"] .ds-btn[aria-pressed="true"],
   [data-system="showa"] .ds-btn[aria-current="page"] {
     --face: var(--ds-text);
     --face-hover: var(--ds-text);
@@ -613,6 +689,9 @@
   [data-system="showa"] .ds-chip:has(.ds-genre-icon) {
     padding: 0 1em 0 6px;
   }
+  [data-system="showa"] .ds-btn-icon { padding-right: .5em; border-right: 1px solid currentColor; margin-right: .15em; }
+  [data-system="showa"] .ds-icon { width: 1.1em; height: 1.1em; }
+  [data-system="showa"] .ds-chip { letter-spacing: .045em; }
   [data-system="showa"] .ds-chip[aria-pressed="true"] {
     --face: var(--ds-selected);
     --face-hover: color-mix(in srgb, var(--ds-selected) 82%, var(--ds-text));

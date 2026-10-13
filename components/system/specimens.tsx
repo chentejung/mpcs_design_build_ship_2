@@ -7,6 +7,8 @@ import { Button, Chip, Toast, Toggle } from "./controls";
 import { FilmCard } from "./film-card";
 import { Brand, HeaderBar, SavedLabel } from "./header";
 import { Poster } from "./poster";
+import { useSystemId } from "./context";
+import { PosterHeroArt } from "./showa-print";
 
 const countIn = (id: string) => (id === "all" ? films.length : films.filter((f) => f.category === id).length);
 
@@ -88,6 +90,7 @@ export function ListRowsSpecimen() {
 
 // /movies at phone width, built from the same components.
 export function AppliedMock() {
+  const id = useSystemId();
   const [saved, setSaved] = useState<string[]>([]);
   const shown = ["parasite", "spirited-away", "seven-samurai", "in-the-mood-for-love"].map((id) => filmById[id]);
   const toggle = (id: string) => setSaved((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
@@ -101,6 +104,7 @@ export function AppliedMock() {
       <div className="px-4 pb-10">
         <p className="ds-label pt-6">Now showing · <span lang="ja">上映中</span></p>
         <p className="ds-display mt-2">Pick tonight&rsquo;s film.</p>
+        {id === "showa" && <PosterHeroArt landscape className="mt-5" />}
         <div className="-mx-4 mt-5 px-4"><ChipsSpecimen /></div>
         <p className="ds-meta ds-muted mt-2 mb-5">Showing 25 of 25</p>
         <ul aria-label="Movies (example)" className="grid grid-cols-2 gap-x-3 gap-y-8">

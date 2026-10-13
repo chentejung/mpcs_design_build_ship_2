@@ -64,7 +64,7 @@ export const showa: DesignSystem = {
   name: "Shōwa",
   alt: "昭和",
   board: japaneseRetro,
-  essence: "Shōwa-era screenprint posters: flat Hinomaru, Ai and Kinari inks worn thin on cream paper and laid in dry-brush strokes, a red sun behind Fuji, heavy gothic type, and a pictogram for every genre cut from the same posters.",
+  essence: "A small world, printed in ink. Vermilion suns, deep indigo silhouettes and warm paper bring the everyday poetry of Japanese retro posters to the screen.",
   colors: {
     background: "washi",
     surface: "kinari",
@@ -89,18 +89,18 @@ export const showa: DesignSystem = {
     "Fine print": { font: font.zenKaku, size: 11, weight: 400 },
   },
   shape: {
-    radius: { control: 6, card: 6, poster: 2, badge: 999, panel: 6 },
+    radius: { control: 2, card: 1, poster: 1, badge: 2, panel: 2 },
     border: { control: 2, card: 2 },
-    shadow: "None cast. Posters are pasted on a Kinari panel 5px out from their Washi margin, as Fuji Sunrise sets its picture on an ochre ground; every printed block keeps a Washi rule inset from its edge.",
-    controls: "Printed labels (ラベル), like the sake bottle's: a flat ink block with rounded corners, a Washi rule inset from its edge and the screen's specks, its icon a sun. Filter chips are pills headed by their Category's pictogram in a Kinari disc ringed by one turn of the brush. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios raise a red sun out of an Ai sea; a switched-on toggle wears Nouvelle Vague's pinstripes under a red sun; the selected tab stands on the same pinstripes; the select points down from a small sun; the Saved count hangs as a paper lantern (提灯).",
+    shadow: "Flat printed controls with inset paper rules. Fine ink borders and a subtle paper offset frame the illustrated posters.",
+    controls: "Printed labels have inset paper rules and worn ink. Tapered brush marks identify Save and Remove; a ringed check confirms Saved. Filter pills carry genre pictograms, radios raise a red sun over an indigo sea, and the Saved count hangs as a paper lantern. Every interactive target is at least 44px high; focus rings sit outside the printed shape.",
   },
-  icons: { save: "An unrisen sun: a ring with a plus.", saved: "The risen sun: a solid disc with the check knocked out.", remove: "A sun with a cross knocked out.", back: "A sun with an arrow knocked out, pointing back." },
-  texture: { name: "Old poster paper", note: "Washi grain, yellowing to Kinari at the edges as Shiba & Sake and Ramen have; printed blocks are worn by fine specks where the ink missed and dry-brush drags where the paper shows through in streaks, and every drawn line is a tapered brushstroke." },
+  icons: { save: "Two tapered brush strokes form a clear plus.", saved: "A brush check inside an irregular bowl ring.", remove: "Two crossing ink strokes with tapered ends.", back: "A brush arrow pointing back." },
+  texture: { name: "Worn ink on warm paper", note: "Fine paper fibres and quiet edge shading sit behind content. Denser ink wear and hatching stay inside illustrations, preserving clean text and small controls." },
   motif: {
-    name: "Red sun over Fuji",
-    note: "From Fuji Sunrise (04), the hero is a poster of a red sun behind Ai Fuji, its snow streaking down the gullies, with bands of mist, a lake, rocks and a pine branch drawn in the brushwork of the scene that sets the four posters together; エイガ is on a title slip and EIGAKAN below; on phones it widens into a landscape with Nouvelle Vague's (08) red band carrying 上映中. The same Fuji is the brand mark and the sign-off, where the sun sets behind it between two pines. Every Category has a pictogram cut from the four posters in a brush-ringed disc, the headline's gloss is one torn stroke of red, the header is Ramen's (18) Ai ground over its bowl's rim, a 済 (“done”) seal lands on saved posters, and when nothing is saved the Shiba from Shiba & Sake (06) sits up on a rock, eyes shut, by an empty bowl.",
+    name: "Fuji, faces & everyday rituals",
+    note: "The reference poster becomes two reusable woodblock illustrations: a vermilion sunset over Fuji for the movie hero, and a transparent Shiba emblem for the empty saved list. Carved snow, fine fur strokes, broken ink and warm paper connect them to the original scene. Small action and genre icons retain simplified brush silhouettes.",
   },
-  feel: { hover: "The face turns Kinari (or its ink deepens) and the sun rises.", press: "The label prints flat and the sun sets." },
+  feel: { hover: "The face turns straw or its ink deepens, and the pictogram rises.", press: "The label presses into the paper and its pictogram settles. Reduced motion disables the transition." },
 };
 
 export const benDay: DesignSystem = {
