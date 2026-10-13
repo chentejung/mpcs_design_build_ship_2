@@ -39,6 +39,16 @@ export function Screen({ id, color, r = 1, gap = 4, angle = 45 }: { id: string; 
   );
 }
 
+// Tapered pen cuts rather than a uniform vector stripe. Use inside a silhouette's clip.
+export function Engraving({ id, gap = 2.4, color = c.ink }: { id: string; gap?: number; color?: string }) {
+  return (
+    <pattern id={id} width={gap} height={gap * 4} patternUnits="userSpaceOnUse" patternTransform="rotate(-32)">
+      <path d={`M0 0L${gap * 0.34} ${gap * 1.7}L0 ${gap * 4}Z`} fill={color} />
+      <path d={`M${gap * 0.62} ${gap * 2.1}l${gap * 0.16} ${gap * 0.35}l${-gap * 0.16} ${gap * 0.45}Z`} fill={color} />
+    </pattern>
+  );
+}
+
 // Ink keylines: the comic inker's line, heavy and round-jointed.
 export const ink = (w: number) => ({ stroke: c.ink, strokeWidth: w, strokeLinejoin: "round" as const, strokeLinecap: "round" as const });
 

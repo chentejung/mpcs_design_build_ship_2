@@ -62,3 +62,16 @@ test("filter chips all wrap into view on a phone and every one can be reached", 
   await expect(horror).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByRole("list", { name: "Movies" }).getByRole("listitem")).toHaveCount(3);
 });
+
+test("the Bijou's screening lines appear only above phone width", async ({ page }) => {
+  const eyebrow = page.getByText("Now showing · Tonight only");
+  const banner = page.getByText("25 features! 7 genres! One night only!");
+
+  await open(page, "/bijou/", 390);
+  await expect(eyebrow).toBeHidden();
+  await expect(banner).toBeHidden();
+
+  await open(page, "/bijou/", 640);
+  await expect(eyebrow).toBeVisible();
+  await expect(banner).toBeVisible();
+});

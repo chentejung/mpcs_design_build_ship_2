@@ -992,6 +992,7 @@
     --ds-bulb-off: color-mix(in srgb, var(--ds-swatch-sepia) 42%, transparent);
     --ds-bulb-on: var(--ds-swatch-mustard);
     --ds-bulb-hot: color-mix(in srgb, var(--ds-swatch-mustard) 45%, #fff);
+    --ds-pulp-flecks: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23f2eddd' opacity='.42'%3E%3Cpath d='M8 12h3v1H8zM31 43h5v.8h-5zM96 17h2v2h-2zM72 79h4v1h-4zM118 116h5v.7h-5zM15 106h2v1h-2zM57 126h3v1h-3zM123 53h4v1h-4zM43 14h1v3h-1zM87 109h1v4h-1z'/%3E%3C/g%3E%3Cg fill='%235b4b3c' opacity='.2'%3E%3Cpath d='M14 32h2v1h-2zM64 52h3v1h-3zM107 85h4v1h-4zM28 119h3v1h-3zM87 34h2v1h-2zM47 93h1v3h-1z'/%3E%3C/g%3E%3C/svg%3E");
   }
 
   /* Masthead type: Hero Red letters extruded in Ink, as THE BIJOU stands on the cover. */
@@ -1034,7 +1035,7 @@
     position: absolute;
     inset: calc(-1 * var(--ds-control-border)) calc(-1 * var(--ds-control-border) - var(--ds-depth)) calc(-1 * var(--ds-control-border) - var(--ds-depth)) calc(-1 * var(--ds-control-border));
     z-index: -1;
-    background: linear-gradient(var(--side) 0 0) 0 0 / calc(100% - 1.5px) calc(100% - 1.5px) no-repeat, var(--ds-text);
+    background: repeating-linear-gradient(135deg, #0000 0 3px, #f2eddd55 3px 3.7px, #0000 3.7px 6px), var(--side);
     clip-path: polygon(0 0, calc(100% - var(--ds-depth)) 0, 100% var(--ds-depth), 100% 100%, var(--ds-depth) 100%, 0 calc(100% - var(--ds-depth)));
     pointer-events: none;
   }
@@ -1045,7 +1046,7 @@
     inset: calc(-1 * var(--ds-control-border));
     z-index: -1;
     border: var(--ds-control-border) solid var(--ds-text);
-    background: var(--face);
+    background: var(--ds-pulp-flecks), radial-gradient(ellipse at 100% 100%, #0d0c0d20, #0000 70%), var(--face);
     box-shadow: inset 0 0 0 2px var(--face), inset 0 0 0 3.5px var(--rule);
     pointer-events: none;
   }
@@ -1098,6 +1099,7 @@
       radial-gradient(circle, var(--bulb-alt) 0 1.6px, #0000 2.1px) 8px 1px / 16px 6px repeat-x,
       radial-gradient(circle, var(--bulb-alt) 0 1.6px, #0000 2.1px) 0 calc(100% - 1px) / 16px 6px repeat-x,
       radial-gradient(circle, var(--bulb) 0 1.6px, #0000 2.1px) 8px calc(100% - 1px) / 16px 6px repeat-x,
+      var(--ds-pulp-flecks),
       var(--face);
     box-shadow: none;
   }
@@ -1292,6 +1294,22 @@
   }
   [data-system="pulp"] .ds-poster {
     border: 3px solid var(--ds-text);
+  }
+  /* An aged one-sheet printed on stock: finish only, retaining the original poster and frame dimensions. */
+  [data-system="pulp"] .ds-poster img {
+    filter: sepia(0.24) saturate(0.85) contrast(1.08);
+  }
+  [data-system="pulp"] .ds-poster[data-poster="loaded"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      var(--ds-pulp-flecks),
+      linear-gradient(91deg, #5b4b3c30, #0000 8% 92%, #5b4b3c40),
+      radial-gradient(circle, #0d0c0d35 0 0.45px, #0000 0.7px) 0 0 / 3px 3px;
+    box-shadow: inset 0 0 0 4px #f2edddbb, inset 0 0 15px #5b4b3c50;
+    mix-blend-mode: multiply;
   }
   [data-system="pulp"] :is(.ds-card:hover, .ds-card[data-state="hover"]) .ds-frame {
     --ds-depth: 10px;
@@ -1643,5 +1661,11 @@
     color: var(--ds-on-surface);
     outline: 1px solid var(--ds-swatch-gold);
     outline-offset: -5px;
+  }
+}
+
+@media (max-width: 639px) {
+  [data-system="pulp"] .bijou-mobile-hide {
+    display: none;
   }
 }

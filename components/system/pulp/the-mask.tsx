@@ -3,17 +3,37 @@
 // that fills the face from ear to ear (the Comedy pictogram), the city skyline under its palms, swept by premiere
 // searchlights, at the foot of the /bijou hero and of THE END, and the billing block at the poster's foot, which
 // app/system.css sets the credits as.
-import { c, f, ink, useSvgId } from "./press";
+import { c, Engraving, f, ink, Screen, useSvgId } from "./press";
 
-// The Comedy pictogram: squeezed-shut eyes over a grin of Newsprint teeth, on Mustard.
+// A dramatic cropped face under a fedora, after the illustrated one-sheet on Mood Board 02.
 export function GrinGlyph() {
+  const id = useSvgId();
+  const face = "M22 36Q20 62 34 78L56 88Q73 82 81 60L78 29Z";
   return (
-    <g>
-      <rect width="24" height="24" fill={c.mustard} />
-      <path d="M5.2 7.2C6.4 5.2 8.8 5.2 10 7.2M14 7.2C15.2 5.2 17.6 5.2 18.8 7.2" fill="none" {...ink(1.5)} />
-      <path d="M2.6 10C7 11.4 17 11.4 21.4 10C21 16.4 17.2 20.6 12 20.6C6.8 20.6 3 16.4 2.6 10Z" fill={c.newsprint} {...ink(1.4)} />
-      <path d="M3.3 13.2C8 15 16 15 20.7 13.2M7 11V18.6M10.2 11.3V20.2M13.8 11.3V20.2M17 11V18.6" fill="none" {...ink(0.9)} />
-      <path d="M1.4 9C2 9.2 2.6 9.7 3 10.3M22.6 9C22 9.2 21.4 9.7 21 10.3" fill="none" {...ink(1.2)} />
+    <g transform="scale(.25)">
+      <defs>
+        <Engraving id={`${id}-h`} gap={2.2} />
+        <Screen id={`${id}-d`} color={c.red} gap={5} r={1} />
+        <clipPath id={`${id}-f`}><path d={face} /></clipPath>
+      </defs>
+      <path d="M0 0H96V96H0Z" fill={c.red} />
+      <path d="M0 0H96V96H0Z" fill={`url(#${id}-d)`} />
+      <path d="M7 96L27 72L55 86L74 67L99 96" fill={c.newsprint} {...ink(3)} />
+      <path d={face} fill={c.mustard} {...ink(3)} />
+      <g clipPath={`url(#${id}-f)`}>
+        <path d="M10 34L70 26L41 46L29 65L43 87L17 87Z" fill={c.ink} />
+        <path d="M57 32L92 31L93 91L48 92L64 76L71 52Z" fill={`url(#${id}-h)`} />
+        <path d="M41 48L51 44L46 57L53 59" fill="none" {...ink(2.4)} />
+        <path d="M57 41Q67 35 74 40L66 44Z" fill={c.newsprint} {...ink(1.7)} />
+        <circle cx="65" cy="40" r="2.6" fill={c.ink} />
+        <path d="M38 60Q58 66 77 51Q72 77 58 79Q44 78 38 60Z" fill={c.ink} />
+        <path d="M40 62Q60 69 75 56L70 66Q57 75 44 68Z" fill={c.newsprint} />
+        <path d="M48 65L49 71M56 66L57 72M64 63L65 69M70 60L71 65" {...ink(1.2)} />
+        <path d="M36 58L31 54M76 50L79 46M52 82L63 81" fill="none" {...ink(2)} />
+      </g>
+      <path d="M16 29L21 4L53 8L66 1L79 19L96 11L91 24L7 51L0 43Z" fill={c.peach} {...ink(3)} />
+      <path d="M17 24L74 10L79 20L16 38Z" fill={c.ink} />
+      <path d="M3 42L90 16M24 8L24 20M31 9L31 17M38 10L38 16" fill="none" {...ink(1.4)} />
     </g>
   );
 }

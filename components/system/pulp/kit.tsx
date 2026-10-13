@@ -5,16 +5,15 @@
 import { categories, filmById } from "@/app/films";
 import { buttonClass, Count } from "../controls";
 import { Poster } from "../poster";
-import { Rocket, Trail } from "./captain-aero";
+import { Trail } from "./captain-aero";
 import { PulpCover, TheEnd } from "./cover";
 import { pulpGlyphs, PulpGenreIcon } from "./genre";
 import { Scroll } from "./into-the-unknown";
-import { Blast } from "./krakoom";
+import { IllustrationPlate } from "./illustrations";
 import { LookPanel } from "./look";
 import { c, Lettering, Newsprint, useSvgId } from "./press";
 import { IssueBox, Spiral } from "./space-fleet";
-import { Searchlights, Skyline } from "./the-mask";
-import { PlanetMark, RingedPlanet, Saucer } from "./weird-space-tales";
+import { PlanetMark } from "./weird-space-tales";
 
 const box = (children: React.ReactNode, className = "h-20 w-20") => <div aria-hidden inert className={`grid place-items-center ${className}`}>{children}</div>;
 // Wide drawings keep their own proportions inside the row's height.
@@ -59,7 +58,7 @@ const groups: { picture: string; label?: string; elements: Element[] }[] = [
     picture: "Captain Aero · picture 25",
     elements: [
       { name: "Rocket", note: "Cigar-bodied in Newsprint silver with a Hero Red nose and fins, a row of Mustard portholes and a flame: it loops the hero and flies off past THE END.",
-        art: wideArt(<Sample viewBox="-64 -36 172 72"><Rocket x={0} y={0} /></Sample>), wide: true },
+        art: wideArt(<IllustrationPlate name="rocket-engraved" viewBox="-64 -36 172 72" />), wide: true },
       { name: "Trail", note: "A Mustard ribbon edged in Ink, swelling toward the rocket as it loops.",
         art: box(<Sample viewBox="0 0 100 70"><Trail a={[4, 64]} c1={[10, 10]} c2={[60, 70]} b={[96, 14]} w={14} /></Sample>, "h-20 w-28") },
       { name: "Masthead block", note: "Every control stands on a block with bevelled corners, as the masthead's letters stand on theirs: hover raises it, press punches it flat.",
@@ -70,10 +69,10 @@ const groups: { picture: string; label?: string; elements: Element[] }[] = [
     picture: "Weird Space Tales · picture 03",
     elements: [
       { name: "Ringed planet", note: "Banded Peach and Hero Red, shaded in a Sepia screen, its ring tilted round it: the hero's centrepiece.",
-        art: box(<Sample viewBox="0 0 120 80"><RingedPlanet cx={60} cy={40} r={26} /></Sample>, "h-20 w-28") },
+        art: box(<IllustrationPlate name="planet-engraved" viewBox="0 0 120 80" />, "h-20 w-28") },
       { name: "Brand mark", note: "The planet in Mustard, ringed in Hero Red, before The Bijou in the header.", art: box(<PlanetMark className="h-16 w-16" />) },
       { name: "Saucer", note: "A Newsprint disc under a Peach dome, its rim lit in Mustard, a beam beneath.",
-        art: box(<Sample viewBox="0 0 80 60" ground><Saucer x={40} y={22} w={60} /></Sample>, "h-20 w-24") },
+        art: box(<IllustrationPlate name="saucer-engraved" viewBox="0 0 80 60" />, "h-20 w-24") },
       pictogram("science-fiction"),
       { name: "Planet radio", note: "A radio's ring, and the Mustard planet a Hero Red ring swings round when chosen.", art: box(<span className="flex items-center gap-5">{radio(false)}{radio(true)}</span>) },
     ],
@@ -91,7 +90,7 @@ const groups: { picture: string; label?: string; elements: Element[] }[] = [
     elements: [
       pictogram("comedy"),
       { name: "Skyline", note: "Towers with a few lit windows and two palms against a sunset, swept by premiere searchlights: the foot of the hero and of THE END.",
-        art: wideArt(<Sample viewBox="0 0 240 90" ground><Searchlights beams={[[40, -16], [200, 14]]} y={90} length={110} /><Skyline x0={-4} x1={244} y={90} h={44} palms={[0.1, 0.88]} /></Sample>), wide: true },
+        art: wideArt(<IllustrationPlate name="skyline-engraved" viewBox="0 0 240 90" />), wide: true },
       { name: "Billing block", note: "The poster credits, set as the one-sheet's foot: one centred run of condensed capitals.",
         art: (
           <ol className="ds-credits-list ds-fine ds-muted max-w-xs text-center" aria-hidden>
@@ -132,7 +131,7 @@ const groups: { picture: string; label?: string; elements: Element[] }[] = [
     elements: [
       pictogram("all"),
       { name: "Blast", note: "Hero Red round Mustard round a Newsprint flash: the eyebrow's ornament, and with a cross knocked out, the Remove icon.",
-        art: box(<Sample viewBox="0 0 40 40"><Blast cx={20} cy={20} r={18} w={1.6} /></Sample>, "h-16 w-16") },
+        art: box(<IllustrationPlate name="blast-engraved" viewBox="0 0 40 40" />, "h-16 w-16") },
     ],
   },
   {

@@ -1,4 +1,4 @@
-// Landing-page content. Figma links and the final site's source/case-study links are placeholders.
+// Landing-page content.
 import { americanComics, boards } from "./boards";
 import { systems } from "./systems";
 
@@ -23,7 +23,6 @@ export const moodBoards: MoodBoard[] = boards.map((b) => ({
   palette: b.palette.map((p) => p.hex),
   links: [
     { label: "View board", href: `/moodboards/${b.id}/` },
-    { label: "Pinterest", href: b.pinterest },
   ],
 }));
 
@@ -45,7 +44,6 @@ export const designSystems: DesignSystemCard[] = systems.map((ds, i) => ({
   selected: ds.board.id === selectedBoard,
   links: [
     { label: "View system", href: `/design-systems/${ds.id}/` },
-    { label: "Figma", href: `https://www.figma.com/file/${ds.id}-design-system` },
   ],
 }));
 
@@ -55,9 +53,5 @@ export const finalSite = {
   url: "/bijou",
   preview: "/bijou/preview.jpg",
   recipeImage: americanComics.references[17].src, // Space Fleet
-  links: [
-    { label: "Visit the live site", href: "/bijou/" },
-    { label: "Source code", href: "https://github.com/designbuildship/the-bijou" },
-    { label: "Case study", href: "/case-study/" },
-  ],
+  live: { label: "Visit the live site", href: "/bijou/" },
 };

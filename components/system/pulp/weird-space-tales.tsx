@@ -2,7 +2,8 @@
 // Pulp's drawing kit after Weird Space Tales on the American Comics board (picture 03): the great banded planet with
 // its tilted ring, and the flying saucer gliding past it, its rim lit and a beam beneath. The planet is the hero's
 // centrepiece and, ringed in Hero Red, The Bijou's brand mark; the saucer is the Sci-Fi pictogram.
-import { c, ink, Newsprint, Screen, sparkle, useSvgId } from "./press";
+import { c, Engraving, ink, Newsprint, Screen, sparkle, useSvgId } from "./press";
+import { illustrationPath } from "./illustrations";
 
 // A planet at (cx, cy) of radius r, its ring tilted `tilt` degrees: the far half of the ring behind the globe, the near
 // half in front. Bands of `band` cross a `body` globe, shaded in a Sepia dot screen away from the light.
@@ -20,6 +21,7 @@ export function RingedPlanet({ cx, cy, r, tilt = -16, body = c.peach, band = c.r
         <clipPath id={`${id}-g`}><circle cx={cx} cy={cy} r={r} /></clipPath>
         <clipPath id={`${id}-near`}><rect x={cx - r * 2.2} y={cy} width={r * 4.4} height={r} /></clipPath>
         <Screen id={`${id}-shade`} color={c.sepia} r={Math.max(0.5, r * 0.03)} gap={Math.max(2, r * 0.08)} angle={45} />
+        <Engraving id={`${id}-hatch`} gap={r * 0.065} />
       </defs>
       <g transform={`rotate(${tilt} ${cx} ${cy})`}>
         <path d={ringPath} fill={ring} fillRule="evenodd" {...ink(w)} />
@@ -33,6 +35,7 @@ export function RingedPlanet({ cx, cy, r, tilt = -16, body = c.peach, band = c.r
           <path d={`M${cx - r} ${cy + r * 0.6}C${cx - r * 0.3} ${cy + r * 0.52} ${cx + r * 0.3} ${cy + r * 0.7} ${cx + r} ${cy + r * 0.6}V${cy + r * 0.72}C${cx + r * 0.3} ${cy + r * 0.82} ${cx - r * 0.3} ${cy + r * 0.66} ${cx - r} ${cy + r * 0.74}Z`} opacity="0.8" />
         </g>
         <circle cx={cx + r * 0.42} cy={cy + r * 0.42} r={r * 1.02} fill={`url(#${id}-shade)`} />
+        <path d={`M${cx - r * 0.3} ${cy + r}Q${cx + r * 1.1} ${cy + r * 0.1} ${cx + r * 0.5} ${cy - r}H${cx + r * 1.2}V${cy + r * 1.2}Z`} fill={`url(#${id}-hatch)`} />
         <path d={`M${cx - r * 0.62} ${cy - r * 0.5}A${r * 0.8} ${r * 0.8} 0 0 1 ${cx - r * 0.08} ${cy - r * 0.84}`} fill="none" stroke={c.newsprint} strokeWidth={r * 0.09} strokeLinecap="round" opacity="0.85" />
       </g>
       <circle cx={cx} cy={cy} r={r} fill="none" {...ink(w)} />
@@ -51,8 +54,10 @@ export function Saucer({ x, y, w, beam = true, k = 1 }: { x: number; y: number; 
     <g>
       {beam && <path d={`M${x - w * 0.16} ${y + h * 0.3}L${x - w * 0.42} ${y + w * 0.95}H${x + w * 0.42}L${x + w * 0.16} ${y + h * 0.3}Z`} fill={c.mustard} opacity="0.55" />}
       <path d={`M${x - w * 0.24} ${y - h * 0.12}C${x - w * 0.22} ${y - h * 1.5} ${x + w * 0.22} ${y - h * 1.5} ${x + w * 0.24} ${y - h * 0.12}Z`} fill={c.peach} {...ink(1.8 * k)} />
+      <path d={`M${x} ${y - h * 1.05}Q${x + w * 0.28} ${y - h * 1.2} ${x + w * 0.24} ${y}H${x - w * 0.05}Q${x + w * 0.18} ${y - h * 0.5} ${x} ${y - h * 1.05}Z`} fill={c.ink} />
       <path d={`M${x - w * 0.1} ${y - h * 0.9}C${x - w * 0.04} ${y - h * 1.2} ${x + w * 0.04} ${y - h * 1.22} ${x + w * 0.08} ${y - h * 1.1}`} fill="none" stroke={c.newsprint} strokeWidth={1.6 * k} strokeLinecap="round" />
       <ellipse cx={x} cy={y} rx={w / 2} ry={h / 2} fill={c.newsprint} {...ink(1.8 * k)} />
+      {[-0.38, -0.28, 0.28, 0.38].map(u => <path key={u} d={`M${x + u * w} ${y - h * 0.2}l${u * w * 0.16} ${h * 0.34}`} {...ink(k)} />)}
       <path d={`M${x - w / 2} ${y}C${x - w * 0.3} ${y + h * 0.62} ${x + w * 0.3} ${y + h * 0.62} ${x + w / 2} ${y}`} fill={c.sepia} {...ink(1.8 * k)} />
       {[-0.32, -0.16, 0, 0.16, 0.32].map((u) => (
         <circle key={u} cx={x + u * w} cy={y + h * 0.08 + Math.abs(u) * -h * 0.12} r={w * 0.035} fill={c.mustard} />
@@ -79,7 +84,7 @@ export function PlanetMark({ className = "" }: { className?: string }) {
     <svg aria-hidden viewBox="0 0 48 48" className={className}>
       <defs><Newsprint id={id} rough={0.4} specks={0.25} scale={0.5} /></defs>
       <g filter={`url(#${id})`}>
-        <RingedPlanet cx={24} cy={25} r={11.5} tilt={-20} body={c.mustard} band={c.peach} ring={c.red} w={1.8} />
+        <image href={illustrationPath("planet-engraved")} x="1" y="9" width="46" height="32" />
         <path d={sparkle(8, 9, 3.4)} fill={c.newsprint} />
         <path d={sparkle(41, 40, 2.6)} fill={c.mustard} />
       </g>
