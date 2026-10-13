@@ -23,7 +23,8 @@ export function Browse() {
             <Ornament /> Now showing · <span lang="ja">上映中</span>
           </p>
           <h1 className="ds-display mt-3">Pick tonight&rsquo;s film.</h1>
-          <p className="ds-body ds-muted mt-3 max-w-xl">
+          <p lang="ja" className="ds-kicker mt-4">今夜の一本を選ぼう</p>
+          <p className="ds-body ds-muted mt-4 max-w-xl">
             {films.length} films across seven genres. Save the ones you want to watch; your list stays while you browse and clears when you reload.
           </p>
         </div>

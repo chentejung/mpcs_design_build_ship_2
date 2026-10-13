@@ -14,6 +14,8 @@ import {
   AppliedMock, ChipsSpecimen, ListRowsSpecimen, SaveSpecimen, TabsSpecimen, ToastSpecimen, ToggleSpecimen,
 } from "@/components/system/specimens";
 import { SystemTheme } from "@/components/system/theme";
+import { DrawingKit } from "@/components/system/drawing-kit";
+import { Tenneniro } from "@/components/system/terebi";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => systems.map((s) => ({ id: s.id }));
@@ -56,7 +58,7 @@ export default async function DesignSystemPage({ params }: Props) {
             {selected && <span className="ds-badge" style={{ background: "var(--ds-accent)", color: "var(--ds-on-accent)" }}>Selected · ships as Eigakan</span>}
           </p>
           <h1 className="ds-display mt-4 text-[length:min(112px,16cqi)]">
-            {system.name} {system.alt && <span lang={system.id === "showa" ? "ja" : "zh-Hans"}>{system.alt}</span>}
+            {system.name} {system.alt && <span lang={system.id === "showa" ? "ja" : "zh-Hans"}><Tenneniro text={system.alt} /></span>}
           </h1>
           <p className="ds-body mt-5 max-w-xl text-lg">{system.essence}</p>
         </div>
@@ -95,7 +97,7 @@ export default async function DesignSystemPage({ params }: Props) {
 
 function Section({ n, title, note, children }: { n: number; title: string; note?: string; children: React.ReactNode }) {
   return (
-    <section className="border-t-2 border-(--ds-border) py-14">
+    <section className="ds-rule py-14">
       <div className="mb-8 flex flex-wrap items-baseline gap-x-4 gap-y-2">
         <span className="ds-meta ds-muted">0{n}</span>
         <h2 className="ds-heading text-3xl md:text-4xl">{title}</h2>
@@ -311,28 +313,31 @@ function SpacingAndShape({ system }: { system: DesignSystem }) {
 
 function TextureAndMotif({ system }: { system: DesignSystem }) {
   return (
-    <div className="grid gap-12 md:grid-cols-3">
-      <Spec label={`Texture · ${system.texture.name}`}>
-        <div className="relative isolate h-44 overflow-hidden rounded-(--ds-radius-panel) border-2 border-(--ds-border)">
-          <SystemTheme system={system} className="absolute inset-0"><span /></SystemTheme>
-        </div>
-        <p className="ds-body ds-muted">{system.texture.note}</p>
-      </Spec>
-      <Spec label={`Motif · ${system.motif.name}`}>
-        <div className="flex h-44 items-center gap-6">
-          <HeroMotif count={25} />
-          <span className="ds-brand-mark">映</span>
-          <Ornament />
-        </div>
-        <p className="ds-body ds-muted">{system.motif.note}</p>
-      </Spec>
-      <Spec label="Interaction feel · try it">
-        <div className="flex h-44 flex-wrap items-center gap-4">
-          <Button variant="primary" icon="save">Save</Button>
-          <Chip label="Thriller" count={4} />
-        </div>
-        <p className="ds-body ds-muted">Hover: {system.feel.hover} Press: {system.feel.press}</p>
-      </Spec>
+    <div className="grid gap-14">
+      <div className="grid gap-12 md:grid-cols-3">
+        <Spec label={`Texture · ${system.texture.name}`}>
+          <div className="relative isolate h-44 overflow-hidden rounded-(--ds-radius-panel) border-2 border-(--ds-border)">
+            <SystemTheme system={system} className="absolute inset-0"><span /></SystemTheme>
+          </div>
+          <p className="ds-body ds-muted">{system.texture.note}</p>
+        </Spec>
+        <Spec label={`Motif · ${system.motif.name}`}>
+          <div className="flex min-h-44 items-center gap-6">
+            <HeroMotif count={25} />
+            <span className="ds-brand-mark">映</span>
+            <Ornament />
+          </div>
+          <p className="ds-body ds-muted">{system.motif.note}</p>
+        </Spec>
+        <Spec label="Interaction feel · try it">
+          <div className="flex h-44 flex-wrap items-center gap-4">
+            <Button variant="primary" icon="save">Save</Button>
+            <Chip label="Thriller" count={4} />
+          </div>
+          <p className="ds-body ds-muted">Hover: {system.feel.hover} Press: {system.feel.press}</p>
+        </Spec>
+      </div>
+      <DrawingKit />
     </div>
   );
 }

@@ -5,9 +5,11 @@ import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
+import { SmallSun } from "./yokoo";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
 
+// A Hinomaru disc with soft rays, `glyph` in white at its centre.
 function Sun({ glyph, className = "" }: { glyph?: string; className?: string }) {
   const c = palette("showa");
   const ray = (i: number) => {
@@ -106,7 +108,7 @@ export function HeroMotif({ count }: { count: number }) {
 // Small ornament before a section heading or eyebrow.
 export function Ornament() {
   const id = useSystemId();
-  if (id === "showa") return <Sun className="h-5 w-5 shrink-0" />;
+  if (id === "showa") return <SmallSun className="h-6 w-6 shrink-0" />;
   if (id === "ben-day") return <Starburst className="h-6 w-6 shrink-0" />;
   return <CloudScroll className="w-10 shrink-0" />;
 }

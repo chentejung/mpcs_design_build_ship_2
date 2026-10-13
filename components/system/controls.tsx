@@ -41,13 +41,14 @@ export function Chip({ label, count, state, ...props }: React.ButtonHTMLAttribut
 
 export function CategoryBadge({ category, className = "" }: { category: Category; className?: string }) {
   return (
-    <span className={`ds-badge ${className}`} style={{ background: `var(--ds-cat-${category}-bg)`, color: `var(--ds-cat-${category}-fg)` }}>
+    <span className={`ds-badge ${className}`} style={{ "--cat-bg": `var(--ds-cat-${category}-bg)`, "--cat-fg": `var(--ds-cat-${category}-fg)` } as React.CSSProperties}>
       {categoryLabel[category]}
     </span>
   );
 }
 
-export const Count = ({ n }: { n: number }) => <span className="ds-count">{n}</span>;
+// Keyed by its number, so a new count re-mounts and plays the system's entrance (Shōwa's lantern sways).
+export const Count = ({ n }: { n: number }) => <span key={n} className="ds-count">{n}</span>;
 
 export function TextInput({ state, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { state?: FrozenState }) {
   return <input data-state={state} className="ds-input" {...props} />;
