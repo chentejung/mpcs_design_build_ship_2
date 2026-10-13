@@ -17,7 +17,10 @@ export function Browse() {
 
   return (
     <>
-      <section className="flex items-start justify-between gap-4 pt-10 pb-6 md:pt-14">
+      <section className="grid items-center gap-x-10 gap-y-6 pt-6 pb-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:pt-12 md:pt-14">
+        <div className="sm:hidden">
+          <HeroMotif count={films.length} wide />
+        </div>
         <div className="min-w-0">
           <p className="ds-label flex items-center gap-2">
             <Ornament /> Now showing · <span lang="ja">上映中</span>
@@ -28,7 +31,7 @@ export function Browse() {
             {films.length} films across seven genres. Save the ones you want to watch; your list stays while you browse and clears when you reload.
           </p>
         </div>
-        <div className="hidden shrink-0 sm:block">
+        <div className="hidden sm:block">
           <HeroMotif count={films.length} />
         </div>
       </section>
@@ -37,6 +40,7 @@ export function Browse() {
         {options.map((o) => (
           <Chip
             key={o.id}
+            genre={o.id}
             label={o.label}
             count={o.id === "all" ? films.length : films.filter((f) => f.category === o.id).length}
             aria-pressed={filter === o.id}

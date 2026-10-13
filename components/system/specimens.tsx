@@ -22,10 +22,10 @@ export function SaveSpecimen({ film, initial = false }: { film: Film; initial?: 
 
 export function ChipsSpecimen({ limit }: { limit?: number }) {
   const [active, setActive] = useState("all");
-  const options = [{ id: "all", label: "All" }, ...categories].slice(0, limit);
+  const options = [{ id: "all" as const, label: "All" }, ...categories].slice(0, limit);
   return (
     <ScrollRow role="group" aria-label="Filter by category (example)">
-      {options.map((o) => <Chip key={o.id} label={o.label} count={countIn(o.id)} aria-pressed={active === o.id} onClick={() => setActive(o.id)} />)}
+      {options.map((o) => <Chip key={o.id} genre={o.id} label={o.label} count={countIn(o.id)} aria-pressed={active === o.id} onClick={() => setActive(o.id)} />)}
     </ScrollRow>
   );
 }

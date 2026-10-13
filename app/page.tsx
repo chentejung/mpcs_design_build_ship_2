@@ -47,7 +47,7 @@ export default function Home() {
 
       <section className="border-t border-line px-[6vw] py-24">
         <SectionHead id="design-systems" eyebrow="02 — Define" title="Design Systems" />
-        <div className="grid gap-7 md:grid-cols-3">
+        <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
           {designSystems.map((ds) => <DesignSystemCard key={ds.id} ds={ds} />)}
         </div>
       </section>
@@ -98,7 +98,7 @@ function DesignSystemCard({ ds }: { ds: DesignSystemCardData }) {
     <Card selected={ds.selected}>
       <SystemTheme system={system} className={`border-b border-line p-5 ${ds.selected ? "pt-13" : ""}`}>
         <div inert className="grid grid-cols-[124px_1fr] gap-5">
-          <FilmCard film={parasite} headingLevel={4} action={<Button block>+ Save</Button>} />
+          <FilmCard film={parasite} headingLevel={4} action={<Button block icon="save">Save</Button>} />
           <div className="grid content-start gap-4">
             <div>
               <p className="ds-display text-6xl">Aa</p>
@@ -111,7 +111,7 @@ function DesignSystemCard({ ds }: { ds: DesignSystemCardData }) {
             </div>
             <div className="flex flex-wrap gap-2.5">
               <Button variant="primary">Save</Button>
-              <Chip label="Thriller" aria-pressed />
+              <Chip genre="thriller" label="Thriller" aria-pressed />
             </div>
             <p className="ds-fine ds-muted">{system.essence}</p>
           </div>

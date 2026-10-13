@@ -49,9 +49,9 @@ export default async function MoodBoardPage({ params }: Props) {
 
   return (
     <main style={theme} className="min-h-screen bg-(--bg) text-(--ink)">
-      <nav className="flex items-center justify-between border-b border-(--ink)/15 px-[6vw] py-4">
+      <nav className="flex flex-wrap items-center justify-between gap-3 border-b border-(--ink)/15 px-[6vw] py-4">
         <ButtonLink href="/#moodboards" variant="secondary">← Back to overview</ButtonLink>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {boards.map((b, i) => (
             <ButtonLink key={b.id} href={`/moodboards/${b.id}/`} variant={b.id === id ? "primary" : "secondary"}>0{i + 1}</ButtonLink>
           ))}
@@ -61,7 +61,7 @@ export default async function MoodBoardPage({ params }: Props) {
 
       <header className="px-[6vw] pt-20 pb-14">
         <div className="text-xs font-semibold uppercase tracking-[0.14em] text-(--accent)">Mood Board 0{index + 1}</div>
-        <h1 className="mt-3 text-6xl md:text-8xl" style={{ fontFamily: `var(${system.type.Display.font.variable}), var(--font-noto-sans-kr), var(--font-noto-serif-tc)` }}>
+        <h1 className="mt-3 text-[min(13vw,3.75rem)] leading-[1.05] break-words md:text-8xl" style={{ fontFamily: `var(${system.type.Display.font.variable}), var(--font-noto-sans-kr), var(--font-noto-serif-tc)` }}>
           {board.title} <span className="text-(--accent)">{board.altTitle}</span>
         </h1>
         <div className="mt-6 flex flex-wrap gap-2 text-sm">

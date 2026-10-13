@@ -1,6 +1,7 @@
 // Controls shared by Eigakan and the Design System pages; app/system.css styles them per system.
 // `state` freezes hover, focus or pressed for the Control states section.
 import { categoryLabel, type Category } from "@/app/films";
+import { GenreIcon } from "./genre-icons";
 import { CheckIcon, Icon, type IconName } from "./icons";
 
 export type FrozenState = "hover" | "focus" | "pressed";
@@ -9,7 +10,7 @@ type Variant = "primary" | "secondary";
 export const buttonClass = (variant?: Variant, block = false) =>
   ["ds-btn", variant && `ds-btn--${variant}`, block && "ds-btn--block"].filter(Boolean).join(" ");
 
-// The icon slot is each system's own: the stub of a Shōwa ticket, a Ben-Day burst, a Haipai seal.
+// The icon slot is each system's own: a Shōwa sun, a Ben-Day burst, a Haipai seal.
 export const ButtonIcon = ({ name }: { name: IconName }) => <span aria-hidden className="ds-btn-icon"><Icon name={name} /></span>;
 
 export function Button({ variant, block, state, icon, className = "", children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -26,13 +27,16 @@ export function Button({ variant, block, state, icon, className = "", children, 
   );
 }
 
-export function Chip({ label, count, state, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+// `genre` heads the chip with its Category's pictogram, in the systems that draw them (Shōwa).
+export function Chip({ label, count, state, genre, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
   count?: number;
   state?: FrozenState;
+  genre?: Category | "all";
 }) {
   return (
     <button type="button" data-state={state} className="ds-chip" {...props}>
+      {genre && <GenreIcon id={genre} />}
       {label}
       {count !== undefined && <span aria-hidden className="ds-chip-count">{count}</span>}
     </button>
@@ -42,6 +46,7 @@ export function Chip({ label, count, state, ...props }: React.ButtonHTMLAttribut
 export function CategoryBadge({ category, className = "" }: { category: Category; className?: string }) {
   return (
     <span className={`ds-badge ${className}`} style={{ "--cat-bg": `var(--ds-cat-${category}-bg)`, "--cat-fg": `var(--ds-cat-${category}-fg)` } as React.CSSProperties}>
+      <GenreIcon id={category} />
       {categoryLabel[category]}
     </span>
   );

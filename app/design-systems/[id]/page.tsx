@@ -8,14 +8,13 @@ import { Button, buttonClass, CategoryBadge, Check, Chip, Count, Select, TextInp
 import { Icon, type IconName } from "@/components/system/icons";
 import { FilmCard } from "@/components/system/film-card";
 import { Brand, HeaderBar, SavedLabel } from "@/components/system/header";
-import { EmptyState, HeroMotif, Ornament } from "@/components/system/motifs";
+import { BrandMark, EmptyState, HeroMotif, Ornament } from "@/components/system/motifs";
 import { Poster } from "@/components/system/poster";
 import {
   AppliedMock, ChipsSpecimen, ListRowsSpecimen, SaveSpecimen, TabsSpecimen, ToastSpecimen, ToggleSpecimen,
 } from "@/components/system/specimens";
 import { SystemTheme } from "@/components/system/theme";
 import { DrawingKit } from "@/components/system/drawing-kit";
-import { Tenneniro } from "@/components/system/terebi";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => systems.map((s) => ({ id: s.id }));
@@ -58,7 +57,7 @@ export default async function DesignSystemPage({ params }: Props) {
             {selected && <span className="ds-badge" style={{ background: "var(--ds-accent)", color: "var(--ds-on-accent)" }}>Selected · ships as Eigakan</span>}
           </p>
           <h1 className="ds-display mt-4 text-[length:min(112px,16cqi)]">
-            {system.name} {system.alt && <span lang={system.id === "showa" ? "ja" : "zh-Hans"}><Tenneniro text={system.alt} /></span>}
+            {system.name} {system.alt && <span lang={system.id === "showa" ? "ja" : "zh-Hans"}>{system.alt}</span>}
           </h1>
           <p className="ds-body mt-5 max-w-xl text-lg">{system.essence}</p>
         </div>
@@ -110,7 +109,7 @@ function Section({ n, title, note, children }: { n: number; title: string; note?
 
 function Spec({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid content-start gap-3">
+    <div className="grid min-w-0 content-start gap-3">
       <p className="ds-label ds-muted">{label}</p>
       {children}
     </div>
@@ -250,8 +249,8 @@ function SpacingAndShape({ system }: { system: DesignSystem }) {
             <Button variant="primary" icon="save">Save</Button>
             <Button icon="saved" aria-pressed>Saved</Button>
             <Button variant="secondary" icon="remove">Remove</Button>
-            <Chip label="Thriller" count={4} aria-pressed={false} />
-            <Chip label="Comedy" count={4} aria-pressed />
+            <Chip genre="thriller" label="Thriller" count={4} aria-pressed={false} />
+            <Chip genre="comedy" label="Comedy" count={4} aria-pressed />
             <Count n={3} />
           </div>
         </Spec>
@@ -322,9 +321,9 @@ function TextureAndMotif({ system }: { system: DesignSystem }) {
           <p className="ds-body ds-muted">{system.texture.note}</p>
         </Spec>
         <Spec label={`Motif · ${system.motif.name}`}>
-          <div className="flex min-h-44 items-center gap-6">
+          <div className="flex min-h-44 flex-wrap items-center gap-6">
             <HeroMotif count={25} />
-            <span className="ds-brand-mark">映</span>
+            <BrandMark />
             <Ornament />
           </div>
           <p className="ds-body ds-muted">{system.motif.note}</p>
@@ -332,7 +331,7 @@ function TextureAndMotif({ system }: { system: DesignSystem }) {
         <Spec label="Interaction feel · try it">
           <div className="flex h-44 flex-wrap items-center gap-4">
             <Button variant="primary" icon="save">Save</Button>
-            <Chip label="Thriller" count={4} />
+            <Chip genre="thriller" label="Thriller" count={4} />
           </div>
           <p className="ds-body ds-muted">Hover: {system.feel.hover} Press: {system.feel.press}</p>
         </Spec>
@@ -346,7 +345,7 @@ function TextureAndMotif({ system }: { system: DesignSystem }) {
 
 function Cell({ label, wide = false, children }: { label: string; wide?: boolean; children: React.ReactNode }) {
   return (
-    <div className={`grid content-start gap-4 border-2 border-(--ds-border) p-5 ${wide ? "md:col-span-2" : ""}`} style={{ borderRadius: "var(--ds-radius-panel)" }}>
+    <div className={`grid min-w-0 content-start gap-4 border-2 border-(--ds-border) p-4 sm:p-5 ${wide ? "md:col-span-2" : ""}`} style={{ borderRadius: "var(--ds-radius-panel)" }}>
       <p className="ds-label ds-muted">{label}</p>
       {children}
     </div>
@@ -478,7 +477,7 @@ function stateRows(): { control: string; states: StateCell[] }[] {
   const save = (state?: FrozenState, extra: React.ButtonHTMLAttributes<HTMLButtonElement> = {}) => (
     <Button block state={state} aria-pressed={false} icon={extra["aria-pressed"] ? "saved" : "save"} {...extra}>{extra["aria-pressed"] ? "Saved" : "Save"}</Button>
   );
-  const chip = (state?: FrozenState, extra: React.ButtonHTMLAttributes<HTMLButtonElement> = {}) => <Chip label="Thriller" count={4} state={state} aria-pressed={false} {...extra} />;
+  const chip = (state?: FrozenState, extra: React.ButtonHTMLAttributes<HTMLButtonElement> = {}) => <Chip genre="thriller" label="Thriller" count={4} state={state} aria-pressed={false} {...extra} />;
   const remove = (state?: FrozenState, extra: React.ButtonHTMLAttributes<HTMLButtonElement> = {}) => <Button block variant="secondary" icon="remove" state={state} {...extra}>Remove</Button>;
   const link = (state?: FrozenState, current = false) => (
     <span data-state={state} aria-current={current ? "page" : undefined} className={buttonClass("secondary")}><SavedLabel count={2} /></span>
