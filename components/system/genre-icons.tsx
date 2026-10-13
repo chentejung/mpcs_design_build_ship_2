@@ -1,6 +1,7 @@
 "use client";
-// Shōwa's Category pictograms, one drawn from each of its four posters, each set in a Kinari disc ringed by one turn
-// of a Sumi brush (thick where it pressed, thin where it lifted) and worn like the rest of the kit:
+// Shōwa's Category pictograms, one drawn from each of its four posters, each set in a Kinari disc wiped pale at its
+// top-left (bokashi) and ringed by one turn of a Sumi brush (thick where it pressed, thin where it lifted), and printed
+// in the kit's woodblock finish (woodblock.tsx):
 // All, Fuji at sunrise (fuji.tsx) · Thriller, the watching eye · Comedy, the grin · Horror, the fallen bob ·
 // Romance, the cheeks pressed into a heart (nouvelle.tsx) · Animation, the Shiba · Action, crossed chopsticks
 // (shiba.tsx) · Sci-Fi, the ramen egg as a planet (ramen.tsx). They head the filter chips and Category badges and are
@@ -13,7 +14,7 @@ import { FujiGlyph } from "./fuji";
 import { PulpGenreIcon } from "./pulp/genre";
 import { EyeGlyph, HairGlyph, HeartGlyph, LipsGlyph } from "./nouvelle";
 import { EggGlyph } from "./ramen";
-import { useSvgId, Wear } from "./screenprint";
+import { useSvgId, Woodblock } from "./woodblock";
 import { ChopsticksGlyph, ShibaGlyph } from "./shiba";
 
 const c = colors(showa.board);
@@ -40,9 +41,16 @@ export function GenreIcon({ id, className = "ds-genre-icon" }: { id: Category | 
   const Glyph = genreGlyphs[id].glyph;
   return (
     <svg aria-hidden viewBox="0 0 24 24" className={className}>
-      <defs><Wear id={uid} rough={0.5} specks={0.35} drag={0.2} /></defs>
+      <defs>
+        <Woodblock id={uid} rough={0.45} specks={0.3} grain={0.3} mottle={0.2} />
+        <radialGradient id={`${uid}-d`} cx="0.36" cy="0.3" r="0.75">
+          <stop offset="0" stopColor={c.washi} stopOpacity="0.85" />
+          <stop offset="1" stopColor={c.washi} stopOpacity="0" />
+        </radialGradient>
+      </defs>
       <g filter={`url(#${uid})`}>
         <circle cx="12" cy="12" r="10.6" fill={c.kinari} />
+        <circle cx="12" cy="12" r="10.6" fill={`url(#${uid}-d)`} />
         <Glyph />
         <path d={ring} fill={c.sumi} fillRule="evenodd" />
       </g>

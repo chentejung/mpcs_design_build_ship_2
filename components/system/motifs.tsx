@@ -1,6 +1,6 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: the Fuji Sunrise poster and a Shiba waiting by an empty bowl · Pulp: The Bijou's pulp cover and Look!'s
+// Shōwa: the Fuji Sunrise print and a Shiba waiting by an empty bowl · Pulp: The Bijou's cover and Look!'s
 // pointing hand under an empty balloon · Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
@@ -92,7 +92,7 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
   const heading = <p className="ds-heading text-2xl md:text-3xl">{id === "pulp" ? `${title}!` : title}</p>;
   return (
     <div className="ds-empty">
-      {id === "showa" && <WaitingShiba className="mb-2 w-60 max-w-full" />}
+      {id === "showa" && <WaitingShiba className="mb-4 w-80 max-w-full" />}
       {id === "haipai" && <div className="mb-3"><Seal glyph="空" stamped={false} size={64} /></div>}
       {id === "pulp" ? <LookBalloon>{heading}</LookBalloon> : heading}
       <p className="ds-body ds-muted">Tap Save on any film and it shows up here.</p>
@@ -101,7 +101,7 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
   );
 }
 
-// The brand mark before the site's name: Shōwa's is the Fuji poster in miniature, Pulp's the ringed planet, Haipai's
+// The brand mark before the site's name: Shōwa's is the Fuji print in miniature, Pulp's the ringed planet, Haipai's
 // sets 映 in a seal.
 export function BrandMark() {
   const id = useSystemId();

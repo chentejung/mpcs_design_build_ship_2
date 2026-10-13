@@ -7,7 +7,7 @@ Landing page with three sections: mood boards, design systems, and the final sit
 
 ## Requirements
 - Next.js (App Router) + Tailwind CSS v4, exported as a **static site** (`output: "export"` → `out/`).
-- No database, accounts, external APIs, or data storage. Links to subpages/Pinterest/Figma are placeholders.
+- No database, accounts, external APIs, or data storage. The landing cards link to the site’s own subpages.
 - The Bijou's saved list is React state only (no localStorage/sessionStorage/cookies/URL): it survives client-side
   navigation between `/bijou` and `/bijou/saved` and is empty after any full page load. Posters were downloaded once
   into `public/`; the site never fetches remote images.
@@ -25,15 +25,19 @@ Landing page with three sections: mood boards, design systems, and the final sit
   preloaded). `app/system.css` — the shared components' styles, with each system's own controls, frames and feel.
 - `app/design-systems/[id]/page.tsx` — one page per Design System, themed by it: color roles, type roles, spacing and
   shape, texture and motif, components, control states, UI states, applied (a phone-width `/bijou`).
-- `components/system/` — components shared by the Final Site and the Design System pages (`SystemTheme`, controls, film card,
-  poster, header, motifs, empty state, icons). Shōwa's drawing kit is one file per Mood Board 01 picture, each drawn
-  in flat screenprint inks in the brushwork of `references/showa-brushwork.jpg` (the scene that sets the four posters
-  together): `screenprint.tsx` holds the `Wear` filter (specks, dry-brush drags) and the seeded brush helpers
-  (`stroke`, `needles`, `band`) so every build draws the same strokes. `fuji.tsx` (04: the Fuji poster hero and its
-  phone banner, brand mark, sign-off, and the landscape pieces `Pine`, `Mist`, `Shore`), `shiba.tsx` (06: the Shiba
-  waiting by an empty bowl in the empty state, Shiba and chopsticks pictograms), `nouvelle.tsx` (08: eye, lips, heart and bob pictograms, the portrait), `ramen.tsx` (18: bowl, egg
-  pictogram) and `osaka.tsx` (26: the lantern); `genre-icons.tsx` sets one pictogram per Category (plus All) in the
-  chips and badges, and `drawing-kit.tsx` shows them all on Shōwa's page. The ink specks and drags on controls (`--ds-wear`),
+- `components/system/` — components shared by The Bijou and the Design System pages (`SystemTheme`, controls, film card,
+  poster, header, motifs, empty state, icons). Shōwa's drawing kit is one file per Mood Board 01 picture, each cut
+  as a woodblock print after `references/showa-brushwork.jpg` (the ukiyo-e-style scene that sets the four posters
+  together): `woodblock.tsx` holds the `Woodblock` filter (wood grain, baren mottle, specks, bled edges), `Paper` (the
+  old sheet a print is pulled on), `Bokashi` gradations and the seeded brush helpers (`stroke`, `needles`, `band`,
+  `scratches`, `smooth`, `comb`) so every build draws the same strokes; a drawing's inks go in one
+  `Woodblock`-filtered group over its `Paper`. `fuji.tsx` (04: the Fuji print hero and its phone banner, brand mark,
+  sign-off, and the landscape pieces `Fuji`, `Sun`, `Mist`, `Hills`, `Isle`, `Lake`, `Shore`, `Pine`), `shiba.tsx`
+  (06: the Shiba waiting by an empty bowl above Fuji's lake in the empty state, Shiba and chopsticks pictograms),
+  `nouvelle.tsx` (08: eye, lips, heart and bob pictograms, the portrait card), `ramen.tsx` (18: the bowl, empty or
+  full, egg pictogram) and `osaka.tsx` (26: the lantern); `genre-icons.tsx` sets one pictogram per Category (plus All)
+  in the chips and badges, and `drawing-kit.tsx` shows them all, and the woodblock pieces, on Shōwa's page. The wood
+  grain and specks on controls (`--ds-wear`),
   the brushed kicker (`--ds-brush`), pinstripes, red band, sunrise radios and lantern count are CSS in `app/system.css`. Style them through `app/system.css`, not per-page classes; frozen
   hover/focus/pressed states use `data-state`. Each system gives the same controls its own shape (Shōwa printed labels
   and pictogram pills, Pulp masthead blocks on 3D extrusions, issue boxes and marquee boards, Haipai Deco octagons and mahjong tiles), drawn on

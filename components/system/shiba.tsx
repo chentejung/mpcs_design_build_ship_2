@@ -1,24 +1,25 @@
 "use client";
 // Shōwa's drawing kit after Shiba & Sake on the Japanese Retro board (picture 06), a worn red poster: a Shiba over a
-// striped bowl, a sake bottle, and a pair of chopsticks laid beside it. The Shiba is drawn as the scene in
-// references/showa-brushwork.jpg has it, sitting up on a rock with its eyes shut and its nose raised, its coat
-// brushed in short Kogecha strokes over Kinari overprinted with a little Hinomaru, the white urajiro (裏白) of its
-// muzzle and chest feathered in Washi. Its face is the Animation pictogram and the chopsticks, crossed like
-// swords, the Action one (genre-icons.tsx); the Shiba waiting by an empty bowl (ramen.tsx) tells the Saved page that
-// nothing is saved yet.
+// striped bowl, a sake bottle, and a pair of chopsticks laid beside it. The Shiba is cut as the ukiyo-e-style print
+// in references/showa-brushwork.jpg has it, sitting up on a rock with its eyes shut and its nose raised: a red-gold
+// coat (Kinari overprinted with Hinomaru) combed in short strokes of Kogecha and Kinari, the white urajiro (裏白) of
+// its muzzle, cheeks, chest, legs and tail in Washi feathered into the coat, and a fine Kogecha key line round it.
+// Its face is the Animation pictogram and the chopsticks, crossed like swords, the Action one (genre-icons.tsx);
+// the Shiba waiting by an empty bowl (ramen.tsx) on a rock above Fuji's lake tells the Saved page that nothing is
+// saved yet.
 import { colors } from "@/app/boards";
 import { showa } from "@/app/systems";
-import { Mist, Shore } from "./fuji";
+import { Fuji, Hills, Isle, Lake, Mist, paperInks, Shore, Sun } from "./fuji";
 import { Bowl } from "./ramen";
-import { line, rng, useSvgId, Wear, type Pt } from "./screenprint";
+import { Bokashi, comb, line, Paper, rng, smooth, stroke, useSvgId, Woodblock, type Pt } from "./woodblock";
 
 const c = colors(showa.board);
 
-// The coat: Kinari overprinted with a thin pass of Hinomaru, which prints the Shiba's red-gold.
+// The coat: Kinari overprinted with a pass of Hinomaru, which prints the Shiba's red-gold.
 const Coat = ({ d }: { d: string }) => (
   <>
     <path d={d} fill={c.kinari} />
-    <path d={d} fill={c.hinomaru} fillOpacity="0.28" />
+    <path d={d} fill={c.hinomaru} fillOpacity="0.36" />
   </>
 );
 
@@ -48,76 +49,132 @@ export const ChopsticksGlyph = () => (
   </g>
 );
 
-// The Shiba sitting, facing left, drawn in 100 × 120 units with its paws on y = 120.
-const body = "M44 40C30 50 24 72 26 96L26 120H88C100 116 102 96 94 80C86 62 72 46 60 40Z";
-const head = "M6 21C8 15 16 12 24 11C30 4 44 2 54 8C64 14 66 28 60 38C54 46 42 50 32 46C22 42 12 34 8 26Z";
-const ears = "M28 10L33 -10L45 4ZM46 5L60 -8L63 15Z";
-const tail = "M88 84C106 82 110 58 98 52C88 46 80 56 88 62C92 65 97 62 96 58";
-// The urajiro: muzzle, cheek and throat, down the chest to the forelegs, its edge feathered.
-const urajiro =
-  "M7 24C14 33 24 37 34 38L38 41L36 44L42 44L41 48L47 48L46 52L51 54C49 68 47 86 47 104L48 120H27L28 100C26 80 30 60 37 50C25 46 14 38 7 24Z";
+// The Shiba sitting, facing left with its nose raised, in 130 × 190 units with its paws on y = 186. Each part is a
+// polygon the coat is cut to and the fur combed inside.
+const part = {
+  tail: [[106, 150], [110, 136], [118, 124], [126, 124], [131, 134], [131, 150], [126, 162], [116, 172], [106, 170]],
+  tailIn: [[111, 154], [115, 140], [121, 132], [126, 138], [125, 150], [118, 160]],
+  body: [[30, 52], [46, 56], [62, 52], [72, 46], [78, 58], [84, 76], [90, 96], [100, 110], [110, 126], [116, 146], [116, 166], [110, 180], [98, 186], [30, 186], [20, 160], [15, 128], [14, 96], [16, 70], [22, 58]],
+  haunch: [[64, 124], [76, 113], [92, 113], [104, 122], [112, 138], [115, 158], [111, 176], [101, 186], [64, 186], [60, 166], [60, 142]],
+  thigh: [[61, 150], [68, 138], [80, 134], [90, 141], [95, 155], [93, 171], [86, 182], [62, 184], [58, 168]],
+  shoulder: [[58, 56], [72, 46], [78, 58], [84, 76], [90, 96], [100, 110], [110, 126], [104, 122], [92, 113], [76, 113], [64, 124], [56, 128], [53, 114], [53, 100], [56, 86], [60, 74], [62, 63]],
+  chest: [[16, 50], [28, 57], [44, 60], [58, 56], [62, 63], [60, 74], [56, 86], [53, 100], [53, 114], [56, 128], [58, 150], [58, 186], [16, 186], [17, 160], [18, 136], [16, 116], [11, 98], [9, 80], [11, 64]],
+  farLeg: [[37, 128], [55, 126], [57.5, 150], [58, 186], [37.5, 186]],
+  head: [[10, 27], [18, 23.5], [30, 20.5], [38, 15], [50, 13], [62, 15], [69, 24], [72, 34], [70, 44], [64, 52], [50, 57], [34, 55], [22, 49], [14, 41], [10, 34]],
+  face: [[11, 26.5], [20, 24.6], [29, 23.6], [33, 27.5], [37, 31], [43, 33.5], [50, 37], [57, 42], [62, 48], [60, 54], [52, 58], [40, 59], [28, 55], [19, 48], [13, 41], [10, 34]],
+  earFront: [[30, 19], [33, 10], [36, 3], [39, 3.5], [42, 9], [46, 15]],
+  earFrontIn: [[33.5, 16], [36, 8], [38.5, 8.5], [42, 15]],
+  earBack: [[53, 15], [58, 9], [63, 3], [66, 3.5], [68, 12], [71, 28]],
+  earBackIn: [[57, 15], [63, 7.5], [65.5, 8.5], [67, 22]],
+} satisfies Record<string, Pt[]>;
 
 function Shiba({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
   const rand = rng(21);
-  // Fur: short strokes combed down the back and round the haunch, and Washi tufts at the urajiro's edge.
-  let fur = "";
-  const comb = (pts: Pt[], len: number, lean: number, n: number) => {
-    for (let i = 0; i < n; i++) {
-      const t = (i + rand()) / n;
-      const k = Math.min(pts.length - 2, Math.floor(t * (pts.length - 1)));
-      const u = t * (pts.length - 1) - k;
-      const px = pts[k][0] + (pts[k + 1][0] - pts[k][0]) * u + (rand() - 0.5) * 4;
-      const py = pts[k][1] + (pts[k + 1][1] - pts[k][1]) * u + (rand() - 0.5) * 4;
-      fur += line([px, py], [px + lean + (rand() - 0.5) * 3, py + len * (0.7 + rand() * 0.6)], 1.1 + rand() * 0.6, 0.12);
-    }
-  };
-  comb([[58, 40], [72, 52], [86, 68], [94, 86]], 7, 4, 30);
-  comb([[70, 84], [80, 92], [86, 104], [84, 114]], 6, -3, 16);
-  comb([[24, 12], [40, 5], [54, 9], [62, 26]], 4, 2, 14);
+  const d = Object.fromEntries(Object.entries(part).map(([k, pts]) => [k, smooth(pts)])) as Record<keyof typeof part, string>;
+  // The coat combed down the back and round the haunch; the urajiro combed down the chest and legs.
+  const down = () => 82;
+  const back = (px: number, py: number) => (py < 60 ? 20 + (px - 40) * 0.5 : 70);
+  const around = (cx: number, cy: number) => (px: number, py: number) => (Math.atan2(py - cy, px - cx) * 180) / Math.PI + 80;
+  const darkFur =
+    comb(part.shoulder, 60, 6, 1.1, back, rand) +
+    comb(part.haunch, 50, 6, 1.1, around(88, 160), rand) +
+    comb(part.head, 26, 4, 0.9, (px, py) => (Math.atan2(py - 28, px - 10) * 180) / Math.PI, rand) +
+    comb(part.tail, 18, 5, 1, around(120, 146), rand);
+  const lightFur =
+    comb(part.shoulder, 34, 5, 1, back, rand) +
+    comb(part.haunch, 26, 5, 1, around(88, 160), rand) +
+    comb(part.head, 14, 3.5, 0.8, (px, py) => (Math.atan2(py - 28, px - 10) * 180) / Math.PI, rand);
+  const creamFur = comb(part.chest, 150, 7, 1, down, rand) + comb(part.face, 30, 4, 0.8, (px, py) => (Math.atan2(py - 30, px - 10) * 180) / Math.PI + 20, rand) + comb(part.thigh, 20, 5, 1, around(78, 160), rand);
+  // The urajiro feathered into the coat at its edge: Washi tufts flicked out over the shoulder and the haunch.
   let tufts = "";
-  for (let i = 0; i < 18; i++) {
-    const py = 54 + i * 3.4;
-    const px = 47 - (py - 54) * 0.02 + rand() * 2;
-    tufts += line([px - 2, py], [px + 3 + rand() * 3, py + 2 + rand() * 2], 1.3, 0.1);
+  for (let i = 0; i < 16; i++) {
+    const py = 62 + i * 5.2;
+    const px = 58 - Math.abs(py - 92) * 0.12 + rand() * 2;
+    tufts += line([px - 3, py], [px + 3 + rand() * 4, py + 3 + rand() * 2], 1.5, 0.15);
+  }
+  for (let i = 0; i < 10; i++) {
+    const a = (200 + i * 14) * (Math.PI / 180);
+    const [px, py] = [80 + Math.cos(a) * 16, 156 + Math.sin(a) * 18];
+    tufts += line([px + 2, py + 2], [px - 2 - rand() * 3, py - 2 - rand() * 2], 1.4, 0.15);
   }
   return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <path d={tail} stroke={c.kinari} strokeWidth="12" strokeLinecap="round" fill="none" />
-      <path d={tail} stroke={c.hinomaru} strokeOpacity="0.28" strokeWidth="12" strokeLinecap="round" fill="none" />
-      <path d="M88 78C100 76 103 62 97 57" stroke={c.washi} strokeWidth="3.5" strokeLinecap="round" fill="none" />
-      <Coat d={body} />
-      <path d="M88 120C99 115 102 102 97 90C93 104 84 110 72 112Z" fill={c.kogecha} fillOpacity="0.55" />
-      <Coat d={ears} />
-      <path d="M33 6L35 -3L41 4ZM50 6L58 -1L60 12Z" fill={c.washi} />
-      <Coat d={head} />
-      <path d={urajiro} fill={c.washi} />
-      <path d={fur} fill={c.kogecha} fillOpacity="0.75" />
+    <g transform={`translate(${x} ${y}) scale(${s})`} strokeLinecap="round" strokeLinejoin="round">
+      <Coat d={d.tail} />
+      <path d={d.tailIn} fill={c.washi} />
+      <Coat d={d.body} />
+      <Coat d={d.haunch} />
+      <path d={d.thigh} fill={c.washi} />
+      <path d={d.chest} fill={c.washi} />
+      <path d={d.farLeg} fill={c.kinari} fillOpacity="0.4" />
+      <Coat d={d.earFront} />
+      <Coat d={d.earBack} />
+      <path d={d.earFrontIn} fill={c.washi} />
+      <path d={d.earBackIn} fill={c.washi} />
+      <Coat d={d.head} />
+      <path d={d.face} fill={c.washi} />
+      <path d={darkFur} fill={c.kogecha} fillOpacity="0.6" />
+      <path d={lightFur} fill={c.kinari} />
+      <path d={creamFur} fill={c.kinari} fillOpacity="0.75" />
       <path d={tufts} fill={c.washi} />
-      {/* forelegs and paws, the toes picked out in Sumi */}
-      <path d="M37.5 100V120" stroke={c.kogecha} strokeOpacity="0.6" strokeWidth="1.4" />
-      <path d="M28 120Q30.5 116 33 120M38 120Q40.5 116 43 120" stroke={c.sumi} strokeWidth="1" fill="none" />
-      {/* face: shut eye, pale eyebrow, nose raised, a contented mouth */}
-      <circle cx="30" cy="12.5" r="1.9" fill={c.washi} />
-      <path d={line([22, 19], [34, 17], 2.4, 0.3, -0.14)} fill={c.sumi} />
-      <ellipse cx="7.4" cy="21" rx="3.6" ry="2.8" fill={c.sumi} transform="rotate(-25 7.4 21)" />
-      <path d={line([10, 27], [23, 32], 1.7, 0.2, 0.12)} fill={c.sumi} />
+      {/* the inner ears furred in Kogecha */}
+      <path d={line([37, 9], [39.5, 15], 1, 0.2) + line([63.5, 9], [66, 20], 1, 0.2)} fill={c.kogecha} fillOpacity="0.7" />
+      {/* the far hind paw and the two front paws, toes picked out in Kogecha */}
+      <ellipse cx="77" cy="183" rx="11" ry="4.5" fill={c.washi} />
+      <ellipse cx="26" cy="181" rx="10.5" ry="5" fill={c.washi} />
+      <ellipse cx="47" cy="182.5" rx="10.5" ry="5" fill={c.washi} />
+      <g fill="none" stroke={c.kogecha} strokeWidth="0.9">
+        <path d="M22 186Q22.5 182 24 180M28 186Q28.5 182 30 180M43 187Q43.5 183 45 181M49 187Q49.5 183 51 181M73 187Q73.5 184 75 182M79 187Q79.5 184 81 182" />
+        {/* key line: the silhouette, the legs' edges and the haunch, a little broken as a worn block prints it */}
+        <path d={smooth([[16, 52], [11, 64], [9, 80], [11, 98], [16, 116], [18, 136], [17, 160], [17, 177]], false)} />
+        <path d={smooth([[36.5, 126], [37, 150], [37.5, 177]], false)} />
+        <path d={smooth([[57, 132], [58, 156], [58.5, 178]], false)} />
+        <path d={smooth([[66, 122], [80, 113], [96, 115], [108, 128], [114, 146], [115, 166], [111, 178]], false)} />
+        <path d={smooth([[72, 46], [78, 60], [84, 78], [90, 96], [100, 110]], false)} />
+        <path d={smooth([[110, 136], [118, 124], [127, 124], [131, 136], [131, 150], [125, 163], [115, 171]], false)} />
+      </g>
+      <path d={smooth(part.head.slice(0, 9), false)} fill="none" stroke={c.kogecha} strokeWidth="0.9" />
+      <path d={smooth(part.earFront, false) + smooth(part.earBack, false)} fill="none" stroke={c.kogecha} strokeWidth="0.9" />
+      {/* the face: pale eyebrow, eye shut in a smile, nose raised, a contented mouth */}
+      <ellipse cx="39" cy="24.5" rx="2.4" ry="1.5" fill={c.washi} transform="rotate(-12 39 24.5)" />
+      <path d={stroke([32.5, 28.6], [38, 31.4], [44, 29.4], 1.7, 0.3)} fill={c.sumi} />
+      <ellipse cx="11.6" cy="28.4" rx="4" ry="3.1" fill={c.sumi} transform="rotate(-22 11.6 28.4)" />
+      <ellipse cx="10.4" cy="27.2" rx="1.1" ry="0.6" fill={c.washi} fillOpacity="0.7" transform="rotate(-22 10.4 27.2)" />
+      <path d={stroke([12.5, 33], [20, 39.5], [31, 40.2], 1.6, 0.2)} fill={c.sumi} />
     </g>
   );
 }
 
-// The Shiba waiting on a rock in front of the sun, eyes shut, beside an empty bowl and its chopsticks.
+// The Shiba waiting on a rock above Fuji's lake, eyes shut, beside an empty bowl and its chopsticks: a small print on
+// its own sheet.
 export function WaitingShiba({ className = "" }: { className?: string }) {
   const id = useSvgId();
   return (
-    <svg aria-hidden viewBox="0 0 260 150" className={className}>
-      <defs><Wear id={id} rough={1.2} specks={0.5} drag={0.25} /></defs>
-      <g filter={`url(#${id})`}>
-        <circle cx="164" cy="62" r="56" fill={c.hinomaru} />
-        <Mist bands={[[96, 96, 100, 8], [70, 108, 64, 5]]} />
-        <Shore x0={0} x1={260} y={142} h={10} bottom={150} grass={9} gx={8} />
-        <Shiba x={146} y={24} s={0.94} />
-        <Bowl x={86} y={112} w={56} />
-        <path d="M58 104L118 116M60 100L120 112" stroke={c.kogecha} strokeWidth="2.6" strokeLinecap="round" />
+    <svg aria-hidden viewBox="0 0 300 200" className={className}>
+      <defs>
+        <Woodblock id={id} rough={1.1} specks={0.45} grain={0.4} mottle={0.45} />
+        <Woodblock id={`${id}-f`} rough={0.6} specks={0.35} grain={0.25} mottle={0.3} seed={7} />
+        <clipPath id={`${id}-p`}><rect x="8" y="8" width="284" height="184" rx="2" /></clipPath>
+        <Bokashi id={`${id}-s`} color={c.kinari} from={0.85} mid={[0.6, 0.3]} to={0.1} />
+      </defs>
+      <Paper x={0} y={0} width={300} height={200} rx={4} {...paperInks} />
+      <g clipPath={`url(#${id}-p)`}>
+        <g filter={`url(#${id})`}>
+          <rect x="8" y="8" width="284" height="140" fill={`url(#${id}-s)`} />
+          <Sun cx={84} cy={70} r={40} />
+          <Mist bands={[[20, 96, 80, 5], [44, 104, 50, 3]]} color={c.hinomaru} under={null} seed={2} />
+          <Fuji x={104} top={78} base={144} w={110} k={0.7} fingers={11} />
+          <Mist bands={[[-4, 122, 110, 7], [110, 116, 120, 7], [60, 132, 120, 5]]} />
+          <Hills x0={150} x1={292} y={144} h={12} humps={3} seed={5} depth={0.7} />
+          <Isle x0={20} x1={70} y={144} h={6} />
+          <Lake x0={8} x1={292} y0={144} y1={172} w={1.4} sun={84} />
+          <Shore x0={0} x1={300} y={182} h={14} bottom={192} grass={10} gx={12} seed={10} />
+        </g>
+        <g filter={`url(#${id}-f)`}>
+          <Bowl x={140} y={152} w={50} />
+          <path d={line([104, 150], [166, 155], 2, 0.05) + line([106, 146], [168, 151], 2, 0.05)} fill={c.hinomaru} />
+          <path d={line([104, 150], [119, 151.2], 2.4, 0.05) + line([106, 146], [121, 147.2], 2.4, 0.05)} fill={c.sumi} />
+          <Shiba x={180} y={29} s={0.8} />
+        </g>
       </g>
     </svg>
   );

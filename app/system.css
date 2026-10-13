@@ -556,25 +556,26 @@
   }
 
   /* ===================================================================================================
-     Shōwa 昭和: screenprinted like the four posters on Mood Board 01 it is drawn from: Fuji Sunrise (picture 04),
-     Shiba & Sake (06), Nouvelle Vague (08) and Ramen (18), in the brushwork of references/showa-brushwork.jpg. Flat
-     inks, no keyline where the posters have none, a cream margin round every printed block, and fine specks and
-     dry-brush drags where the ink missed (--ds-wear, a mask that lets the paper through); the headline's gloss is
-     one torn brushstroke (--ds-brush). Buttons are printed labels with a Washi rule inset from their edge and a sun for an icon; filter
+     Shōwa 昭和: printed from woodblocks like the ukiyo-e-style scene (references/showa-brushwork.jpg) that sets
+     together the four posters on Mood Board 01 it is drawn from: Fuji Sunrise (picture 04), Shiba & Sake (06),
+     Nouvelle Vague (08) and Ramen (18). Flat inks, no keyline where the posters have none, a cream margin round every
+     printed block, and the block's wear in the ink (--ds-wear, a mask that lets the paper through): the wood's grain
+     as paler streaks, and fine specks where the block missed; the headline's gloss is one torn brushstroke
+     (--ds-brush). Buttons are printed labels with a Washi rule inset from their edge and a sun for an icon; filter
      chips are pills headed by a Category pictogram in a Kinari disc (genre-icons.tsx). Hover sets the face in Kinari
      (or deepens the ink) and the sun rises; press prints the label flat and the sun sets. The header is an Ai band
      over a ramen bowl's rim rings; panels carry Nouvelle Vague's red band; rules, the selected tab and the switched-on
      toggle wear its pinstripes; the Saved count hangs as a paper lantern.
      =================================================================================================== */
   [data-system="showa"] {
-    --ds-wear: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' seed='5' stitchTiles='stitch' result='g'/%3E%3CfeColorMatrix in='g' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 0 0 0 22.2' result='a'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.025 0.35' numOctaves='2' seed='8' stitchTiles='stitch' result='s'/%3E%3CfeColorMatrix in='s' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -20 0 0 0 15' result='b'/%3E%3CfeComposite in='a' in2='b' operator='in'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E") 0 0 / 240px 240px;
+    --ds-wear: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' seed='5' stitchTiles='stitch' result='g'/%3E%3CfeColorMatrix in='g' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -30 0 0 0 22.2' result='a'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0125 0.28' numOctaves='3' seed='8' stitchTiles='stitch' result='s'/%3E%3CfeColorMatrix in='s' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0'/%3E%3CfeComponentTransfer result='b'%3E%3CfeFuncA type='table' tableValues='1 1 1 1 1 0.9 0.68 0.58 0.58'/%3E%3C/feComponentTransfer%3E%3CfeComposite in='a' in2='b' operator='arithmetic' k1='1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E") 0 0 / 240px 240px;
     /* One sideways stroke of a loaded brush, its ends torn where the bristles split. */
     --ds-brush: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M7 7C50 3 120 2 193 4L197 9L192 14L199 20L193 26L197 32L190 37C130 39 60 39 9 36L2 31L8 26L1 19L7 13Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
     --ds-pinstripe: repeating-linear-gradient(90deg, var(--ds-selected) 0 5px, var(--ds-bg) 5px 6.5px);
   }
 
   /* The headline's gloss on a Hinomaru band, as ヌーベルバーグ runs down Nouvelle Vague's, laid in one stroke of the
-     brush: its ends torn, and dragged dry in places. */
+     brush: its ends torn, the wood's grain in it. */
   [data-system="showa"] .ds-kicker {
     display: inline-block;
     max-width: 100%;
@@ -719,7 +720,7 @@
     }
   }
 
-  /* ----- Brand: the Fuji poster in miniature (fuji.tsx) ----- */
+  /* ----- Brand: the Fuji print in miniature (fuji.tsx) ----- */
   [data-system="showa"] .ds-brand-mark {
     width: 42px;
     height: 42px;
@@ -957,7 +958,7 @@
     box-shadow: 0 0 0 2px var(--ds-bg);
     translate: 0 -50%;
   }
-  /* Empty: a poster's double margin rule round the waiting Shiba. */
+  /* Empty: a poster's double margin rule round the waiting Shiba's print. */
   [data-system="showa"] .ds-empty {
     border: 2px solid var(--ds-text);
     background: var(--ds-bg);
