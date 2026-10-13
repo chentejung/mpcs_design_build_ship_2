@@ -64,7 +64,7 @@ export const showa: DesignSystem = {
   name: "Shōwa",
   alt: "昭和",
   board: japaneseRetro,
-  essence: "Shōwa-era screenprint posters: flat Hinomaru, Ai and Kinari inks worn thin on cream paper and laid in dry-brush strokes, a red sun behind Fuji, heavy gothic type, and a pictogram for every genre cut from the same posters.",
+  essence: "Shōwa-era posters printed from woodblocks in the manner of ukiyo-e: flat Hinomaru, Ai and Kinari inks on old cream paper, streaked by the wood's grain and wiped into gradations, a red sun behind Fuji, heavy gothic type, and a pictogram for every genre cut from the same posters.",
   colors: {
     background: "washi",
     surface: "kinari",
@@ -92,13 +92,13 @@ export const showa: DesignSystem = {
     radius: { control: 6, card: 6, poster: 2, badge: 999, panel: 6 },
     border: { control: 2, card: 2 },
     shadow: "None cast. Posters are pasted on a Kinari panel 5px out from their Washi margin, as Fuji Sunrise sets its picture on an ochre ground; every printed block keeps a Washi rule inset from its edge.",
-    controls: "Printed labels (ラベル), like the sake bottle's: a flat ink block with rounded corners, a Washi rule inset from its edge and the screen's specks, its icon a sun. Filter chips are pills headed by their Category's pictogram in a Kinari disc ringed by one turn of the brush. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios raise a red sun out of an Ai sea; a switched-on toggle wears Nouvelle Vague's pinstripes under a red sun; the selected tab stands on the same pinstripes; the select points down from a small sun; the Saved count hangs as a paper lantern (提灯).",
+    controls: "Printed labels (ラベル), like the sake bottle's: a flat ink block with rounded corners, a Washi rule inset from its edge and the wood's grain and specks in its ink, its icon a sun. Filter chips are pills headed by their Category's pictogram in a Kinari disc ringed by one turn of the brush. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios raise a red sun out of an Ai sea; a switched-on toggle wears Nouvelle Vague's pinstripes under a red sun; the selected tab stands on the same pinstripes; the select points down from a small sun; the Saved count hangs as a paper lantern (提灯).",
   },
   icons: { save: "An unrisen sun: a ring with a plus.", saved: "The risen sun: a solid disc with the check knocked out.", remove: "A sun with a cross knocked out.", back: "A sun with an arrow knocked out, pointing back." },
-  texture: { name: "Old poster paper", note: "Washi grain, yellowing to Kinari at the edges as Shiba & Sake and Ramen have; printed blocks are worn by fine specks where the ink missed and dry-brush drags where the paper shows through in streaks, and every drawn line is a tapered brushstroke." },
+  texture: { name: "Woodblock on old paper", note: "Washi grain, yellowing to Kinari at the edges as Shiba & Sake and Ramen have; every block prints the wood's grain as paler streaks, takes its ink unevenly where the baren rubbed and is nicked with fine specks where it missed; skies, Fuji and water are wiped in gradations (bokashi), and every drawn line is a tapered brushstroke." },
   motif: {
     name: "Red sun over Fuji",
-    note: "From Fuji Sunrise (04), the hero is a poster of a red sun behind Ai Fuji, its snow streaking down the gullies, with bands of mist, a lake, rocks and a pine branch drawn in the brushwork of the scene that sets the four posters together; エイガ is on a title slip and EIGAKAN below; on phones it widens into a landscape with Nouvelle Vague's (08) red band carrying 上映中. The same Fuji is the brand mark and the sign-off, where the sun sets behind it between two pines. Every Category has a pictogram cut from the four posters in a brush-ringed disc, the headline's gloss is one torn stroke of red, the header is Ramen's (18) Ai ground over its bowl's rim, a 済 (“done”) seal lands on saved posters, and when nothing is saved the Shiba from Shiba & Sake (06) sits up on a rock, eyes shut, by an empty bowl.",
+    note: "From Fuji Sunrise (04), the hero is a print on its own sheet of a red sun behind Ai Fuji, its snow running down the gullies in long fingers, with cloud bands, blue hills, wooded islands, a lake, rocks and a pine cut as in the scene that sets the four posters together; エイガ is on a title slip and EIGAKAN in its margin; on phones it widens into a landscape with Nouvelle Vague's (08) red band carrying 上映中. The same Fuji is the brand mark and the sign-off, where the sun sets behind it between two pines. Every Category has a pictogram cut from the four posters in a brush-ringed disc, the headline's gloss is one torn stroke of red, the header is Ramen's (18) Ai ground over its bowl's rim, a 済 (“done”) seal lands on saved posters, and when nothing is saved the Shiba from Shiba & Sake (06) sits up on a rock above Fuji's lake, eyes shut, by an empty bowl.",
   },
   feel: { hover: "The face turns Kinari (or its ink deepens) and the sun rises.", press: "The label prints flat and the sun sets." },
 };

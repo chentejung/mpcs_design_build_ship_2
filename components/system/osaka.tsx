@@ -3,19 +3,19 @@
 // of Dōtonbori. drawing-kit.tsx shows one; app/system.css hangs the Saved count as a lantern.
 import { colors } from "@/app/boards";
 import { showa } from "@/app/systems";
-import { useSvgId, Wear } from "./screenprint";
+import { useSvgId, Woodblock } from "./woodblock";
 
 const c = colors(showa.board);
 
-// A paper lantern for the drawing kit: ribbed Hinomaru paper between Sumi caps, a glyph in Washi, on its cord, worn
-// like the rest of the kit.
+// A paper lantern for the drawing kit: ribbed Hinomaru paper between Sumi caps, a glyph in Washi, on its cord, in the
+// kit's woodblock finish.
 const paper = "M22 15C6 20 6 62 22 67H38C54 62 54 20 38 15Z";
 
 export function Lantern({ glyph = "映", className = "" }: { glyph?: string; className?: string }) {
   const id = useSvgId();
   return (
     <svg aria-hidden viewBox="0 0 60 80" className={className}>
-      <defs><Wear id={`${id}-w`} rough={0.8} specks={0.5} drag={0.3} /></defs>
+      <defs><Woodblock id={`${id}-w`} rough={0.7} specks={0.45} grain={0.4} mottle={0.3} /></defs>
       <g filter={`url(#${id}-w)`}>
         <path d="M30 0V10" stroke={c.sumi} strokeWidth="2.4" />
         <rect x="20" y="9" width="20" height="7" rx="1.5" fill={c.sumi} />
