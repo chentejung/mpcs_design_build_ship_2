@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { designSystems, finalSite, moodBoards, type DesignSystemCard as DesignSystemCardData, type MoodBoard } from "./data";
 import { filmById } from "./films";
 import { resolveColors, systems } from "./systems";
@@ -5,6 +6,8 @@ import { Button, Chip } from "@/components/system/controls";
 import { FilmCard } from "@/components/system/film-card";
 import { SystemTheme } from "@/components/system/theme";
 import { ButtonLink, Card, CardFooter, SectionHead } from "@/components/ui";
+
+export const metadata: Metadata = { title: "Your Movie Watchlist" };
 
 const sections = [
   { id: "moodboards", label: "Mood Boards" },
@@ -27,7 +30,7 @@ export default function Home() {
       <header id="top" className="max-w-5xl px-[6vw] pt-28 pb-20">
         <div className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">Design · Build · Ship — Process Showcase</div>
         <h1 className="mt-4 mb-9 font-serif text-5xl leading-[1.05] md:text-7xl">
-          Your movie shelf.
+          Your Movie Watchlist
         </h1>
         <div className="flex flex-wrap gap-3">
           {sections.map((s, i) => (
