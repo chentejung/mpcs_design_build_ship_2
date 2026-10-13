@@ -1,5 +1,6 @@
 // Eigakan's header pieces. The caller supplies the elements: next/link on /movies, plain spans in previews.
 import { Count } from "./controls";
+import { BrandMark } from "./motifs";
 
 export function HeaderBar({ brand, action, padding = "px-[5vw]" }: { brand: React.ReactNode; action: React.ReactNode; padding?: string }) {
   return (
@@ -15,8 +16,8 @@ export function HeaderBar({ brand, action, padding = "px-[5vw]" }: { brand: Reac
 export function Brand() {
   return (
     <>
-      <span aria-hidden className="ds-brand-mark">映</span>
-      <span className="ds-heading text-xl leading-none">
+      <BrandMark />
+      <span className="ds-brand-name ds-heading text-xl leading-none">
         Eigakan <span lang="ja">映画館</span>
       </span>
     </>

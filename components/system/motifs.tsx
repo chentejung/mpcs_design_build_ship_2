@@ -1,33 +1,15 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: a rising sun and vertical 上映中 · Ben-Day: a starburst and speech balloons · Haipai: cloud scrolls and seals.
+// Shōwa: the Fuji Sunrise poster and a Shiba waiting by an empty bowl · Ben-Day: a starburst and speech balloons ·
+// Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
 import { burst } from "@/components/artifacts/print";
 import { useSystemId } from "./context";
-import { SmallSun } from "./yokoo";
+import { FujiMark, FujiPoster, SignOff as FujiSignOff, SunOrnament } from "./fuji";
+import { WaitingShiba } from "./shiba";
 
 const palette = (id: string) => colors(systems.find((s) => s.id === id)!.board);
-
-// A Hinomaru disc with soft rays, `glyph` in white at its centre.
-function Sun({ glyph, className = "" }: { glyph?: string; className?: string }) {
-  const c = palette("showa");
-  const ray = (i: number) => {
-    const at = (deg: number) => [100 + 140 * Math.cos((deg * Math.PI) / 180), 100 + 140 * Math.sin((deg * Math.PI) / 180)].map((v) => v.toFixed(1)).join(" ");
-    return `M100 100 L${at(i * 30 - 6)} L${at(i * 30 + 6)}Z`;
-  };
-  return (
-    <svg aria-hidden viewBox="0 0 200 200" className={className}>
-      <g fill={c.hinomaru} opacity="0.2">{Array.from({ length: 12 }, (_, i) => <path key={i} d={ray(i)} />)}</g>
-      <circle cx="100" cy="100" r="54" fill={c.hinomaru} />
-      {glyph && (
-        <text x="100" y="100" dy="0.36em" textAnchor="middle" fontSize="56" fill="#fff" style={{ fontFamily: "var(--ds-display-font)" }}>
-          {glyph}
-        </text>
-      )}
-    </svg>
-  );
-}
 
 function Starburst({ children, className = "" }: { children?: React.ReactNode; className?: string }) {
   const c = palette("ben-day");
@@ -80,16 +62,11 @@ function Seal({ glyph, stamped = true, size = 64 }: { glyph: string; stamped?: b
   );
 }
 
-// The big decoration beside a page's hero heading.
-export function HeroMotif({ count }: { count: number }) {
+// The big decoration beside a page's hero heading; `wide` is the banner above it on phones (Shōwa only).
+export function HeroMotif({ count, wide = false }: { count: number; wide?: boolean }) {
   const id = useSystemId();
-  if (id === "showa")
-    return (
-      <div aria-hidden className="pointer-events-none flex items-start gap-3">
-        <Sun className="h-28 w-28 md:h-44 md:w-44" />
-        <span lang="ja" className="ds-native text-(--ds-accent)" style={{ writingMode: "vertical-rl", fontSize: 30 }}>上映中</span>
-      </div>
-    );
+  if (id === "showa") return <FujiPoster wide={wide} className={wide ? "block w-full" : "block w-56 md:w-64 lg:w-72"} />;
+  if (wide) return null;
   if (id === "ben-day")
     return (
       <Starburst className="h-32 w-32 -rotate-6 md:h-44 md:w-44">
@@ -108,7 +85,7 @@ export function HeroMotif({ count }: { count: number }) {
 // Small ornament before a section heading or eyebrow.
 export function Ornament() {
   const id = useSystemId();
-  if (id === "showa") return <SmallSun className="h-6 w-6 shrink-0" />;
+  if (id === "showa") return <SunOrnament className="h-6 w-6 shrink-0" />;
   if (id === "ben-day") return <Starburst className="h-6 w-6 shrink-0" />;
   return <CloudScroll className="w-10 shrink-0" />;
 }
@@ -131,11 +108,27 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
   const heading = <p className="ds-heading text-2xl md:text-3xl">{id === "ben-day" ? `${title}!` : title}</p>;
   return (
     <div className="ds-empty">
-      {id === "showa" && <Sun glyph="空" className="mb-2 h-24 w-24" />}
+      {id === "showa" && <WaitingShiba className="mb-2 w-60 max-w-full" />}
       {id === "haipai" && <div className="mb-3"><Seal glyph="空" stamped={false} size={64} /></div>}
       {id === "ben-day" ? <Balloon>{heading}</Balloon> : heading}
       <p className="ds-body ds-muted">Tap Save on any film and it shows up here.</p>
       {action && <div className="mt-5">{action}</div>}
     </div>
   );
+}
+
+// The brand mark before "Eigakan 映画館": Shōwa's is the Fuji poster in miniature, the others set 映 in their own frame.
+export function BrandMark() {
+  const id = useSystemId();
+  return (
+    <span aria-hidden className="ds-brand-mark">
+      {id === "showa" ? <FujiMark className="h-full w-full" /> : "映"}
+    </span>
+  );
+}
+
+// The closing illustration above an Eigakan page's footer: Shōwa's sun setting behind Fuji. Other systems close plain.
+export function SignOff() {
+  if (useSystemId() !== "showa") return null;
+  return <div aria-hidden className="ds-sign-off"><FujiSignOff className="block h-full w-full" /></div>;
 }

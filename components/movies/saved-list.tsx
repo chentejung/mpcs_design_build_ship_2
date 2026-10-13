@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { filmById, formatRuntime } from "@/app/films";
-import { buttonClass } from "@/components/system/controls";
+import { ButtonIcon, buttonClass } from "@/components/system/controls";
 import { FilmCard } from "@/components/system/film-card";
 import { EmptyState } from "@/components/system/motifs";
 import { RemoveButton } from "./card";
@@ -15,8 +15,8 @@ export function SavedList() {
   return (
     <>
       <section className="pt-8 pb-8 md:pt-12">
-        <Link href="/movies/" className="ds-link ds-body">← All movies</Link>
-        <h1 className="ds-display ds-display--flat mt-4">Saved films</h1>
+        <Link href="/movies/" className={buttonClass("secondary")}><ButtonIcon name="back" />All movies</Link>
+        <h1 className="ds-display mt-4">Saved films</h1>
         {ids.length > 0 && (
           <p className="ds-body mt-3">
             <span className="ds-meta text-base font-bold">{ids.length} {ids.length === 1 ? "film" : "films"} · {formatRuntime(total)}</span>, in the

@@ -64,7 +64,7 @@ test("saved page lists films in save order, and Remove takes one off", async ({ 
   await expect(savedMovies(page).getByRole("heading")).toHaveText(["Toy Story", "Die Hard"]);
   await expect(savedLink(page, 2)).toBeVisible();
 
-  await page.getByRole("link", { name: "← All movies" }).click();
+  await page.getByRole("link", { name: "All movies", exact: true }).click();
   await expect(save(page, "Ringu")).toHaveAttribute("aria-pressed", "false");
   await expect(save(page, "Toy Story")).toHaveAttribute("aria-pressed", "true");
 });

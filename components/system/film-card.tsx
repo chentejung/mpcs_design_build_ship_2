@@ -23,7 +23,7 @@ export function FilmCard({ film, action, headingLevel = 2, state, poster }: {
       <Heading className="ds-card-title ds-heading">{film.title}</Heading>
       {film.native && <p lang={film.native.lang} className="ds-card-native ds-native">{film.native.title}</p>}
       <p className="ds-card-meta ds-meta">{film.year} · {formatRuntime(film.runtime)}</p>
-      <p className="ds-card-synopsis ds-body max-sm:line-clamp-3">{film.synopsis}</p>
+      <p className="ds-card-synopsis ds-body">{film.synopsis}</p>
       {action && <div className="ds-card-action">{action}</div>}
     </article>
   );

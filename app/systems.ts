@@ -64,7 +64,7 @@ export const showa: DesignSystem = {
   name: "Shōwa",
   alt: "昭和",
   board: japaneseRetro,
-  essence: "Shōwa-era poster print: fat gothic type extruded the Yokoo way, a rising sun, cinema tickets in color plates that never quite line up, and the Saved count hung as a paper lantern.",
+  essence: "Shōwa-era screenprint posters: flat Hinomaru, Ai and Kinari inks worn thin on cream paper and laid in dry-brush strokes, a red sun behind Fuji, heavy gothic type, and a pictogram for every genre cut from the same posters.",
   colors: {
     background: "washi",
     surface: "kinari",
@@ -77,7 +77,7 @@ export const showa: DesignSystem = {
     muted: 0.7,
     border: 0.22,
     categories: { thriller: "kogecha", comedy: "kinari", animation: "kinari", action: "hinomaru", "science-fiction": "ai", romance: "hinomaru", horror: "sumi" },
-    restricted: "Kinari Paper never carries text or a keyline on Washi: the two are only 1.34:1 apart, so Kinari is always a fill inside Sumi.",
+    restricted: "Kinari Paper never carries text or a keyline: it is only 1.34:1 from Washi, so it is always a ground under Sumi, Ai or Hinomaru — a poster panel, a pictogram's disc, a hovered face.",
   },
   type: {
     Display: { font: font.dela, size: 56, weight: 400, tracking: -0.01 },
@@ -89,18 +89,18 @@ export const showa: DesignSystem = {
     "Fine print": { font: font.zenKaku, size: 11, weight: 400 },
   },
   shape: {
-    radius: { control: 4, card: 2, poster: 2, badge: 999, panel: 4 },
-    border: { control: 2, card: 4 },
-    shadow: "None. A red plate sits 3px out of register behind each control and input, like a misaligned print layer; panels, the signboard and the toast cast a solid red plate.",
-    controls: "Cinema tickets: buttons have punched side notches and carry their icon in a perforated stub. Filter chips are shop tags (値札) with clipped corners and a punched hole. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios are a color TV's knobs (つまみ) that turn up to 12 o'clock when chosen; a switched-on toggle's knob turns into a sparkle; the selected tab stands on a sawtooth; the select points down with a hand; the Saved count hangs as a paper lantern (提灯).",
+    radius: { control: 6, card: 6, poster: 2, badge: 999, panel: 6 },
+    border: { control: 2, card: 2 },
+    shadow: "None cast. Posters are pasted on a Kinari panel 5px out from their Washi margin, as Fuji Sunrise sets its picture on an ochre ground; every printed block keeps a Washi rule inset from its edge.",
+    controls: "Printed labels (ラベル), like the sake bottle's: a flat ink block with rounded corners, a Washi rule inset from its edge and the screen's specks, its icon a sun. Filter chips are pills headed by their Category's pictogram in a Kinari disc ringed by one turn of the brush. A checked box takes a ◯, the mark for “yes” on Japanese forms; radios raise a red sun out of an Ai sea; a switched-on toggle wears Nouvelle Vague's pinstripes under a red sun; the selected tab stands on the same pinstripes; the select points down from a small sun; the Saved count hangs as a paper lantern (提灯).",
   },
-  icons: { save: "A bold plus, printed in the stub.", saved: "◎ nijū-maru, the double circle that marks the best choice.", remove: "A bold cross." },
-  texture: { name: "Washi grain", note: "Fine paper fibres over Washi Cream, from the print toolkit's grain filter." },
+  icons: { save: "An unrisen sun: a ring with a plus.", saved: "The risen sun: a solid disc with the check knocked out.", remove: "A sun with a cross knocked out.", back: "A sun with an arrow knocked out, pointing back." },
+  texture: { name: "Old poster paper", note: "Washi grain, yellowing to Kinari at the edges as Shiba & Sake and Ramen have; printed blocks are worn by fine specks where the ink missed and dry-brush drags where the paper shows through in streaks, and every drawn line is a tapered brushstroke." },
   motif: {
-    name: "Rising sun",
-    note: "A Hinomaru disc with soft rays beside 上映中 set vertically leads the hero; the same sun holds 空 when nothing is saved, and a 済 (“done”) seal lands on saved posters. From the Yokoo picture (22), the hero heading stands on an extrusion and a small sun in a sawtooth aura marks Now showing; from Osaka Rainy Night (26), the Saved count hangs as a paper lantern. This page also carries a drawing kit from four Mood Board 01 pictures (Yokoo 22, Koi Pond 02, Color TV Ad 25, Osaka Rainy Night 26): panels take flag corners, film strips divide the sections, radios are a color TV's knobs, and the title prints in 天然色.",
+    name: "Red sun over Fuji",
+    note: "From Fuji Sunrise (04), the hero is a poster of a red sun behind Ai Fuji, its snow streaking down the gullies, with bands of mist, a lake, rocks and a pine branch drawn in the brushwork of the scene that sets the four posters together; エイガ is on a title slip and EIGAKAN below; on phones it widens into a landscape with Nouvelle Vague's (08) red band carrying 上映中. The same Fuji is the brand mark and the sign-off, where the sun sets behind it between two pines. Every Category has a pictogram cut from the four posters in a brush-ringed disc, the headline's gloss is one torn stroke of red, the header is Ramen's (18) Ai ground over its bowl's rim, a 済 (“done”) seal lands on saved posters, and when nothing is saved the Shiba from Shiba & Sake (06) sits up on a rock, eyes shut, by an empty bowl.",
   },
-  feel: { hover: "The red plate drifts further out of register.", press: "The plate snaps into register." },
+  feel: { hover: "The face turns Kinari (or its ink deepens) and the sun rises.", press: "The label prints flat and the sun sets." },
 };
 
 export const benDay: DesignSystem = {
@@ -137,7 +137,7 @@ export const benDay: DesignSystem = {
     shadow: "Hard 4px Ink offset, no blur.",
     controls: "Buttons lean like action lettering, primary faces under a Ben-Day dot screen. Secondary buttons stand straight as mail-order coupons, a dashed cut line on Ben-Day Peach; filter chips are speech balloons with a tail.",
   },
-  icons: { save: "A starburst with a plus.", saved: "A solid starburst with the check knocked out.", remove: "Scissors, to clip the coupon." },
+  icons: { save: "A starburst with a plus.", saved: "A solid starburst with the check knocked out.", remove: "Scissors, to clip the coupon.", back: "A solid starburst with an arrow knocked out, pointing back." },
   texture: { name: "Ben-Day dots", note: "A halftone dot screen in Hero Red and Aged Sepia over Newsprint." },
   motif: { name: "Speech balloon", note: "Balloons carry the empty state and the filter chips; a starburst carries the Saved count and lands on saved posters as a “SAVED!” sticker." },
   feel: { hover: "Controls tilt and their shadow grows.", press: "The shadow collapses and the control slams down." },
@@ -181,7 +181,7 @@ export const haipai: DesignSystem = {
     shadow: "None on cards and panels: Gold double rules frame them. Mahjong-tile chips stand on a 4px Pine back.",
     controls: "Art Deco octagons with cut corners and a carved inner hairline, like the frames on tea and tobacco labels. Filter chips are mahjong tiles on a Pine back; radios are 方孔钱 coins with a square hole.",
   },
-  icons: { save: "An uncut seal with a plus.", saved: "A stamped seal with the check knocked out.", remove: "A cancelled seal." },
+  icons: { save: "An uncut seal with a plus.", saved: "A stamped seal with the check knocked out.", remove: "A cancelled seal.", back: "A seal with an arrow pointing back." },
   texture: { name: "Xuan fibres", note: "Long, soft paper fibres and a faint hatch, like rice paper under ink." },
   motif: { name: "Cloud scroll and seal", note: "祥云 scrolls frame headings; a square seal carries the brand and the empty state, which stands in a moon gate (月洞门); a 藏 (“kept”) seal lands on saved posters." },
   feel: { hover: "Gold rules brighten and tiles lift off their back.", press: "Buttons stamp down like a seal; tiles press flat." },

@@ -1,5 +1,6 @@
 "use client";
-// Each system's background treatment, drawn with the print toolkit the Originals use.
+// Each system's background treatment, drawn with the print toolkit the Originals use. Shōwa's is an old poster's
+// paper: Washi grain, yellowing to Kinari toward the edges as Shiba & Sake and Ramen have.
 import { useId } from "react";
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
@@ -15,7 +16,15 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
   return (
     <svg aria-hidden className={`pointer-events-none ${pos} inset-0 -z-10 h-full w-full`}>
       <defs>
-        {id === "showa" && <Grain id={`${uid}-grain`} grain={0.5} seed={4} />}
+        {id === "showa" && (
+          <>
+            <Grain id={`${uid}-grain`} grain={0.5} seed={4} />
+            <radialGradient id={`${uid}-age`} cx="50%" cy="40%" r="75%">
+              <stop offset="55%" stopColor={c.kinari} stopOpacity="0" />
+              <stop offset="100%" stopColor={c.kinari} stopOpacity="0.55" />
+            </radialGradient>
+          </>
+        )}
         {id === "ben-day" && (
           <>
             <Dots id={`${uid}-red`} color={c.red} r={1.5} gap={9} angle={15} />
@@ -29,7 +38,12 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
           </>
         )}
       </defs>
-      {id === "showa" && <rect width="100%" height="100%" filter={`url(#${uid}-grain)`} style={{ mixBlendMode: "multiply" }} />}
+      {id === "showa" && (
+        <>
+          <rect width="100%" height="100%" fill={`url(#${uid}-age)`} />
+          <rect width="100%" height="100%" filter={`url(#${uid}-grain)`} style={{ mixBlendMode: "multiply" }} />
+        </>
+      )}
       {id === "ben-day" && (
         <>
           <rect width="100%" height="100%" fill={`url(#${uid}-red)`} opacity="0.14" />
@@ -38,7 +52,6 @@ export function Texture({ fixed = false }: { fixed?: boolean }) {
       )}
       {id === "haipai" && (
         <>
-          <rect width="100%" height="100%" filter={`url(#${uid}-fibre)`} style={{ mixBlendMode: "multiply" }} />
           <rect width="100%" height="100%" fill={`url(#${uid}-hatch)`} opacity="0.12" />
         </>
       )}
