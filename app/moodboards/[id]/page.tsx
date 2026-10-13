@@ -97,7 +97,7 @@ export default async function MoodBoardPage({ params }: Props) {
           {artifacts.map((a, i) => (
             <figure key={`${a.kind}-${a.title}`} className="mb-4 break-inside-avoid overflow-hidden rounded-xl border border-(--ink)/15 bg-white/40">
               <img src={a.src} alt={a.title} className="block w-full" />
-              <figcaption className="flex items-center justify-between gap-2 px-3 py-2.5 text-xs">
+              <figcaption className="flex flex-wrap items-center justify-between gap-2 px-3 py-2.5 text-xs">
                 <span>
                   <span className="mr-1.5 font-mono text-(--accent)">{String(i + 1).padStart(2, "0")}</span>
                   <span className="font-semibold">{a.title}</span>

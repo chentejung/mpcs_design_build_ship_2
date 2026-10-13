@@ -4,7 +4,6 @@ import { categories, films, type Category } from "@/app/films";
 import { Chip } from "@/components/system/controls";
 import { FilmCard } from "@/components/system/film-card";
 import { HeroMotif, Ornament } from "@/components/system/motifs";
-import { ScrollRow } from "@/components/system/scroll-row";
 import { SaveButton } from "./card";
 
 type Filter = Category | "all";
@@ -36,7 +35,7 @@ export function Browse() {
         </div>
       </section>
 
-      <ScrollRow role="group" aria-label="Filter by category" className="-mx-[5vw] px-[5vw]">
+      <div role="group" aria-label="Filter by category" className="ds-chip-row">
         {options.map((o) => (
           <Chip
             key={o.id}
@@ -47,7 +46,7 @@ export function Browse() {
             onClick={() => setFilter(o.id)}
           />
         ))}
-      </ScrollRow>
+      </div>
       <p aria-live="polite" className="ds-meta ds-muted mt-3 mb-6">
         Showing {shown.length} of {films.length}
       </p>

@@ -7,7 +7,6 @@ import { Button, Chip, Toast, Toggle } from "./controls";
 import { FilmCard } from "./film-card";
 import { Brand, HeaderBar, SavedLabel } from "./header";
 import { Poster } from "./poster";
-import { ScrollRow } from "./scroll-row";
 
 const countIn = (id: string) => (id === "all" ? films.length : films.filter((f) => f.category === id).length);
 
@@ -24,9 +23,9 @@ export function ChipsSpecimen({ limit }: { limit?: number }) {
   const [active, setActive] = useState("all");
   const options = [{ id: "all" as const, label: "All" }, ...categories].slice(0, limit);
   return (
-    <ScrollRow role="group" aria-label="Filter by category (example)">
+    <div role="group" aria-label="Filter by category (example)" className="ds-chip-row">
       {options.map((o) => <Chip key={o.id} genre={o.id} label={o.label} count={countIn(o.id)} aria-pressed={active === o.id} onClick={() => setActive(o.id)} />)}
-    </ScrollRow>
+    </div>
   );
 }
 
@@ -72,7 +71,7 @@ export function ListRowsSpecimen() {
             <li key={id} className="ds-row">
               <div className="w-11"><Poster film={f} /></div>
               <div className="min-w-0">
-                <p className="ds-heading truncate text-base">{f.title}</p>
+                <p className="ds-heading text-base break-words">{f.title}</p>
                 <p className="ds-meta ds-muted">{f.year} · {formatRuntime(f.runtime)}</p>
               </div>
               <Button variant="secondary" icon="remove" aria-label={`Remove ${f.title}`} onClick={() => setIds(ids.filter((x) => x !== id))}>Remove</Button>

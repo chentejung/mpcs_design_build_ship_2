@@ -3,9 +3,12 @@
 // flat cut shapes: a Hinomaru band down the left edge carrying ヌーベルバーグ top to bottom, a Sumi bob, a winking
 // eye with an Ai lid, a round red cheek, red lips, and a sweater in Ai pinstripes. The eye, the lips, the bob and the
 // cheek (pressed into a heart) are four Category pictograms (genre-icons.tsx); app/system.css takes the red band for
-// panels and the pinstripes for rules and the selected tab.
+// panels and the pinstripes for rules and the selected tab. The portrait itself is drawn as the scene in
+// references/showa-brushwork.jpg pastes it up: a red card set slightly askew, the face in profile, the bob's ink
+// scratched through with fine Washi strands, and grass in Ai growing over the card's foot.
 import { colors } from "@/app/boards";
 import { showa } from "@/app/systems";
+import { line, rng, stroke, useSvgId, Wear } from "./screenprint";
 
 const c = colors(showa.board);
 
@@ -51,22 +54,49 @@ export const HeartGlyph = () => (
   </g>
 );
 
-// The portrait itself, for the drawing kit: band, bob, wink, cheek, lips and pinstriped sweater.
+// The portrait itself, for the drawing kit: the askew red card, bob, shut eye, cheek, lips and Ai collar.
 export function Portrait({ className = "" }: { className?: string }) {
+  const id = useSvgId();
+  const rand = rng(17);
+  // Strands: fine Washi lines scratched down the bob, and a few across the fringe.
+  let strands = "";
+  for (let i = 0; i < 7; i++) {
+    const x0 = 19 + i * 2.8 + rand() * 1.5;
+    strands += stroke([x0 + 6, 11 + rand() * 3], [x0 - 1, 28], [x0 - 2.5, 40 + rand() * 14], 0.5 + rand() * 0.45, 0.3);
+  }
+  for (let i = 0; i < 2; i++) strands += line([44 + i * 5, 16 + i], [43 + i * 5, 25], 0.5, 0.3);
+  let grass = "";
+  for (let i = 0; i < 9; i++) {
+    const bx = 6 + rand() * 22;
+    const len = 9 + rand() * 13;
+    const lean = (rand() - 0.3) * 10;
+    grass += stroke([bx, 80], [bx + lean * 0.1, 80 - len * 0.7], [bx + lean, 80 - len], 1.4 + rand() * 0.6, 0.05);
+  }
   return (
     <svg aria-hidden viewBox="0 0 80 80" className={className}>
+      <defs><Wear id={id} rough={0.6} specks={0.5} drag={0.12} /></defs>
       <rect width="80" height="80" rx="6" fill={c.washi} />
-      <rect x="6" y="6" width="22" height="68" fill={c.hinomaru} />
-      <path d="M22 6H74V14H38V60C38 66 30 66 26 62C22 58 24 50 28 46V14H22Z" fill={c.sumi} />
-      <path d="M46 25Q52 20 58 25" fill="none" stroke={c.sumi} strokeWidth="2.4" strokeLinecap="round" />
-      <path d="M48 26.2Q52 30 56 26.2Z" fill={c.ai} />
-      <circle cx="44" cy="40" r="7" fill={c.hinomaru} />
-      <path d="M58 48C61 45.6 64 45.6 66 48C64 51.6 60 51.6 58 48Z" fill={c.hinomaru} />
-      <path d="M40 60H74V74H40Z" fill={c.ai} />
-      <path d="M44 61V74M48 61V74M52 61V74M56 61V74M60 61V74M64 61V74M68 61V74M72 61V74" stroke={c.washi} strokeWidth="0.9" />
-      {[...`ヌーベル`].map((ch, i) => (
-        <text key={i} x="17" y={20 + i * 15} textAnchor="middle" fontSize="12" fill={c.washi} style={{ fontFamily: "var(--ds-display-font)" }}>{ch}</text>
-      ))}
+      <g filter={`url(#${id})`}>
+        <g transform="rotate(-5 40 40)">
+          <rect x="9" y="7" width="62" height="68" fill={c.washi} stroke={c.sumi} strokeWidth="0.8" />
+          <rect x="12" y="10" width="56" height="62" fill={c.hinomaru} />
+          {/* the bob, cut straight at the jaw */}
+          <path d="M14 55V24C14 12 24 8 35 8C47 8 55 13 56 23V26H40C38 33 37 41 38 48L36 55Z" fill={c.sumi} />
+          <path d={strands} fill={c.washi} fillOpacity="0.8" />
+          {/* the face in profile, chin up */}
+          <path d="M40 26H56C57 29.5 59.5 33.5 65 37L61.6 39.6C62.4 41.2 62.8 42.8 61.8 44.2C62.8 45.2 62.6 46.8 61.2 47.6C60 52 55 55.5 48 55L46.5 63H37.5V52C36.6 43 37.6 33 40 26Z" fill={c.washi} />
+          <path d={stroke([47.5, 32.4], [52.5, 29.6], [58, 31.6], 1.7, 0.3)} fill={c.sumi} />
+          <path d={line([57.4, 31.4], [60, 29.6], 0.8, 0.1)} fill={c.sumi} />
+          <ellipse cx="53.4" cy="32.6" rx="1.7" ry="1" fill={c.sumi} />
+          <path d={line([47, 27.8], [55, 27.4], 0.9, 0.2, -0.08)} fill={c.sumi} />
+          <circle cx="46" cy="41" r="5.4" fill={c.hinomaru} />
+          <path d="M60.6 44.3C61.8 44.6 62 45.5 61 46.1C61.6 46.7 61.1 47.7 59.8 47.6C58.6 47 58.8 45 60.6 44.3Z" fill={c.hinomaru} />
+          {/* the collar in Ai, a fold of Washi at the neck */}
+          <path d="M12 60C22 56 34 56 44 60L56 72H12Z" fill={c.ai} />
+          <path d="M40 59.5L47 60L53 70Z" fill={c.washi} />
+        </g>
+        <path d={grass} fill={c.ai} />
+      </g>
     </svg>
   );
 }

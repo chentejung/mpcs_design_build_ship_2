@@ -26,15 +26,17 @@ board (spec: issue #5; why: `docs/adr/0001-one-design-system-per-mood-board.md`)
   shape, texture and motif, components, control states, UI states, applied (a phone-width `/movies`).
 - `components/system/` — components shared by Eigakan and the Design System pages (`SystemTheme`, controls, film card,
   poster, header, motifs, empty state, icons). Shōwa's drawing kit is one file per Mood Board 01 picture, each drawn
-  in flat screenprint inks worn by `screenprint.tsx`'s `Wear` filter: `fuji.tsx` (04: the Fuji poster hero and its
-  phone banner, brand mark, sign-off), `shiba.tsx` (06: the dozing Shiba of the empty state, Shiba and chopsticks
-  pictograms), `nouvelle.tsx` (08: eye, lips, heart and bob pictograms, the portrait), `ramen.tsx` (18: bowl, egg
+  in flat screenprint inks in the brushwork of `references/showa-brushwork.jpg` (the scene that sets the four posters
+  together): `screenprint.tsx` holds the `Wear` filter (specks, dry-brush drags) and the seeded brush helpers
+  (`stroke`, `needles`, `band`) so every build draws the same strokes. `fuji.tsx` (04: the Fuji poster hero and its
+  phone banner, brand mark, sign-off, and the landscape pieces `Pine`, `Mist`, `Shore`), `shiba.tsx` (06: the Shiba
+  waiting by an empty bowl in the empty state, Shiba and chopsticks pictograms), `nouvelle.tsx` (08: eye, lips, heart and bob pictograms, the portrait), `ramen.tsx` (18: bowl, egg
   pictogram) and `osaka.tsx` (26: the lantern); `genre-icons.tsx` sets one pictogram per Category (plus All) in the
-  chips and badges, and `drawing-kit.tsx` shows them all on Shōwa's page. The ink specks on controls (`--ds-wear`),
-  pinstripes, red band, sunrise radios and lantern count are CSS in `app/system.css`. Style them through `app/system.css`, not per-page classes; frozen
+  chips and badges, and `drawing-kit.tsx` shows them all on Shōwa's page. The ink specks and drags on controls (`--ds-wear`),
+  the brushed kicker (`--ds-brush`), pinstripes, red band, sunrise radios and lantern count are CSS in `app/system.css`. Style them through `app/system.css`, not per-page classes; frozen
   hover/focus/pressed states use `data-state`. Each system gives the same controls its own shape (Shōwa printed labels
   and pictogram pills, Ben-Day leaning panels, coupons and speech balloons, Haipai Deco octagons and mahjong tiles), drawn on
-  `::before`/`::after` with masks so the element itself keeps its focus ring; `Icon` draws Save/Saved/Remove in the
+  `::before`/`::after` with masks so the element itself keeps its focus ring; `Icon` draws Save/Saved/Remove/Back in the
   wrapping system's style, and new icons must stay `aria-hidden` (tests find controls by accessible name).
 - `app/films.ts` — Eigakan's 25 films (one category each), Native Titles, poster paths, and poster credits.
 - `app/movies/layout.tsx` — shared layout for `/movies` and `/movies/saved`: themed by the selected board's Design

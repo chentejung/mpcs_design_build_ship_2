@@ -49,8 +49,14 @@ for (const width of widths) {
   });
 }
 
-test("filter chips scroll sideways on a phone and every one can be reached", async ({ page }) => {
+test("filter chips all wrap into view on a phone and every one can be reached", async ({ page }) => {
   await open(page, "/movies/", 320);
+  const chips = page.getByRole("group", { name: "Filter by category" }).getByRole("button");
+  for (const chip of await chips.all()) {
+    const b = await box(chip);
+    expect(b.x).toBeGreaterThanOrEqual(0);
+    expect(b.x + b.width).toBeLessThanOrEqual(320);
+  }
   const horror = page.getByRole("group", { name: "Filter by category" }).getByRole("button", { name: "Horror", exact: true });
   await horror.click();
   await expect(horror).toHaveAttribute("aria-pressed", "true");

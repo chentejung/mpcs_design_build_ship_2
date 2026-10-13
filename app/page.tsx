@@ -70,7 +70,8 @@ export default function Home() {
 function MoodBoardCard({ board, index }: { board: MoodBoard; index: number }) {
   return (
     <Card selected={board.selected}>
-      <div className="grid grid-cols-[1.2fr_1fr] grid-rows-[150px_150px] gap-1.5 p-1.5">
+      {/* Scales with the card's width at its desktop proportions, so phones crop the pictures no more than desktop does. */}
+      <div className="grid aspect-[390/318] grid-cols-[1.2fr_1fr] grid-rows-2 gap-1.5 p-1.5">
         {board.tiles.map((src, i) => (
           <div key={src} className={`overflow-hidden rounded-lg ${i === 0 ? "row-span-2" : ""}`}>
             <img src={src} alt="" className="h-full w-full object-cover" />
@@ -97,24 +98,26 @@ function DesignSystemCard({ ds }: { ds: DesignSystemCardData }) {
   return (
     <Card selected={ds.selected}>
       <SystemTheme system={system} className={`border-b border-line p-5 ${ds.selected ? "pt-13" : ""}`}>
-        <div inert className="grid grid-cols-[124px_1fr] gap-5">
-          <FilmCard film={parasite} headingLevel={4} action={<Button block icon="save">Save</Button>} />
-          <div className="grid content-start gap-4">
-            <div>
-              <p className="ds-display text-6xl">Aa</p>
-              <p className="ds-fine ds-muted mt-1">{system.type.Display.font.family} / {system.type.Body.font.family}</p>
-            </div>
-            <div className="flex">
-              {[roles.background, roles.surface, roles.text, roles.accent, roles.selected].map((hex, i) => (
-                <span key={i} className="h-7 flex-1 border border-black/15" style={{ background: hex }} />
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-2.5">
-              <Button variant="primary">Save</Button>
-              <Chip genre="thriller" label="Thriller" aria-pressed />
-            </div>
-            <p className="ds-fine ds-muted">{system.essence}</p>
+        {/* The film card beside the type and swatches; below 360px the buttons and essence run under both, as
+            the second column is too narrow for a chip. */}
+        <div inert className="grid grid-cols-[124px_minmax(0,1fr)] grid-rows-[auto_auto_auto_auto_1fr] gap-x-5 gap-y-4 max-[359px]:grid-rows-[auto_1fr_auto_auto]">
+          <div className="row-span-5 max-[359px]:row-span-2">
+            <FilmCard film={parasite} headingLevel={4} action={<Button block icon="save">Save</Button>} />
           </div>
+          <div>
+            <p className="ds-display text-6xl">Aa</p>
+            <p className="ds-fine ds-muted mt-1">{system.type.Display.font.family} / {system.type.Body.font.family}</p>
+          </div>
+          <div className="flex self-start">
+            {[roles.background, roles.surface, roles.text, roles.accent, roles.selected].map((hex, i) => (
+              <span key={i} className="h-7 flex-1 border border-black/15" style={{ background: hex }} />
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2.5 max-[359px]:col-span-2">
+            <Button variant="primary">Save</Button>
+            <Chip genre="thriller" label="Thriller" aria-pressed />
+          </div>
+          <p className="ds-fine ds-muted max-[359px]:col-span-2">{system.essence}</p>
         </div>
       </SystemTheme>
       <CardFooter label={ds.label} title={ds.title}>
