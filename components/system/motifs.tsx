@@ -1,6 +1,6 @@
 "use client";
 // Each system's signature motif, and the empty state built on it:
-// Shōwa: the Fuji Sunrise poster and a Shiba waiting by an empty bowl · Ben-Day: a starburst and speech balloons ·
+// Shōwa: the Fuji Sunrise print and a Shiba waiting by an empty bowl · Ben-Day: a starburst and speech balloons ·
 // Haipai: cloud scrolls and seals.
 import { colors } from "@/app/boards";
 import { systems } from "@/app/systems";
@@ -108,7 +108,7 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
   const heading = <p className="ds-heading text-2xl md:text-3xl">{id === "ben-day" ? `${title}!` : title}</p>;
   return (
     <div className="ds-empty">
-      {id === "showa" && <WaitingShiba className="mb-2 w-60 max-w-full" />}
+      {id === "showa" && <WaitingShiba className="mb-4 w-80 max-w-full" />}
       {id === "haipai" && <div className="mb-3"><Seal glyph="空" stamped={false} size={64} /></div>}
       {id === "ben-day" ? <Balloon>{heading}</Balloon> : heading}
       <p className="ds-body ds-muted">Tap Save on any film and it shows up here.</p>
@@ -117,7 +117,7 @@ export function EmptyState({ action, title = "Nothing saved yet" }: { action?: R
   );
 }
 
-// The brand mark before "Eigakan 映画館": Shōwa's is the Fuji poster in miniature, the others set 映 in their own frame.
+// The brand mark before "Eigakan 映画館": Shōwa's is the Fuji print in miniature, the others set 映 in their own frame.
 export function BrandMark() {
   const id = useSystemId();
   return (
