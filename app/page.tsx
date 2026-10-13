@@ -27,7 +27,7 @@ export default function Home() {
       <header id="top" className="max-w-5xl px-[6vw] pt-28 pb-20">
         <div className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">Design · Build · Ship — Process Showcase</div>
         <h1 className="mt-4 mb-9 font-serif text-5xl leading-[1.05] md:text-7xl">
-          From <em className="text-accent">mood</em> to system<br />to shipped site.
+          Your movie shelf.
         </h1>
         <div className="flex flex-wrap gap-3">
           {sections.map((s, i) => (
@@ -132,7 +132,7 @@ function DesignSystemCard({ ds }: { ds: DesignSystemCardData }) {
 function FinalSite() {
   const board = moodBoards.find((b) => b.selected)!;
   const ds = designSystems.find((d) => d.selected)!;
-  const [live, ...rest] = finalSite.links;
+  const { live } = finalSite;
 
   return (
     <div className="grid items-center gap-12 lg:grid-cols-[1.5fr_1fr]">
@@ -151,9 +151,6 @@ function FinalSite() {
         <div className="text-center text-2xl leading-none text-accent">+</div>
         <RecipeRow label={ds.label} title={ds.title} thumb={<span className="text-2xl" style={{ fontFamily: `var(${ds.displayFont})` }}>Aa</span>} />
         <ButtonLink href={live.href} className="mt-2 py-3.5 text-base">{live.label} →</ButtonLink>
-        <div className="flex justify-center gap-2">
-          {rest.map((l) => <ButtonLink key={l.href} href={l.href} variant="secondary">{l.label}</ButtonLink>)}
-        </div>
       </div>
     </div>
   );
